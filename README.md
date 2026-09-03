@@ -2,7 +2,7 @@
 Proyecto que integra a las asignaturas de Programación Web, Fundamentos de Ingeniería de Software y Taller de Bases de Datos 
 Con el objetivo de crear un sistema web dedicado al gimnasio Gym Warriors 
 
-Instrucciones para el correcto uso de git-github y llevar un correcto uso de versiones:
+Instrucciones para el correcto uso de gnoit-github y llevar un correcto uso de versiones:
 -Empezar por crear un repositorio en tu computadora, primero ubica una carpeta en un tu laptop y crea un repositorio con:
 git init
 -Después hacer un git clone del repositorio, a continuación, el comando:
