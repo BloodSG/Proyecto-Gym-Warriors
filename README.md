@@ -18,11 +18,17 @@ Vas a crear una rama antes de empezar a programar para no arruinar el main
 Ya con eso podrás empezar a programar, una vez agregado tus cambios al código harás lo siguiente:
 3-	git status: Te dice qué archivos has modificado, cuáles vas a guardar y qué falta por agregar. Es el comando de "orientación".
 4-	git add . : Añade todos los archivos modificados de un golpe.
-5-	git commit -m "mensaje": Guarda permanentemente los cambios en el historial con un mensaje el cual debe de ser lo más descriptivo posible, si es necesario un párrafo completo.
+5-	git commit -m "mensaje": Guarda permanentemente los cambios en el historial con un mensaje el cual debe de ser lo más descriptivo 
+
+6- pit push -u origin "nombre de tu rama" para que subas tu rama al repositorio
+
+posible, si es necesario un párrafo completo.
 Ejecutas el código revisando de no haber corrompido el código de los demás y que tu código funcione adecuadamente.
 Entonces habrá dos caminos, si todo funciona correctamente deberás de hacer lo siguiente: 
-6-	git checkout main: para mudarte al main 
-7-	git merge [nombre-rama]: Une los cambios de la rama indicada a la rama donde estás actualmente (usualmente para llevar cambios a main).
-8-	git push origin [rama]: Sube tus commits locales al repositorio en la nube.
+7-	git checkout main: para mudarte al main 
+8-	git merge [nombre-rama]: Une los cambios de la rama indicada a la rama donde estás actualmente (usualmente para llevar cambios a main).
+9-	git push origin main: Sube tus commits locales al repositorio en la nube.
+
+
 Si no funciona, lo que deberás hacer es que corregirás el código hasta que funcione y empezar desde el paso 4.
 Otra opción es hacer git reset –soft HEAD~1  para revertir el ultimo commit pero conservar tus archivos.
