@@ -21,7 +21,7 @@
             <button type="button" class="rol" aria-pressed="false">Empleado</button>
         </div>
 
-        <form>
+        <form action="validacion.php" method="POST">
             <div class="campo">
                 <label for="usuario">Usuario</label>
                 <input type="text" id="usuario" name="usuario" autocomplete="username" placeholder="Ingresa tu usuario">
@@ -40,7 +40,7 @@
                 <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button type="button" class="btn-ingresar">Ingresar</button>
+            <button type="submit" name="accion" value="login" class="btn-ingresar">Ingresar</button>
         </form>
 
         <p class="pie-registro">¿No tienes cuenta? <a href="#">Solicítala aquí</a></p>
