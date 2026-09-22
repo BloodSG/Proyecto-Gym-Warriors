@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario de Entrada</title>
+        <link rel="stylesheet" href="initialInterview.css">
+    </head>
+    <body>
+        <div class="formularioEntrada">
+            <img src="logoGym.png" alt="logo">
+            <h1>Formulario de Entrada</h1>
+            
+            <div class="introForm">
+                <h2>Complete este formulario para ayudarnos a diseñar un programa de ejercicio basado en sus hábitos y objetivos.</h2>
+                <h3>Esta información es confidencial y solo será utilizada para brindarle un servicio de calidad</h3>
+            </div>
+
+            <form id="formInicial">
+                <label> 
+                    Nombre* 
+                    <input type="text" name="nombre" id="nombre">
+                </label>
+
+                <label>
+                    Apellido* 
+                    <input type="text" name="apellido" id="apellido">
+                </label>
+
+                <label class="full-width">
+                    Correo electrónico* 
+                    <input type="email" name="correo" id="correo">
+                </label>
+
+                <label>
+                    Teléfono 
+                    <input type="tel" name="telefono" id="telefono">
+                </label>
+
+                <label>
+                    Fecha de nacimiento* 
+                    <input type="date" name="fechaNacimiento" id="FechaNac">
+                </label>
+
+                <label>
+                    Peso (Kg)* 
+                    <input type="number" name="peso" id="peso" placeholder="ej. 70">
+                </label>
+
+                <label>
+                    Estatura (cm)* 
+                    <input type="number" name="estatura" id="estatura" placeholder="ej. 170">
+                </label>
+
+                <p>Nivel de experiencia</p>
+                <div class="full-width grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="nivel" value="Principiante"> Principiante
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="nivel" value="Intermedio"> Intermedio
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="nivel" value="Avanzado"> Avanzado
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="nivel" value="Atleta"> Atleta
+                    </label>
+                </div>
+
+                <p>Objetivos principales</p>
+                <div class="full-width grupo-opciones">
+                    <label class="opcion-check">
+                        <input type="checkbox" id="peso"> Pérdida de peso
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="musculo"> Desarrollo muscular
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="resistencia"> Resistencia 
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="flexibilidad"> Flexibilidad
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="salud"> Salud general
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="rehabilitacion"> Rehabilitación de lesiones
+                    </label>
+                </div>
+
+                <label class="full-width">
+                    Condiciones de salud
+                    <input type="text" id="condicionesSalud">
+                </label>
+
+                <label class="full-width">
+                    Limitaciones físicas
+                    <input type="text" id="limitaciones">
+                </label>
+
+                <p>Promedio de sueño por noche</p>
+                <div class="full-width grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="sueno" id="menosCinco"> Menos de 5 horas
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="sueno" id="cincoSeis"> 5-6 horas
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="sueno" id="sieteOcho"> 7-8 horas
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="sueno" id="masOcho"> Más de 8 horas
+                    </label>
+                </div>
+
+                <p>Preferencias de ejercicio</p>
+                <div class="full-width grupo-opciones">
+                    <label class="opcion-check">
+                        <input type="checkbox" id="pesas"> Entrenamiento con pesas
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="cardio"> Cardio
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="funcional"> Entrenamiento funcional
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" id="grupal"> Clases grupales
+                    </label>
+                </div>
+
+                <p>Frecuencia de entrenamiento deseada</p>
+                <div class="full-width grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="frecuencia" id="unaPS"> 1 sesión por semana
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="frecuencia" id="dosPS"> 2 sesiones por semana
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="frecuencia" id="tresPS"> 3 sesiones por semana
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="frecuencia" id="cuatroPS"> 4+ sesiones por semana
+                    </label>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
