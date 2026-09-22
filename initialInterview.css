@@ -132,3 +132,16 @@ body{
     cursor: pointer;
     font-weight: normal;
 }
+.formularioEntrada form .btn-enviar{
+    grid-column: span 2;
+    background-color: #b2dc52;
+    color: #10151f;
+    font-weight: bold;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.formularioEntrada form .btn-enviar:active {
+    transform: translateY(0);
+}
