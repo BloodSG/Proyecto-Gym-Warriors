@@ -13,7 +13,8 @@ if (isset($_POST['email'])) {
 
 
 //si se intenta logear 
-if (isset($_POST['accion']) && $_POST['accion'] == 'login') {
+if (isset($_POST['accion']) && $_POST['accion'] == 'login') 
+    {
     
     $usuario_ingresado = trim($_POST['usuario']);
     $password_ingresada = trim($_POST['password']);
@@ -22,30 +23,34 @@ if (isset($_POST['accion']) && $_POST['accion'] == 'login') {
 
     $lineas = file("datos.txt");
     
-    foreach ($lineas as $linea) {
+    foreach ($lineas as $linea) 
+        {
         
         $pedazos = explode(" | ", $linea);
         
-        if (count($pedazos) == 3) {
+        if (count($pedazos) == 3) 
+            {
             
             $usuario_guardado = trim(str_replace("Usuario: ", "", $pedazos[0]));
             $password_guardada = trim(str_replace("Password: ", "", $pedazos[2]));
 
-            if ($usuario_ingresado == $usuario_guardado) {
-                
-                
-            }[
-                if (password_verify($password_ingresada, $password_guardada)) {
+            if ($usuario_ingresado == $usuario_guardado) 
+                {
+                }
+                if (password_verify($password_ingresada, $password_guardada)) 
+                    {
                     $entramos = true; 
                     echo "Bienvenido al sisterma ";
                     break; 
                 }
             }
         }
-    }
-    
-    if ($entramos == false) {
+        if ($entramos == false) 
+        {
         echo "Usuario o contraseña incorrectos.";
-    }
-} 
+        }
+        }
+    
+    
+
 ?>
