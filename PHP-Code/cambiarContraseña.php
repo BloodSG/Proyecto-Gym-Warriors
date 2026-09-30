@@ -1,10 +1,13 @@
 <?php
-require_once("conectarBaseDatos.php");
+require_once("libreria.php");
 
 session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 if (!isset($_SESSION["reset_email"])) // isset signica que si existe una sesiono
 { 
-    header("Location: forgot-password.php"); 
+    header("Location: ../HTML-Code/loginView.html"); 
     exit;
 }
 echo $_SESSION["reset_email"];
@@ -83,31 +86,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Cambiar contraseña</title>
-</head>
-<body>
-    <div class="card">
-        <h2>Reestablece tu contraseña</h2>
-        <form action="" method="POST">
-            <div>
-            <p>Ingresa la nueva contraseña</p>
-            <input type="text" name="contraseña" required placeholder="Al menos 8 caracteres" value="">
-            </div>
-
-            <div>
-            <p>Verifica la contraseña</p>
-            <input type="password" name="compara" required placeholder="••••••••" value="">
-            </div>
-
-            <div>
-            <button type="submit", name="comprobar">Cambiar</button>
-
-            <div>
-        </form>
-    </div>
-</body>

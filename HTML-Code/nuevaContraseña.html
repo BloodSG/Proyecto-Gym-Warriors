@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Recuperar contraseña</title> 
+        <link rel="stylesheet" href="../CSS/forgotPassword.css">
+
+    </head>
+    <body>
+        <div class="recuperarContrasena">
+            <img src="../Recursos/logoGym.png" alt="Logo de la empresa" class="logo-formulario">
+            <h1>Recuperar Contraseña</h1>
+            <form action="../PHP-Code/cambiarContraseña.php" method="post">
+                <p>Nueva contraseña</p>
+                <input type="password" id="newpassword" name="contraseña" required placeholder="Al menos 8 caracteres" value="">
+                <p>Corfirma tu nueva contraseña</p>
+                <input type="password" id="corfirmarpassword" name="compara" required placeholder="••••••••••" value="">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+       
+    </body>
+</html>
