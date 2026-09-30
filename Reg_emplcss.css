@@ -1,0 +1,124 @@
+
+body{
+    font-family: Arial;
+    background: url('fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    padding:30px;
+    min-height:100vh;
+    margin:0;
+}
+.formulario{
+    width: 100%;
+    max-width: 560px;
+    background: rgba(19, 26, 40, 0.30);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    padding: 32px 28px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin:auto;
+}
+.logo{
+    text-align:center;
+}
+.logo img{
+    width:280px;
+}
+h1{
+    text-align:center;
+    color:#1c87d5;
+}
+p{
+    color:#8b97ad;
+}
+label{
+    
+    color:#8b97ad ;
+    font-weight:bold;
+    
+}
+input{
+    width:94%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #131a28;
+    border-radius:5px;
+    background:#0a0e17;
+    color:#F1F1F1;
+    
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#b2dc52;
+    color:#04141f;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+.fila-doble{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+}
+.fila-doble input{
+    width:100%;
+    box-sizing:border-box;
+}
+.rol{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:8px;
+    margin-bottom:15px;
+}
+.roldis{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.roldis input[type="radio"]{
+    accent-color: #b2dc52;
+    width: 22px;
+    height: 22px;
+}
+button:hover{
+    background:#b2dc52;
+}
+
+.abajo{
+    text-align:center;
+}
+a{
+    color:#1c87d5;
+}
+.dia{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+.dia-check{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border:1px solid #131a28;
+    border-radius:5px;
+    background:#0a0e17;
+    color:#8b97ad;
+    font-weight:bold;
+    cursor:pointer;
+}
+.dia-check input{
+    display:none;
+}
+.dia-check:has(input:checked){
+    background:#b2dc52;
+    color:#04141f;
+    border-color:#b2dc52;
+}
