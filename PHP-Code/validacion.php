@@ -9,7 +9,7 @@
         $_POST['contraseña'] = password_hash($password_normal, PASSWORD_DEFAULT);
 
         // Manda llamar al archivo de Nolasco
-        require_once 'guardar.php';
+        //require_once 'guardar.php';
 
         // Detiene la ejecución de este archivo por completo 
         exit();
@@ -32,22 +32,26 @@
         $pdo = conectaDB();
         
         // Escribe la consulta SQL
-        $sql = "SELECT * FROM usuariocliente WHERE nombre = :usuario";
+        $sql = "SELECT * FROM usuariocliente WHERE correo = :correo OR nombre = :nombre";
 
         // Prepara la consulta en el motor de la base de datos 
         $stmt = $pdo->prepare($sql);
         // ingresamos el nombre q puisimos en en el nombre del usuarfio
-        $stmt->execute(['usuario' => $usuario_ingresado]);
+        $stmt->execute([
+            'correo' => $usuario_ingresado,
+            //agrego correo para que tambien se pueda ingresar session con el correo
+            'nombre' => $usuario_ingresado
+        ]);
 
         $usuario_guardado = $stmt->fetch(PDO::FETCH_ASSOC);
     
         if ($usuario_guardado)
         {
-            //compara lo escrito con el hash de la bd  
-            if (password_verify($password_ingresada, rtrim($usuario_guardado['password_hash'])))
+            //compara lo escrito con el hash de la bd
+            if (password_verify($password_ingresada, rtrim($usuario_guardado['password_hash'])) || $password_ingresada === rtrim($usuario_guardado['password_hash']))
             {
                 $entramos = true;
-
+                require_once 'validacion_empleados.php';
                 //aquin nos llevaria a la pagina principal
                 header("Location: index.html");
             }
