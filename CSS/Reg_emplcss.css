@@ -1,4 +1,7 @@
-
+:root {
+    --lime: #b2dc52;
+    --text: #f2f5fa;
+}
 body{
     font-family: Arial;
     background: url('fondo.png') no-repeat center center fixed;
@@ -6,6 +9,7 @@ body{
     padding:30px;
     min-height:100vh;
     margin:0;
+    margin-left: 205px;
 }
 .formulario{
     width: 100%;
@@ -121,4 +125,111 @@ a{
     background:#b2dc52;
     color:#04141f;
     border-color:#b2dc52;
+}
+/* Menú lateral */
+
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+    padding: 18px 15px;
+    background: linear-gradient(180deg, #07192c, #041120);
+    border-right: 1px solid #102b45;
+}
+
+.brand {
+    display: block;
+    padding: 0 10px 14px;
+}
+
+.brand img {
+    display: block;
+    width: 145px;
+    max-width: 100%;
+    margin: auto;
+}
+
+.sidebar-label {
+    margin: 7px 27px 22px;
+    color: #8ea8c6;
+    font-size: 11px;
+}
+
+.main-nav {
+    display: grid;
+    gap: 5px;
+}
+
+.main-nav a,
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 13px;
+    border-left: 3px solid transparent;
+    border-radius: 5px;
+    color: #8da8c6;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.main-nav a:hover,
+.main-nav .active {
+    color: var(--text);
+    background: #102e4d;
+    border-left-color: var(--lime);
+}
+
+.nav-icon {
+    display: inline-grid;
+    width: 18px;
+    place-items: center;
+    color: #9ab7d4;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+/* Adaptación del menú para pantallas pequeñas */
+
+@media (max-width: 760px) {
+    .sidebar {
+        position: static;
+        width: 67px;
+        padding: 12px 8px;
+    }
+
+    .brand {
+        padding: 4px 0 16px;
+    }
+
+    .brand img {
+        width: 50px;
+    }
+
+    .sidebar-label,
+    .main-nav a:not(.active)::after,
+    .main-nav a:not(.active) {
+        font-size: 0;
+    }
+
+    .main-nav a,
+    .logout {
+        justify-content: center;
+        padding: 11px 4px;
+    }
+
+    .main-nav .nav-icon,
+    .logout .nav-icon {
+        font-size: 19px;
+    }
+
+    .main-nav .active {
+        font-size: 0;
+    }
 }
