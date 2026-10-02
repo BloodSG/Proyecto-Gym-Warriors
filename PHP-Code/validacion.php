@@ -1,67 +1,47 @@
 <?php 
+    // 1. SIEMPRE arranca la sesión al principio del archivo si vas a manejar logins
+    session_start();
 
-    if (isset($_POST['correo'])) 
-    {
-        // saca la contraseña 
-        $password_normal = $_POST['contraseña'];
-
-        // Encripta esa contraseña 
-        $_POST['contraseña'] = password_hash($password_normal, PASSWORD_DEFAULT);
-
-        // Manda llamar al archivo de Nolasco
-        //require_once 'guardar.php';
-
-        // Detiene la ejecución de este archivo por completo 
-        exit();
-    }
-
-    
     $entramos = false; 
 
-    // Verifica si el formulario mandó la orden de iniciar sesión (accion = login)
     if (isset($_POST['accion']) && $_POST['accion'] == 'login') 
     {
-        //caprura datos con trim pa borrar espacios al inicio y al final
-        $usuario_ingresado = trim($_POST['usuario']);
+        $correo_ingresado = trim($_POST['usuario']);
         $password_ingresada = trim($_POST['password']);
     
-        //llama el archivo de Bladi que tiene las configuraciones de la base de datos
         require_once 'libreria.php';
-
-        //corre la función  para abrir la conexión a SQL Server y la guarda en la variable $pdo
         $pdo = conectaDB();
         
-        // Escribe la consulta SQL
-        $sql = "SELECT * FROM usuariocliente WHERE correo = :correo OR nombre = :nombre";
-
-        // Prepara la consulta en el motor de la base de datos 
+        $sql = "SELECT * FROM loguin WHERE correo = :correo";
         $stmt = $pdo->prepare($sql);
-        // ingresamos el nombre q puisimos en en el nombre del usuarfio
-        $stmt->execute([
-            'correo' => $usuario_ingresado,
-            //agrego correo para que tambien se pueda ingresar session con el correo
-            'nombre' => $usuario_ingresado
-        ]);
+        $stmt->execute(['correo' => $correo_ingresado]);
 
         $usuario_guardado = $stmt->fetch(PDO::FETCH_ASSOC);
     
         if ($usuario_guardado)
         {
-            //compara lo escrito con el hash de la bd
-            if (password_verify($password_ingresada, rtrim($usuario_guardado['password_hash'])) || $password_ingresada === rtrim($usuario_guardado['password_hash']))
+            if (password_verify($password_ingresada, rtrim($usuario_guardado['contraseña'])))
             {
                 $entramos = true;
-                require_once 'validacion_empleados.php';
-                //aquin nos llevaria a la pagina principal
-                header("Location: index.html");
+
+                // 2. GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
+                $_SESSION['logueado'] = true;
+                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
+                $_SESSION['correo'] = $usuario_guardado['correo'];
+                // Si agregas la columna 'nombre' a tu BD, también puedes guardarla aquí:
+                // $_SESSION['nombre'] = $usuario_guardado['nombre'];
+
+                // 3. Ahora sí, lo mandamos a la página principal
+                header("Location: princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
+                exit();
             }
         }
     }
-    
 
     if ($entramos == false) {
-
-
-        echo "Usuario o contraseña incorrectos.";
+        echo "<script>
+                alert('Usuario o contraseña incorrectos.');
+                window.history.back(); // Lo regresa al formulario
+              </script>";
     }
 ?>
