@@ -53,7 +53,7 @@ try
     if ($usuario)
         {   
             $nombre=$usuario["Nombre"];
-            echo "<script>alert('Usuario encontrado: $nombre);</script>";
+            echo "<script>alert('Usuario encontrado: $nombre')';</script>";
             list($llaveapi,$cartero)=leerEnv();//agarramos los datos del .env
             $codigo=generaCodigo();
             $enviar=enviaCorreoRecuperacion($correo, $nombre, $cartero, $codigo, $llaveapi, $conexion);
@@ -70,9 +70,11 @@ try
 
         }
     else
-        {
-            echo "<script>alert('Usuario encontrado: $usuario[Nombre]');  window.history.back();</script>";
-        }
+    {
+        echo "<script>alert('Usuario no encontrado'); window.history.back();</script>";
+        exit;
+    }
+        
 }
 catch(Exception $e)
 {
