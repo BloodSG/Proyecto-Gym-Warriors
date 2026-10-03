@@ -32,7 +32,7 @@
                 // $_SESSION['nombre'] = $usuario_guardado['nombre'];
 
                 // 3. Ahora sí, lo mandamos a la página principal
-                header("Location: princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
+                header("Location: ../HTML-Code/princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
                 exit();
             }
         }

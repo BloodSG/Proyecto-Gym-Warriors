@@ -5,8 +5,11 @@ session_start();
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-if (!isset($_SESSION["reset_email"])) // isset signica que si existe una sesiono
+if (!isset($_SESSION["reset_email"])&& !isset($_SESSION["codigo_verificado"])) // isset signica que si existe una sesiono
 { 
+    if ($_SESSION['codigo_verificado'] !== true) {
+        echo "<script>alert('No has validado el codigo'); window.history.back();</script>";
+    }
     header("Location: ../HTML-Code/loginView.html"); 
     exit;
 }
@@ -51,37 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     $correo=$_SESSION["reset_email"];
 
     if (verificaContraseña($newPassword,$comparePassword))
-        {
+        {   
             $conexion=conectaDB();
+            $newPassword_hash = password_hash($newPassword, PASSWORD_DEFAULT);
             $query="UPDATE Loguin 
                     SET contraseña = ?
                     WHERE correo = ?";
 
             $Puente=$conexion->prepare($query);
-            $Puente->execute([$newPassword, $correo]);
+            $Puente->execute([$newPassword_hash, $correo]);
             
-            $_SESSION = array();
-            // Borrar la cookie de sesion
-            if (ini_get("session.use_cookies")) 
-            {
-                $params = session_get_cookie_params();
-                setcookie
-                (
-                    session_name(),
-                    '',
-                    time() - 42000,
-                    $params["path"],
-                    $params["domain"],
-                    $params["secure"],
-                    $params["httponly"]
-                );
-            }
-
-            // destruye la session
-            session_destroy();
-
-            header("Location: ../HTML-Code/loginView.html");
-            exit();
+            cerrarSession();
         }
 }
 ?>

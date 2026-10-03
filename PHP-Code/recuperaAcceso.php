@@ -14,7 +14,7 @@ function caducidadCodigo(string $codigo,string $remitente, $conexion)// no es un
 
     $Puente=$conexion->prepare($query);
     $Puente->execute([$codigo, $expiracion, $remitente]);
-    echo "<Se establecion una duracion de 15 minutos";
+    echo "<Se establecion una duracion de 5 minutos";
     return true;
 }
 
@@ -40,10 +40,9 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL))
 }
 try
 {
-    $query="SELECT nombre+' '+apellidos AS Nombre
-            FROM usuariocliente JOIN Loguin
-            ON usuariocliente.id_usuario=Loguin.id_usuario
-            WHERE Loguin.correo=?";
+    $query="SELECT nombre
+            FROM Loguin
+            WHERE correo=?";
 
     $Puente=$conexion->prepare($query); //sirve para preparar la consulta con el servidor antes de pasarle datos realies
 
@@ -52,29 +51,47 @@ try
 
     if ($usuario)
         {   
-            $nombre=$usuario["Nombre"];
-            echo "<script>alert('Usuario encontrado: $nombre')';</script>";
+            $nombre=$usuario["nombre"];
+            echo "<script>alert('Usuario encontrado: $nombre');</script>";
             list($llaveapi,$cartero)=leerEnv();//agarramos los datos del .env
             $codigo=generaCodigo();
-            $enviar=enviaCorreoRecuperacion($correo, $nombre, $cartero, $codigo, $llaveapi, $conexion);
-            if ($enviar)
-                {
-                    if (caducidadCodigo($codigo,$correo,$conexion))
-                        {
-                            $_SESSION['reset_email'] = $correo;
-                            $_SESSION['name_user'] = $nombre;
-                            header("Location: ../HTML-Code/codigoRecuperar.html");
-                            exit;
-                        }
-                }
+
+            $puente=$conexion->prepare("SELECT codigo_recuperacion, token_expiracion 
+                                    FROM Loguin 
+                                    WHERE correo=?");
+            $puente->execute([$correo]);
+            $usuario=$puente->fetch();
+
+            $ahora=date('Y-m-d H:i:s');// obtenemos el dia y la hora
+
+            if ($ahora < $usuario['token_expiracion']) // sorprendente mente se puede comparar la fecha y hora con < >
+            {   
+                $_SESSION['reset_email'] = $correo;
+                $_SESSION['name_user'] = $nombre;
+                header("Location: ../HTML-Code/codigoRecuperar.html");
+                exit;
+            } 
+            else 
+            {
+                $enviar=enviaCorreoRecuperacion($correo, $nombre, $cartero, $codigo, $llaveapi, $conexion);
+                if ($enviar)
+                    {
+                        if (caducidadCodigo($codigo,$correo,$conexion))
+                            {
+                                $_SESSION['reset_email'] = $correo;
+                                $_SESSION['name_user'] = $nombre;
+                                header("Location: ../HTML-Code/codigoRecuperar.html");
+                                exit;
+                            }
+                    }
+            }
 
         }
     else
-    {
-        echo "<script>alert('Usuario no encontrado'); window.history.back();</script>";
-        exit;
-    }
-        
+        {
+            echo "<script>alert('Usuario no encontrado'); window.history.back();</script>";
+            exit;
+        }
 }
 catch(Exception $e)
 {

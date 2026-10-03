@@ -4,7 +4,7 @@ session_start();
 // si intentan entrar a verify.php sin pasar antes por el formulario de correo, los regresamos alv
 if (!isset($_SESSION['reset_email'])) // isset signica que si existe una sesiono
 { 
-    header("Location: forgot-password.php"); 
+    header("Location: ../HTML-Code/recoverView.html"); 
     exit;
 }
 $error="";
@@ -17,7 +17,7 @@ function caducidadCodigo(string $codigo,string $remitente, $conexion)// no es un
 
     $Puente=$conexion->prepare($query);
     $Puente->execute([$codigo, $expiracion, $remitente]);
-    echo "<Se establecion una duracion de 15 minutos";
+    echo "<Se establecion una duracion de 5 minutos";
     return true;
 }
 
@@ -43,11 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
             if ($codigoIngresado !== $usuario['codigo_recuperacion']) // comparra el codigo ingresado con el que hay en la base
             {
-                $error="El código es incorrecto.";//lo que dice ahi
+                echo "<script>alert('El código es incorrecto'); window.history.back();</script>";//lo que dice ahi
+                exit;
             } 
-            elseif ($ahora > $usuario['token_expiracion']) // sorprendente mente se puede comparar la fecha y hora con < >
+            if ($ahora > $usuario['token_expiracion']) // sorprendente mente se puede comparar la fecha y hora con < >
             {
-                $error="El código ha expirado.";//lo que dice ahi
+                echo "<script>alert('El código ha expirado.'); window.history.back();</script>";//lo que dice ahi
+                exit;
             } 
             else 
             {
@@ -76,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     if (caducidadCodigo($codigo,$correo,$conexion))
                         {
                             $_SESSION['reset_email'] = $correo;
+                            $_SESSION['codigo_verificado'] = true;
                             header("Location: ../HTML-Code/codigoRecuperar.html");
                             exit;
                         }
