@@ -24,7 +24,11 @@ body {
     padding: 20px;
     font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
     background-color: var(--bg);
+<<<<<<< HEAD
     background-image: url("WhatsApp Image 2026-09-17 at 09.34.33.jpeg");
+=======
+    background-image: url("../Recursos/WhatsApp Image 2026-09-17 at 09.34.33.jpeg");
+>>>>>>> origin/main
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
