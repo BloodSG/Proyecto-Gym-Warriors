@@ -28,11 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nombre) || empty($password) || empty($confirmar) || empty($correo)) {
         echo "<script>
                 alert('Error: Por favor completa todos los campos.');
-<<<<<<< HEAD
-                window.location.href = 'alta_cliehtml.html';
-=======
                 window.location.href = '../HTML-Code/alta_cliehtml.html';
->>>>>>> origin/main
               </script>";
         exit();
     }
@@ -41,9 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirmar){
         echo "<script>
                 alert('Error: Las contraseñas no coinciden.');
-<<<<<<< HEAD
-                window.location.href = 'alta_cliehtml.html';
-=======
                 window.location.href = '../HTML-Code/alta_cliehtml.html';
               </script>";
         exit();
@@ -53,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>
                 alert('Error: La contraseña debe tener exactamente 10 caracteres.');
                 window.location.href = '../HTML-Code/alta_cliehtml.html';
->>>>>>> origin/main
               </script>";
         exit();
     }
@@ -82,22 +74,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo "<script>
                     alert('¡Registro completo y exitoso!');
-<<<<<<< HEAD
-                    window.location.href = 'alta_clienhtml.html';
-=======
                     window.location.href = '../HTML-Code/loginView.html';
->>>>>>> origin/main
                 </script>";
             exit();
 
         } catch (PDOException $e) {
             echo "<script>
                     alert('Error en BD: " . addslashes($e->getMessage()) . "');
-<<<<<<< HEAD
-                    window.location.href = 'alta_cliehtml.html';
-=======
                     window.location.href = '../HTML-Code/alta_cliehtml.html';
->>>>>>> origin/main
                 </script>";
             exit();
         }
@@ -105,11 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "<script>
                 alert('Error: Este correo ya se encuentra registrado.');
-<<<<<<< HEAD
-                window.location.href = 'alta_cliehtml.html';
-=======
                 window.location.href = '../HTML-Code/alta_cliehtml.html';
->>>>>>> origin/main
             </script>";
         exit();
     }

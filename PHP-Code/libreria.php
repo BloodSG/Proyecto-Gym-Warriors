@@ -2,11 +2,6 @@
 //es directamente mejor creear una libreria con funciones que se van a repetir en algunos archivos, me vi en la necesidad de 
 //hacer este archivo para almacenar la base de datos y reenviar el codigo de recuperacion
 
-<<<<<<< HEAD
-use Dba\Connection;
-
-=======
->>>>>>> origin/main
 function conectaDB()
 {
     //estabelce la conexion con la base de datos utilizando PDO
@@ -170,29 +165,6 @@ function enviaCorreoRecuperacion(string $remitente, string $nombre, string $cart
 }
 
 
-<<<<<<< HEAD
-
-function correoExistente(string $correo, $conexion)
-{      
-    $query="SELECT correo
-            FROM Loguin
-            WHERE correo=?";
-    $Puente=$conexion->prepare($query);
-    $Puente->execute([$correo]);
-
-    $correo=$Puente->fetch(PDO::FETCH_ASSOC);
-    if ($correo)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-?>
-=======
 function cerrarSession()
 {   
     if (session_status() == PHP_SESSION_ACTIVE)
@@ -226,4 +198,3 @@ function cerrarSession()
 
 ?>
 
->>>>>>> origin/main
