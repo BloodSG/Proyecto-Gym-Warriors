@@ -2,8 +2,11 @@
 //es directamente mejor creear una libreria con funciones que se van a repetir en algunos archivos, me vi en la necesidad de 
 //hacer este archivo para almacenar la base de datos y reenviar el codigo de recuperacion
 
+<<<<<<< HEAD
 use Dba\Connection;
 
+=======
+>>>>>>> origin/main
 function conectaDB()
 {
     //estabelce la conexion con la base de datos utilizando PDO
@@ -167,6 +170,7 @@ function enviaCorreoRecuperacion(string $remitente, string $nombre, string $cart
 }
 
 
+<<<<<<< HEAD
 
 function correoExistente(string $correo, $conexion)
 {      
@@ -188,3 +192,38 @@ function correoExistente(string $correo, $conexion)
 }
 
 ?>
+=======
+function cerrarSession()
+{   
+    if (session_status() == PHP_SESSION_ACTIVE)
+    {
+        $_SESSION = array();
+            // Borrar la cookie de sesion
+            if (ini_get("session.use_cookies")) 
+            {
+                $params = session_get_cookie_params();
+                setcookie
+                (
+                    session_name(),
+                    '',
+                    time() - 42000,
+                    $params["path"],
+                    $params["domain"],
+                    $params["secure"],
+                    $params["httponly"]
+                );
+            }
+
+            // destruye la session
+            session_destroy();
+
+            header("Location: ../HTML-Code/loginView.html");
+            exit();
+    }
+    
+
+}
+
+?>
+
+>>>>>>> origin/main

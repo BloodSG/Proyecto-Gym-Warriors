@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Recuperar contraseña</title> 
+        <link rel="stylesheet" href="../CSS-Code/forgotPassword.css">
+
+    </head>
+    <body>
+        <div class="recuperarContrasena">
+            <img src="../Recursos/logoGym.png" alt="Logo de la empresa" class="logo-formulario">
+            <h1>Recuperar Contraseña</h1>
+            <p>Ingresa el código que enviamos a tu correo electrónico</p>
+            <form action="../PHP-Code/verificaCodigo.php" method="post">
+                <input type="text"  name="codigo" required placeholder="Código de 6 dígitos" value="">
+                
+                <button type="submit" name="pulsado" value="verificar">Enviar</button>
+                <button type="submit" id="reenviarcodio" name="pulsado" value="reenviar">Reenviar código</button>
+            </form>
+        </div>
+       
+    </body>
+</html>
