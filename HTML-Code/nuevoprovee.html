@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo proveedor</title>
+    <link rel="stylesheet" href="nuevoprovee.css">
+    
+</head>
+<body>
+    
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="admin.html#inicio">Inicio</a>
+        <a href="admin.html#empleados" >Empleados</a>
+        <a href="admin.html#proveedores"class="active">Proveedores</a>
+        <a href="admin.html#productos">Productos</a>
+        <a href="admin.html#clientes">Clientes</a>
+        <a href="admin.html#ventas">Ventas</a>
+        <a href="admin.html#rutinas">Rutinas</a>
+        <a href="admin.html#membresias">Membresías</a>
+        <a href="admin.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+</aside>
+    <div class="formulario">
+        <div class="logo">
+            <img src="LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Nuevo proveedor</h1>
+        <p>Añade nuevo proveedor</p>
+        <form>
+            <label for="nombre">Nombre completo</label>
+            <br>
+            <input type="text" id="nombre" name="nombre" required>
+            <br>
+            <label for="telefono">Teléfono</label>
+            <br>
+            <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" required>
+            <br>
+            <label for="correo">Correo electrónico</label>
+            <br>
+            <input type="email" id="correo" name="correo" required>
+            <br>
+            <label for="direccion">Dirección</label>
+            <br>
+            <input type="text" id="direccion" name="direccion">
+            <br>
+            <label for="producto">Producto</label>
+            <br>
+            <input type="text" id="producto" name="producto">
+            <br>
+
+            <button type="button">Cancelar</button>
+            <button type="submit">Confirmar y guardar</button>
+        </form>
+    </div>
+</body>
+</html>
