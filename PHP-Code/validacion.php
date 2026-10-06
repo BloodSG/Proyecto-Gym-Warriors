@@ -30,9 +30,10 @@
                 $_SESSION['correo'] = $usuario_guardado['correo'];
                 // Si agregas la columna 'nombre' a tu BD, también puedes guardarla aquí:
                 // $_SESSION['nombre'] = $usuario_guardado['nombre'];
-
+                require_once 'validacion_empleados.php';
+                cargar_roles($correo_ingresado);
                 // 3. Ahora sí, lo mandamos a la página principal
-                header("Location: ../HTML-Code/princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
+                header("Location: ../HTML-Code/princi.php"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
                 exit();
             }
         }
