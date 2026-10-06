@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - Cliente</title>
+    <link rel="stylesheet" href="../CSS-Code/productos.css">
+</head>
+<body>
+
+    <div class="cliente-container">
+        
+        <header class="cliente-header">
+            <h1>CATÁLOGO DE PRODUCTOS</h1>
+            <p class="cliente-subtitle">Explora nuestra selección de suplementos y accesorios</p>
+        </header>
+
+        <div class="cliente-filtros">
+            <input type="text" placeholder="Buscar producto..." class="input-busqueda">
+            
+            <select class="select-categoria">
+                <option value="">Todas las categorías</option>
+                <option value="suplementos">Suplementos</option>
+                <option value="accesorios">Accesorios</option>
+            </select>
+        </div>
+
+        <div class="catalogo-grid">
+            
+            <div class="producto-card">
+                <div>
+                    <img src="placeholder.jpg" alt="Proteína">
+                    <span class="producto-categoria-tag">Suplementos</span>
+                    <h3>Proteína 2kg</h3>
+                </div>
+                <div>
+                    <p class="precio">$1,250.00 MXN</p>
+                    <span class="stock-info">Disponibles: 15</span>
+                    <a href="#modalDetalle1" class="btn-primary btn-card-accion">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div>
+                    <img src="placeholder.jpg" alt="Creatina">
+                    <span class="producto-categoria-tag">Suplementos</span>
+                    <h3>Creatina</h3>
+                </div>
+                <div>
+                    <p class="precio">$550.00 MXN</p>
+                    <span class="stock-info">Disponibles: 8</span>
+                    <a href="#modalDetalle2" class="btn-primary btn-card-accion">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div>
+                    <img src="placeholder.jpg" alt="Straps">
+                    <span class="producto-categoria-tag">Accesorios</span>
+                    <h3>Straps para Levantamiento</h3>
+                </div>
+                <div>
+                    <p class="precio">$280.00 MXN</p>
+                    <span class="stock-info">Disponibles: 30</span>
+                    <a href="#modalDetalle3" class="btn-primary btn-card-accion">Ver Detalles</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="modalDetalle1" class="modal-detalle-overlay">
+        <div class="modal-detalle-content">
+            <a href="#" class="btn-cerrar-modal">&times;</a>
+            
+            <img src="placeholder.jpg" alt="Proteína" class="detalle-imagen">
+            
+            <div class="detalle-info">
+                <span class="detalle-categoria">Suplementos</span>
+                <h2 class="detalle-titulo">Proteína 2kg</h2>
+                <p class="detalle-descripcion">
+                    Proteína isolada de alta calidad con sabor a chocolate. Ideal para optimizar la recuperación muscular y el rendimiento post-entrenamiento.
+                </p>
+                <div class="detalle-precio">$1,250.00 MXN</div>
+                <span class="stock-info detalle-stock">Stock disponible: 15 unidades</span>
+                <div class="mt-10">
+                    <button type="button" class="btn-primary">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetalle2" class="modal-detalle-overlay">
+        <div class="modal-detalle-content">
+            <a href="#" class="btn-cerrar-modal">&times;</a>
+            
+            <img src="placeholder.jpg" alt="Creatina" class="detalle-imagen">
+            
+            <div class="detalle-info">
+                <span class="detalle-categoria">Suplementos</span>
+                <h2 class="detalle-titulo">Creatina</h2>
+                <p class="detalle-descripcion">
+                    Creatina pura micronizada para mejorar la fuerza, la potencia y el volumen muscular durante entrenamientos de alta intensidad.
+                </p>
+                <div class="detalle-precio">$550.00 MXN</div>
+                <span class="stock-info detalle-stock">Stock disponible: 8 unidades</span>
+                <div class="mt-10">
+                    <button type="button" class="btn-primary">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetalle3" class="modal-detalle-overlay">
+        <div class="modal-detalle-content">
+            <a href="#" class="btn-cerrar-modal">&times;</a>
+            
+            <img src="placeholder.jpg" alt="Straps" class="detalle-imagen">
+            
+            <div class="detalle-info">
+                <span class="detalle-categoria">Accesorios</span>
+                <h2 class="detalle-titulo">Straps para Levantamiento</h2>
+                <p class="detalle-descripcion">
+                    Correas de sujeción reforzadas para mejorar el agarre en ejercicios pesados como peso muerto y dominadas.
+                </p>
+                <div class="detalle-precio">$280.00 MXN</div>
+                <span class="stock-info detalle-stock">Stock disponible: 30 unidades</span>
+                <div class="mt-10">
+                    <button type="button" class="btn-primary">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- plantilla "producto" -->
+    <template id="template-producto-card">
+        <div class="producto-card">
+            <div>
+                <img src="" alt="" class="prod-img">
+                <span class="producto-categoria-tag prod-categoria"></span>
+                <h3 class="prod-nombre"></h3>
+            </div>
+            <div>
+                <p class="precio prod-precio"></p>
+                <span class="stock-info prod-stock"></span>
+                <a href="#" class="btn-primary btn-card-accion prod-btn">Ver Detalles</a>
+            </div>
+        </div>
+    </template>
+
+    <!-- plantilla "detalles" -->
+    <template id="template-modal-detalle">
+        <div class="modal-detalle-overlay prod-modal-overlay">
+            <div class="modal-detalle-content">
+                <a href="#" class="btn-cerrar-modal">&times;</a>
+                
+                <img src="" alt="" class="detalle-imagen prod-modal-img">
+                
+                <div class="detalle-info">
+                    <span class="detalle-categoria prod-modal-categoria"></span>
+                    <h2 class="detalle-titulo prod-modal-titulo"></h2>
+                    <p class="detalle-descripcion prod-modal-desc"></p>
+                    <div class="detalle-precio prod-modal-precio"></div>
+                    <span class="stock-info detalle-stock prod-modal-stock"></span>
+                    <div class="mt-10">
+                        <button type="button" class="btn-primary">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</body>
+</html>
