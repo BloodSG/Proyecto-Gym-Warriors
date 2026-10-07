@@ -1,6 +1,6 @@
 <?php
 
-$servidor = "DESKTOP-C8INOU3\\SQLEXPRESS"; 
+$servidor = "localhost"; 
 $baseDatos = "Gym_warriors";
 $usuario = "sa";
 $contrasena = "";
