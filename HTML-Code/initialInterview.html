@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="formularioEntrada">
-            <img src=../Recursos/LogoGym.png alt="logo">
+            <img src="../Recursos/LogoGym.png" alt="logo">
             <h1>Formulario de Entrada</h1>
             
             <div class="introForm">
@@ -15,46 +15,46 @@
                 <h3>Esta información es confidencial y solo será utilizada para brindarle un servicio de calidad</h3>
             </div>
 
-            <form id="formInicial">
+            <form id="formInicial" action="../PHP-Code/procesarentrevista.php" method="post">
                 <label> 
                     Nombre* 
-                    <input type="text" name="nombre" id="nombre">
+                    <input type="text" name="nombre" id="nombre" maxlength="30" required>
                 </label>
 
                 <label>
                     Apellido* 
-                    <input type="text" name="apellido" id="apellido">
+                    <input type="text" name="apellido" id="apellido" maxlength="20" required>
                 </label>
 
                 <label class="full-width">
                     Correo electrónico* 
-                    <input type="email" name="correo" id="correo">
+                    <input type="email" name="correo" id="correo" maxlength="50" oninvalid="this.setCustomValidity('Ingresa un correo electrónico válido.')" oninput="this.setCustomValidity('')" required>
                 </label>
 
                 <label>
                     Teléfono 
-                    <input type="tel" name="telefono" id="telefono">
+                    <input type="tel" name="telefono" id="telefono" minlength="10" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" oninvalid="this.setCustomValidity('El numero debe ser de 10 digitos')" oninput="this.setCustomValidity('')" required>
                 </label>
 
                 <label>
                     Fecha de nacimiento* 
-                    <input type="date" name="fechaNacimiento" id="FechaNac">
+                    <input type="date" name="fecha_nacimiento" id="FechaNac" required>
                 </label>
 
                 <label>
                     Peso (Kg)* 
-                    <input type="number" name="peso" id="peso" placeholder="ej. 70">
+                    <input type="number" name="peso" id="peso" placeholder="ej. 70" min="20" max="999.99" step="0.01" required>
                 </label>
 
                 <label>
                     Estatura (cm)* 
-                    <input type="number" name="estatura" id="estatura" placeholder="ej. 170">
+                    <input type="number" name="estatura" id="estatura" placeholder="ej. 170" min="80" max="250" step="0.01" required>
                 </label>
 
                 <p>Nivel de experiencia</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="nivel" value="Principiante"> Principiante
+                        <input type="radio" name="nivel" value="Principiante" required> Principiante
                     </label>
                     <label class="opcion-radio">
                         <input type="radio" name="nivel" value="Intermedio"> Intermedio
@@ -70,80 +70,80 @@
                 <p>Objetivos principales</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-check">
-                        <input type="checkbox" id="peso"> Pérdida de peso
+                        <input type="checkbox" name="objetivos[]" id="objetivoPeso" value="Pérdida de peso"> Pérdida de peso
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="musculo"> Desarrollo muscular
+                        <input type="checkbox" name="objetivos[]" id="musculo" value="Desarrollo muscular"> Desarrollo muscular
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="resistencia"> Resistencia 
+                        <input type="checkbox" name="objetivos[]" id="resistencia" value="Resistencia"> Resistencia 
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="flexibilidad"> Flexibilidad
+                        <input type="checkbox" name="objetivos[]" id="flexibilidad" value="Flexibilidad"> Flexibilidad
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="salud"> Salud general
+                        <input type="checkbox" name="objetivos[]" id="salud" value="Salud general"> Salud general
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="rehabilitacion"> Rehabilitación de lesiones
+                        <input type="checkbox" name="objetivos[]" id="rehabilitacion" value="Rehabilitación de lesiones"> Rehabilitación de lesiones
                     </label>
                 </div>
 
                 <label class="full-width">
                     Condiciones de salud
-                    <input type="text" id="condicionesSalud">
+                    <input type="text" name="condiciones_salud" id="condicionesSalud" maxlength="100">
                 </label>
 
                 <label class="full-width">
                     Limitaciones físicas
-                    <input type="text" id="limitaciones">
+                    <input type="text" name="limitaciones_fisicas" id="limitaciones" maxlength="100">
                 </label>
 
                 <p>Promedio de sueño por noche</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="sueno" id="menosCinco"> Menos de 5 horas
+                        <input type="radio" name="sueno" id="menosCinco" value="Menos de 5 horas" required> Menos de 5 horas
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="sueno" id="cincoSeis"> 5-6 horas
+                        <input type="radio" name="sueno" id="cincoSeis" value="5-6 horas"> 5-6 horas
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="sueno" id="sieteOcho"> 7-8 horas
+                        <input type="radio" name="sueno" id="sieteOcho" value="7-8 horas"> 7-8 horas
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="sueno" id="masOcho"> Más de 8 horas
+                        <input type="radio" name="sueno" id="masOcho" value="Más de 8 horas"> Más de 8 horas
                     </label>
                 </div>
 
                 <p>Preferencias de ejercicio</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-check">
-                        <input type="checkbox" id="pesas"> Entrenamiento con pesas
+                        <input type="checkbox" name="preferencias[]" id="pesas" value="Entrenamiento con pesas"> Entrenamiento con pesas
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="cardio"> Cardio
+                        <input type="checkbox" name="preferencias[]" id="cardio" value="Cardio"> Cardio
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="funcional"> Entrenamiento funcional
+                        <input type="checkbox" name="preferencias[]" id="funcional" value="Entrenamiento funcional"> Entrenamiento funcional
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" id="grupal"> Clases grupales
+                        <input type="checkbox" name="preferencias[]" id="grupal" value="Clases grupales"> Clases grupales
                     </label>
                 </div>
 
                 <p>Frecuencia de entrenamiento deseada</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="frecuencia" id="unaPS"> 1 sesión por semana
+                        <input type="radio" name="frecuencia" id="unaPS" value="1 sesión por semana" required> 1 sesión por semana
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="frecuencia" id="dosPS"> 2 sesiones por semana
+                        <input type="radio" name="frecuencia" id="dosPS" value="2 sesiones por semana"> 2 sesiones por semana
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="frecuencia" id="tresPS"> 3 sesiones por semana
+                        <input type="radio" name="frecuencia" id="tresPS" value="3 sesiones por semana"> 3 sesiones por semana
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="frecuencia" id="cuatroPS"> 4+ sesiones por semana
+                        <input type="radio" name="frecuencia" id="cuatroPS" value="4+ sesiones por semana"> 4+ sesiones por semana
                     </label>
                 </div>
                 <button type="submit" class="btn-enviar">Enviar</button>
