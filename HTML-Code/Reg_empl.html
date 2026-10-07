@@ -35,31 +35,34 @@
         </div>
         <h1>Alta de empleado</h1>
         <p>Crea el acceso del nuevo empleado al sistema.</p>
-        <form>
+        <form action="../PHP-Code/crud_empleados.php" method="post">
+            <input type="hidden" name="accion" value="crear">
             <div class="fila-doble">
                 <div>
-                    <label for="nombre">Nombre completo</label>
-                    <input type="text" name="Nombre_empl" id="nombre">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" maxlength="30" required>
                 </div>
+                <div>
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" name="apellidos" id="apellidos" maxlength="20" required>
+                </div>
+            </div>
+            <div class="fila-doble">
                 <div>
                     <label for="telefono">Teléfono</label>
-                    <input type="text" name="Telefono_empl" id="telefono">
+                    <input type="tel" name="telefono" id="telefono" maxlength="10" pattern="[0-9]{10}" required>
                 </div>
-            </div>
-            <div class="fila-doble">
                 <div>
                     <label for="correo">Correo electrónico</label>
-                    <input type="email" name="Correo_empl" id="correo">
-                </div>
-                <div>
-                    <label for="direccion">Dirección</label>
-                    <input type="text" name="Direccion_empl" id="direccion">
+                    <input type="email" name="correo" id="correo" maxlength="50" required>
                 </div>
             </div>
+            <label for="direccion">Dirección</label>
+            <input type="text" name="direccion" id="direccion" maxlength="100" required>
             <label>Rol:</label>
             <br>
             <div class="rol">
-                <label class="roldis"><input type="radio" name="rol" value="Entrenador"> Entrenador</label>
+                <label class="roldis"><input type="radio" name="rol" value="Entrenador" required> Entrenador</label>
                 <label class="roldis"><input type="radio" name="rol" value="Manager"> Manager</label>
                 <label class="roldis"><input type="radio" name="rol" value="Recepcionista"> Recepcionista</label>
             </div>
@@ -67,36 +70,37 @@
             <label>Horario</label>
             <br>
             <div class="dia">
-                <label class="dia-check"><input type="checkbox" name="dias" value="Lunes"> L</label>
-                <label class="dia-check"><input type="checkbox" name="dias" value="Martes"> Ma</label>
-                <label class="dia-check"><input type="checkbox" name="dias" value="Miercoles"> Mi</label>
-                <label class="dia-check"><input type="checkbox" name="dias" value="Jueves"> J</label>
-                <label class="dia-check"><input type="checkbox" name="dias" value="Viernes"> V</label>
+                <label class="dia-check"><input type="checkbox" name="dias[]" value="Lunes"> L</label>
+                <label class="dia-check"><input type="checkbox" name="dias[]" value="Martes"> Ma</label>
+                <label class="dia-check"><input type="checkbox" name="dias[]" value="Miercoles"> Mi</label>
+                <label class="dia-check"><input type="checkbox" name="dias[]" value="Jueves"> J</label>
+                <label class="dia-check"><input type="checkbox" name="dias[]" value="Viernes"> V</label>
             </div>
             <br>
             <div class="fila-doble">
                 <div>
                     <label for="hora_inicio">Hora de inicio</label>
-                    <input type="time" name="hora_inicio" id="hora_inicio">
+                    <input type="time" name="hora_inicio" id="hora_inicio" required>
                 </div>
                 <div>
                     <label for="hora_fin">Hora de fin</label>
-                    <input type="time" name="hora_fin" id="hora_fin">
+                    <input type="time" name="hora_fin" id="hora_fin" required>
                 </div>
             </div>
             <br>
             <div class="fila-doble">
                 <div>
                     <label for="password">Contraseña</label>
-                    <input type="password" name="Contraseña_empl" id="password">
+                    <input type="password" name="password" id="password" minlength="10" required>
                 </div>
                 <div>
                     <label for="password_conf">Confirmar contraseña</label>
-                    <input type="password" name="Contraseña_conf_empl" id="password_conf">
+                    <input type="password" name="confirmar_password" id="password_conf" minlength="10" required>
                 </div>
             </div>
             <button type="submit">Confirmar y guardar</button>
         </form>
+        <p><a href="../PHP-Code/crud_empleados.php?accion=listar">Ver empleados registrados</a></p>
         <p class="abajo">
             ¿Ya tiene cuenta?
             <a>Ir a iniciar sesión</a>
