@@ -1,27 +1,31 @@
-body{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-image: url('../Recursos/fondo.jpeg');
+    background-image: url('../Recursos/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-
 .formularioEntrada {
-    display: flex;
+   display: flex;
     flex-direction: column;
-    align-items: normal;
+    align-items: center;
     background: rgba(19, 26, 40, 0.30);
     border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 14px;
+    border-radius: 12px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    max-width: 800px; 
+    max-width: 850px; /* Ancho cómodo para albergar el formulario y la tabla de admin */
     width: 100%;
     box-sizing: border-box;
     margin: 50px auto; 
     padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .formularioEntrada img {
@@ -91,11 +95,13 @@ body{
     padding-bottom: 5px;
 }
 
+/* Inputs, Selects */
 .formularioEntrada form input[type="text"],
 .formularioEntrada form input[type="email"],
 .formularioEntrada form input[type="tel"],
 .formularioEntrada form input[type="date"],
-.formularioEntrada form input[type="number"] {
+.formularioEntrada form input[type="number"],
+.formularioEntrada form select {
     width: 100%; 
     box-sizing: border-box;
     background-color: #10151f;
@@ -113,7 +119,8 @@ body{
 .formularioEntrada form input[type="email"]:focus,
 .formularioEntrada form input[type="tel"]:focus,
 .formularioEntrada form input[type="date"]:focus,
-.formularioEntrada form input[type="number"]:focus {
+.formularioEntrada form input[type="number"]:focus,
+.formularioEntrada form select:focus {
     border-color: #b2dc52;
     background-color: rgba(178, 220, 82, 0.05);
     box-shadow: 0 0 8px rgba(178, 220, 82, 0.2);
@@ -123,6 +130,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-top: 8px;
 }
 
 .formularioEntrada form .grupo-opciones label {
@@ -132,16 +140,126 @@ body{
     cursor: pointer;
     font-weight: normal;
 }
-.formularioEntrada form .btn-enviar{
+
+.grupo-compromiso {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #10151f;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.escala-compromiso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-escala {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background: #192231;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.item-escala:hover {
+    border-color: #b2dc52;
+    background: rgba(178, 220, 82, 0.1);
+}
+
+.item-escala input[type="radio"] {
+    accent-color: #b2dc52;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.item-escala span {
+    color: #f2f2f2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.etiquetas-escala {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a0a0a0;
+    padding: 0 5px;
+}
+
+.caja-consentimiento {
+    background-color: #10151f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.consentimiento-label {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.consentimiento-label input[type="checkbox"] {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    accent-color: #b2dc52;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.consentimiento-label span {
+    font-size: 13px;
+    color: #cfcfcf;
+    line-height: 1.4;
+}
+
+.formularioEntrada form .btn-enviar {
     grid-column: span 2;
     background-color: #b2dc52;
     color: #10151f;
     font-weight: bold;
+    font-size: 16px;
     padding: 14px 20px;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
     margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(178, 220, 82, 0.2);
 }
+
+.formularioEntrada form .btn-enviar:hover {
+    background-color: #c4e868;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(178, 220, 82, 0.35);
+}
+
 .formularioEntrada form .btn-enviar:active {
     transform: translateY(0);
+}
+.fila-aspecto{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nombre-aspecto{
+    width: 130px;
+    color: #f2f2f2;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
 }

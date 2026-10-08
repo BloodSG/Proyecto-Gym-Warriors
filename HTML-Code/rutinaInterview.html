@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Entrevista para rutina de entrenamiento</title>
+        <link rel="stylesheet" href="../CSS-Code/initialInterview.css">
+    </head>
+    <body>
+        <div class="formularioEntrada">
+            <img src="../Recursos/logoGym.png" alt="logo">
+            <h1>Entrevista<br> <span style="font-size: 18px; color: #b2dc52;">Para tu rutina de entrenamiento</span></h1>
+            <div class="introForm">
+                <h2>Un plan hecho para ti, pensado en tus objetivos</h2>
+            </div>
+            
+            <form id="formRutina">
+
+                <p>1. Datos personales </p>
+
+                <label class="full-width">
+                    Nombre Completo
+                    <input type="text" name="nombre" id="nombre">
+                </label>
+
+                <label>
+                    Edad
+                    <input type="number" name="edad" id="edad">
+                </label>
+
+                <label>
+                    Sexo
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="sexo" value="femenino">Femenino 
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="sexo" value="masculino">Masculino
+                        </label>
+                    </div>
+                </label>
+
+                <label>
+                    Fecha
+                    <input type="date" name="fecha" id="fecha">
+                </label>
+
+                <label>
+                    Estatura (cm)
+                    <input type="number" name="estatura" id="estatura" placeholder="ej.170">
+                </label>
+
+                <label>
+                    Peso actual (kg)
+                    <input type="number" name="peso" id="peso" step="0.1" placeholder="ej.70">
+                </label>
+
+                <label>
+                    Ocupación
+                    <input type="text" name="ocupacion" id="ocupacion">
+                </label>
+
+                <label>
+                    Teléfono
+                    <input type="tel" name="telefono" id="telefono">
+                </label>
+
+                <label>
+                    Correo electrónico
+                    <input type="email" name="correo" id="correo">
+                </label>
+
+
+                <p>2. Objetivo principal</p>
+
+                <label class="full-width">
+                    ¿Cuál es tu principal objetivo?
+                </label>
+                
+                <div class="full-width grupo-opciones" >
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="ganarMasa"> Ganar masa muscular
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="perderGrasa"> Perder grasa
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="tonificar"> Tonificar / Definir
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="mejorarFuerza"> Mejorar fuerza
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="mejorarResistencia"> Mejorar resistencia
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="saludBienestar"> Salud general / Bienestar 
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="rehbilitacion"> Rehabilitación / Recuperación
+                    </label>
+                    <label class="opcion-check">
+                        <input type="checkbox" name="objetivo" value="otro"> 
+                        <input type="text" name="objetivoOtro" placeholder="Especifique">
+                    </label>
+                </div>
+
+                <label class="full-width">
+                    ¿Tienes algún objetivo específico?
+                    <input type="text" name="objetivoEspecifico">
+                </label>
+
+                <p>3. Experiencia entrenando</p>
+
+                <label>¿Tienes experiencia entrenando?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="experiencia" value="expSi"> Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="experiencia" value="expNo"> No
+                        </label>
+                    </div>
+                </label>
+
+                <label> ¿Cuánto tiempo llevas entrenando?
+                    <input type="text" name="tiempoEntrenando" id="tiempoEntrenando"> 
+                </label>
+
+                <label>Nivel de experiencia actual:
+                <div class="grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="nivelExp" value="principiante"> Principiante
+                    </label>
+                    <label class="grupo-opciones">
+                        <input type="radio" name="nivelExp" value="intermedio"> Intermedio
+                    </label>
+                    <label class="grupo-opciones">
+                        <input type="radio" name="nivelExp" value="avanzado"> Avanzado
+                    </label>
+                </div>
+                </label>
+
+                <label>¿Has trabajado con entrenador antes?
+                <div class="grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="expEntrenador"> Si 
+                    </label>
+                    <label class="opcion-radio" >
+                        <input type="radio" name="expEntrenador"> No
+                    </label> 
+                </div>
+                </label>
+
+                <p>4. Actividad física actual</p>
+                <label>¿Entrenas actualmente?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="actividadActual" value="si">Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="actividadActual" value="no">No
+                        </label>
+                    </div>
+                </label>
+
+                <label>
+                    ¿Cuántos días a la semana?
+                    <select id="dias">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </label>
+                <label>
+                    ¿Cuánto tiempo por sesión?
+                    <input type="text" name="tiempoSesion" id="tiempoSesiom">
+                </label>
+                <label>
+                    ¿Qué tipo de entrenamiento realizas?
+                    <input type="text" name="tipoEntrenamiento" id="tipoEntrenamiento">
+                </label>
+                <label>
+                    ¿Realizas otro deporte?
+                <div class="grupo-opciones">
+                    <label class="opcion-radio">
+                        <input type="radio" name="deporte" value="si">Si
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="deporte" value="no">No
+                    </label>
+                </div>
+                </label>
+                <br>
+
+                <label >
+                    ¿Cuál?
+                    <input type="text" name="nombreDeporte" id="nombreDeporte">
+                </label>
+                
+                <p>5. Antecedentes de salud</p>
+                <label>
+                    ¿Padeces alguna condición médica?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="condicionMedica" value="si">Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="condicionMedica" value="no">No
+                        </label>
+                        
+                    </div>
+                    <br>
+                    <label>
+                            Especifica
+                            <input type="text" name="condicionMedicaEspecifica" id="condicionMedicaEspecifica">
+                        </label>
+                </label>
+                <label>
+                    ¿Tienes lesiones actuales?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="lesion" value="si">Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="lesion" value="no">No
+                        </label>
+                    </div>
+                    <br>
+                    <label >
+                        ¿Cuáles?
+                        <input type="text" name="lesionEspecifica" id="lesionEspecifica">
+                    </label>
+                </label>
+                <label>
+                    ¿Hay algún ejercicio que no puedas realizar?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="limitacionEjercicios" value="si">Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="limitacionEjercicios" value="no">No
+                        </label>
+                    </div>
+                    <br>
+                    <label>
+                        ¿Cuáles?
+                        <input type="text" name="limitacionEjerciciosTxt" id="limitacionEjerciciosTxt">
+                    </label>
+                </label>
+
+                <p>6. Disponibilidad</p>
+                <label>¿Cuántos días puedes entrenar por semana?
+                    <select id="disponibilidad">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </label>
+                <label>¿Cuánto tiempo tienes disponible por sesión?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="disponibilidadTiempo" value="30">30 min
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="disponibilidadTiempo" value="45">45 min
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="disponibilidadTiempo" value="60">60 min
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="disponibilidadTiempo" value="90">90 min
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="disponibilidadTiempo" value="mas90">Más de 90 min
+                        </label>
+                    </div>
+                    
+                </label>
+                <label>
+                    ¿En qué horarios puedes entrenar?
+                    <input type="text" id="horarios" name="horarios">
+                </label>
+
+                <p>7. Equipamiento disoonible</p>
+                <label>
+                    ¿Dónde sueles entrenar?
+                    <div class="grupo-opciones">
+                        <label class="opcion-check">
+                            <input type="checkbox" name="lugar" value="gym">Ginmasio
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="lugar" value="casa">Casa
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="lugar" value="aireLibre">Aire libre 
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="lugar" value="otro">Otro
+                            <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique">
+                        </label>
+                    </div>
+                </label>
+                <label>
+                    ¿Qué equipo tienes disponible?
+                    <div class="grupo-opciones">
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="mancuernas">Mancuernas
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="bandasElasticas">Bamdas elásticas
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="maquinas">Maquinas
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="barras">Barras 
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="kettlebells">Kettlebells 
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="ninguno">Ninguno
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="equipo" value="otro">Otro
+                            <input typr="text" name="equipoOtro" id="equipoOtro" placeholder="Especifique">
+                        </label>
+
+                    
+                    </div>
+                </label>
+
+                <p>8. Preferencias de entrenamiento</p>
+                <label>
+                    ¿Qué tipo de entrenamiento disfrutas más?
+                    <div class="grupo-opciones">
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="fuerza">Fuerza / Hipertrofia
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="funcional">Funcional / Circuitos
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="cardio">Cardio / HIIT
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="cross">Cross training
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="movilidad">Movilidad / Estabilidad
+                        </label>
+                        <label class="opcion-check">
+                            <input type="checkbox" name="preferencias" value="otro">
+                            <input type="text" name="preferenciasOtro" id="preferenciasOtro">
+                        </label>
+                    </div> 
+                </label>
+                <label>
+                    <label>
+                        ¿Hay ejercicios que te gusten o disfrutes nucho?
+                        <input type="text" name="disfruta" id="disfruta">
+                    </label>
+                    <br>
+                    <label>
+                        ¿Hay ejercicios que no te gusten o prefieras evitar?
+                        <input type="text" name="noDisfruta" id="noDisfruta">
+                    </label>
+                </label>
+                
+                <p>9. Estilo de vida</p>
+                <label>
+                    ¿Cómo describirías tu nivel de estrés?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="estres" value="bajo">Bajo
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="estres" value="medio">Medio
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="estres" value="alto">Alto
+                        </label>
+                    </div>
+                </label>
+                <label>
+                    ¿Duermes bien?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="sueño" value="si">Si
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="sueño" value="no">No
+                        </label>
+                    </div>
+                    <label>
+                        <br>
+                        ¿Cuántas horas duermes en promedio?
+                        <input  type="number" name="horasSueño" id="horasSueño">
+                    </label>
+                </label>
+                <label>
+                    ¿Sigues alguna dieta o plan alimenticio?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                            <input type="radio" name="dieta" value="si">Si
+                        </label>
+                        <label class="grupo-opciones">
+                            <input type="radio" name="dieta" value="No">No
+                        </label>
+                    </div>
+                    <br>
+                    <label>
+                        ¿Cuál?
+                        <input type="text" name="dietatxt" id="dietatxt">
+                    </label>
+                </label>
+
+                <p>10. Evaluación personal</p>
+                    <label class="full-width">
+                        Del 1 al 10, califica los sigueintes aspectos:
+                    </label>
+                    <div class="grupo-compromiso full-width">
+
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Fuerza
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="fuerza" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-compromiso full-width">
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Resistencia
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="resistencia" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-compromiso full-width">
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Flexibilidad
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="flexibilidad" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-compromiso full-width">
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Energía diaria
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="energia" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-compromiso full-width">
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Disciplina / Constancia
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="disciplina" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-compromiso full-width">
+                        <div class="fila-aspecto">
+                            <span class="nombre-aspecto">
+                                Motivación actual
+                            </span>
+                            <div class="escala-compromiso">
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="1">
+                                    <span>1</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="2">
+                                    <span>2</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="3">
+                                    <span>3</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="4">
+                                    <span>4</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="5">
+                                    <span>5</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="6">
+                                    <span>6</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="7">
+                                    <span>7</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="8">
+                                    <span>8</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="9">
+                                    <span>9</span>
+                                </div>
+                                <div class="item-escala">
+                                    <input type="radio" name="motivacion" value="10">
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <p>11. Comentarios adicionales</p>
+                <div class="full-width">
+                    <label>Cuéntanos algo importante que debamos saber para diseñar la mejor rutina para ti
+                        <input type="text" name="comentarios" id="comentarios">
+                    </label>
+                </div>
+                    
+                <p>Compromiso</p>
+                <div class="full-width caja-consentimiento">
+                    <label class="opcion-check consentimiento-label">
+                        <input type="checkbox" name="compromiso" required>
+                        <span>Me comprometo a seguir mi rutina con disciplina, constancia y responsabilidad para alcanzar mis objetivos.</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar formulario</button>
+            </form>
+        </div>
+    </body>
+
+</html>
