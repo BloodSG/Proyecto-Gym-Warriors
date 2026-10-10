@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Alta de empleado</title>
-    <link rel="stylesheet" href="../CSS-Code/Reg_emplcss.css">
+    <link rel="stylesheet" href="Reg_emplcss.css">
 
 </head>
 <body>
     
 <aside class="sidebar">
-    <a class="brand" href="admin.html">
+    <a class="brand" href="vista.html">
         <img src="LogoWarriors.svg" alt="Fitness Warriors">
     </a>
 
     <p class="sidebar-label">Administración</p>
 
     <nav class="main-nav">
-        <a href="admin.html#inicio">Inicio</a>
-        <a href="admin.html#empleados" class="active">Empleados</a>
-        <a href="admin.html#proveedores">Proveedores</a>
-        <a href="admin.html#productos">Productos</a>
-        <a href="admin.html#clientes">Clientes</a>
-        <a href="admin.html#ventas">Ventas</a>
-        <a href="admin.html#rutinas">Rutinas</a>
-        <a href="admin.html#membresias">Membresías</a>
-        <a href="admin.html#corte-caja">Corte de caja</a>
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados" class="active">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
     </nav>
 
-    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
 </aside>
     <div class="formulario">
         <div class="logo">
@@ -35,72 +35,66 @@
         </div>
         <h1>Alta de empleado</h1>
         <p>Crea el acceso del nuevo empleado al sistema.</p>
-        <form action="../PHP-Code/crud_empleados.php" method="post">
-            <input type="hidden" name="accion" value="crear">
+        <form>
             <div class="fila-doble">
                 <div>
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" maxlength="30" required>
+                    <label for="curp">CURP</label>
+                    <input type="text" class="mayus" name="curp" id="curp" maxlength="18" pattern="[A-Za-z0-9]{18}" title="18 caracteres" required>
                 </div>
                 <div>
-                    <label for="apellidos">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos" maxlength="20" required>
+                    <label for="rfc">RFC</label>
+                    <input type="text" class="mayus" name="rfc" id="rfc" maxlength="13" pattern="[A-Za-z0-9]{12,13}" title="12 o 13 caracteres">
                 </div>
             </div>
             <div class="fila-doble">
                 <div>
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" name="telefono" id="telefono" maxlength="10" pattern="[0-9]{10}" required>
+                    <label for="salario">Salario</label>
+                    <input type="number" name="salario" id="salario" min="1" max="99999999" step="0.5" required>
                 </div>
                 <div>
-                    <label for="correo">Correo electrónico</label>
-                    <input type="email" name="correo" id="correo" maxlength="50" required>
+                    <label for="fecha_contratacion">Fecha de contratación</label>
+                    <input type="date" name="fecha_contratacion" id="fecha_contratacion" required>
                 </div>
             </div>
-            <label for="direccion">Dirección</label>
-            <input type="text" name="direccion" id="direccion" maxlength="100" required>
-            <label>Rol:</label>
+            <label>Puesto:</label>
             <br>
             <div class="rol">
-                <label class="roldis"><input type="radio" name="rol" value="Entrenador" required> Entrenador</label>
-                <label class="roldis"><input type="radio" name="rol" value="Manager"> Manager</label>
-                <label class="roldis"><input type="radio" name="rol" value="Recepcionista"> Recepcionista</label>
+                <label class="roldis"><input type="radio" name="puesto" value="Entrenador" required> Entrenador</label>
+                <label class="roldis"><input type="radio" name="puesto" value="Manager"> Manager</label>
+                <label class="roldis"><input type="radio" name="puesto" value="Recepcionista"> Recepcionista</label>
             </div>
-            <br>
-            <label>Horario</label>
-            <br>
-            <div class="dia">
-                <label class="dia-check"><input type="checkbox" name="dias[]" value="Lunes"> L</label>
-                <label class="dia-check"><input type="checkbox" name="dias[]" value="Martes"> Ma</label>
-                <label class="dia-check"><input type="checkbox" name="dias[]" value="Miercoles"> Mi</label>
-                <label class="dia-check"><input type="checkbox" name="dias[]" value="Jueves"> J</label>
-                <label class="dia-check"><input type="checkbox" name="dias[]" value="Viernes"> V</label>
-            </div>
-            <br>
             <div class="fila-doble">
                 <div>
-                    <label for="hora_inicio">Hora de inicio</label>
-                    <input type="time" name="hora_inicio" id="hora_inicio" required>
+                    <label for="turno">Turno</label>
+                    <select name="turno" id="turno" required>
+                        <option value="" disabled selected>Selecciona un turno</option>
+                        <option value="Matutino">Matutino (6:00 - 10:00)</option>
+                        <option value="Vespertino">Vespertino (16:00 - 20:30)</option>
+                        <option value="Mixto">Mixto</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="hora_fin">Hora de fin</label>
-                    <input type="time" name="hora_fin" id="hora_fin" required>
+                    <label for="estado_laboral">Estado laboral</label>
+                    <select name="estado_laboral" id="estado_laboral" required>
+                        <option value="activo" selected>Activo</option>
+                        <option value="vacaciones">Vacaciones</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
                 </div>
             </div>
-            <br>
+            <label>Contacto de emergencia</label>
             <div class="fila-doble">
                 <div>
-                    <label for="password">Contraseña</label>
-                    <input type="password" name="password" id="password" minlength="10" required>
+                    <label for="contacto_emergencia_nom">Nombre</label>
+                    <input type="text" name="contacto_emergencia_nom" id="contacto_emergencia_nom" maxlength="50">
                 </div>
                 <div>
-                    <label for="password_conf">Confirmar contraseña</label>
-                    <input type="password" name="confirmar_password" id="password_conf" minlength="10" required>
+                    <label for="contacto_emergencia_tel">Teléfono</label>
+                    <input type="tel" name="contacto_emergencia_tel" id="contacto_emergencia_tel" maxlength="10" pattern="[0-9]{10}" title="10 dígitos numéricos">
                 </div>
             </div>
             <button type="submit">Confirmar y guardar</button>
         </form>
-        <p><a href="../PHP-Code/crud_empleados.php?accion=listar">Ver empleados registrados</a></p>
         <p class="abajo">
             ¿Ya tiene cuenta?
             <a>Ir a iniciar sesión</a>
