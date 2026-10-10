@@ -24,16 +24,39 @@
             {
                 $entramos = true;
 
-                // 2. GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
+                //GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
                 $_SESSION['logueado'] = true;
                 $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
                 $_SESSION['correo'] = $usuario_guardado['correo'];
-                // Si agregas la columna 'nombre' a tu BD, también puedes guardarla aquí:
-                // $_SESSION['nombre'] = $usuario_guardado['nombre'];
+                //por si agregas nombre $_SESSION['nombre'] = $usuario_guardado['nombre'];
                 require_once 'validacion_empleados.php';
-                cargar_roles($correo_ingresado);
-                // 3. Ahora sí, lo mandamos a la página principal
-                header("Location: ../HTML-Code/princi.php"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
+
+                $variableRol = cargar_roles($correo_ingresado);
+                
+                //si es true significa que es empleado entonces entra a ver que tipo de empleado es 
+                if($variableRol)
+                {
+                    $subrol = $_SESSION['subrol'];
+                    if($subrol == 'Manager')
+                    {
+                        header("Location: ../HTML-Code/admin.html");
+                    }
+                    
+                    else if ($subrol == 'Recepcionista')
+                    {
+                        header("Location: ../HTML-Code/admin.html");
+                    }
+                }
+
+                //si no es true asume que es un cliente
+                else
+                {
+                    $_SESSION['tipo_usuario'] = "Cliente";
+                    header("Location: ../HTML-Code/princi.html");
+                }
+                
+                
+                ; 
                 exit();
             }
         }
