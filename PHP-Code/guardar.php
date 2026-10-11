@@ -1,9 +1,9 @@
 <?php
 require_once("libreria.php");
 
-// Genera el ID basándose SOLO en la tabla loguin
+// generacion de id para el nuevo cliente
 function generarid($conexion) {
-    $query = "SELECT MAX(id_usuario) as ultimo FROM loguin WHERE id_usuario LIKE 'CLI%'";
+    $query = "SELECT MAX(id_usuario) as ultimo FROM usuariocliente WHERE id_usuario LIKE 'CLI%'";
     $stmt = $conexion->prepare($query);
     $stmt->execute();
     $res = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -18,14 +18,13 @@ function generarid($conexion) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Agarramos toda la información del formulario
-    $nombre    = trim($_POST['nombre']); 
+    // Omitimos o ya no requerimos agarrar el nombre si no está en la BD
     $password  = trim($_POST['contraseña']);
     $confirmar = trim($_POST['confirmar']);
     $correo    = trim($_POST["correo"]); 
 
-    // Verificamos que ningún campo esté vacío
-    if (empty($nombre) || empty($password) || empty($confirmar) || empty($correo)) {
+    // Verificamos que ningún campo esté vacío (quitamos $nombre)
+    if (empty($password) || empty($confirmar) || empty($correo)) {
         echo "<script>
                 alert('Error: Por favor completa todos los campos.');
                 window.location.href = '../HTML-Code/alta_cliehtml.html';
@@ -66,11 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         try {
-            // Insertamos todo (ID, Nombre, Correo y Hash) directamente en loguin
-            $query_loguin = "INSERT INTO loguin (id_usuario, nombre, correo, contraseña) VALUES (?, ?, ?, ?)";
+            // Quitamos 'nombre' de la sentencia SQL y de los valores a insertar
+            $query_loguin = "INSERT INTO loguin (id_usuario, correo, contraseña) VALUES (?, ?, ?)";
             $puente_loguin = $conexion->prepare($query_loguin);
             
-            $puente_loguin->execute([$id_nuevo, $nombre, $correo, $password_hash]);
+            // Ejecutamos pasando solo 3 valores correspondientes a las columnas reales
+            $puente_loguin->execute([$id_nuevo, $correo, $password_hash]);
 
             echo "<script>
                     alert('¡Registro completo y exitoso!');

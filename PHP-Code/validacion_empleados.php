@@ -11,11 +11,11 @@ function cargar_roles($correo) {
     try {
         $conexion = conectaDB();
         
-        // Consultamos directamente la tabla Loguin y Rol, descartando usuariocliente
-        $query="SELECT Loguin.id_usuario, Loguin.nombre, Rol.nombre_rol
-                FROM Loguin
-                INNER JOIN Rol ON Loguin.id_rol = Rol.id_rol
-                WHERE Loguin.correo = :correo";
+        //busco la informacion del correo en la tabla de usuariocliente y obtengo el rol correspondiente
+        $query="SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, Rol.nombre_rol
+                FROM usuariocliente
+                INNER JOIN Rol ON usuariocliente.id_rol = Rol.id_rol
+                WHERE usuariocliente.correo = :correo";
 
         $stmt = $conexion->prepare($query);
         $stmt->bindParam(":correo", $correo);
@@ -30,9 +30,9 @@ function cargar_roles($correo) {
             $_SESSION["tipo_usuario"] = "Empleado"; 
             $_SESSION["subrol"] = $usuario["nombre_rol"];
             
-            return true; // Éxito en la asignación
+            return true; 
         } else {
-            return false; // No se encontró el usuario o rol
+            return false; 
         }
     }
     catch(PDOException $e) {
