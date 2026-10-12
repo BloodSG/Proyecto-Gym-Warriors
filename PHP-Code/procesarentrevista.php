@@ -54,8 +54,11 @@ function obtenerDatosFormulario(): array
         "correo" => valorTexto($_POST, "correo"),
         "telefono" => valorTexto($_POST, "telefono"),
         "fecha_nacimiento" => valorTexto($_POST, "fecha_nacimiento"),
+        "sexo" => valorTexto($_POST, "sexo"),
         "peso" => valorTexto($_POST, "peso"),
         "estatura" => valorTexto($_POST, "estatura"),
+        "ocupacion" => valorTexto($_POST, "ocupacion"),
+        "acepto_reglamento" => valorTexto($_POST, "acepto_reglamento"),
         "nivel" => valorTexto($_POST, "nivel"),
         "objetivos" => listaTexto($_POST, "objetivos"),
         "condiciones_salud" => valorTexto($_POST, "condiciones_salud"),
@@ -73,9 +76,12 @@ function validarDatosEntrevista(array $datos): array
 
     $patronNombre = '/^[\p{L}\p{M}]+(?:[ \x{27}\x{2019}.\x{2D}][\p{L}\p{M}]+)*$/u';
     if ($datos["nombre"] === "" || $longitud($datos["nombre"]) > 30 || !preg_match($patronNombre, $datos["nombre"])) $errores[] = "El nombre es obligatorio, debe contener letras y tener máximo 30 caracteres.";
-    if ($datos["apellido"] === "" || $longitud($datos["apellido"]) > 20 || !preg_match($patronNombre, $datos["apellido"])) $errores[] = "El apellido es obligatorio, debe contener letras y tener máximo 20 caracteres.";
+    if ($datos["apellido"] === "" || $longitud($datos["apellido"]) > 10 || !preg_match($patronNombre, $datos["apellido"])) $errores[] = "El apellido es obligatorio, debe contener letras y tener máximo 10 caracteres.";
     if (!filter_var($datos["correo"], FILTER_VALIDATE_EMAIL) || $longitud($datos["correo"]) > 50) $errores[] = "El correo no es válido o supera 50 caracteres.";
     if (!preg_match('/^[0-9]{10}$/', $datos["telefono"])) $errores[] = "El teléfono debe tener exactamente 10 dígitos.";
+    if (!in_array($datos["sexo"], ["femenino", "masculino"], true)) $errores[] = "Selecciona una opción válida para sexo.";
+    if ($longitud($datos["ocupacion"]) > 30) $errores[] = "La ocupación admite máximo 30 caracteres.";
+    if ($datos["acepto_reglamento"] !== "si") $errores[] = "Debes aceptar el reglamento para continuar.";
 
     $fecha = DateTimeImmutable::createFromFormat("!Y-m-d", $datos["fecha_nacimiento"]);
     $erroresFecha = DateTimeImmutable::getLastErrors();
@@ -124,39 +130,21 @@ function guardarEntrevista(PDO $conexion, array $datos): array
     $conexion->beginTransaction();
     try {
 
-    // Si el alta/login ya creó al usuario, reutilizamos su ID por correo.
+    // La entrevista se asocia a una cuenta creada desde el formulario de alta.
     $consulta = $conexion->prepare("SELECT id_usuario FROM usuariocliente WHERE correo = ?");
     $consulta->execute([$datos["correo"]]);
     $idUsuario = $consulta->fetchColumn();
 
     if (!$idUsuario) {
-        $idUsuario = siguienteId($conexion, "usuariocliente", "id_usuario", "U");
-
-        $consulta = $conexion->prepare("SELECT TOP 1 id_rol FROM Rol WHERE nombre_rol = 'Cliente' ORDER BY id_rol");
-        $consulta->execute();
-        $idRol = $consulta->fetchColumn();
-        if (!$idRol) {
-            $idRol = $conexion->query("SELECT TOP 1 id_rol FROM Rol ORDER BY id_rol")->fetchColumn();
-        }
-        if (!$idRol) throw new Exception("La tabla Rol no tiene registros.");
-
-        // Valor temporal porque la entrevista no solicita contraseña.
-        // El módulo de alta/login debe administrar la contraseña real.
-        $passwordTemporal = substr(hash("sha256", $idUsuario . $datos["correo"]), 0, 20);
-
-        $sql = "INSERT INTO usuariocliente
-                (id_usuario, nombre, apellidos, correo, telefono, fecha_registro, password_hash, id_rol)
-                VALUES (?, ?, ?, ?, ?, GETDATE(), ?, ?)";
-        $consulta = $conexion->prepare($sql);
-        $consulta->execute([$idUsuario, $datos["nombre"], $datos["apellido"], $datos["correo"], $datos["telefono"], $passwordTemporal, $idRol]);
-    } else {
-        // Completa/actualiza los datos básicos del usuario ya registrado.
-        $sql = "UPDATE usuariocliente
-                SET nombre = ?, apellidos = ?, telefono = ?
-                WHERE id_usuario = ?";
-        $consulta = $conexion->prepare($sql);
-        $consulta->execute([$datos["nombre"], $datos["apellido"], $datos["telefono"], $idUsuario]);
+        throw new RuntimeException("Primero crea una cuenta con este correo desde el formulario de alta.");
     }
+
+    // Actualiza solo columnas que existen en usuariocliente.
+    $sql = "UPDATE usuariocliente
+            SET nombre = ?, apellido_1 = ?, telefono = ?
+            WHERE id_usuario = ?";
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute([$datos["nombre"], $datos["apellido"], $datos["telefono"], $idUsuario]);
 
     // Detalle físico del cliente: un registro por usuario.
     $consulta = $conexion->prepare("SELECT COUNT(*) FROM Detalle_Cliente WHERE id_usuario = ?");
@@ -165,16 +153,16 @@ function guardarEntrevista(PDO $conexion, array $datos): array
 
     if ($existeDetalle) {
         $sql = "UPDATE Detalle_Cliente
-                SET fecha_nacimiento = ?, edad = ?, estatura = ?, peso_actual = ?
+            SET fecha_nacimiento = ?, edad = ?, sexo = ?, estatura = ?, peso_actual = ?, ocupacion = ?, acepto_reglamento = ?
                 WHERE id_usuario = ?";
         $consulta = $conexion->prepare($sql);
-        $consulta->execute([$fechaNacimiento, $edad, $datos["estatura"], $datos["peso"], $idUsuario]);
+        $consulta->execute([$fechaNacimiento, $edad, $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null, "si", $idUsuario]);
     } else {
         $sql = "INSERT INTO Detalle_Cliente
                 (id_usuario, fecha_nacimiento, edad, sexo, estatura, peso_actual, ocupacion, acepto_reglamento)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $consulta = $conexion->prepare($sql);
-        $consulta->execute([$idUsuario, $fechaNacimiento, $edad, "masculino", $datos["estatura"], $datos["peso"], null, "si"]);
+        $consulta->execute([$idUsuario, $fechaNacimiento, $edad, $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null, "si"]);
     }
 
     $idEntrevista = siguienteId($conexion, "Entrevista", "id_entrevista", "E");

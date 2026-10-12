@@ -24,19 +24,15 @@
         <form action="../PHP-Code/validacion.php" method="POST">
             <div class="campo">
                 <label for="usuario">Correo</label>
-                <input type="email" id="usuario" name="usuario" autocomplete="username" placeholder="Ingresa tu correo electrónico">
+                <input type="email" id="usuario" name="usuario" maxlength="50" autocomplete="username" placeholder="Ingresa tu correo electrónico" required>
             </div>
 
             <div class="campo">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••">
+                <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
             </div>
 
             <div class="fila-opciones">
-                <label>
-          <input type="checkbox" id="recordar">
-          Recordarme
-        </label>
                 <a href="recoverView.html">¿Olvidaste tu contraseña?</a>
             </div>
 

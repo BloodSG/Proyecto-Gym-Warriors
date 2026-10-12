@@ -1,47 +1,62 @@
-<?php 
-    // 1. SIEMPRE arranca la sesión al principio del archivo si vas a manejar logins
-    session_start();
+<?php
+session_start();
 
-    $entramos = false; 
+function mostrarError(string $mensaje): void
+{
+    $mensajeSeguro = json_encode(
+        $mensaje,
+        JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+    );
+    echo "<script>alert($mensajeSeguro); window.history.back();</script>";
+    exit();
+}
 
-    if (isset($_POST['accion']) && $_POST['accion'] == 'login') 
-    {
-        $correo_ingresado = trim($_POST['usuario']);
-        $password_ingresada = trim($_POST['password']);
-    
-        require_once 'libreria.php';
-        $pdo = conectaDB();
-        
-        $sql = "SELECT * FROM loguin WHERE correo = :correo";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['correo' => $correo_ingresado]);
+if (
+    $_SERVER["REQUEST_METHOD"] !== "POST" ||
+    ($_POST["accion"] ?? "") !== "login"
+) {
+    header("Location: ../HTML-Code/loginView.html");
+    exit();
+}
 
-        $usuario_guardado = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($usuario_guardado)
-        {
-            if (password_verify($password_ingresada, rtrim($usuario_guardado['contraseña'])))
-            {
-                $entramos = true;
+$correo = trim($_POST["usuario"] ?? "");
+$password = $_POST["password"] ?? "";
+if ($correo === "" || $password === "") {
+    mostrarError("Por favor ingresa tu correo y contraseña.");
+}
+if (strlen($correo) > 50 || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    mostrarError("Ingresa un correo electrónico válido.");
+}
 
-                // 2. GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
-                $_SESSION['logueado'] = true;
-                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
-                $_SESSION['correo'] = $usuario_guardado['correo'];
-                // Si agregas la columna 'nombre' a tu BD, también puedes guardarla aquí:
-                // $_SESSION['nombre'] = $usuario_guardado['nombre'];
+require_once __DIR__ . "/libreria.php";
 
-                // 3. Ahora sí, lo mandamos a la página principal
-                header("Location: ../HTML-Code/princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
-                exit();
-            }
-        }
+try {
+    $conexion = conectaDB();
+    $consulta = $conexion->prepare(
+        "SELECT id_usuario, nombre, correo, password_hash
+         FROM usuariocliente
+         WHERE correo = ?"
+    );
+    $consulta->execute([$correo]);
+    $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+    if (!$usuario || !password_verify($password, $usuario["password_hash"])) {
+        mostrarError("Usuario o contraseña incorrectos.");
     }
 
-    if ($entramos == false) {
-        echo "<script>
-                alert('Usuario o contraseña incorrectos.');
-                window.history.back(); // Lo regresa al formulario
-              </script>";
-    }
-?>
+    session_regenerate_id(true);
+    $_SESSION["logueado"] = true;
+    $_SESSION["id_usuario"] = $usuario["id_usuario"];
+    $_SESSION["correo"] = $usuario["correo"];
+    $_SESSION["nombre"] = $usuario["nombre"];
+    $_SESSION["tipo_usuario"] = "Cliente";
+
+    header("Location: ../HTML-Code/princi.html");
+    exit();
+} catch (PDOException $error) {
+    error_log("Error al validar acceso de cliente: " . $error->getMessage());
+    mostrarError("No fue posible validar el acceso. Inténtalo de nuevo.");
+} catch (RuntimeException $error) {
+    error_log("Configuración incompleta para validar acceso: " . $error->getMessage());
+    mostrarError("El acceso no está configurado correctamente. Contacta al administrador.");
+}
