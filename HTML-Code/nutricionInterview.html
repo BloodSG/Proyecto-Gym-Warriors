@@ -14,128 +14,157 @@
                 <h2>Un plan hecho para ti, pensado en tus objetivos</h2>
             </div>
 
-            <form id="formInicial" action="../PHP-Code/procesar_nutricion.php" method="post">
+            <form id="formInicial">
                 <p>1. Datos personales</p>
                 <label class="full-width"> 
                     Nombre Completo* 
-                    <input type="text" name="nombre" id="nombre" maxlength="30" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
+                    <input type="text" name="nombre" id="nombre">
+                </label>
+
+                <label>
+                    Edad 
+                    <input type="number" name="edad" id="edad">
                 </label>
 
                 <label>
                     Sexo 
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="sexo" value="femenino" required> Femenino
+                            <input type="radio" name="sexo" value="femenino"> Femenino
                         </label> 
                         <label class="opcion-radio">
-                            <input type="radio" name="sexo" value="masculino"> Masculino
+                            <input type="radio" name="sexo" value="Masculino"> Masculino
                         </label>
                     </div>
                 </label>
 
                 <label>
                     Teléfono 
-                    <input type="tel" name="telefono" id="telefono" minlength="10" maxlength="10" pattern="[0-9]{10}" inputmode="numeric">
+                    <input type="tel" name="telefono" id="telefono">
                 </label>
 
                 <label>
                     Fecha 
-                    <input type="date" name="fecha" id="FechaNac" required>
+                    <input type="date" name="fecha" id="FechaNac">
                 </label>
 
                 <label>
                     Peso (Kg)* 
-                    <input type="number" name="peso" id="peso" min="20" max="999.99" step="0.01" placeholder="ej. 70" required>
+                    <input type="number" name="peso" id="peso" step="0.1" placeholder="ej. 70">
                 </label>
 
                 <label>
                     Estatura (cm)* 
-                    <input type="number" name="estatura" id="estatura" min="80" max="250" step="0.01" placeholder="ej. 170" required>
+                    <input type="number" name="estatura" id="estatura" placeholder="ej. 170">
                 </label>
 
                 <label>
                     Ocupación 
-                    <input type="text" name="ocupacion" id="ocupacion" maxlength="30">
+                    <input type="text" name="ocupacion" id="ocupacion">
                 </label>
 
 
                 <p>2. Objetivos principales</p>
                 <div class="full-width grupo-opciones">
                     <label class="opcion-check">
-                        <input type="checkbox" value="Perder grasa corporal" name="objetivos[]"> Perder grasa corporal
+                        <input type="checkbox" value="grasa" name="objetivo"> Perder grasa corporal
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Aumentar masa muscular" name="objetivos[]"> Aumentar masa muscular
+                        <input type="checkbox" value="musculo" name="objetivo"> Aumentar masa muscular
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Tonificar" name="objetivos[]"> Tonificar 
+                        <input type="checkbox" value="tonificar" name="objetivo"> Tonificar 
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Mejorar rendimiento deportivo" name="objetivos[]"> Mejorar rendimiento deportivo
+                        <input type="checkbox" value="rendimiento" name="objetivo"> Mejorar rendimiento deportivo
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Ganar fuerza" name="objetivos[]"> Ganar fuerza
+                        <input type="checkbox" value="fuerza" name="objetivo"> Ganar fuerza
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Mejorar salud" name="objetivos[]"> Mejorar salud
+                        <input type="checkbox" value="salud" name="objetivo"> Mejorar salud
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="Otro" name="objetivos[]"> Otro
-                        <input type="text" name="objetivo_otro" id="objetivoOtro" maxlength="140" placeholder="Especifique">
+                        <input type="checkbox" value="otro" name="objetivo"> Otro
+                        <input type="text" id="enfermedadOtro" placeholder="Especifique">
+                    </label>
+                    <label class="full-width"> ¿Cuánto tiempo deseas invertir para lograrlo?
+                        <input type="text" id="tiempoInvertir">
                     </label>
                 </div>
+
+                <p>3. Actividad física</p>
+                <label>¿Entrenas actualmente?
+                    <div class="grupo-opciones">
+                        <label class="opcion-radio">
+                           <input type="radio" value="EntrenaSi" name="entrena">Sí
+                        </label>
+                        <label class="opcion-radio">
+                           <input type="radio" value="entrenaNo" name="entrena">No
+                        </label>
+                    </div>
+                </label>
+                <label>¿Cuántos días por semana?
+                    <input type="number" id="diasporSem">
+                </label>
+                <label>¿Qué tipo de entrenamiento realizas?
+                    <input type="text" id="tipoEntrenamiento">
+                </label>
+                <label>¿Realizas otro deporte?
+                    <input type="text" id="deporte">
+                </label>
 
                 <p>4. Condiciones de salud</p>
                 <div class="full-width grupo-opciones">
                     <label>¿Padeces alguna enfermedad?</label>
-                        <label class="opcion-check">
-                            <input type="checkbox" value="diabetes" name="enfermedades[]"> Diabetes
+                    <label class="opcion-check">
+                        <input type="checkbox" value="diabetes" name="enfermedad"> Diabetes
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="hipertension" name="enfermedades[]"> Hipertensión
+                        <input type="checkbox" value="hipertension" name="enfermedad"> Hipertensión
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="hipotiroidismo" name="enfermedades[]"> Hipotiroidismo
+                        <input type="checkbox" value="hipotiroidismo" name="enfermedad"> Hipotiroidismo
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="colesterol" name="enfermedades[]"> Colesterol alto                  
+                        <input type="checkbox" value="colesterol" name="enfermedad"> Colesterol alto                  
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="renales" name="enfermedades[]"> Problemas renales                   
+                        <input type="checkbox" value="renales" name="enfermedad"> Problemas renales                   
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="ninguna" name="enfermedades[]"> Ninguna                    
+                        <input type="checkbox" value="ninguna" name="enfermedad"> Ninguna                    
                     </label>
                     <label class="opcion-check">
-                            <input type="checkbox" value="otra" name="enfermedades[]"> Otra
-                        <input type="text" id="otratext" name="enfermedad_otra" maxlength="100" placeholder="Especifique">                   
+                        <input type="checkbox" value="otra" name="enfermedad"> Otra
+                        <input type="text" id="otratext" placeholder="Especifique">                   
                     </label>
                 </div>
 
                 <p>5. Alimentación actual</p>
                 <label>¿Cuántas comidas haces al día?
-                        <input type="number" id="numComidas" name="comidas" min="1" max="10" required>
+                    <input type="number" id="numComidas">
                 </label>
-                <label>¿Cómo calificas la calidad de tu descanso?
+                <label>¿Desayunas?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="calidad_descanso" value="buena" required> Buena
+                            <input type="radio" name="desayuno" value="siempre"> Siempre
                         </label>
                         <label class="opcion-radio">
-                            <input type="radio" name="calidad_descanso" value="regular"> Regular
+                            <input type="radio" name="desayuno" value="aveces"> A veces
                         </label>
                         <label class="opcion-radio">
-                            <input type="radio" name="calidad_descanso" value="mala"> Mala
+                            <input type="radio" name="desayuno" value="nunca"> Nunca
                         </label>
                     </div>
                 </label>
                 <label>¿Cuánta agua consumes al día?
-                        <input type="number" name="agua" min="0" max="30" step="1" placeholder="Litros" required>
+                    <input type="number" placeholder="Litros">
                 </label>
                 <label>¿Consumes refresco?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                                <input type="radio" name="refresco" value="diario" required> Diario
+                            <input type="radio" name="refresco" value="diario"> Diario
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="refresco" value="ocasional"> Ocasional
@@ -149,22 +178,22 @@
                     ¿Consumes alcohol?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                                 <input type="radio" value="si" name="alcohol" required> Si
+                             <input type="radio" value="alcoholSi" name="alcohol"> Si
                         </label>
                         <label class="opcion-radio">
-                                <input type="radio" value="no" name="alcohol"> No
+                            <input type="radio" value="alcoholNo" name="alcohol"> No
                         </label>
                     </div>
         <br>
                     <label> 
                         Frecuencia
-                            <input type="text" id="frecuenciaAlcohol" name="frecuenciaAlcohol" maxlength="15">
+                        <input type="text" id="frecuenciaAlcohol">
                     </label>
                 </label>
                 <label class="full-width">¿Consumes comida rápida?</label>
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                            <input type="radio" name="comidaRapida" value="crNunca" required> Nunca
+                        <input type="radio" name="comidaRapida" value="crNunca"> Nunca
                     </label>
                     <label class="opcion-radio">
                         <input type="radio" name="comidaRapida" value="cr1"> 1 vez por semana
@@ -179,12 +208,12 @@
 
                 <p>6. Hábitos de sueño y estrés</p>
                 <label>¿Cuántas horas duermes?
-                        <input type="number" id="horasSueño" name="horas_sueno" min="0" max="24" required>
+                    <input type="number" id="horasSueño">
                 </label>
                 
                 <p>7. Estrés</p>
                 <label>Nivel de estrés
-                        <select id="nivelEstres" name="estres" required>
+                    <select id="nivelEstres">
                         <option value="bajo">Bajo</option>
                         <option value="medio">Medio</option>
                         <option value="alto">Alto</option>
@@ -194,39 +223,42 @@
                 <p>8. Suplementación</p>
                 <label class="full-width">¿Consumes suplementos actualmente?</label>
                 <div class="full-width grupo-opciones">
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Proteína" id="supProteina"> Proteína</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Creatina" id="supCreatina"> Creatina</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Pre-entreno" id="supPreEntreno"> Pre-entreno</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Multivitamínico" id="supMultivitaminico"> Multivitamínico</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Omega 3" id="supOmega3"> Omega 3</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Colágeno" id="supColageno"> Colágeno</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Magnesio" id="supMagnesio"> Magnesio</label>
-                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Ninguno" id="supNinguno"> Ninguno</label>
+                    <label class="opcion-check"><input type="checkbox" id="supProteina"> Proteína</label>
+                    <label class="opcion-check"><input type="checkbox" id="supCreatina"> Creatina</label>
+                    <label class="opcion-check"><input type="checkbox" id="supPreEntreno"> Pre-entreno</label>
+                    <label class="opcion-check"><input type="checkbox" id="supMultivitaminico"> Multivitamínico</label>
+                    <label class="opcion-check"><input type="checkbox" id="supOmega3"> Omega 3</label>
+                    <label class="opcion-check"><input type="checkbox" id="supColageno"> Colágeno</label>
+                    <label class="opcion-check"><input type="checkbox" id="supMagnesio"> Magnesio</label>
+                    <label class="opcion-check"><input type="checkbox" id="supNinguno"> Ninguno</label>
                 </div>
                 <label class="full-width">
                     ¿Cuáles y en qué cantidad?
-                    <input type="text" id="cualesSuplementos" name="suplemento_frecuencia" maxlength="30">
+                    <input type="text" id="cualesSuplementos">
                 </label>
 
                 <p>9. Preferencias alimenticias</p>
                 <label class="full-width">
                     Alimentos favoritos:
-                    <input type="text" id="alimentosFavoritos" name="alimentos_favoritos" maxlength="500" placeholder="Separa cada alimento con comas">
+                    <input type="text" id="alimentosFavoritos">
                 </label>
                 <label class="full-width">
                     Alimentos que no te gustan:
-                    <input type="text" id="alimentosDisgusto" name="alimentos_no_gustan" maxlength="500" placeholder="Separa cada alimento con comas">
+                    <input type="text" id="alimentosDisgusto">
                 </label>
                 <label class="full-width">
                     Alimentos que no puedes consumir (alergias o restricciones):
-                    <input type="text" id="alimentosRestriccion" name="alimentos_restringidos" maxlength="500" placeholder="Separa cada alimento con comas">
+                    <input type="text" id="alimentosRestriccion">
                 </label>
 
                 <p>10. Disponibilidad</p>
+                <label>¿Cuántas veces puedes comer al día?
+                    <input type="number" id="comidasDia" placeholder="Ej. 4">
+                </label>
                 <label>¿Preparas tus alimentos?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="preparaAlimentos" value="si" required> Sí
+                            <input type="radio" name="preparaAlimentos" value="si"> Sí
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="preparaAlimentos" value="no"> No
@@ -238,7 +270,7 @@
                 <label >¿Comes fuera de casa?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="comesFuera" value="si" required> Sí
+                            <input type="radio" name="comesFuera" value="si"> Sí
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="comesFuera" value="no"> No
@@ -253,7 +285,7 @@
                 <div class="full-width grupo-compromiso">
                     <div class="escala-compromiso">
                         <div class="item-escala">
-                            <input type="radio" name="compromiso" value="1" required><span>1</span>
+                            <input type="radio" name="compromiso" value="1"><span>1</span>
                         </div>
                         <div class="item-escala">
                             <input type="radio" name="compromiso" value="2"><span>2</span>
@@ -292,7 +324,7 @@
                 <p>Consentimiento</p>
                 <div class="full-width caja-consentimiento">
                     <label class="opcion-check consentimiento-label">
-                        <input type="checkbox" name="aceptoConsentimiento" value="si" required>
+                        <input type="checkbox" name="aceptoConsentimiento" required>
                         <span>Declaro que la información proporcionada es verdadera y autorizo a Fitness Warriors a utilizarla únicamente para elaborar mi plan nutricional y de suplementación personalizado.</span>
                     </label>
                 </div>

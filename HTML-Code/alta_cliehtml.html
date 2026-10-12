@@ -36,39 +36,29 @@
         <h1>Alta de cliente</h1>
         <p>Crea el acceso del nuevo cliente al sistema.</p>
         <form action="../PHP-Code/guardar.php" method="POST">
-            <label for="nombre">Nombre(s)</label>
+            <label>Nombre completo</label>
             <br>
-            <input type="text" id="nombre" name="nombre" maxlength="30" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" autocomplete="given-name" required>
-            <br>
-
-            <label for="apellido_1">Primer apellido</label>
-            <br>
-            <input type="text" id="apellido_1" name="apellido_1" maxlength="10" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" autocomplete="family-name" required>
-            <br>
-
-            <label for="apellido_2">Segundo apellido (opcional)</label>
-            <br>
-            <input type="text" id="apellido_2" name="apellido_2" maxlength="10" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones">
+            <input type="text" id="nombre" name="nombre">
             <br>
 
             <label for="correo">Correo electrónico</label>
             <br>
-            <input type="email" id="correo" name="correo" maxlength="50" autocomplete="email" required>
+            <input type="email" id="correo" name="correo" required>
             <br>
 
-            <label for="password">Contraseña (10 caracteres)</label>
+            <label>Contraseña</label>
             <br>
-            <input type="password" id="password" name="contraseña" minlength="10" maxlength="10" autocomplete="new-password" required>
+            <input type="password" id="password" name="contraseña" >
             <br>
-            <label for="confirmar">Confirmar contraseña</label>
+            <label>Confirmar contraseña</label>
             <br>
             
-            <input type="password" id="confirmar" name="confirmar" minlength="10" maxlength="10" autocomplete="new-password" required>
+            <input type="password" id="confirmar" name="confirmar" >
             <button type="submit">Confirmar y guardar</button>
         </form>
         <p class="abajo">
             ¿Ya tiene cuenta?
-            <a href="loginView.html">Ir a iniciar sesión</a>
+            <a>Ir a iniciar sesión</a>
         </p>
     </div>
 </body>

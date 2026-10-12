@@ -1,137 +1,97 @@
 <?php
-require_once __DIR__ . "/libreria.php";
+require_once("libreria.php");
 
-function responder(string $mensaje, bool $exitoso): void
-{
-    $destino = $exitoso
-        ? "../HTML-Code/loginView.html"
-        : "../HTML-Code/alta_cliehtml.html";
-    $mensajeSeguro = json_encode(
-        $mensaje,
-        JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
-    );
+// Genera el ID basándose SOLO en la tabla loguin
+function generarid($conexion) {
+    $query = "SELECT MAX(id_usuario) as ultimo FROM loguin WHERE id_usuario LIKE 'CLI%'";
+    $stmt = $conexion->prepare($query);
+    $stmt->execute();
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo "<script>alert($mensajeSeguro); window.location.href = "
-        . json_encode($destino)
-        . ";</script>";
-    exit();
+    if($res && $res['ultimo']) {
+        $num = (int)substr($res['ultimo'], 3) + 1;
+    } else {
+        $num = 1;
+    }
+    return 'CLI' . str_pad($num, 3, '0', STR_PAD_LEFT);
 }
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../HTML-Code/alta_cliehtml.html");
-    exit();
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // Agarramos toda la información del formulario
+    $nombre    = trim($_POST['nombre']); 
+    $password  = trim($_POST['contraseña']);
+    $confirmar = trim($_POST['confirmar']);
+    $correo    = trim($_POST["correo"]); 
 
-$nombre = trim($_POST["nombre"] ?? "");
-$apellido1 = trim($_POST["apellido_1"] ?? "");
-$apellido2 = trim($_POST["apellido_2"] ?? "");
-$correo = trim($_POST["correo"] ?? "");
-$password = $_POST["contraseña"] ?? "";
-$confirmar = $_POST["confirmar"] ?? "";
-$longitud = function_exists("mb_strlen") ? "mb_strlen" : "strlen";
-$patronNombre = '/^[\p{L}\p{M}]+(?:[ \x{27}\x{2019}.\x{2D}][\p{L}\p{M}]+)*$/u';
+    // Verificamos que ningún campo esté vacío
+    if (empty($nombre) || empty($password) || empty($confirmar) || empty($correo)) {
+        echo "<script>
+                alert('Error: Por favor completa todos los campos.');
+                window.location.href = '../HTML-Code/alta_cliehtml.html';
+              </script>";
+        exit();
+    }
 
-if (
-    $nombre === "" ||
-    $apellido1 === "" ||
-    $correo === "" ||
-    $password === "" ||
-    $confirmar === ""
-) {
-    responder("Error: completa todos los campos obligatorios.", false);
-}
+    // Validamos que las contraseñas coincidan
+    if ($password !== $confirmar){
+        echo "<script>
+                alert('Error: Las contraseñas no coinciden.');
+                window.location.href = '../HTML-Code/alta_cliehtml.html';
+              </script>";
+        exit();
+    }
 
-if (
-    !$nombre || !$apellido1 || !$correo || !$password || !$confirmar ||
-    $longitud($nombre) > 30 || !preg_match($patronNombre, $nombre) ||
-    $longitud($apellido1) > 10 || !preg_match($patronNombre, $apellido1) ||
-    ($apellido2 !== "" && ($longitud($apellido2) > 10 || !preg_match($patronNombre, $apellido2))) ||
-    $longitud($correo) > 50 ||
-    !filter_var($correo, FILTER_VALIDATE_EMAIL)
-) {
-    responder("Error: revisa el formato y la longitud de los datos ingresados.", false);
-}
-
-if ($password !== $confirmar) {
-    responder("Error: las contraseñas no coinciden.", false);
-}
-
-$longitudPassword = function_exists("mb_strlen") ? "mb_strlen" : "strlen";
-if ($longitudPassword($password) !== 10) {
-    responder("Error: la contraseña debe tener exactamente 10 caracteres.", false);
-}
-
-try {
+    if (mb_strlen($password) != 10){
+        echo "<script>
+                alert('Error: La contraseña debe tener exactamente 10 caracteres.');
+                window.location.href = '../HTML-Code/alta_cliehtml.html';
+              </script>";
+        exit();
+    }
+    
     $conexion = conectaDB();
-    $conexion->beginTransaction();
 
-    $consulta = $conexion->prepare(
-        "SELECT id_usuario
-         FROM usuariocliente WITH (UPDLOCK, HOLDLOCK)
-         WHERE correo = ?"
-    );
-    $consulta->execute([$correo]);
-    if ($consulta->fetchColumn()) {
-        $conexion->rollBack();
-        responder("Error: este correo ya se encuentra registrado.", false);
+    // Buscamos SOLO en loguin para evitar correos duplicados
+    $query_buscar = "SELECT id_usuario FROM loguin WHERE correo = ?";
+    $puente_buscar = $conexion->prepare($query_buscar);
+    $puente_buscar->execute([$correo]);
+    
+    if (!$puente_buscar->fetch()) {
+        
+        // Generamos su nuevo ID (CLI001, etc.)
+        $id_nuevo = generarid($conexion);
+        
+        // CREACIÓN DEL HASH DE SEGURIDAD
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+        try {
+            // Insertamos todo (ID, Nombre, Correo y Hash) directamente en loguin
+            $query_loguin = "INSERT INTO loguin (id_usuario, nombre, correo, contraseña) VALUES (?, ?, ?, ?)";
+            $puente_loguin = $conexion->prepare($query_loguin);
+            
+            $puente_loguin->execute([$id_nuevo, $nombre, $correo, $password_hash]);
+
+            echo "<script>
+                    alert('¡Registro completo y exitoso!');
+                    window.location.href = '../HTML-Code/loginView.html';
+                </script>";
+            exit();
+
+        } catch (PDOException $e) {
+            echo "<script>
+                    alert('Error en BD: " . addslashes($e->getMessage()) . "');
+                    window.location.href = '../HTML-Code/alta_cliehtml.html';
+                </script>";
+            exit();
+        }
+
+    } else {
+        echo "<script>
+                alert('Error: Este correo ya se encuentra registrado.');
+                window.location.href = '../HTML-Code/alta_cliehtml.html';
+            </script>";
+        exit();
     }
-
-    $consulta = $conexion->prepare(
-        "SELECT ISNULL(MAX(TRY_CONVERT(INT, SUBSTRING(id_usuario, 4, 7))), 0) + 1
-         FROM usuariocliente WITH (UPDLOCK, HOLDLOCK)
-         WHERE id_usuario LIKE 'CLI%'"
-    );
-    $consulta->execute();
-    $idNuevo = "CLI" . str_pad((string)$consulta->fetchColumn(), 3, "0", STR_PAD_LEFT);
-
-    $consulta = $conexion->prepare(
-        "SELECT TOP 1 id_rol
-         FROM Rol
-         WHERE nombre_rol = ?
-         ORDER BY id_rol"
-    );
-    $consulta->execute(["Cliente"]);
-    $idRol = $consulta->fetchColumn();
-    if (!$idRol) {
-        throw new RuntimeException("No existe el rol Cliente en la tabla Rol.");
-    }
-
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    $consulta = $conexion->prepare(
-        "INSERT INTO usuariocliente
-            (id_usuario, nombre, correo, fecha_registro, password_hash, id_rol, apellido_1, apellido_2)
-         VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?)"
-    );
-    $consulta->execute([
-        $idNuevo,
-        $nombre,
-        $correo,
-        $passwordHash,
-        $idRol,
-        $apellido1,
-        $apellido2 !== "" ? $apellido2 : null,
-    ]);
-
-    // Mantiene la tabla usada por recuperación con el mismo usuario y hash que usa el login.
-    $consulta = $conexion->prepare(
-        "INSERT INTO Loguin (id_usuario, correo, contraseña) VALUES (?, ?, ?)"
-    );
-    $consulta->execute([$idNuevo, $correo, $passwordHash]);
-
-    $conexion->commit();
-    responder("¡Registro completo y exitoso! Ya puedes iniciar sesión.", true);
-} catch (PDOException $error) {
-    if (isset($conexion) && $conexion->inTransaction()) {
-        $conexion->rollBack();
-    }
-
-    error_log("Error al registrar cliente: " . $error->getMessage());
-    responder("No fue posible guardar el registro. Inténtalo de nuevo.", false);
-} catch (RuntimeException $error) {
-    if (isset($conexion) && $conexion->inTransaction()) {
-        $conexion->rollBack();
-    }
-
-    error_log("Error de configuración al registrar cliente: " . $error->getMessage());
-    responder("No se puede completar el registro por un problema de configuración.", false);
 }
+?>
