@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Proveedores</title>
-    <link rel="stylesheet" href="proveedores.css">
+    <link rel="stylesheet" href="../CSS-Code/proveedores.css">
     
 </head>
 <body>
         
 <aside class="sidebar">
     <a class="brand" href="admin.html">
-        <img src="LogoWarriors.svg" alt="Fitness Warriors">
+        <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
     </a>
 
     <p class="sidebar-label">Administración</p>
@@ -31,7 +31,7 @@
 </aside>
     <div class="tabla">
         <div class="logo">
-            <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
         </div>
         <h1>Proveedores registrados</h1>
         <button type="button" onclick="location.href='nuevoprovee.html'">+ Agregar a un nuevo proveedor</button>
@@ -46,19 +46,43 @@
                     
                 </tr>
             </thead>
-        <tbody><!--ejemplo-->
-            <tr>
-                <td>Suplementos</td>
-                <td>Janeth</td>
-                <td>3311734508</td>
-                <td>janeth88@gmail.com</td>
-            </tr>
+        <tbody id="tablaProveedores">
            
         </tbody>
         </table>
 
-
-        
     </div>
+
+    <script>
+
+    fetch("../PHP-Code/mostrar_proveedor.php")
+    .then(respuesta => respuesta.json())
+    .then(proveedores => {
+
+        console.log("Datos recibidos:", proveedores);
+
+        let filas = "";
+
+        proveedores.forEach(function(proveedor){
+
+            filas += `
+            <tr>
+                <td>${proveedor.nombre_empresa}</td>
+                <td>${proveedor.contacto_nombre}</td>
+                <td>${proveedor.telefono}</td>
+                <td>${proveedor.correo}</td>
+            </tr>
+            `;
+
+        });
+
+
+        document.querySelector("#tablaProveedores").innerHTML = filas;
+
+    })
+    .catch(error => console.log(error));
+
+    </script>
+
 </body>
 </html>
