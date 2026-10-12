@@ -9,6 +9,7 @@ $conexion=conectaDB();
 $query= "SELECT
         prod.id_producto,
         prod.nombre,
+        prod.descripcion,
         prov.nombre_empresa,
         cat.nombre_categoria,
         prod.precio_venta,
