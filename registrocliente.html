@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de cliente</title>
+    <link rel="stylesheet" href="registrocliente.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Panel de cliente</p>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="princi.html#inicio"><span class="nav-icon">⌂</span>Inicio</a>
+                <a href="princi.html#rutina"><span class="nav-icon">♧</span>Mi rutina</a>
+                <a href="princi.html#medidas"><span class="nav-icon">⌁</span>Mis medidas</a>
+                <a href="membresias.html"><span class="nav-icon">▣</span>Mi membresía</a>
+                <a href="princi.html#pagos"><span class="nav-icon">▤</span>Pagos</a>
+                <a href="reglamento.html"><span class="nav-icon">▤</span>Reglamento</a>
+            </nav>
+            <a class="logout" href="loginView.html"><span class="nav-icon">↪</span>Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content" id="inicio">
+            <header class="topbar">
+                <h1><span></span>Registro</h1>
+                <div class="profile"><strong>DC</strong><span>Diana C.</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <div class="welcome-row">
+                    <div>
+                        <p class="eyebrow">FITNESS WARRIORS</p>
+                        <h2>Registro de cliente</h2>
+                        <p>Ingresa los datos para registrarte.</p>
+                    </div>
+                </div>
+
+                <form class="form-card" id="registro">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" maxlength="50" required>
+
+                    <div class="fila-doble">
+                        <div>
+                            <label for="apellido_1">Primer apellido</label>
+                            <input type="text" name="apellido_1" id="apellido_1" maxlength="50" required>
+                        </div>
+                        <div>
+                            <label for="apellido_2">Segundo apellido</label>
+                            <input type="text" name="apellido_2" id="apellido_2" maxlength="50">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-guardar">Guardar registro</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
