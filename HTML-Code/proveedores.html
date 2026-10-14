@@ -43,6 +43,7 @@
                     <th>Nombre de contacto</th><!--encabezado-->
                     <th>Teléfono</th>
                     <th>Correo electrónico</th>
+                    <th>Acciones</th>
                     
                 </tr>
             </thead>
@@ -52,37 +53,8 @@
         </table>
 
     </div>
-
-    <script>
-
-    fetch("../PHP-Code/mostrar_proveedor.php")
-    .then(respuesta => respuesta.json())
-    .then(proveedores => {
-
-        console.log("Datos recibidos:", proveedores);
-
-        let filas = "";
-
-        proveedores.forEach(function(proveedor){
-
-            filas += `
-            <tr>
-                <td>${proveedor.nombre_empresa}</td>
-                <td>${proveedor.contacto_nombre}</td>
-                <td>${proveedor.telefono}</td>
-                <td>${proveedor.correo}</td>
-            </tr>
-            `;
-
-        });
-
-
-        document.querySelector("#tablaProveedores").innerHTML = filas;
-
-    })
-    .catch(error => console.log(error));
-
-    </script>
+    <!-- El script lo uso para mostrar la tabla en la página web-->
+    <script src="../SCRIPT-Code/proveedores.js"></script>
 
 </body>
 </html>

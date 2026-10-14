@@ -3,7 +3,6 @@ require_once "libreria.php";
 
 // Conexión a la BD, llamamos a la funcion que se hizo en libreria.php para hacer la conexión
 $conexion=conectaDB();
-echo "Conexión exitosa";
 
 // Recibir los datos del formulario
 $id_proveedor=generar_id($conexion);
@@ -14,7 +13,11 @@ $correo=$_POST['correo'];
 
 // Crear la consulta
 $consulta="insert into Proveedor
-          (id_proveedor, nombre_empresa, contacto_nombre, telefono, correo)
+          (id_proveedor,
+           nombre_empresa,
+           contacto_nombre,
+           telefono,
+           correo)
            values (?, ?, ?, ?, ?)";
 
 // Preparar la consulta para ejecutarla de forma segura
@@ -27,7 +30,8 @@ $insertar_proveedor->execute([$id_proveedor,
                               $telefono,
                               $correo]);
 
-echo "<br>Proveedor agregado correctamente";
+header("Location: ../HTML-Code/proveedores.html");
+exit();
 
 
 // Función para generar el id_proveedor automaticamente
