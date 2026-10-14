@@ -212,7 +212,7 @@ a {
 
 /* registro */
 
-.form-card {
+.reg {
     width: 100%;
     max-width: 620px;
     margin: 0 auto;
@@ -222,7 +222,7 @@ a {
     background: var(--card);
 }
 
-.form-card label {
+.reg label {
     display: block;
     margin-bottom: 6px;
     color: var(--text-dim);
@@ -230,7 +230,7 @@ a {
     font-weight: 600;
 }
 
-.form-card input {
+.reg input {
     display: block;
     width: 100%;
     padding: 12px 14px;
@@ -243,7 +243,7 @@ a {
     font-size: 13px;
 }
 
-.form-card input:focus {
+.reg input:focus {
     outline: none;
     border-color: var(--blue);
 }
