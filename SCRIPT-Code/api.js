@@ -6,7 +6,7 @@ export async function obtenerCatalogo(categoria)
 //export es por asi deciro la forma de hacer que otros archivos puedan usar la funcion
 // async es para que la funcion pueda usar await, es por asi decirlo como el atributo de una funcion
 {   
-    const url=`${consulta}?categoria=${categoria}`;
+    const url=`${consulta}?action=catalogo&categoria=${categoria}`;
     const catalogo=await fetch(url); //await es para que la funcion espere a que se responda el fetch antes de continuar
     //fetch es para hacer peticiones a un servidor, devuelve un objeto by the way
 
@@ -36,6 +36,25 @@ export async function obtenerProducto(id) {
     return detalle.json();
 }
 
+export async function obtenerDataProducto(id) 
+{
+    // valida antes de gastar una peticion
+    if (!id) 
+    {
+        throw new Error("falto un ID de producto");
+    }
+
+    const url=`${consulta}?action=allProdInfo&id=${encodeURIComponent(id)}`;// se hace una url para redirigir el navegador con cierta informacion
+    //encodeURIComponent es para que el id no tenga caracteres especiales que puedan romper la url
+    const data=await fetch(url);
+
+    if (!data.ok) {
+        throw new Error(`Error HTTP al cargar data: ${data.status}`);
+    }
+
+    return data.json();
+}
+
 export async function bucarProducto(txt)
 {
     if(!txt)
@@ -50,4 +69,25 @@ export async function bucarProducto(txt)
     }
 
     return producto.json();
+}
+
+export async function agregaProducto() 
+{
+    const url=`${consulta}?action=agrega&producto=${encodeURIComponent(producto)}`;// se hace una url para redirigir el navegador con cierta informacion
+    //encodeURIComponent es para que el id no tenga caracteres especiales que puedan romper la url
+    const mensaje=await fetch(url);
+}
+
+export async function editaProducto() 
+{
+    const url=`${consulta}?action=editar&producto=${encodeURIComponent(producto)}`;// se hace una url para redirigir el navegador con cierta informacion
+    //encodeURIComponent es para que el id no tenga caracteres especiales que puedan romper la url
+    const mensaje=await fetch(url);
+}
+
+export async function eliminaProducto() 
+{
+    const url=`${consulta}?action=quitar&producto=${encodeURIComponent(producto)}`;// se hace una url para redirigir el navegador con cierta informacion
+    //encodeURIComponent es para que el id no tenga caracteres especiales que puedan romper la url
+    const detalle=await fetch(url);
 }

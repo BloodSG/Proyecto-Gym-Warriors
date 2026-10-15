@@ -13,12 +13,12 @@
         <h1 class="admin-titulo">PANEL DE ADMINISTRACIÓN</h1>
         <p class="admin-subtitulo">Gestión de Inventario y Productos</p>
 
-        <form class="form-admin">
+        <form class="form-admin" id="formulario-producto">
             <p class="form-section-title">1. Registrar Nuevo Producto</p>
 
             <label>
                 Nombre del Producto:
-                <input type="text" required placeholder="Ej. Proteína 2kg">
+                <input type="text" required placeholder="Ej. Proteína 2kg" id="nombre">
             </label>
 
             <label>
@@ -43,7 +43,7 @@
             <button type="submit" class="btn-primary mt-10">Guardar Producto</button>
         </form>
 
-        <div class="tabla-contenedor">
+        <div class="tabla-contenedor"> <!--esto es lo que debo de modificar-->
             <p class="form-section-title" style="margin-bottom: 15px; font-size: 15px;">2. Inventario Actual</p>
             <table class="tabla-admin">
                 <thead>
@@ -55,57 +55,18 @@
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabla-contenedor">
                     <tr>
-                        <td>1</td>
-                        <td>Proteína 2kg</td>
-                        <td>$1,250.00</td>
-                        <td class="text-stock">15</td>
-                        <td class="text-center">
-                            <a href="#modalEditar" class="btn-accion">Editar</a>
-                        </td>
+                        
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div><script type="module" src="../SCRIPT-Code/editaCatalogo.js"></script>
 
     </div>
 
-    <div class="modal-overlay" id="modalEditar">
-        <div class="modal-content">
-            <a href="#" class="btn-cerrar-modal">&times;</a>
-            
-            <h2 class="modal-titulo">Editar Producto</h2>
-            
-            <form class="form-admin form-admin-sin-margen">
-                <label>
-                    Nombre del Producto:
-                    <input type="text" value="Proteína Whey 2kg" required>
-                </label>
-
-                <label>
-                    Categoría:
-                    <select required>
-                        <option value="1" selected>Suplementos</option>
-                        <option value="2">Accesorios</option>
-                    </select>
-                </label>
-
-                <label>
-                    Precio de Venta ($):
-                    <input type="number" value="1250.00" step="0.01" required>
-                </label>
-
-                <label>
-                    Stock:
-                    <input type="number" value="15" min="0" required>
-                </label>
-
-                <div class="mt-15">
-                    <button type="submit" class="btn-primary">Guardar Cambios</button>
-                    <a href="#" class="btn-secundario">Cancelar</a>
-                </div>
-            </form>
+    <div class="modal-overlay">
+        <div class="modal-content" id="modalEditar">
         </div>
     </div>
 
