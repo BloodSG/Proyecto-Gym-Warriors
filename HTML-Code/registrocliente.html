@@ -37,6 +37,21 @@
         <h1>Registro de cliente</h1>
         <p>Ingresa los datos del cliente.</p>
 
+                <form class="reg" id="registro" action="../PHP-Code/registrocliente.php" method="POST">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" maxlength="50" required>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" name="correo" id="correo" maxlength="25" required>
+                    <div class="fila-doble">
+                        <div>
+                            <label for="apellido_1">Primer apellido</label>
+                            <input type="text" name="apellido_1" id="apellido_1" maxlength="50" required>
+                        </div>
+                        <div>
+                            <label for="apellido_2">Segundo apellido</label>
+                            <input type="text" name="apellido_2" id="apellido_2" maxlength="50">
+                        </div>
+                    </div>
         <form class="reg" id="registro">
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" maxlength="50" required>

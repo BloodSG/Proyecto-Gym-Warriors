@@ -4,18 +4,23 @@
 
 function conectaDB()
 {
-    // Usa las variables configuradas en Apache para conectar con la base remota.
-    $servidor = trim((string)getenv("GYM_DB_SERVER"));
-    $usuario = trim((string)getenv("GYM_DB_USER"));
-    $database = trim((string)(getenv("GYM_DB_NAME") ?: "Gym_warriors"));
-    $contraseña = getenv("GYM_DB_PASSWORD");
+    //estabelce la conexion con la base de datos utilizando PDO
+    $servidor= "servidor-gymwarriors-angelynn.database.windows.net"; //nombre del servidor, en este caso es localhost porque la base de datos esta en el mismo servidor que el script php
+    $usuario= "admin-gym";// nombre de usuario de la base de datos, para sql server es sa y para mysql es root
+    $database= "Gym_warriors";// sin pierde, nombre de la base de datos
+    $contraseña= "ADMgw101"; //contraseña en caso de que tenga
 
-    if ($servidor === "" || $usuario === "" || $contraseña === false || $contraseña === "") {
-        throw new RuntimeException("Falta configurar la conexión a la base de datos.");
+    try
+    {
+        $conexion=new PDO("sqlsrv:server=$servidor;database=$database",$usuario,$contraseña);//el oreden de los parametros es importante
+        $conexion ->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);// esto es para que muestre los errores de la conexion en caso de que haya algunpñ
+
+        return $conexion;
     }
-
-    $dsn = "sqlsrv:Server=tcp:$servidor,1433;Database=$database;Encrypt=yes;TrustServerCertificate=no";
-    return new PDO($dsn, $usuario, $contraseña, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    catch(Exception $e)
+    {   
+        die("Error al conectar a la db". $e->getMessage()); //die es para que se detenga el script y muestre el error
+    }
 }
 
 function generaCodigo()
@@ -192,4 +197,3 @@ function cerrarSession()
 }
 
 ?>
-
