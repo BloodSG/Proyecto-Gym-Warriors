@@ -59,7 +59,7 @@ function generar_id($conexion){
     }
 
     // Se crea el nuevo id_proveedor
-    return "P".str_pad($numero, 3, "0", STR_PAD_LEFT);
+    return "P".str_pad($numero, 2, "0", STR_PAD_LEFT);
 }
 
 ?>
