@@ -2,7 +2,6 @@
 
 require_once 'libreria.php';
 
-
 function cargar_roles($correo) {
     if(session_status() === PHP_SESSION_NONE){
         session_start();
@@ -11,8 +10,8 @@ function cargar_roles($correo) {
     try {
         $conexion = conectaDB();
         
-        //busco la informacion del correo en la tabla de usuariocliente y obtengo el rol correspondiente
-        $query="SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, Rol.nombre_rol
+        // busco el usuario en la tabla usuariocliente y obtengo su rol
+        $query = "SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, Rol.nombre_rol
                 FROM usuariocliente
                 INNER JOIN Rol ON usuariocliente.id_rol = Rol.id_rol
                 WHERE usuariocliente.correo = :correo";
@@ -24,19 +23,30 @@ function cargar_roles($correo) {
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if($usuario){
-            // Guardamos todos los datos en la sesión
+            // guardo los datos del usuario en la sesión
             $_SESSION["id_usuario"] = $usuario["id_usuario"];
             $_SESSION["nombre"] = $usuario["nombre"];
-            $_SESSION["tipo_usuario"] = "Empleado"; 
             $_SESSION["subrol"] = $usuario["nombre_rol"];
             
-            return true; 
+            $subrol = $usuario["nombre_rol"];
+
+            // checo si el subrol es cliente o cualquier otro rol de empleado
+            if ($subrol === 'Cliente') {
+                //si la sesion es de un cliente retorno false para que no entre a la parte de empleados
+                
+                $_SESSION["tipo_usuario"] = "Cliente";
+                return false; 
+            } else {
+                //si es un empleado retorno true para que entre a la parte de empleadosS
+                $_SESSION["tipo_usuario"] = "Empleado";
+                return true; 
+            }
+            
         } else {
             return false; 
         }
     }
     catch(PDOException $e) {
-        
         return false;
     }
 }

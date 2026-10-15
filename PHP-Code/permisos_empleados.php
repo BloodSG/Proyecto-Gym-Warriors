@@ -1,12 +1,11 @@
 <?php
-//aqui recibire los datos del usuario que tiene seccion iniciada
-function verificar_permisos($roles_permitidos=[]){
+function verificar_permisos($roles_permitidos = []) {
     if(session_status() === PHP_SESSION_NONE){
         session_start();
     }
 
-    //checo que el usuario si haya iniciado sesion
-    if(!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Empleado'){
+    // Verificamos que haya iniciado sesión
+    if(!isset($_SESSION['tipo_usuario'])){
         echo"<script>
                 alert('Acceso no autorizado.');
                 window.location.href = 'loginView.html';
@@ -14,10 +13,10 @@ function verificar_permisos($roles_permitidos=[]){
         exit();
     }
 
-    //checo que rol tiene ahorita el usuario
-    $subrol_actual=$_SESSION['subrol'] ?? '';
+    // Obtenemos el rol o subrol actual del usuario
+    $subrol_actual = $_SESSION['subrol'] ?? '';
 
-    //compruebo si el rol de la seccion ouede acceder a la pagina o no
+    // Comprobamos si su rol está dentro de los permitidos para esta vista
     if(!in_array($subrol_actual, $roles_permitidos)){
         http_response_code(403);
         echo"<script>
