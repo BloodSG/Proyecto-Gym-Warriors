@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de cliente</title>
+    <link rel="stylesheet" href="../CSS-Code/registrocliente.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="admin.html#inicio">Inicio</a>
+        <a href="admin.html#empleados">Empleados</a>
+        <a href="admin.html#proveedores">Proveedores</a>
+        <a href="admin.html#productos">Productos</a>
+        <a href="admin.html#clientes" class="active">Clientes</a>
+        <a href="admin.html#ventas">Ventas</a>
+        <a href="admin.html#rutinas">Rutinas</a>
+        <a href="admin.html#membresias">Membresías</a>
+        <a href="admin.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+</aside>
+
+    <div class="formulario">
+        <div class="logo">
+            <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Registro de cliente</h1>
+        <p>Ingresa los datos del cliente.</p>
+
+                <form class="reg" id="registro" action="../PHP-Code/registrocliente.php" method="POST">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" maxlength="50" required>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" name="correo" id="correo" maxlength="100" required>
+                    <div class="fila-doble">
+                        <div>
+                            <label for="apellido_1">Primer apellido</l4abel>
+                            <input type="text" name="apellido_1" id="apellido_1" maxlength="50" required>
+                        </div>
+                        <div>
+                            <label for="apellido_2">Segundo apellido</label>
+                            <input type="text" name="apellido_2" id="apellido_2" maxlength="50">
+                        </div>
+                    </div>
+        
+
+            <button type="submit" class="btn-guardar">Guardar registro</button>
+        </form>
+    </div>
+</body>
+</html>
