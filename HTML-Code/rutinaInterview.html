@@ -13,25 +13,25 @@
                 <h2>Un plan hecho para ti, pensado en tus objetivos</h2>
             </div>
             
-            <form id="formRutina">
+            <form id="formRutina" action="../PHP-Code/procesarentrevista.php" method="post">
 
                 <p>1. Datos personales </p>
 
                 <label class="full-width">
                     Nombre Completo
-                    <input type="text" name="nombre" id="nombre">
+                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
                 </label>
 
                 <label>
                     Edad
-                    <input type="number" name="edad" id="edad">
+                    <input type="number" name="edad" id="edad" min="1" max="100" required>
                 </label>
 
                 <label>
                     Sexo
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="sexo" value="femenino">Femenino 
+                            <input type="radio" name="sexo" value="femenino" required>Femenino 
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="sexo" value="masculino">Masculino
@@ -41,32 +41,32 @@
 
                 <label>
                     Fecha
-                    <input type="date" name="fecha" id="fecha">
+                    <input type="date" name="fecha" id="fecha" required>
                 </label>
 
                 <label>
                     Estatura (cm)
-                    <input type="number" name="estatura" id="estatura" placeholder="ej.170">
+                    <input type="number" name="estatura" id="estatura" min="80" max="250" step="0.01" placeholder="ej.170" required>
                 </label>
 
                 <label>
                     Peso actual (kg)
-                    <input type="number" name="peso" id="peso" step="0.1" placeholder="ej.70">
+                    <input type="number" name="peso" id="peso" min="20" max="999.99" step="0.01" placeholder="ej.70" required>
                 </label>
 
                 <label>
                     Ocupación
-                    <input type="text" name="ocupacion" id="ocupacion">
+                    <input type="text" name="ocupacion" id="ocupacion" maxlength="30">
                 </label>
 
                 <label>
                     Teléfono
-                    <input type="tel" name="telefono" id="telefono">
+                    <input type="tel" name="telefono" id="telefono" minlength="10" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" required>
                 </label>
 
                 <label>
                     Correo electrónico
-                    <input type="email" name="correo" id="correo">
+                    <input type="email" name="correo" id="correo" maxlength="100" required>
                 </label>
 
 
@@ -78,35 +78,35 @@
                 
                 <div class="full-width grupo-opciones" >
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="ganarMasa"> Ganar masa muscular
+                        <input type="checkbox" name="objetivos[]" value="Ganar masa muscular"> Ganar masa muscular
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="perderGrasa"> Perder grasa
+                        <input type="checkbox" name="objetivos[]" value="Perder grasa"> Perder grasa
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="tonificar"> Tonificar / Definir
+                        <input type="checkbox" name="objetivos[]" value="Tonificar / Definir"> Tonificar / Definir
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="mejorarFuerza"> Mejorar fuerza
+                        <input type="checkbox" name="objetivos[]" value="Mejorar fuerza"> Mejorar fuerza
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="mejorarResistencia"> Mejorar resistencia
+                        <input type="checkbox" name="objetivos[]" value="Mejorar resistencia"> Mejorar resistencia
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="saludBienestar"> Salud general / Bienestar 
+                        <input type="checkbox" name="objetivos[]" value="Salud general / Bienestar"> Salud general / Bienestar 
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="rehbilitacion"> Rehabilitación / Recuperación
+                        <input type="checkbox" name="objetivos[]" value="Rehabilitación / Recuperación"> Rehabilitación / Recuperación
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivo" value="otro"> 
-                        <input type="text" name="objetivoOtro" placeholder="Especifique">
+                        <input type="checkbox" name="objetivos[]" value="Otro"> 
+                        <input type="text" name="objetivoOtro" maxlength="30" placeholder="Especifique">
                     </label>
                 </div>
 
                 <label class="full-width">
                     ¿Tienes algún objetivo específico?
-                    <input type="text" name="objetivoEspecifico">
+                    <input type="text" name="objetivoEspecifico" maxlength="300">
                 </label>
 
                 <p>3. Experiencia entrenando</p>
@@ -114,22 +114,22 @@
                 <label>¿Tienes experiencia entrenando?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="experiencia" value="expSi"> Si
+                            <input type="radio" name="experiencia" value="si" required> Si
                         </label>
                         <label class="opcion-radio">
-                            <input type="radio" name="experiencia" value="expNo"> No
+                            <input type="radio" name="experiencia" value="no"> No
                         </label>
                     </div>
                 </label>
 
                 <label> ¿Cuánto tiempo llevas entrenando?
-                    <input type="text" name="tiempoEntrenando" id="tiempoEntrenando"> 
+                    <input type="number" name="tiempoEntrenando" id="tiempoEntrenando" min="0" max="600" required>
                 </label>
 
                 <label>Nivel de experiencia actual:
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="nivelExp" value="principiante"> Principiante
+                        <input type="radio" name="nivelExp" value="principiante" required> Principiante
                     </label>
                     <label class="grupo-opciones">
                         <input type="radio" name="nivelExp" value="intermedio"> Intermedio
@@ -143,10 +143,10 @@
                 <label>¿Has trabajado con entrenador antes?
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="expEntrenador"> Si 
+                        <input type="radio" name="expEntrenador" value="si" required> Si 
                     </label>
                     <label class="opcion-radio" >
-                        <input type="radio" name="expEntrenador"> No
+                        <input type="radio" name="expEntrenador" value="no"> No
                     </label> 
                 </div>
                 </label>
@@ -155,7 +155,7 @@
                 <label>¿Entrenas actualmente?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="actividadActual" value="si">Si
+                            <input type="radio" name="actividadActual" value="si" required>Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="actividadActual" value="no">No
@@ -165,7 +165,7 @@
 
                 <label>
                     ¿Cuántos días a la semana?
-                    <select id="dias">
+                    <select id="dias" name="diasActuales" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -177,7 +177,7 @@
                 </label>
                 <label>
                     ¿Cuánto tiempo por sesión?
-                    <input type="text" name="tiempoSesion" id="tiempoSesiom">
+                    <input type="number" name="tiempoSesion" id="tiempoSesiom" min="1" max="240" required>
                 </label>
                 <label>
                     ¿Qué tipo de entrenamiento realizas?
@@ -206,7 +206,7 @@
                     ¿Padeces alguna condición médica?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="condicionMedica" value="si">Si
+                            <input type="radio" name="condicionMedica" value="si" required>Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="condicionMedica" value="no">No
@@ -216,14 +216,14 @@
                     <br>
                     <label>
                             Especifica
-                            <input type="text" name="condicionMedicaEspecifica" id="condicionMedicaEspecifica">
+                            <input type="text" name="condicionMedicaEspecifica" id="condicionMedicaEspecifica" maxlength="100">
                         </label>
                 </label>
                 <label>
                     ¿Tienes lesiones actuales?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="lesion" value="si">Si
+                            <input type="radio" name="lesion" value="si" required>Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="lesion" value="no">No
@@ -232,14 +232,14 @@
                     <br>
                     <label >
                         ¿Cuáles?
-                        <input type="text" name="lesionEspecifica" id="lesionEspecifica">
+                        <input type="text" name="lesionEspecifica" id="lesionEspecifica" maxlength="100">
                     </label>
                 </label>
                 <label>
                     ¿Hay algún ejercicio que no puedas realizar?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="limitacionEjercicios" value="si">Si
+                            <input type="radio" name="limitacionEjercicios" value="si" required>Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="limitacionEjercicios" value="no">No
@@ -248,13 +248,13 @@
                     <br>
                     <label>
                         ¿Cuáles?
-                        <input type="text" name="limitacionEjerciciosTxt" id="limitacionEjerciciosTxt">
+                        <input type="text" name="limitacionEjerciciosTxt" id="limitacionEjerciciosTxt" maxlength="100">
                     </label>
                 </label>
 
                 <p>6. Disponibilidad</p>
                 <label>¿Cuántos días puedes entrenar por semana?
-                    <select id="disponibilidad">
+                    <select id="disponibilidad" name="disponibilidad" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -267,7 +267,7 @@
                 <label>¿Cuánto tiempo tienes disponible por sesión?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="disponibilidadTiempo" value="30">30 min
+                            <input type="radio" name="disponibilidadTiempo" value="30" required>30 min
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="disponibilidadTiempo" value="45">45 min
@@ -286,7 +286,7 @@
                 </label>
                 <label>
                     ¿En qué horarios puedes entrenar?
-                    <input type="text" id="horarios" name="horarios">
+                    <input type="time" id="horarios" name="horarios" required>
                 </label>
 
                 <p>7. Equipamiento disoonible</p>
@@ -294,16 +294,16 @@
                     ¿Dónde sueles entrenar?
                     <div class="grupo-opciones">
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar" value="gym">Ginmasio
+                            <input type="checkbox" name="lugar[]" value="gimnasio">Ginmasio
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar" value="casa">Casa
+                            <input type="checkbox" name="lugar[]" value="casa">Casa
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar" value="aireLibre">Aire libre 
+                            <input type="checkbox" name="lugar[]" value="aire libre">Aire libre 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar" value="otro">Otro
+                            <input type="checkbox" name="lugar[]" value="otro">Otro
                             <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique">
                         </label>
                     </div>
@@ -312,26 +312,26 @@
                     ¿Qué equipo tienes disponible?
                     <div class="grupo-opciones">
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="mancuernas">Mancuernas
+                            <input type="checkbox" name="equipo[]" value="Mancuernas">Mancuernas
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="bandasElasticas">Bamdas elásticas
+                            <input type="checkbox" name="equipo[]" value="Bandas elásticas">Bamdas elásticas
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="maquinas">Maquinas
+                            <input type="checkbox" name="equipo[]" value="Máquinas">Maquinas
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="barras">Barras 
+                            <input type="checkbox" name="equipo[]" value="Barras">Barras 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="kettlebells">Kettlebells 
+                            <input type="checkbox" name="equipo[]" value="Kettlebells">Kettlebells 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="ninguno">Ninguno
+                            <input type="checkbox" name="equipo[]" value="Ninguno">Ninguno
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo" value="otro">Otro
-                            <input typr="text" name="equipoOtro" id="equipoOtro" placeholder="Especifique">
+                            <input type="checkbox" name="equipo[]" value="Otro">Otro
+                            <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique">
                         </label>
 
                     
@@ -343,35 +343,35 @@
                     ¿Qué tipo de entrenamiento disfrutas más?
                     <div class="grupo-opciones">
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="fuerza">Fuerza / Hipertrofia
+                            <input type="checkbox" name="preferencias[]" value="fuerza">Fuerza / Hipertrofia
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="funcional">Funcional / Circuitos
+                            <input type="checkbox" name="preferencias[]" value="funcional">Funcional / Circuitos
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="cardio">Cardio / HIIT
+                            <input type="checkbox" name="preferencias[]" value="cardio">Cardio / HIIT
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="cross">Cross training
+                            <input type="checkbox" name="preferencias[]" value="cross">Cross training
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="movilidad">Movilidad / Estabilidad
+                            <input type="checkbox" name="preferencias[]" value="movilidad">Movilidad / Estabilidad
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias" value="otro">
-                            <input type="text" name="preferenciasOtro" id="preferenciasOtro">
+                            <input type="checkbox" name="preferencias[]" value="otro">
+                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15">
                         </label>
                     </div> 
                 </label>
                 <label>
                     <label>
                         ¿Hay ejercicios que te gusten o disfrutes nucho?
-                        <input type="text" name="disfruta" id="disfruta">
+                        <input type="text" name="disfruta" id="disfruta" maxlength="500" placeholder="Separa los ejercicios con comas">
                     </label>
                     <br>
                     <label>
                         ¿Hay ejercicios que no te gusten o prefieras evitar?
-                        <input type="text" name="noDisfruta" id="noDisfruta">
+                        <input type="text" name="noDisfruta" id="noDisfruta" maxlength="500" placeholder="Separa los ejercicios con comas">
                     </label>
                 </label>
                 
@@ -380,7 +380,7 @@
                     ¿Cómo describirías tu nivel de estrés?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="estres" value="bajo">Bajo
+                            <input type="radio" name="estres" value="bajo" required>Bajo
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="estres" value="medio">Medio
@@ -394,7 +394,7 @@
                     ¿Duermes bien?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="sueño" value="si">Si
+                            <input type="radio" name="sueño" value="si" required>Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="sueño" value="no">No
@@ -410,16 +410,16 @@
                     ¿Sigues alguna dieta o plan alimenticio?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="dieta" value="si">Si
+                            <input type="radio" name="dieta" value="si" required>Si
                         </label>
                         <label class="grupo-opciones">
-                            <input type="radio" name="dieta" value="No">No
+                            <input type="radio" name="dieta" value="no">No
                         </label>
                     </div>
                     <br>
                     <label>
                         ¿Cuál?
-                        <input type="text" name="dietatxt" id="dietatxt">
+                        <input type="text" name="dietatxt" id="dietatxt" maxlength="255">
                     </label>
                 </label>
 
@@ -435,7 +435,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="fuerza" value="1">
+                                    <input type="radio" name="fuerza" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -485,7 +485,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="resistencia" value="1">
+                                    <input type="radio" name="resistencia" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -535,7 +535,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="flexibilidad" value="1">
+                                    <input type="radio" name="flexibilidad" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -585,7 +585,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="energia" value="1">
+                                    <input type="radio" name="energia" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -635,7 +635,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="disciplina" value="1">
+                                    <input type="radio" name="disciplina" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -685,7 +685,7 @@
                             </span>
                             <div class="escala-compromiso">
                                 <div class="item-escala">
-                                    <input type="radio" name="motivacion" value="1">
+                                    <input type="radio" name="motivacion" value="1" required>
                                     <span>1</span>
                                 </div>
                                 <div class="item-escala">
@@ -731,15 +731,22 @@
                 <p>11. Comentarios adicionales</p>
                 <div class="full-width">
                     <label>Cuéntanos algo importante que debamos saber para diseñar la mejor rutina para ti
-                        <input type="text" name="comentarios" id="comentarios">
+                        <input type="text" name="comentarios" id="comentarios" maxlength="40">
                     </label>
                 </div>
                     
                 <p>Compromiso</p>
                 <div class="full-width caja-consentimiento">
                     <label class="opcion-check consentimiento-label">
-                        <input type="checkbox" name="compromiso" required>
+                        <input type="checkbox" name="compromiso" value="si" required>
                         <span>Me comprometo a seguir mi rutina con disciplina, constancia y responsabilidad para alcanzar mis objetivos.</span>
+                    </label>
+                </div>
+
+                <div class="full-width caja-consentimiento">
+                    <label class="opcion-check consentimiento-label">
+                        <input type="checkbox" name="acepto_reglamento" value="si" required>
+                        <span>Acepto el reglamento del gimnasio.</span>
                     </label>
                 </div>
 
