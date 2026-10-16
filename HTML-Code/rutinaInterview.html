@@ -23,11 +23,6 @@
                 </label>
 
                 <label>
-                    Edad
-                    <input type="number" name="edad" id="edad" min="1" max="100" required>
-                </label>
-
-                <label>
                     Sexo
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
@@ -40,8 +35,8 @@
                 </label>
 
                 <label>
-                    Fecha
-                    <input type="date" name="fecha" id="fecha" required>
+                    Fecha de Nacimiento
+                    <input type="date" name="fechaNac" id="fechaNac" required>
                 </label>
 
                 <label>
@@ -56,7 +51,17 @@
 
                 <label>
                     Ocupación
-                    <input type="text" name="ocupacion" id="ocupacion" maxlength="30">
+                    <input type="text" name="ocupacion" id="ocupacion" maxlength="30" list="listaOcupaciones" placeholder="Elige o escribe tu ocupación">
+                    <datalist id="listaOcupaciones">
+                        <option value="Estudiante">
+                        <option value="Empleado">
+                        <option value="Docente">
+                        <option value="Independiente">
+                        <option value="Comerciante">
+                        <option value="Hogar">
+                        <option value="Desempleado">
+                        <option value="Jubilado">
+                    </datalist>
                 </label>
 
                 <label>
@@ -99,8 +104,8 @@
                         <input type="checkbox" name="objetivos[]" value="Rehabilitación / Recuperación"> Rehabilitación / Recuperación
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivos[]" value="Otro"> 
-                        <input type="text" name="objetivoOtro" maxlength="30" placeholder="Especifique">
+                        <input type="checkbox" name="objetivos[]" value="Otro"> Otro
+                        <input type="text" name="objetivoOtro" maxlength="30" placeholder="Especifique" disabled>
                     </label>
                 </div>
 
@@ -123,7 +128,14 @@
                 </label>
 
                 <label> ¿Cuánto tiempo llevas entrenando?
+                    <div>
                     <input type="number" name="tiempoEntrenando" id="tiempoEntrenando" min="0" max="600" required>
+                    <select id="unidadTiempo" name="unidadTiempo" required>
+                        <option value="días">días</option>
+                        <option value="meses">meses</option>
+                        <option value="años">años</option>
+                    </select>
+                    </div>
                 </label>
 
                 <label>Nivel de experiencia actual:
@@ -166,6 +178,7 @@
                 <label>
                     ¿Cuántos días a la semana?
                     <select id="dias" name="diasActuales" required>
+                        <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -178,10 +191,24 @@
                 <label>
                     ¿Cuánto tiempo por sesión?
                     <input type="number" name="tiempoSesion" id="tiempoSesiom" min="1" max="240" required>
+                    <select id="unidadTiempoSesion">
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Hora(s)</option>
+                    </select>
                 </label>
                 <label>
                     ¿Qué tipo de entrenamiento realizas?
-                    <input type="text" name="tipoEntrenamiento" id="tipoEntrenamiento">
+                    <input type="text" name="tipoEntrenamiento" id="tipoEntrenamiento" list="listaTipoEntrenamiento" placeholder="Elige o ecribe un tipo">
+                    <datalist id="listaTipoEntrenamiento">
+                        <option value="Fuerza">
+                        <option value="Hipertrofia">
+                        <option value="Cardio">
+                        <option value="Entrenamiento funcional">
+                        <option value="Calistenia">
+                        <option value="Cross training">
+                        <option value="Movilidad y flexibilidad">
+                        <option value="Rehabilitación">
+                    </datalist>
                 </label>
                 <label>
                     ¿Realizas otro deporte?
@@ -198,7 +225,19 @@
 
                 <label >
                     ¿Cuál?
-                    <input type="text" name="nombreDeporte" id="nombreDeporte">
+                    <input type="text" name="nombreDeporte" id="nombreDeporte" list="listadeportes" placeholder="Elige o escribe un deporte" disabled>
+                    <datalist id="listaDeportes">
+                        <option value="Fútbol">
+                        <option value="Básquetbol">
+                        <option value="Voleibol">
+                        <option value="Natación">
+                        <option value="Ciclismo">
+                        <option value="Atletismo">
+                        <option value="Boxeo">
+                        <option value="Artes marciales">
+                        <option value="Tenis">
+                        <option value="Danza">
+                    </datalist>
                 </label>
                 
                 <p>5. Antecedentes de salud</p>
@@ -216,7 +255,7 @@
                     <br>
                     <label>
                             Especifica
-                            <input type="text" name="condicionMedicaEspecifica" id="condicionMedicaEspecifica" maxlength="100">
+                            <input type="text" name="condicionMedicaEspecifica" id="condicionMedicaEspecifica" maxlength="100" disabled>
                         </label>
                 </label>
                 <label>
@@ -232,7 +271,7 @@
                     <br>
                     <label >
                         ¿Cuáles?
-                        <input type="text" name="lesionEspecifica" id="lesionEspecifica" maxlength="100">
+                        <input type="text" name="lesionEspecifica" id="lesionEspecifica" maxlength="100" disabled>
                     </label>
                 </label>
                 <label>
@@ -248,7 +287,7 @@
                     <br>
                     <label>
                         ¿Cuáles?
-                        <input type="text" name="limitacionEjerciciosTxt" id="limitacionEjerciciosTxt" maxlength="100">
+                        <input type="text" name="limitacionEjerciciosTxt" id="limitacionEjerciciosTxt" maxlength="100" disabled>
                     </label>
                 </label>
 
@@ -289,12 +328,12 @@
                     <input type="time" id="horarios" name="horarios" required>
                 </label>
 
-                <p>7. Equipamiento disoonible</p>
+                <p>7. Equipamiento disponible</p>
                 <label>
                     ¿Dónde sueles entrenar?
                     <div class="grupo-opciones">
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar[]" value="gimnasio">Ginmasio
+                            <input type="checkbox" name="lugar[]" value="gimnasio">Gimnasio
                         </label>
                         <label class="opcion-check">
                             <input type="checkbox" name="lugar[]" value="casa">Casa
@@ -304,7 +343,7 @@
                         </label>
                         <label class="opcion-check">
                             <input type="checkbox" name="lugar[]" value="otro">Otro
-                            <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique">
+                            <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique" disabled>
                         </label>
                     </div>
                 </label>
@@ -315,7 +354,7 @@
                             <input type="checkbox" name="equipo[]" value="Mancuernas">Mancuernas
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo[]" value="Bandas elásticas">Bamdas elásticas
+                            <input type="checkbox" name="equipo[]" value="Bandas elásticas">Bandas elásticas
                         </label>
                         <label class="opcion-check">
                             <input type="checkbox" name="equipo[]" value="Máquinas">Maquinas
@@ -331,7 +370,7 @@
                         </label>
                         <label class="opcion-check">
                             <input type="checkbox" name="equipo[]" value="Otro">Otro
-                            <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique">
+                            <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique" disabled>
                         </label>
 
                     
@@ -359,7 +398,7 @@
                         </label>
                         <label class="opcion-check">
                             <input type="checkbox" name="preferencias[]" value="otro">
-                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15">
+                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" disabled>
                         </label>
                     </div> 
                 </label>
@@ -419,7 +458,18 @@
                     <br>
                     <label>
                         ¿Cuál?
-                        <input type="text" name="dietatxt" id="dietatxt" maxlength="255">
+                        <input type="text" name="dietatxt" id="dietatxt" maxlength="255" list="listaDietas" placeholder="Elige o escribe tu plan alimetnicio" disabled>
+                        <datalist id="listaDietas">
+                            <option value="Dieta balanceada">
+                            <option value="Déficit calórico">
+                            <option value="Superávit calórico">
+                            <option value="Dieta alta en proteínas">
+                            <option value="Dieta vegetariana">
+                            <option value="Dieta vegana">
+                            <option value="Dieta mediterránea">
+                            <option value="Plan indicado por nutriólogo">
+                            <option value="Otro">
+                        </datalist>
                     </label>
                 </label>
 
