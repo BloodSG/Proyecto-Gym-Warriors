@@ -193,8 +193,8 @@ body {
     box-sizing: border-box;
 }
 
-.modal-detalle-overlay:target,
-.modal-overlay:target {
+.modal-detalle-overlay.abierto,
+.modal-overlay.abierto {
     display: flex;
 }
 

@@ -18,8 +18,8 @@ function mostrarInventario(inventario)
                             <td>$${producto.precio_venta}</td>
                             <td class="text-stock">${producto.stock}</td>
                             <td class="text-center">
-                                <button class="btn-accion" data-id="${producto.id_producto}" 
-                                type="button">Editar</button>
+                                <a class="btn-accion" data-id="${producto.id_producto}" 
+                                href="#modalEditarOverlay" type="button">Editar</a>
                             </td>`;
         contenedor.append(tupla)
     });
@@ -27,9 +27,9 @@ function mostrarInventario(inventario)
 
 function mostraEditar(producto)    
 {   
-
+    const modalOverlay = document.getElementById("modalEditarOverlay");
     const contenedor=document.getElementById("modalEditar")
-    const overlay = document.querySelector(".modal-overlay");
+
     if (producto.status !== "success")
     {
         contenedor.innerHTML =
@@ -38,9 +38,6 @@ function mostraEditar(producto)
     }
     const Data=producto.data;
     contenedor.innerHTML=`
-            
-            <a href="#" class="btn-cerrar-modal">&times;</a>
-            
             <h2 class="modal-titulo">Editar Producto</h2>
             
             <form class="form-admin form-admin-sin-margen">
@@ -59,6 +56,11 @@ function mostraEditar(producto)
                 </label>
 
                 <label>
+                    Precio de compra ($):
+                    <input type="number" name="precio_compra" value="${Data.precio_compra}" step="0.01" required>
+                </label>
+
+                <label>
                     Precio de Venta ($):
                     <input type="number" name="precio_venta" value="${Data.precio_venta}" step="0.01" required>
                 </label>
@@ -70,26 +72,19 @@ function mostraEditar(producto)
 
                 <div class="mt-15">
                     <button type="submit" class="btn-primary">Guardar Cambios</button>
-                    <a href="#" class="btn-secundario">Cancelar</a>
+                    <button type="button" class="btn-secundario" id="btnCancelar">Cancelar</button>
                 </div>
             </form>`;
-    console.log(Data.nombre)
-    overlay.style.display = 'flex';
-    document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-cerrar-modal") ||
-        e.target.classList.contains("btn-secundario")) {
-        document.querySelector(".modal-overlay").style.display = "none";
-    }
+    modalOverlay.classList.add("abierto");
+    document.getElementById("btnCancelar").addEventListener("click", () => {
+    cerrarModalEditar(modalOverlay, contenedor);
     });
-
-    // Cerrar clickeando el fondo oscuro
-    document.querySelector(".modal-overlay").addEventListener("click", (e) => {
-        if (e.target.classList.contains("modal-overlay")) {
-            e.target.style.display = "none";
-        }
-    });
-
 }
+function cerrarModalEditar(modalOverlay,contenedor) {
+    modalOverlay.classList.remove("abierto");
+    contenedor.innerHTML = ""; // Opcional: limpia el contenido al cerrar para que no se quede guardado basura
+}
+
 
 function editar(id)
 {
@@ -98,7 +93,6 @@ function editar(id)
     const nombre=datos.get("nombre")
     console.log("nombre: ",nombre)
 }
-
 
 
 document.getElementById("tabla-contenedor").addEventListener("click", async (e) => 
@@ -127,4 +121,3 @@ document.getElementById("tabla-contenedor").addEventListener("click", async (e) 
 });
 
 obtenerCatalogo("").then(mostrarInventario)
-
