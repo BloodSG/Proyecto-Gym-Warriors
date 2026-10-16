@@ -9,6 +9,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-image: url('../Recursos/Img_sis/fondo.jpeg');
 }
 
 .formularioEntrada {

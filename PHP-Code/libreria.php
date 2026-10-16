@@ -12,7 +12,7 @@ function conectaDB()
 
     try
     {
-        $conexion=new PDO("sqlsrv:server=$servidor;database=$database",$usuario,$contraseña);//el oreden de los parametros es importante
+        $conexion=new PDO("sqlsrv:server=$servidor;database=$database; Encrypt=true; TrustServerCertificate=true",$usuario,$contraseña);//el oreden de los parametros es importante
         $conexion ->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);// esto es para que muestre los errores de la conexion en caso de que haya algunpñ
 
         return $conexion;
