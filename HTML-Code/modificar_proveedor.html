@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar proveedor</title>
+    <link rel="stylesheet" href="../CSS-Code/nuevoprovee.css">
+
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="admin.html#inicio">Inicio</a>
+        <a href="admin.html#empleados" >Empleados</a>
+        <a href="admin.html#proveedores"class="active">Proveedores</a>
+        <a href="admin.html#productos">Productos</a>
+        <a href="admin.html#clientes">Clientes</a>
+        <a href="admin.html#ventas">Ventas</a>
+        <a href="admin.html#rutinas">Rutinas</a>
+        <a href="admin.html#membresias">Membresías</a>
+        <a href="admin.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+</aside>
+
+    <div class="formulario">
+        <div class="logo">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Modificar proveedor</h1>
+        <p>Modifica los datos del proveedor</p>
+        <form id="formEditarProveedor">
+            <input type="hidden" id="id_proveedor" name="id_proveedor">
+            <label for="nombreemp">Nombre de la empresa</label>
+            <br>
+            <input type="text" id="nombreemp" name="nombreemp" required>
+            <br>
+            <label for="nombre">Nombre de contacto</label>
+            <br>
+            <input type="text" id="nombre" name="nombre" required>
+            <br>
+            <label for="telefono">Teléfono</label>
+            <br>
+            <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" required>
+            <br>
+            <label for="correo">Correo electrónico</label>
+            <br>
+            <input type="email" id="correo" name="correo" required>
+            <br>
+
+            <button type="button" onclick="window.location.href='../HTML-Code/proveedores.html'">Cancelar</button>
+            <button type="submit">Confirmar y guardar</button>
+        </form>
+
+    </div>
+
+    <div id="mensaje" class="mensaje"></div>
+
+    <!-- El script que esta en provedores.js, la segunda parte donde dice cargar datos
+        lo uso para enviar la informacion del proveedor que se va a modificar, se colocan
+        en las cajas de texto-->
+    <script src="../SCRIPT-Code/proveedores.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>

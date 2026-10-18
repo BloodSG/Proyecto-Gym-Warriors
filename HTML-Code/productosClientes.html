@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - Cliente</title>
+    <link rel="stylesheet" href="../CSS-Code/productos.css">
+</head>
+<body>
+
+    <div class="cliente-container">
+        
+        <header class="cliente-header">
+            <h1>CATÁLOGO DE PRODUCTOS</h1>
+            <p class="cliente-subtitle">Explora nuestra selección de suplementos y accesorios</p>
+        </header>
+
+        <div class="cliente-filtros">
+            <input type="text" id="Vuscar" placeholder="Buscar producto..." class="input-busqueda">
+            
+            <select class="select-categoria" id="filtro-categoria">
+                <option value="" >Todas las categorías</option>
+                <option value="Suplementos">Suplementos</option>
+                <option value="Equipamiento">Equipamiento</option>
+            </select>
+        </div>
+
+        <div class="catalogo-grid" id="catalogo">
+
+        </div>
+        <script type="module" src="../SCRIPT-Code/cargaCatalogo.js"></script>
+
+    </div>
+
+    <div id="modalDetalle3" class="modal-detalle-overlay">
+        <div class="modal-detalle-content" id="contenidomodaldetalle">
+            <a href="#" class="btn-cerrar-modal">&times;</a>
+        </div>
+
+    </div>
+
+    <!-- plantilla "producto" -->
+    <template id="template-producto-card">
+        <div class="producto-card">
+            <div>
+                <img src="" alt="" class="prod-img">
+                <span class="producto-categoria-tag prod-categoria"></span>
+                <h3 class="prod-nombre"></h3>
+            </div>
+            <div>
+                <p class="precio prod-precio"></p>
+                <span class="stock-info prod-stock"></span>
+                <a href="#" class="btn-primary btn-card-accion prod-btn">Ver Detalles</a>
+            </div>
+        </div>
+    </template>
+
+    <!-- plantilla "detalles" -->
+    <template id="template-modal-detalle">
+        <div class="modal-detalle-overlay prod-modal-overlay">
+            <div class="modal-detalle-content">
+                <a href="#" class="btn-cerrar-modal">&times;</a>
+                
+                <img src="" alt="" class="detalle-imagen prod-modal-img">
+                
+                <div class="detalle-info">
+                    <span class="detalle-categoria prod-modal-categoria"></span>
+                    <h2 class="detalle-titulo prod-modal-titulo"></h2>
+                    <p class="detalle-descripcion prod-modal-desc"></p>
+                    <div class="detalle-precio prod-modal-precio"></div>
+                    <span class="stock-info detalle-stock prod-modal-stock"></span>
+                    <div class="mt-10">
+                        <button type="button" class="btn-primary">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</body>
+</html>

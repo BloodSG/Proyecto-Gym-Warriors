@@ -41,14 +41,15 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL))
 try
 {
     $query="SELECT nombre
-            FROM Loguin
-            WHERE correo=?";
+            FROM Loguin JOIN usuariocliente
+            ON Loguin.correo=?
+            AND Loguin.id_usuario=usuariocliente.id_usuario";
 
     $Puente=$conexion->prepare($query); //sirve para preparar la consulta con el servidor antes de pasarle datos realies
 
-    $Puente->execute((array)$correo);
+    $Puente->execute([$correo]);
     $usuario=$Puente->fetch(PDO::FETCH_ASSOC);
-
+    echo "<script>alert($correo); window.history.back();</script>";
     if ($usuario)
         {   
             $nombre=$usuario["nombre"];
