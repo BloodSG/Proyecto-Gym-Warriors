@@ -4,12 +4,31 @@ require_once "libreria.php";
 // Conexión a la BD, llamamos a la funcion que se hizo en libreria.php para hacer la conexión
 $conexion=conectaDB();
 
+header("Content-Type: application/json");
+
 // Recibir los datos del formulario
 $id_proveedor=generar_id($conexion);
 $nombre_empresa=$_POST['nombreemp'];
 $nombre_contacto=$_POST['nombre'];
 $telefono=$_POST['telefono'];
 $correo=$_POST['correo'];
+
+// Verificar si el proveedor ya existe
+$consultaExiste="select *
+                 from Proveedor
+                 where nombre_empresa=? or correo=? or telefono=?";
+$verificar=$conexion->prepare($consultaExiste);
+$verificar->execute([$nombre_empresa,
+                     $correo,
+                     $telefono]);
+
+if($verificar->fetch(PDO::FETCH_ASSOC)){
+    echo json_encode([
+        "estado"=>"error",
+        "mensaje"=>"La empresa, el correo o el telefono ya se encuentra registrado"
+    ]);
+    exit();
+}
 
 // Crear la consulta
 $consulta="insert into Proveedor
@@ -20,19 +39,28 @@ $consulta="insert into Proveedor
            correo)
            values (?, ?, ?, ?, ?)";
 
-// Preparar la consulta para ejecutarla de forma segura
-$insertar_proveedor=$conexion->prepare($consulta);
+try{
+    // Preparar la consulta para ejecutarla de forma segura
+    $insertar_proveedor=$conexion->prepare($consulta);
 
-// Ejecutar la consulta, para agregar información
-$insertar_proveedor->execute([$id_proveedor,
-                              $nombre_empresa,
-                              $nombre_contacto,
-                              $telefono,
-                              $correo]);
+    // Ejecutar la consulta, para agregar información
+    $insertar_proveedor->execute([$id_proveedor,
+                                $nombre_empresa,
+                                $nombre_contacto,
+                                $telefono,
+                                $correo]);
 
-header("Location: ../HTML-Code/proveedores.html");
-exit();
+    echo json_encode([
+        "estado"=>"ok",
+        "mensaje"=>"Proveedor guardado correctamente."
+    ]);
 
+}catch(PDOException $error){
+    echo json_encode([
+        "estado"=>"error",
+        "mensaje"=>"No se pudo guardar el proveedor."
+    ]);
+}
 
 // Función para generar el id_proveedor automaticamente
 function generar_id($conexion){

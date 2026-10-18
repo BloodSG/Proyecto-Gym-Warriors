@@ -36,7 +36,7 @@
         </div>
         <h1>Modificar proveedor</h1>
         <p>Modifica los datos del proveedor</p>
-        <form action="../PHP-Code/modificar_proveedor.php" method="POST">
+        <form id="formEditarProveedor">
             <input type="hidden" id="id_proveedor" name="id_proveedor">
             <label for="nombreemp">Nombre de la empresa</label>
             <br>
@@ -60,6 +60,8 @@
         </form>
 
     </div>
+
+    <div id="mensaje" class="mensaje"></div>
 
     <!-- El script que esta en provedores.js, la segunda parte donde dice cargar datos
         lo uso para enviar la informacion del proveedor que se va a modificar, se colocan

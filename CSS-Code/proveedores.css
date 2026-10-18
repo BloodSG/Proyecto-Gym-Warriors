@@ -23,7 +23,7 @@ body{
     margin-left: 205px;
 }
 button{
-    width:44%;
+    width:70%;
     padding:12px;
     margin: 3%;
     background:#b2dc52;
@@ -183,4 +183,71 @@ tbody tr:hover {
     .main-nav .active {
         font-size: 0;
     }
+}
+
+/* Caja principal del mensaje */
+.mensaje{
+    position: fixed;
+    top: 25px;
+    right: 25px;
+
+    min-width: 320px;
+    max-width: 400px;
+
+    padding: 18px 22px;
+
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    
+    align-items: center;
+    gap: 12px;
+
+    border-radius: 12px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    z-index: 1000;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+
+/* Mensaje correcto */
+.mensaje.exito{
+    background-color: #74b783;
+    border-left: 6px solid #2f7d45;
+}
+
+
+/* Mensaje de error */
+.mensaje.error{
+    background-color: #dc3545;
+    border-left: 6px solid #a71d2a;
+}
+
+
+/* Mensaje de advertencia */
+.mensaje.advertencia{
+    background-color: #ffc107;
+    color: #222;
+    border-left: 6px solid #d39e00;
+}
+
+
+/* Animación de entrada */
+@keyframes aparecer{
+
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
 }
