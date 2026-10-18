@@ -1,0 +1,71 @@
+body{
+    display: flex;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('../Recursos/fondo.jpeg');
+}
+.contendor-banner{
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    box-sizing: border-box;
+
+}
+.promo-banner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    background-color: #131a28;
+    border:5px #b2dc52;
+    border-radius: 12px;
+
+    width: 100%;
+    padding: 25px 25px;
+    box-sizing: border-box;
+}
+.promo-banner::before{
+    content: '';
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #b2dc52;
+}
+.promo-contenido{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.promo-tag{
+    font-size: 12px;
+    color: #b2dc52;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+}
+.promo-titulo{
+    font-size: 20px;
+    color: #f2f2f2;
+
+}
+.promo-descripcion{
+    font-size: 13px;
+    color: #8b97ad;
+}
+.promo-boton{
+    background-color: #b2dc52;
+    color: #131a28;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 15px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor:pointer;
+    display: inline-block;
+    text-align: center;
+}
