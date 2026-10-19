@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
     $precioCompra= trim($_POST["precio_compra"] ?? "");
     $precioVenta=trim($_POST["precio_venta"] ?? "");
     $stock= trim($_POST["stock"] ?? "");
-    $idProvedor="P01";
+    $idProvedor=trim($_POST["id_poveedor"] ?? "");
 
     if ($precioCompra < 0 || $precioVenta < 0 || $stock < 0)
     {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         exit; 
     }
     
-    if (in_array("", [$nombre, $categoria, $precioCompra, $precioVenta, $stock], true))
+    if (in_array("", [$nombre, $categoria, $precioCompra, $precioVenta, $stock, $idProvedor], true))
     {
         echo "<script>alert('Alguno de los campos esta vacio, revisa de nuevo'); window.history.back();</script>";
         exit; 
@@ -31,6 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         exit;
     }
 
+    if(!is_numeric($precioCompra) || !is_numeric($precioVenta) || !is_numeric($stock))
+    {
+        echo "<script>alert('Los precios y stock deben de ser valores numericos'); window.history.back();</script>";
+        exit;
+    }
+
+    if(mb_strlen($nombre, 'UTF-8')>50)
+    {
+        echo "<script>alert('El nombre debe de ser menor o igual a 50 caracteres'); window.history.back();</script>";
+        exit; 
+    }
+    if(mb_strlen($descripcion, 'UTF-8')>200)
+    {
+        echo "<script>alert('La descripcion debe de ser menor o igual a 200 caracteres'); window.history.back();</script>";
+        exit; 
+    }
 
     $caracteres='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $aleatorio=$caracteres[rand(0, strlen($caracteres) - 1)] . $caracteres[rand(0, strlen($caracteres) - 1)];
