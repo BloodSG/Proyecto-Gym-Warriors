@@ -193,8 +193,8 @@ body {
     box-sizing: border-box;
 }
 
-.modal-detalle-overlay:target,
-.modal-overlay:target {
+.modal-detalle-overlay.abierto,
+.modal-overlay.abierto {
     display: flex;
 }
 
@@ -446,4 +446,23 @@ body {
     .detalle-imagen {
         height: 200px;
     }
+}
+
+.fila-inputs-img {
+    display: flex;        
+    gap: 15px;        
+    width: 100%;          
+}
+
+.fila-inputs-img label {
+    flex: 1;             
+    min-width: 0;    
+    display: flex;
+    flex-direction: column;
+}
+
+
+.fila-inputs-img input {
+    width: 100%;
+    box-sizing: border-box;
 }

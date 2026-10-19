@@ -2,7 +2,6 @@ import { obtenerCatalogo, obtenerProducto, bucarProducto } from "./api.js"; //as
 
 function mostrarCatalogo(catalogo) 
 {
-    
     const contenedor=document.getElementById("catalogo");
     
     contenedor.innerHTML=""; // limpiar antes de poner cosas
@@ -29,8 +28,8 @@ function mostrarCatalogo(catalogo)
             <div>
                 <p class="precio">$${producto.precio_venta}</p>
                 <span class="stock-info">Disponibles: ${producto.stock}</span>
-                <a href="#modalDetalle3" class="btn-primary btn-card-accion" type="button"
-                   data-id="${producto.id_producto}">Ver Detalles</a>         
+                <button href="#" class="btn-primary btn-card-accion" type="button"
+                   data-id="${producto.id_producto}">Ver Detalles</button>        
             </div>
         `;
         console.log("Producto renderizado:",producto.id_producto)
@@ -39,7 +38,8 @@ function mostrarCatalogo(catalogo)
 }
 
 function vistaDetalleProducto(detalleProd) 
-{
+{   
+    const modalOverlay = document.getElementById("modalDetalle3");
     const contenedor=document.getElementById("contenidomodaldetalle");
     contenedor.innerHTML=""; 
     console.log("Resultado detalle:", detalleProd);
@@ -53,7 +53,7 @@ function vistaDetalleProducto(detalleProd)
     const producto=detalleProd.data;
     contenedor.innerHTML=
     `
-        <a href="#" class="btn-cerrar-modal">&times;</a>
+        <a class="btn-cerrar-modal" id="btnCancelar">&times;</a>
         <img src="../${producto.url}" class=detalle-imagen>
             
             <div class="detalle-info">
@@ -67,11 +67,17 @@ function vistaDetalleProducto(detalleProd)
                 </div>
 
                 <span class="stock-info detalle-stock">Unidades disponible: ${producto.stock}</span>
-                <div class="mt-10">
-                    <button type="button" class="btn-primary">Añadir al Carrito</button>
-                </div>
             </div>
     `;
+    modalOverlay.classList.add("abierto");
+    document.getElementById("btnCancelar").addEventListener("click", () => {
+    cerrarModalEditar(modalOverlay, contenedor);
+    });
+}
+
+function cerrarModalEditar(modalOverlay,contenedor) {
+    modalOverlay.classList.remove("abierto");
+    contenedor.innerHTML = ""; // Opcional: limpia el contenido al cerrar para que no se quede guardado basura
 }
 
 document.getElementById("Vuscar").addEventListener("input",async (e)=>
