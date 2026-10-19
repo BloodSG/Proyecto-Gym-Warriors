@@ -1,4 +1,4 @@
-import {obtenerCatalogo,obtenerDataProducto,cargaCategorias,eliminaProducto,editaProducto} from "./api.js";
+import {obtenerCatalogo,obtenerDataProducto,cargaCategorias,cargaProveedores,eliminaProducto,editaProducto} from "./api.js";
 
 function mostrarInventario(inventario)
 {   
@@ -44,8 +44,7 @@ async function mostraEditar(producto)
     }
 
     const Data=producto.data;
-    const categorias=await creaListaCat(Data.nombre_categoria);
-
+    const [categorias,proveedores]=await creaListas(Data.nombre_categoria,Data.nombre_empresa);
 
     contenedor.innerHTML=`
             <h2 class="modal-titulo">Editar Producto</h2>
@@ -54,6 +53,13 @@ async function mostraEditar(producto)
                 <label>
                     Nombre del Producto *:
                     <input type="text" name="nombre" value="${Data.nombre}" required>
+                </label>
+
+                <label>
+                Proveedor que reparte:
+                <select required id="selectproveedor" name="id_poveedor">
+                    ${proveedores}
+                </select>
                 </label>
 
                 <label>
@@ -70,12 +76,12 @@ async function mostraEditar(producto)
 
                 <label>
                     Precio de compra ($) *:
-                    <input type="number" name="precio_compra" value="${Data.precio_compra}" step="0.01" required>
+                    <input type="number" name="precio_compra" value="${Data.precio_compra}" step="1.00" required>
                 </label>
 
                 <label>
                     Precio de Venta ($) *:
-                    <input type="number" name="precio_venta" value="${Data.precio_venta}" step="0.01" required>
+                    <input type="number" name="precio_venta" value="${Data.precio_venta}" step="1.00" required>
                 </label>
 
                 <label>
@@ -167,17 +173,27 @@ async function eliminar(id)
 
 }
 
-async function creaListaCat(origen) 
+async function creaListas(origen1,origen2) 
 {   
     
     const categorias=await cargaCategorias();// tenemos que llamar la funcion asi para que espere el resultado y no se rompa
+    const proveedores=await cargaProveedores();
+
     const listaCategorias=categorias.data;
-    const opcionesCat=listaCategorias.map(cat => //aqui hacemos la lista de opciones de categoria, me costo un huebo y la mitad del otro hacer esto
-        `<option value="${cat.nombre_categoria}" ${cat.nombre_categoria === origen ? 'selected' : ''}> 
+    const listaProveedores=proveedores.data;
+
+    const opcionesCat=listaCategorias.map(cat => //aqui hacemos la lista de opciones de categoria
+        `<option value="${cat.nombre_categoria}" ${cat.nombre_categoria === origen1 ? 'selected' : ''}> 
         ${cat.nombre_categoria}
         </option>`
         ).join('');
-    return opcionesCat;
+
+    const opcionesProv=listaProveedores.map(prov => 
+        `<option value="${prov.id_proveedor}" ${prov.nombre_empresa === origen2 ? 'selected' : ''}> 
+        ${prov.nombre_empresa}
+        </option>`
+        ).join('');
+    return [opcionesCat,opcionesProv];
 }
 
 document.getElementById("tabla-contenedor").addEventListener("click", async (e) => 
@@ -226,10 +242,13 @@ document.getElementById("tabla-contenedor").addEventListener("click", async (e) 
 
 obtenerCatalogo("").then(mostrarInventario)
 const listaCat=document.getElementById("selectCategoriaRegistro")
+const listaProv=document.getElementById("selectproveedor")
+
 listaCat.innerHTML=``
-creaListaCat('').then(respuesta =>
-    {
-        listaCat.innerHTML=respuesta;
-    }
-);
+listaProv.innerHTML=``
+creaListas("","").then(([respuesta1, respuesta2]) => 
+{
+    listaCat.innerHTML = respuesta1;
+    listaProv.innerHTML = respuesta2;
+});
 

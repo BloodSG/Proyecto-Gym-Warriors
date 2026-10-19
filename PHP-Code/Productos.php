@@ -129,6 +129,7 @@ if (isset($_GET['action']))
             prod.descripcion,
             ImgP.url,
             prov.nombre_empresa,
+            prov.id_proveedor,
             cat.nombre_categoria,
             prod.precio_venta,
             prod.precio_compra,
@@ -172,6 +173,25 @@ if (isset($_GET['action']))
             "status" => "success",
             "mensaje" => "Categorias obtenidas correctamenete",
             "data" => $Categorias
+            ], JSON_UNESCAPED_UNICODE);
+
+        }
+
+        if($_GET['comando'] == 'proveedores')
+        {   
+            $query="SELECT 
+                    id_proveedor,nombre_empresa
+                    FROM 
+                    Proveedor";
+                    
+            $Puente=$conexion->prepare($query);
+            $Puente->execute();
+            $Proveedores=$Puente->fetchAll(PDO::FETCH_ASSOC);
+
+            echo json_encode([ 
+            "status" => "success",
+            "mensaje" => "Proveedores obtenidos correctamente",
+            "data" => $Proveedores
             ], JSON_UNESCAPED_UNICODE);
 
         }
@@ -249,6 +269,7 @@ if (isset($_GET['action']))
                 $precio_compra=$_POST['precio_compra'] ?? 0;
                 $precio_venta=$_POST['precio_venta'] ?? 0;
                 $stock=$_POST['stock'] ?? 0;
+                $idProvedor=trim($_POST["id_poveedor"] ?? "");
 
                 if($precio_compra<0 || $precio_venta<0 || $stock<0)
                 {
@@ -259,7 +280,7 @@ if (isset($_GET['action']))
                     exit;
                 }
                 
-                if(in_array("",[$nombre,$nombre_categoria,$precio_compra,$precio_venta,$stock],true))
+                if(in_array("",[$nombre,$nombre_categoria,$precio_compra,$precio_venta,$stock,$idProvedor],true))
                 {
                     echo json_encode([ 
                     "status" => "error",
@@ -301,11 +322,12 @@ if (isset($_GET['action']))
                             descripcion=?, 
                             precio_compra=?, 
                             precio_venta=?, 
-                            stock=?
+                            stock=?,
+                            id_proveedor=?
                         WHERE id_producto=?";
                         
                 $Puente=$conexion->prepare($query2);
-                $Puente->execute([$id_categoria_real, $nombre, $descripcion, $precio_compra, $precio_venta, $stock, $producto]);
+                $Puente->execute([$id_categoria_real, $nombre, $descripcion, $precio_compra, $precio_venta, $stock, $idProvedor, $producto]);
 
                 $hayUnArchivoValido=isset($_FILES['imagen_archivo']) && $_FILES['imagen_archivo']['error'] === UPLOAD_ERR_OK;
                 $urlImagen=trim($_POST["imagen_url"]);

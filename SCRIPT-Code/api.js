@@ -109,11 +109,6 @@ export async function eliminaProducto(id)
     return respuesta.json();
 }
 
-export async function cargaProveedores() 
-{
-    const url=`${consulta}?action=proveedor&comando=cargar`;
-    const proveedores=await fetch(url);
-}
 
 export async function cargaCategorias() 
 {   
@@ -125,4 +120,16 @@ export async function cargaCategorias()
         
     }
     return categorias.json();
+}
+
+export async function cargaProveedores() 
+{   
+    
+    const url=`${consulta}?action=cargar&comando=proveedores`;
+    const proveedores=await fetch(url);
+    if (!proveedores.ok) {
+        throw new Error(`Error HTTP al cargar los provedores ${proveedores.status}`);
+        
+    }
+    return proveedores.json();
 }
