@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados | Fitness Warriors</title>
+    <link rel="stylesheet" href="bajaempl.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a class="active" href="bajaempl.html" aria-current="page">Empleados</a>
+                <a href="admin.html#proveedores">Proveedores</a>
+                <a href="admin.html#productos">Productos</a>
+                <a href="admin.html#clientes">Clientes</a>
+                <a href="admin.html#ventas">Ventas</a>
+                <a href="admin.html#rutinas">Rutinas</a>
+                <a href="admin.html#membresias">Membresías</a>
+                <a href="admin.html#corte-caja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Empleados</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE PERSONAL</p>
+                    <h2>Todos los empleados</h2>
+
+                </section>
+
+                <section class="toolbar" aria-label="Herramientas de empleados">
+                    <label class="search-box" for="employee-search">
+                        <span aria-hidden="true">⌕</span>
+                        <input id="employee-search" type="search" placeholder="Buscar por nombre o puesto">
+                    </label>
+                    <a class="primary-button" href="Reg_empl.html">+ Registrar empleado</a>
+                </section>
+
+                <section class="employee-list-card" aria-labelledby="list-title">
+                    <div class="section-heading">
+
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <caption>Lista de empleados registrados</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Empleado</th>
+                                    <th scope="col">CURP</th>
+                                    <th scope="col">Puesto</th>
+                                    <th scope="col">Turno</th>
+                                    <th scope="col">Salario</th>
+                                    <th scope="col">Contratación</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="employee-table"></tbody>
+                        </table>
+                        <p class="empty-state" id="empty-state" hidden>No se encontraron empleados.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <dialog id="edit-dialog" aria-labelledby="dialog-title">
+        <form id="edit-form" method="dialog">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">DATOS DEL EMPLEADO</p>
+                    <h2 id="dialog-title">Editar empleado</h2>
+                </div>
+                <button class="close-button" type="button" id="close-dialog" aria-label="Cerrar">×</button>
+            </div>
+            <input type="hidden" id="edit-id">
+            <div class="edit-grid">
+                <label>Empleado<input id="edit-empleado" type="text" required maxlength="80"></label>
+                <label>Primer apellido<input id="edit-apellido-1" type="text" required maxlength="50"></label>
+                <label>Segundo apellido<input id="edit-apellido-2" type="text" required maxlength="50"></label>
+                <label>CURP<input id="edit-curp" type="text" required maxlength="18"></label>
+                <label>RFC<input id="edit-rfc" type="text" maxlength="13"></label>
+                <label>Puesto<input id="edit-puesto" type="text" required maxlength="30"></label>
+                <label>Turno<input id="edit-turno" type="text" required maxlength="20"></label>
+                <label>Salario<input id="edit-salario" type="number" min="0.01" step="0.01" required></label>
+                <label>Fecha de contratación<input id="edit-fecha" type="date"></label>
+                <label>Estado laboral
+                    <select id="edit-estado">
+                        <option value="activo">Activo</option>
+                        <option value="vacaciones">Vacaciones</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </label>
+                <label>Contacto de emergencia<input id="edit-contacto-nom" type="text" maxlength="50"></label>
+                <label>Teléfono de emergencia<input id="edit-contacto-tel" type="tel" maxlength="10"></label>
+            </div>
+            <div class="dialog-actions">
+                <button class="secondary-button" type="button" id="cancel-edit">Cancelar</button>
+                <button class="form-button" type="submit">Guardar cambios</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+
+</html>
