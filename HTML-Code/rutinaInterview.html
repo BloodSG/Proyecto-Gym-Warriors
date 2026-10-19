@@ -36,7 +36,7 @@
 
                 <label>
                     Fecha de Nacimiento
-                    <input type="date" name="fechaNac" id="fechaNac" required>
+                    <input type="date" name="fecha" id="fechaNac" required>
                 </label>
 
                 <label>
@@ -104,8 +104,9 @@
                         <input type="checkbox" name="objetivos[]" value="Rehabilitación / Recuperación"> Rehabilitación / Recuperación
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivos[]" value="Otro"> Otro
-                        <input type="text" name="objetivoOtro" maxlength="30" placeholder="Especifique" disabled>
+                        <!-- ¡CORRECCIÓN AQUÍ! Se agregó id="objetivoOtro" -->
+                        <input type="checkbox" name="objetivos[]" value="Otro" id="otroObjetivoCheck"> Otro
+                        <input type="text" name="objetivoOtro" id="objetivoOtro" maxlength="30" placeholder="Especifique" disabled>
                     </label>
                 </div>
 
@@ -190,8 +191,9 @@
                 </label>
                 <label>
                     ¿Cuánto tiempo por sesión?
-                    <input type="number" name="tiempoSesion" id="tiempoSesiom" min="1" max="240" required>
-                    <select id="unidadTiempoSesion">
+                    <!-- ¡CORRECCIÓN AQUÍ! Se cambió tiempoSesiom por tiempoSesion -->
+                    <input type="number" name="tiempoSesion" id="tiempoSesion" min="1" max="240" required>
+                    <select id="unidadTiempoSesion" name="unidadTiempoSesion" required>
                         <option value="minutos">Minutos</option>
                         <option value="horas">Hora(s)</option>
                     </select>
@@ -214,7 +216,7 @@
                     ¿Realizas otro deporte?
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="deporte" value="si">Si
+                            <input type="radio" name="deporte" value="si" required>Si
                     </label>
                     <label class="opcion-radio">
                         <input type="radio" name="deporte" value="no">No
@@ -225,19 +227,20 @@
 
                 <label >
                     ¿Cuál?
-                    <input type="text" name="nombreDeporte" id="nombreDeporte" list="listadeportes" placeholder="Elige o escribe un deporte" disabled>
-                    <datalist id="listaDeportes">
-                        <option value="Fútbol">
-                        <option value="Básquetbol">
-                        <option value="Voleibol">
-                        <option value="Natación">
-                        <option value="Ciclismo">
-                        <option value="Atletismo">
-                        <option value="Boxeo">
-                        <option value="Artes marciales">
-                        <option value="Tenis">
-                        <option value="Danza">
-                    </datalist>
+                    <select name="nombreDeporte" id="nombreDeporte" disabled>
+                        <option value="" selected>Selecciona un deporte</option>
+                        <option value="Fútbol">Fútbol</option>
+                        <option value="Básquetbol">Básquetbol</option>
+                        <option value="Voleibol">Voleibol</option>
+                        <option value="Tenis">Tenis</option>
+                        <option value="Natación">Natación</option>
+                        <option value="Ciclismo">Ciclismo</option>
+                        <option value="Atletismo">Atletismo</option>
+                        <option value="Boxeo">Boxeo</option>
+                        <option value="Artes marciales">Artes marciales</option>
+                        <option value="Danza">Danza</option>
+                        <option value="Otro">Otro</option>
+                    </select>
                 </label>
                 
                 <p>5. Antecedentes de salud</p>
@@ -342,7 +345,7 @@
                             <input type="checkbox" name="lugar[]" value="aire libre">Aire libre 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar[]" value="otro">Otro
+                            <input type="checkbox" name="lugar[]" value="otro" id="otroLugarCheck">Otro
                             <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique" disabled>
                         </label>
                     </div>
@@ -369,7 +372,7 @@
                             <input type="checkbox" name="equipo[]" value="Ninguno">Ninguno
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo[]" value="Otro">Otro
+                            <input type="checkbox" name="equipo[]" value="Otro" id="otroEquipoCheck">Otro
                             <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique" disabled>
                         </label>
 
@@ -397,7 +400,7 @@
                             <input type="checkbox" name="preferencias[]" value="movilidad">Movilidad / Estabilidad
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="preferencias[]" value="otro">
+                            <input type="checkbox" name="preferencias[]" value="otro" id="otraPreferenciaCheck">
                             <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" disabled>
                         </label>
                     </div> 
@@ -405,7 +408,30 @@
                 <label>
                     <label>
                         ¿Hay ejercicios que te gusten o disfrutes nucho?
-                        <input type="text" name="disfruta" id="disfruta" maxlength="500" placeholder="Separa los ejercicios con comas">
+                        <div class="grupo-opciones">
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Press de banca"> Press de banca</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Press inclinado"> Press inclinado</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Press militar"> Press militar</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Aperturas con mancuernas"> Aperturas con mancuernas</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Sentadilla"> Sentadilla</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Prensa de piernas"> Prensa de piernas</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Peso muerto"> Peso muerto</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Peso muerto rumano"> Peso muerto rumano</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Hip thrust"> Hip thrust</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Zancadas"> Zancadas</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Curl femoral"> Curl femoral</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Extensión de piernas"> Extensión de piernas</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Jalón al pecho"> Jalón al pecho</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Remo con barra"> Remo con barra</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Dominadas"> Dominadas</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Curl de bíceps"> Curl de bíceps</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Extensión de tríceps"> Extensión de tríceps</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Elevaciones laterales"> Elevaciones laterales</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Plancha"> Plancha</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Abdominales"> Abdominales</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Burpees"> Burpees</label>
+                            <label class="opcion-check"><input type="checkbox" name="disfruta[]" value="Correr"> Correr</label>
+                        </div>
                     </label>
                     <br>
                     <label>
@@ -803,6 +829,64 @@
                 <button type="submit" class="btn-enviar">Enviar formulario</button>
             </form>
         </div>
+        
+        <script>
+            // Habilita campos condicionales según la respuesta elegida con protecciones
+            function vincularRespuesta(nombreRadio, idCampo) {
+                const campo = document.getElementById(idCampo);
+                if (!campo) return; // Seguro: Si no existe el campo, aborta y salva el script
+                const actualizar = () => {
+                    const seleccion = document.querySelector(`input[name="${nombreRadio}"]:checked`);
+                    campo.disabled = !seleccion || seleccion.value !== "si";
+                    campo.required = !campo.disabled;
+                    if (campo.disabled) campo.value = "";
+                };
+                document.querySelectorAll(`input[name="${nombreRadio}"]`).forEach((opcion) => opcion.addEventListener("change", actualizar));
+                actualizar();
+            }
+
+            function vincularGrupoRespuesta(nombreRadio, idsCampos) {
+                // Seguro: Filtra cualquier ID que no encuentre para que no truene
+                const campos = idsCampos.map((id) => document.getElementById(id)).filter(c => c !== null);
+                const actualizar = () => {
+                    const seleccion = document.querySelector(`input[name="${nombreRadio}"]:checked`);
+                    const habilitado = Boolean(seleccion && seleccion.value === "si");
+                    campos.forEach((campo) => {
+                        campo.disabled = !habilitado;
+                        campo.required = habilitado;
+                        if (!habilitado) campo.value = "";
+                    });
+                };
+                document.querySelectorAll(`input[name="${nombreRadio}"]`).forEach((opcion) => opcion.addEventListener("change", actualizar));
+                actualizar();
+            }
+
+            function vincularCasilla(idCasilla, idCampo) {
+                const casilla = document.getElementById(idCasilla);
+                const campo = document.getElementById(idCampo);
+                if (!casilla || !campo) return; // Seguro: Protege ambas variables
+                const actualizar = () => {
+                    campo.disabled = !casilla.checked;
+                    campo.required = casilla.checked;
+                    if (campo.disabled) campo.value = "";
+                };
+                casilla.addEventListener("change", actualizar);
+                actualizar();
+            }
+
+            vincularRespuesta("deporte", "nombreDeporte");
+            vincularGrupoRespuesta("actividadActual", ["dias", "tiempoSesion", "unidadTiempoSesion"]); // Typo corregido aquí
+            vincularRespuesta("condicionMedica", "condicionMedicaEspecifica");
+            vincularRespuesta("lesion", "lesionEspecifica");
+            vincularRespuesta("limitacionEjercicios", "limitacionEjerciciosTxt");
+            vincularRespuesta("dieta", "dietatxt");
+            vincularCasilla("otroObjetivoCheck", "objetivoOtro");
+            vincularCasilla("otroLugarCheck", "lugarOtro");
+            vincularCasilla("otroEquipoCheck", "equipoOtro");
+            vincularCasilla("otraPreferenciaCheck", "preferenciasOtro");
+
+            
+        </script>
     </body>
 
 </html>

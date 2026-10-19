@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Formulario de Entrada</title>
+        <title>Formulario de Entrada Nutricional</title>
         <link rel="stylesheet" href="../CSS-Code/initialInterview.css">
     </head>
     <body>
@@ -14,48 +14,56 @@
                 <h2>Un plan hecho para ti, pensado en tus objetivos</h2>
             </div>
 
-            <form id="formInicial">
+            <!-- Se agregó action y method para mandar los datos al PHP -->
+            <form id="formInicial" action="../PHP-Code/procesarNutricion.php" method="post">
+                
                 <p>1. Datos personales</p>
                 <label class="full-width"> 
                     Nombre Completo* 
-                    <input type="text" name="nombre" id="nombre">
+                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras y espacios" required>
+                </label>
+
+                <!-- CAMPO NUEVO: Indispensable para enlazar la entrevista al usuario en la BD -->
+                <label class="full-width">
+                    Correo electrónico*
+                    <input type="email" name="correo" id="correo" maxlength="100" placeholder="El correo con el que te registraste" required>
                 </label>
 
                 <label>
-                    Sexo 
+                    Sexo*
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="sexo" value="femenino"> Femenino
+                            <input type="radio" name="sexo" value="femenino" required> Femenino
                         </label> 
                         <label class="opcion-radio">
-                            <input type="radio" name="sexo" value="Masculino"> Masculino
+                            <input type="radio" name="sexo" value="masculino"> Masculino
                         </label>
                     </div>
                 </label>
 
                 <label>
-                    Teléfono 
-                    <input type="tel" name="telefono" id="telefono">
+                    Teléfono*
+                    <input type="tel" name="telefono" id="telefono" minlength="10" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" required>
                 </label>
 
                 <label>
-                    Fecha de nacimiento
-                    <input type="date" name="fechaNac" id="FechaNac">
+                    Fecha de nacimiento*
+                    <input type="date" name="fechaNac" id="fechaNac" required>
                 </label>
 
                 <label>
-                    Peso (Kg)* 
-                    <input type="number" name="peso" id="peso" step="0.1" placeholder="ej. 70">
+                    Peso actual (Kg)* 
+                    <input type="number" name="peso" id="peso" min="20" max="300" step="0.1" placeholder="ej. 70" required>
                 </label>
 
                 <label>
                     Estatura (cm)* 
-                    <input type="number" name="estatura" id="estatura" placeholder="ej. 170">
+                    <input type="number" name="estatura" id="estatura" min="80" max="250" step="0.1" placeholder="ej. 170" required>
                 </label>
 
                 <label>
                     Ocupación 
-                    <input type="text" name="ocupacion" id="ocupacion" list="listaOcupaciones" placeholder="Elige o escribe tu ocupación">
+                    <input type="text" name="ocupacion" id="ocupacion" maxlength="30" list="listaOcupaciones" placeholder="Elige o escribe tu ocupación">
                     <datalist id="listaOcupaciones">
                         <option value="Estudiante">
                         <option value="Empleado">
@@ -71,30 +79,31 @@
 
                 <p>2. Objetivos principales</p>
                 <div class="full-width grupo-opciones">
+                    <!-- Agrupados como arreglo con [] -->
                     <label class="opcion-check">
-                        <input type="checkbox" value="grasa" name="objetivo"> Perder grasa corporal
+                        <input type="checkbox" value="Perder grasa corporal" name="objetivo[]"> Perder grasa corporal
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="musculo" name="objetivo"> Aumentar masa muscular
+                        <input type="checkbox" value="Aumentar masa muscular" name="objetivo[]"> Aumentar masa muscular
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="tonificar" name="objetivo"> Tonificar 
+                        <input type="checkbox" value="Tonificar" name="objetivo[]"> Tonificar 
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="rendimiento" name="objetivo"> Mejorar rendimiento deportivo
+                        <input type="checkbox" value="Mejorar rendimiento deportivo" name="objetivo[]"> Mejorar rendimiento deportivo
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="fuerza" name="objetivo"> Ganar fuerza
+                        <input type="checkbox" value="Ganar fuerza" name="objetivo[]"> Ganar fuerza
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="salud" name="objetivo"> Mejorar salud
+                        <input type="checkbox" value="Mejorar salud" name="objetivo[]"> Mejorar salud
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="otro" name="objetivo"> Otro
-                        <input type="text" id="enfermedadOtro" placeholder="Especifique" disabled>
+                        <input type="checkbox" value="Otro" name="objetivo[]" id="objetivoOtroCheck"> Otro
+                        <input type="text" id="objetivoOtroText" name="objetivoOtroText" maxlength="30" placeholder="Especifique" disabled>
                     </label>
                     <label class="full-width"> ¿Cuánto tiempo deseas invertir para lograrlo?
-                        <input type="text" id="tiempoInvertir" list="listaTiempoObjetivo" placeholder="Elige o escribe un periodo">
+                        <input type="text" name="tiempoInvertir" id="tiempoInvertir" list="listaTiempoObjetivo" placeholder="Elige o escribe un periodo">
                         <datalist id="listaTiempoObjetivo">
                             <option value="1 mes">
                             <option value="3 meses">
@@ -109,18 +118,18 @@
                 <label>¿Entrenas actualmente?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                           <input type="radio" value="EntrenaSi" name="entrena">Sí
+                           <input type="radio" value="si" name="entrena" required>Sí
                         </label>
                         <label class="opcion-radio">
-                           <input type="radio" value="entrenaNo" name="entrena">No
+                           <input type="radio" value="no" name="entrena">No
                         </label>
                     </div>
                 </label>
                 <label>¿Cuántos días por semana?
-                    <input type="number" id="diasporSem" min="0" max="7">
+                    <input type="number" name="diasporSem" id="diasporSem" min="0" max="7">
                 </label>
                 <label>¿Qué tipo de entrenamiento realizas?
-                    <input type="text" id="tipoEntrenamiento" list="listaTiposEntrenamiento" placeholder="Elige o escribe un tipo">
+                    <input type="text" name="tipoEntrenamiento" id="tipoEntrenamiento" list="listaTiposEntrenamiento" placeholder="Elige o escribe un tipo">
                     <datalist id="listaTiposEntrenamiento">
                         <option value="Fuerza">
                         <option value="Hipertrofia">
@@ -129,11 +138,11 @@
                         <option value="Calistenia">
                         <option value="Cross training">
                         <option value="HIIT">
-                        <option value="Movilidad y flexibilidad"></option>
+                        <option value="Movilidad y flexibilidad">
                     </datalist>
                 </label>
                 <label>¿Realizas otro deporte?
-                    <input type="text" id="deporte" list="listaDeportes" placeholder="Elige o escribe un deporte">
+                    <input type="text" name="deporte" id="deporte" list="listaDeportes" placeholder="Elige o escribe un deporte">
                     <datalist id="listaDeportes">
                         <option value="Fútbol">
                         <option value="Básquetbol">
@@ -152,38 +161,39 @@
                 <p>4. Condiciones de salud</p>
                 <div class="full-width grupo-opciones">
                     <label>¿Padeces alguna enfermedad?</label>
+                    <!-- Agrupados como arreglo con [] -->
                     <label class="opcion-check">
-                        <input type="checkbox" value="diabetes" name="enfermedad"> Diabetes
+                        <input type="checkbox" value="Diabetes" name="enfermedad[]"> Diabetes
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="hipertension" name="enfermedad"> Hipertensión
+                        <input type="checkbox" value="Hipertensión" name="enfermedad[]"> Hipertensión
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="hipotiroidismo" name="enfermedad"> Hipotiroidismo
+                        <input type="checkbox" value="Hipotiroidismo" name="enfermedad[]"> Hipotiroidismo
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="colesterol" name="enfermedad"> Colesterol alto                  
+                        <input type="checkbox" value="Colesterol alto" name="enfermedad[]"> Colesterol alto                  
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="renales" name="enfermedad"> Problemas renales                   
+                        <input type="checkbox" value="Problemas renales" name="enfermedad[]"> Problemas renales                   
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="ninguna" name="enfermedad"> Ninguna                    
+                        <input type="checkbox" value="ninguna" name="enfermedad[]"> Ninguna                    
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" value="otra" name="enfermedad"> Otra
-                        <input type="text" id="otratext" placeholder="Especifique"disabled>                   
+                        <input type="checkbox" value="otra" name="enfermedad[]" id="enfermedadOtraCheck"> Otra
+                        <input type="text" name="otratext" id="otratext" maxlength="100" placeholder="Especifique" disabled>                   
                     </label>
                 </div>
 
                 <p>5. Alimentación actual</p>
                 <label>¿Cuántas comidas haces al día?
-                    <input type="number" id="numComidas">
+                    <input type="number" name="numComidas" id="numComidas" min="1" max="10" required>
                 </label>
                 <label>¿Desayunas?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="desayuno" value="siempre"> Siempre
+                            <input type="radio" name="desayuno" value="siempre" required> Siempre
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="desayuno" value="aveces"> A veces
@@ -194,12 +204,12 @@
                     </div>
                 </label>
                 <label>¿Cuánta agua consumes al día?
-                    <input type="number" placeholder="Litros">
+                    <input type="number" name="agua" step="0.1" min="0" max="10" placeholder="Litros" required>
                 </label>
                 <label>¿Consumes refresco?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="refresco" value="diario"> Diario
+                            <input type="radio" name="refresco" value="diario" required> Diario
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="refresco" value="ocasional"> Ocasional
@@ -213,16 +223,16 @@
                     ¿Consumes alcohol?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                             <input type="radio" value="alcoholSi" name="alcohol"> Si
+                             <input type="radio" value="alcoholSi" name="alcohol" required> Si
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" value="alcoholNo" name="alcohol"> No
                         </label>
                     </div>
-        <br>
+                    <br>
                     <label> 
                         Frecuencia
-                        <input type="text" id="frecuenciaAlcohol" list="listaFrecuenciaAlcohol" placeholder="Elige o escribe la frecuencia" disabled>
+                        <input type="text" name="frecuenciaAlcohol" id="frecuenciaAlcohol" list="listaFrecuenciaAlcohol" placeholder="Elige o escribe la frecuencia" disabled>
                         <datalist id="listaFrecuenciaAlcohol">
                             <option value="Diario">
                             <option value="Varias veces por semana">
@@ -236,27 +246,28 @@
                 <label class="full-width">¿Consumes comida rápida?</label>
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="comidaRapida" value="crNunca"> Nunca
+                        <input type="radio" name="comidaRapida" value="Nunca" required> Nunca
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="comidaRapida" value="cr1"> 1 vez por semana
+                        <input type="radio" name="comidaRapida" value="1 vez por semana"> 1 vez por semana
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="comidaRapida" value="cr23"> 2 - 3 veces por semana
+                        <input type="radio" name="comidaRapida" value="2-3 veces por semana"> 2 - 3 veces por semana
                     </label>
                     <label class="opcion-radio">
-                        <input type="radio" name="comidaRapida" value="crMas"> Más de 3 veces por semana
+                        <input type="radio" name="comidaRapida" value="Más de 3 veces"> Más de 3 veces por semana
                     </label>
                 </div>
 
                 <p>6. Hábitos de sueño y estrés</p>
-                <label>¿Cuántas horas duermes?
-                    <input type="number" id="horasSueño">
+                <label>¿Cuántas horas duermes en promedio?
+                    <input type="number" name="horasSueno" id="horasSueno" min="0" max="24" required>
                 </label>
                 
                 <p>7. Estrés</p>
                 <label>Nivel de estrés
-                    <select id="nivelEstres">
+                    <select name="nivelEstres" id="nivelEstres" required>
+                        <option value="" selected disabled>Selecciona un nivel</option>
                         <option value="bajo">Bajo</option>
                         <option value="medio">Medio</option>
                         <option value="alto">Alto</option>
@@ -266,97 +277,74 @@
                 <p>8. Suplementación</p>
                 <label class="full-width">¿Consumes suplementos actualmente?</label>
                 <div class="full-width grupo-opciones">
-                    <label class="opcion-check"><input type="checkbox" id="supProteina"> Proteína</label>
-                    <label class="opcion-check"><input type="checkbox" id="supCreatina"> Creatina</label>
-                    <label class="opcion-check"><input type="checkbox" id="supPreEntreno"> Pre-entreno</label>
-                    <label class="opcion-check"><input type="checkbox" id="supMultivitaminico"> Multivitamínico</label>
-                    <label class="opcion-check"><input type="checkbox" id="supOmega3"> Omega 3</label>
-                    <label class="opcion-check"><input type="checkbox" id="supColageno"> Colágeno</label>
-                    <label class="opcion-check"><input type="checkbox" id="supMagnesio"> Magnesio</label>
-                    <label class="opcion-check"><input type="checkbox" id="supNinguno"> Ninguno</label>
+                    <!-- Agrupados como arreglo con [] -->
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Proteína"> Proteína</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Creatina"> Creatina</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Pre-entreno"> Pre-entreno</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Multivitamínico"> Multivitamínico</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Omega 3"> Omega 3</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Colágeno"> Colágeno</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Magnesio"> Magnesio</label>
+                    <label class="opcion-check"><input type="checkbox" name="suplementos[]" value="Ninguno" id="supNinguno"> Ninguno</label>
                 </div>
                 <label class="full-width">
                     ¿Cuáles y en qué cantidad?
-                    <input type="text" id="cualesSuplementos" disabled>
+                    <input type="text" name="cualesSuplementos" id="cualesSuplementos" maxlength="100">
                 </label>
 
                 <p>9. Preferencias alimenticias</p>
                 <label class="full-width">
-                    Alimentos favoritos:
-                    <input type="text" id="alimentosFavoritos">
+                    Alimentos favoritos (separados por comas):
+                    <input type="text" name="alimentosFavoritos" id="alimentosFavoritos" maxlength="200" placeholder="Ej. Pollo, Arroz, Manzana">
                 </label>
                 <label class="full-width">
-                    Alimentos que no te gustan:
-                    <input type="text" id="alimentosDisgusto">
+                    Alimentos que no te gustan (separados por comas):
+                    <input type="text" name="alimentosDisgusto" id="alimentosDisgusto" maxlength="200" placeholder="Ej. Brócoli, Pescado">
                 </label>
                 <label class="full-width">
                     Alimentos que no puedes consumir (alergias o restricciones):
-                    <input type="text" id="alimentosRestriccion">
+                    <input type="text" name="alimentosRestriccion" id="alimentosRestriccion" maxlength="200" placeholder="Ej. Lácteos, Cacahuates">
                 </label>
 
                 <p>10. Disponibilidad</p>
                 <label>¿Cuántas veces puedes comer al día?
-                    <input type="number" id="comidasDia" placeholder="Ej. 4">
+                    <input type="number" name="comidasDia" id="comidasDia" min="1" max="10" placeholder="Ej. 4" required>
                 </label>
                 <label>¿Preparas tus alimentos?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="preparaAlimentos" value="si"> Sí
+                            <input type="radio" name="preparaAlimentos" value="si" required> Sí
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="preparaAlimentos" value="no"> No
                         </label>
                     </div>
-                    
-                    
                 </label>
                 <label >¿Comes fuera de casa?
                     <div class="grupo-opciones">
                         <label class="opcion-radio">
-                            <input type="radio" name="comesFuera" value="si"> Sí
+                            <input type="radio" name="comesFuera" value="si" required> Sí
                         </label>
                         <label class="opcion-radio">
                             <input type="radio" name="comesFuera" value="no"> No
                         </label>
                     </div>
-                    
-                    
                 </label>
 
                 <p>11. Compromiso</p>
                 <label class="full-width">Del 1 al 10, ¿qué tan comprometido estás con alcanzar tus objetivos?</label>
                 <div class="full-width grupo-compromiso">
                     <div class="escala-compromiso">
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="1"><span>1</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="2"><span>2</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="3"><span>3</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="4"><span>4</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="5"><span>5</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="6"><span>6</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="7"><span>7</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="8"><span>8</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="9"><span>9</span>
-                        </div>
-                        <div class="item-escala">
-                            <input type="radio" name="compromiso" value="10"><span>10</span>
-                        </div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="1" required><span>1</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="2"><span>2</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="3"><span>3</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="4"><span>4</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="5"><span>5</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="6"><span>6</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="7"><span>7</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="8"><span>8</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="9"><span>9</span></div>
+                        <div class="item-escala"><input type="radio" name="compromiso" value="10"><span>10</span></div>
                     </div>
                     <div class="etiquetas-escala">
                         <span>Nada comprometido</span>
@@ -375,5 +363,55 @@
                 <button type="submit" class="btn-enviar">Enviar Formulario</button>
             </form>
         </div>
+
+        <script>
+
+            function vincularRespuesta(nombreRadio, valorClave, idCampo) {
+                const campo = document.getElementById(idCampo);
+                const actualizar = () => {
+                    const seleccion = document.querySelector(`input[name="${nombreRadio}"]:checked`);
+                    campo.disabled = !seleccion || seleccion.value !== valorClave;
+                    campo.required = !campo.disabled;
+                    if (campo.disabled) campo.value = "";
+                };
+                document.querySelectorAll(`input[name="${nombreRadio}"]`).forEach((opcion) => opcion.addEventListener("change", actualizar));
+                actualizar();
+            }
+
+            function vincularCasilla(idCasilla, idCampo) {
+                const casilla = document.getElementById(idCasilla);
+                const campo = document.getElementById(idCampo);
+                const actualizar = () => {
+                    campo.disabled = !casilla.checked;
+                    campo.required = casilla.checked;
+                    if (campo.disabled) campo.value = "";
+                };
+                casilla.addEventListener("change", actualizar);
+                actualizar();
+            }
+
+
+            vincularRespuesta("alcohol", "alcoholSi", "frecuenciaAlcohol");
+            vincularCasilla("enfermedadOtraCheck", "otratext");
+            vincularCasilla("objetivoOtroCheck", "objetivoOtroText");
+            
+
+            const supNinguno = document.getElementById('supNinguno');
+            const suplementosChecks = document.querySelectorAll('input[name="suplementos[]"]:not(#supNinguno)');
+            
+            supNinguno.addEventListener('change', function() {
+                if(this.checked) {
+                    suplementosChecks.forEach(check => {
+                        check.checked = false;
+                        check.disabled = true;
+                    });
+                    document.getElementById('cualesSuplementos').value = "";
+                    document.getElementById('cualesSuplementos').disabled = true;
+                } else {
+                    suplementosChecks.forEach(check => check.disabled = false);
+                    document.getElementById('cualesSuplementos').disabled = false;
+                }
+            });
+        </script>
     </body>
 </html>
