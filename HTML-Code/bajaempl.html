@@ -115,23 +115,6 @@
             </div>
         </form>
     </dialog>
-
-
-
-
-    <td><strong class="employee-name">${empleado.nombres} ${empleado.apellido_1} ${empleado.apellido_2}</strong></td>
-    <td>${empleado.curp}</td>
-    <td>${empleado.puesto}</td>
-    <td>${empleado.turno}</td>
-    <td>$${Number(empleado.salario || 0).toLocaleString("es-MX", { minimumFractionDigits: 2 })}</td>
-    <td>${empleado.fecha_contratacion || "No indicada"}</td>
-    <td><span class="badge badge-${empleado.estado_laboral}">${empleado.estado_laboral === "activo" ? "Activo" : empleado.estado_laboral === "vacaciones" ? "Vacaciones" : "Inactivo"}</span></td>
-    <td class="actions">
-        <button class="icon-button edit-button" type="button" data-id="${empleado.id}" aria-label="Editar a ${empleado.nombres} ${empleado.apellido_1}">Editar</button>
-        <button class="icon-button delete-button" type="button" data-id="${empleado.id}" aria-label="Eliminar a ${empleado.nombres} ${empleado.apellido_1}">Eliminar</button>
-    </td>
-    </tr>
-
 </body>
 
 </html>
