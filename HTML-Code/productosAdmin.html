@@ -13,37 +13,57 @@
         <h1 class="admin-titulo">PANEL DE ADMINISTRACIÓN</h1>
         <p class="admin-subtitulo">Gestión de Inventario y Productos</p>
 
-        <form class="form-admin" id="formulario-producto">
+        <form action="../PHP-Code/AgregarProducto.php" class="form-admin" id="formulario-producto"  method="post" enctype="multipart/form-data">
             <p class="form-section-title">1. Registrar Nuevo Producto</p>
 
             <label>
                 Nombre del Producto:
-                <input type="text" required placeholder="Ej. Proteína 2kg" id="nombre">
+                <input type="text" required placeholder="Ej. Proteína WEY" id="nombre" name="nombre">
             </label>
 
             <label>
                 Categoría:
-                <select required>
-                    <option value="">Seleccione una categoría</option>
-                    <option value="1">Suplementos</option>
-                    <option value="2">Accesorios</option>
+                <select required id="selectCategoriaRegistro" name="id_categoria">
+                    <option value="">Cargando categorías...</option>
                 </select>
             </label>
 
             <label>
+                Descripción del producto:
+                <input type="text" placeholder="Peso de 2 kilog, Sabor vainilla" id="descripcion" name="descripcion">
+            </label>
+
+            <label>
+                Precio de compra ($):
+                <input type="number" step="0.01" required placeholder="0.00" name="precio_compra">
+            </label>
+
+            <label>
                 Precio de Venta ($):
-                <input type="number" step="0.01" required placeholder="0.00">
+                <input type="number" step="0.01" required placeholder="0.00" name="precio_venta">
             </label>
 
             <label>
                 Stock Inicial:
-                <input type="number" min="0" required placeholder="Cantidad">
+                <input type="number" min="0" required placeholder="Cantidad" name="stock">
             </label>
 
-            <button type="submit" class="btn-primary mt-10">Guardar Producto</button>
+            <div class="fila-inputs-img">
+            <label>
+                url de la imagen
+                <input type="url" id="product-imagen-archivo" name="imagen_url" >
+            </label>
+
+            <label>
+                seleccionar desde dispositivo
+                <input type="file" id="product-imagen-url" name="imagen_archivo" accept="image/*">
+            </label>
+            </div>
+
+            <button type="submit" class="btn-primary mt-10" id="guargarProducto">Guardar Producto</button>
         </form>
 
-        <div class="tabla-contenedor"> <!--esto es lo que debo de modificar-->
+        <div class="tabla-contenedor"> 
             <p class="form-section-title" style="margin-bottom: 15px; font-size: 15px;">2. Inventario Actual</p>
             <table class="tabla-admin">
                 <thead>

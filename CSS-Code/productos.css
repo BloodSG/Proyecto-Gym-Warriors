@@ -447,3 +447,22 @@ body {
         height: 200px;
     }
 }
+
+.fila-inputs-img {
+    display: flex;        
+    gap: 15px;        
+    width: 100%;          
+}
+
+.fila-inputs-img label {
+    flex: 1;             
+    min-width: 0;         /* ¡Clave! Evita que el input de tipo archivo rompa la caja */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Forzamos que ambos inputs (URL y Archivo) respeten el ancho exacto del 100% */
+.fila-inputs-img input {
+    width: 100%;
+    box-sizing: border-box;
+}

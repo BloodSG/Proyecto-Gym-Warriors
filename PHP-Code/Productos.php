@@ -7,7 +7,7 @@ if (isset($_GET['action']))
 {   
     if($_GET['action'] == 'detalle')
     {
-        $id =  $_GET['id'] ?? 0;// ?? 0 significa que si no hay id, se asigna un 0
+        $id= $_GET['id'] ?? 0;// ?? 0 significa que si no hay id, se asigna un 0
     
         $query= "SELECT
             prod.id_producto,
@@ -39,7 +39,7 @@ if (isset($_GET['action']))
     
     elseif ($_GET['action'] == 'vuscar')
     {
-        $vusqueda = "%".$_GET['comando']."%";
+        $vusqueda="%".$_GET['comando']."%";
     
     $query= "SELECT
         prod.id_producto,
@@ -65,6 +65,7 @@ if (isset($_GET['action']))
                 "data" => $Productos
         ], JSON_UNESCAPED_UNICODE);
     }
+
     elseif ($_GET['action'] == 'catalogo')
     {
         if (isset($_GET['categoria'])&& $_GET['categoria']!=="")
@@ -120,7 +121,7 @@ if (isset($_GET['action']))
     }
     elseif($_GET['action'] == 'allProdInfo')
     {
-        $id =  $_GET['id'] ?? 0;// ?? 0 significa que si no hay id, se asigna un 0
+        $id= $_GET['id'] ?? 0;// ?? 0 significa que si no hay id, se asigna un 0
     
         $query= "SELECT
             prod.id_producto,
@@ -134,6 +135,7 @@ if (isset($_GET['action']))
             prod.stock
             FROM Producto AS prod JOIN Categoria_Producto as cat 
             ON prod.id_categoria=cat.id_categoria
+            AND prod.id_producto=?
             LEFT JOIN Proveedor as prov
             ON prod.id_proveedor=prov.id_proveedor
             AND prod.id_producto=?
@@ -142,7 +144,7 @@ if (isset($_GET['action']))
             ";
 
             $Puente=$conexion->prepare($query);
-            $Puente->execute([$id]);
+            $Puente->execute([$id,$id]);
 
             $Producto=$Puente->fetch(PDO::FETCH_ASSOC);
             
@@ -153,17 +155,217 @@ if (isset($_GET['action']))
             ], JSON_UNESCAPED_UNICODE); 
     }
 
-    elseif ($_GET['action'] == 'agrega')
+    elseif ($_GET['action'] == 'cargar')
     {
+        if($_GET['comando'] == 'categoria')
+        {   
+            $query="SELECT 
+                    nombre_categoria 
+                    FROM 
+                    Categoria_Producto";
+                    
+            $Puente=$conexion->prepare($query);
+            $Puente->execute();
+            $Categorias=$Puente->fetchAll(PDO::FETCH_ASSOC);
 
+            echo json_encode([ 
+            "status" => "success",
+            "mensaje" => "Categorias obtenidas correctamenete",
+            "data" => $Categorias
+            ], JSON_UNESCAPED_UNICODE);
+
+        }
     }
+
+    elseif ($_GET['action'] == 'quitar')
+    {   
+        $producto=$_GET['producto'];
+        if( $producto !== '')
+        {   
+            try 
+            {
+                $conexion->beginTransaction();
+                
+                $queryImg="SELECT url FROM ImgProductos WHERE id_producto=?";
+                $Puente=$conexion->prepare($queryImg);
+                $Puente->execute([$producto]);
+                $imgData=$Puente->fetch(PDO::FETCH_ASSOC);
+
+                if ($imgData && !empty($imgData['url'])) 
+                {
+                    $rutaFisica="../" . $imgData['url']; 
+                    if (file_exists($rutaFisica)) 
+                    {
+                        unlink($rutaFisica); 
+                    }
+                }
+
+                $query1="DELETE 
+                        FROM ImgProductos
+                        WHERE
+                        id_producto=?";
+                        
+                $Puente=$conexion->prepare($query1);
+                $Puente->execute([$producto]);
+
+                $query2="DELETE 
+                        FROM Producto
+                        WHERE
+                        id_producto=?";
+                        
+                $Puente=$conexion->prepare($query2);
+                $Puente->execute([$producto]);
+
+                $conexion->commit();
+
+                echo json_encode([ 
+                "status" => "success",
+                "mensaje" => "Producto: ". $producto ." eliminado correctamente",
+                ], JSON_UNESCAPED_UNICODE);
+            }
+            catch (Exception $e) 
+            {
+
+                $conexion->rollBack();
+                echo json_encode([ 
+                "status" => "error",
+                "mensaje" => "Producto: ". $producto ." no se pudo eliminar",
+                ], JSON_UNESCAPED_UNICODE);
+            }
+
+        }
+    }
+
     elseif ($_GET['action'] == 'editar')
     {
-        
-    }
-    elseif ($_GET['action'] == 'quitar')
-    {
-        
+        $producto=$_POST['id_producto'] ?? '';
+        if( $producto !== '')
+        {   
+            try 
+            {   
+                $nombre_categoria=$_POST['categoria'] ?? ''; 
+                $nombre=$_POST['nombre'] ?? '';
+                $descripcion=$_POST['descripcion'] ?? '';
+                $precio_compra=$_POST['precio_compra'] ?? 0;
+                $precio_venta=$_POST['precio_venta'] ?? 0;
+                $stock=$_POST['stock'] ?? 0;
+
+                if($precio_compra<0 || $precio_venta<0 || $stock<0)
+                {
+                    echo json_encode([ 
+                    "status" => "error",
+                    "mensaje" => "los valores no pueden ser menores a cero",
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                
+                if(in_array("",[$nombre,$nombre_categoria,$precio_compra,$precio_venta,$stock],true))
+                {
+                    echo json_encode([ 
+                    "status" => "error",
+                    "mensaje" => "los espacios con * son obligatorios",
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                
+                if ($precio_compra>$precio_venta || $precio_compra===$precio_venta )
+                {   
+                    echo json_encode([ 
+                    "status" => "error",
+                    "mensaje" => "el precio de venta es menor al de compra",
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+
+                $carpetaDeServidor="Recursos/img_prods/";
+
+                $conexion->beginTransaction();
+
+                $query1="SELECT id_categoria
+                        FROM Categoria_Producto
+                        WHERE nombre_categoria=?";
+                        
+                $Puente=$conexion->prepare($query1);
+                $Puente->execute([$nombre_categoria]);
+                $id_cat=$Puente->fetch(PDO::FETCH_ASSOC);
+                $id_categoria_real=$id_cat['id_categoria'] ?? null;
+
+                if (!$id_categoria_real) 
+                {
+                    throw new Error("categoria no valida");
+                }   
+
+                $query2="UPDATE Producto 
+                        SET id_categoria=?, 
+                            nombre=?, 
+                            descripcion=?, 
+                            precio_compra=?, 
+                            precio_venta=?, 
+                            stock=?
+                        WHERE id_producto=?";
+                        
+                $Puente=$conexion->prepare($query2);
+                $Puente->execute([$id_categoria_real, $nombre, $descripcion, $precio_compra, $precio_venta, $stock, $producto]);
+
+                $hayUnArchivoValido=isset($_FILES['imagen_archivo']) && $_FILES['imagen_archivo']['error'] === UPLOAD_ERR_OK;
+                $urlImagen=trim($_POST["imagen_url"]);
+
+                if ($hayUnArchivoValido) 
+                {   
+                    $ubicacionTemporal=$_FILES['imagen_archivo']['tmp_name'];//la ubicacion temporal del archido
+                    $nombreOriginal=$_FILES['imagen_archivo']['name'];//extrae el nombre deel archivo
+                    $extensionArchivo=pathinfo($nombreOriginal, PATHINFO_EXTENSION);//extrae la extencion del archivo
+                    
+                    $nombreSeguroUnico=uniqid('prod_', true) . "." . $extensionArchivo; //le ponemos un nombre que no se pueda repetir
+                    
+                    $rutaFinalGuardado="../". $carpetaDeServidor . $nombreSeguroUnico;
+                    
+                    if (move_uploaded_file($ubicacionTemporal, $rutaFinalGuardado)) 
+                    {   
+                        $queryImg="SELECT url FROM ImgProductos WHERE id_producto=?";
+                        $Puente=$conexion->prepare($queryImg);
+                        $Puente->execute([$producto]);
+                        $imgData=$Puente->fetch(PDO::FETCH_ASSOC);
+
+                        if ($imgData && !empty($imgData['url'])) 
+                        {
+                            $rutaFisica="../" . $imgData['url']; 
+                            if (file_exists($rutaFisica)) 
+                            {
+                                unlink($rutaFisica); 
+                            }
+                        }
+
+                        $rutaImagenFinal=$carpetaDeServidor . $nombreSeguroUnico;
+                        $query3="UPDATE ImgProductos
+                        SET url=?
+                        WHERE id_producto=?";
+                        
+                        $Puente=$conexion->prepare($query3);
+                        $Puente->execute([$rutaImagenFinal,$producto]);
+                    }
+                    
+                }
+
+                $conexion->commit();
+
+                echo json_encode([ 
+                "status" => "success",
+                "mensaje" => "Producto: ". $producto ." modificado correctamente",
+                ], JSON_UNESCAPED_UNICODE);
+            }
+            catch (Exception $e) 
+            {
+
+                $conexion->rollBack();
+                echo json_encode([ 
+                "status" => "error",
+                "mensaje" => "Producto: ". $producto ." no se pudo modificar",
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+        }
     }
 
 }
