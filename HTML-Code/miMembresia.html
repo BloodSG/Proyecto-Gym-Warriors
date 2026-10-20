@@ -6,51 +6,73 @@
         <link rel="stylesheet" href="../CSS-Code/miMembresia.css">
     </head>
     <body>
-        <div class="content-wrap">
-            <div class="page-heading">
-                <p class="eyebrow">GYM Warriors</p>
-                <h1>MI MEMBRESÍA</h1>
-                <p>Consulta el estado de tu plan actual, vigencia y montos de cobro.</p>
-            </div>
+        <div class="app-shell">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/logoGym.png" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Membresía</a>
+                </nav>
+                <a href="#" class="logout">Cerrar Sesión</a>
+            </aside>
 
-            <div class="card membresia-card alerta-amarilla">
-                
-                <div id="msg-status" class="status-banner">
-                    
-                    <p>Tu membresía está próxima a vencer (vence en 5 días). Realiza tu renovación para no perder tus beneficios.</p>
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span> Membresía</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header>
+
+                <div class="content-wrap">
+                    <div class="page-heading">
+                        <p class="eyebrow">GYM Warriors</p>
+                        <h1>MI MEMBRESÍA</h1>
+                        <p>Consulta el estado de tu plan actual, vigencia y montos de cobro.</p>
+                    </div>
+
+                    <div class="card membresia-card alerta-amarilla">
+                        
+                        <div id="msg-status" class="status-banner">
+                            <p>Tu membresía está próxima a vencer (vence en 5 días). Realiza tu renovación para no perder tus beneficios.</p>
+                        </div>
+
+                        <div class="membresia-header">
+                            <div>
+                                <span class="eyebrow">PLAN CONTRATADO</span>
+                                <h2 id="nombrePlanActual">Plan básico</h2>
+                            </div>
+                            <span class="badge badge-activo" id="badgeEstado">ACTIVA</span>
+                        </div>
+
+                        <div class="detalles-grid">
+                            <div class="detalle-item">
+                                <span class="label">Fecha de activación</span>
+                                <strong id="fechaActivacion">dd/mm/aaaa</strong>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="label">Fecha de vencimiento</span>
+                                <strong id="fechaVencimiento">dd/mm/aaaa</strong>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="label">Días restantes</span>
+                                <strong id="diasRestantes" class="highlight-days">5 días</strong>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="label">Próximo cobro</span>
+                                <strong id="montoCobro">$0.00 MXN</strong>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-
-                <div class="membresia-header">
-                    <div>
-                        <span class="eyebrow">PLAN CONTRATADO</span>
-                        <h2 id="nombrePlanActual">Plan básico</h2>
-                    </div>
-                    <span class="badge badge-activo" id="badgeEstado">ACTIVA</span>
-                </div>
-
-                <div class="detalles-grid">
-                    <div class="detalle-item">
-                        <span class="label">Fecha de activación</span>
-                        <strong id="fechaActivacion">dd/mm/aaaa</strong>
-                    </div>
-
-                    <div class="detalle-item">
-                        <span class="label">Fecha de vencimiento</span>
-                        <strong id="fechaVencimiento">dd/mm/aaaa</strong>
-                    </div>
-
-                    <div class="detalle-item">
-                        <span class="label">Días restantes</span>
-                        <strong id="diasRestantes" class="highlight-days">5 días</strong>
-                    </div>
-
-                    <div class="detalle-item">
-                        <span class="label">Próximo cobro</span>
-                        <strong id="montoCobro">$0.00 MXN</strong>
-                    </div>
-                </div>
-
-                
             </div>
         </div>
     </body>
