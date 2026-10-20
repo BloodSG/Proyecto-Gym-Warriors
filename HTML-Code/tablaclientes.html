@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes | Fitness Warriors</title>
+    <link rel="stylesheet" href="tablaclientes.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="admin.html#proveedores">Proveedores</a>
+                <a href="admin.html#productos">Productos</a>
+                <a class="active" href="tablaclientes.html" aria-current="page">Clientes</a>
+                <a href="admin.html#ventas">Ventas</a>
+                <a href="admin.html#rutinas">Rutinas</a>
+                <a href="admin.html#membresias">Membresías</a>
+                <a href="admin.html#corte-caja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Clientes</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE CLIENTES</p>
+                    <h2>Todos los clientes</h2>
+
+                </section>
+
+                <section class="toolbar" aria-label="Herramientas de clientes">
+                    <label class="search-box" for="employee-search">
+                        <span aria-hidden="true">⌕</span>
+                        <input id="employee-search" type="search" placeholder="Buscar por nombre">
+                    </label>
+                    <a class="primary-button" href="registrocliente.html">+ Registrar cliente</a>
+                </section>
+
+                <section class="employee-list-card" aria-labelledby="list-title">
+                    <div class="section-heading">
+
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <caption>Lista de clientes registrados</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Primer apellido</th>
+                                    <th scope="col">Segundo apellido</th>
+                                    <th scope="col">Correo electrónico</th>
+                                    <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="employee-table"></tbody>
+                        </table>
+                        <p class="empty-state" id="empty-state" hidden>No se encontraron clientes.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <dialog id="edit-dialog" aria-labelledby="dialog-title">
+        <form id="edit-form" method="dialog">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">DATOS DEL CLIENTE</p>
+                    <h2 id="dialog-title">Editar cliente</h2>
+                </div>
+                <button class="close-button" type="button" id="close-dialog" aria-label="Cerrar">×</button>
+            </div>
+            <input type="hidden" id="edit-id">
+            <div class="edit-grid">
+                <label>Nombre<input id="edit-empleado" type="text" required maxlength="80"></label>
+                <label>Primer apellido<input id="edit-apellido-1" type="text" required maxlength="50"></label>
+                <label>Segundo apellido<input id="edit-apellido-2" type="text" required maxlength="50"></label>
+                <label>Correo electrónico<input id="edit-correo" type="email" required maxlength="100"></label>
+            </div>
+            <div class="dialog-actions">
+                <button class="secondary-button" type="button" id="cancel-edit">Cancelar</button>
+                <button class="form-button" type="submit">Guardar cambios</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+
+</html>
