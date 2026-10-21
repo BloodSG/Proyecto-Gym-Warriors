@@ -47,35 +47,6 @@ body {
     margin: 0;
 }
 
-.membresias_admin_resumen {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-}
-
-.membresias_admin_resumen article {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.membresias_admin_resumen h2 {
-    font-size: 12px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-}
-
-.membresias_admin_resumen p {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0;
-}
-
 .consulta {
     background: var(--card);
     border: 1px solid var(--border);
@@ -88,7 +59,7 @@ body {
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .buscador label {
@@ -109,12 +80,12 @@ body {
 }
 
 .buscador input[type="search"]:focus {
-    border-color: var(--blue);
+    border-color: var(--lime);
     outline: none;
 }
 
-.boton_buscar, .btn_registrar_membresia {
-    background: var(--blue);
+.boton_buscar {
+    background: var(--lime);
     color: #0b0f19;
     border: none;
     border-radius: 6px;
@@ -125,12 +96,7 @@ body {
     transition: opacity 0.2s;
 }
 
-.btn_registrar_membresia {
-    background: var(--lime);
-    margin-bottom: 15px;
-}
-
-.boton_buscar:hover, .btn_registrar_membresia:hover {
+.boton_buscar:hover {
     opacity: 0.9;
 }
 
@@ -164,11 +130,10 @@ body {
     background: var(--card-hover);
 }
 
-.tabla_membresias td:last-child,
 .acciones_celda {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     white-space: nowrap;
 }
 
@@ -181,10 +146,6 @@ body {
     max-width: 500px;
     width: 90%;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
-}
-
-.modal_ancho {
-    max-width: 750px;
 }
 
 .modal_dialog::backdrop {
@@ -285,69 +246,48 @@ body {
     border: none;
 }
 
-.modal_acciones button[type="submit"],
-.modal_acciones button.btn_guardar {
+.modal_acciones button[type="submit"] {
     background: var(--lime);
     color: #0b0f19;
     border: none;
 }
 
-.detalle_cliente_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.perfil_resumen span, .card_info {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px;
-    margin-top: 10px;
-}
-
-.card_info h4, .columna_historial h4 {
-    margin: 0 0 10px 0;
-    font-size: 13px;
-    color: var(--blue);
-}
-
-.tabla_historial {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11px;
-}
-
-.tabla_historial th, .tabla_historial td {
-    padding: 8px;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-}
-
 @media (max-width: 768px) {
-    .fila_form, .detalle_cliente_grid {
+    .fila_form {
         grid-template-columns: 1fr;
     }
 }
 
 .btn_accion {
-    background: transparent;
+    background: var(--blue);
     border: 1px solid var(--border);
     border-radius: 6px;
-    color: var(--text-dim);
-    padding: 4px 8px;
+    color: #0b0f19;
+    padding: 6px 12px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
     transition: all 0.2s ease;
 }
 
 .btn_accion:hover {
-    background: var(--card-hover);
-    color: var(--text);
+    border-color: var(--lime);
+    background: rgba(56, 248, 78, 0.15);
+    color: var(--lime);
 }
+
 
 .btn_cancelar:hover {
     border-color: var(--danger);
     background: rgba(239, 68, 68, 0.15);
     color: var(--danger);
+}
+
+
+details::-webkit-details-marker,
+summary::-webkit-details-marker {
+    display: none;
+}
+
+* {
+    list-style: none;
 }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de membresías</title>
+    <link rel="stylesheet" href="../CSS-Code/membresias_renov_admin.css">
+</head>
+<body>
+    <main class="membresias_admin_container">
+        <header class="membresias_admin_header">
+            <h1 class="membresias_admin_titulo">RENOVACIÓN Y GESTIÓN DE MEMBRESÍAS</h1>
+            <p class="membresias_admin_subtitulo">
+                Busca al miembro para renovar, cambiar de plan o cancelar su membresía actual
+            </p>
+        </header>
+
+        <!-- Busqueda -->
+         <section class ="consulta">
+            <form class = "buscador" method = "GET" action = "">
+                <label for = "buscar"> 
+                    Buscar miembro por nombre o ID:
+                </label>
+
+                <input
+                type = "search"
+                name = "buscador"
+                id = "buscar"
+                placeholder = "Ingrese nombre o ID"
+                >
+
+                <button type = "submit" class = "boton_buscar">
+                    Buscar
+                </button>
+            </form>
+
+            <div class = "tabla_contenedor">
+                <table class = "tabla_membresias">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del miembro</th>
+                            <th>Membresía Actual</th>
+                            <th>Inicio</th>
+                            <th>Vencimiento</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- PHP -->
+                        <tr>
+                            <td><!-- ID --></td>
+                            <td><!-- Nombre --></td>
+                            <td><!-- Tipo --></td>
+                            <td><!-- Inicio --></td>
+                            <td><!-- Vencimiento --></td>
+                            <td><!-- Estado --></td>
+                            <td class="acciones_celda">
+                                <button type="button" class="btn_accion" onclick="abrirModal('modalRenovar')" title="Renovar o Cambiar Plan">Renovar / Cambiar</button>
+                                <button type="button" class="btn_accion btn_cancelar" onclick="confirmarCancelacion()" title="Cancelar membresía">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         </section>
+    </main>
+->
+    <dialog id="modalRenovar" class="modal_dialog">
+        <div class="modal_contenido">
+            <div class="modal_header">
+                <h2>Gestión de membresía</h2>
+                <button type="button" onclick="cerrarModal('modalRenovar')">&times;</button>
+            </div>
+            <form method="POST" action="" class="form_modal">
+                <div class="grupo_form">
+                    <label>Miembro seleccionado:</label>
+                    <p><strong><!-- Nombre del Miembro y ID --></strong></p>
+                </div>
+
+                <div class="grupo_form">
+                    <label for="tipo_membresia">Seleccionar nuevo plan / Renovación *</label>
+                    <select id="tipo_membresia" name="tipo_membresia" required>
+                        <option value="1"> Escudo básico </option>
+                        <option value="2"> Guerrero combat </option>
+                        <option value="3"> Élite warrior </option>
+                        <option value="4"> VIP legend </option>
+                        <option value="5"> Clase individual </option>
+                    </select>
+                </div>
+
+                <div class="fila_form">
+                    <div class="grupo_form">
+                        <label for="metodo_pago">Método de pago</label>
+                        <select id="metodo_pago" name="metodo_pago">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+                    <div class="grupo_form">
+                        <label for="monto">Monto ($)</label>
+                        <input type="text" inputmode="decimal" id="monto" name="monto" placeholder="Ej. 500.00">
+                    </div>
+                </div>
+
+                <div class="modal_acciones">
+                    <button type="button" onclick="cerrarModal('modalRenovar')">Cerrar</button>
+                    <button type="submit">Aplicar cambios</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <script>
+        function abrirModal(idModal) {
+            const modal = document.getElementById(idModal);
+            if (modal) modal.showModal();
+        }
+
+        function cerrarModal(idModal) {
+            const modal = document.getElementById(idModal);
+            if (modal) modal.close();
+        }
+
+        function confirmarCancelacion() {
+            if (confirm("¿Estás segura de que deseas cancelar la membresía de este miembro?")) {
+            }
+        }
+    </script>
+</body>
+</html>
