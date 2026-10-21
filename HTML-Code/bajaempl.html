@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empleados | Fitness Warriors</title>
-    <link rel="stylesheet" href="bajaempl.css">
+    <link rel="stylesheet" href="../CSS-Code/bajaempl.css">
 </head>
 
 <body>
@@ -39,7 +39,6 @@
                 <section class="page-heading">
                     <p class="eyebrow">GESTIÓN DE PERSONAL</p>
                     <h2>Todos los empleados</h2>
-
                 </section>
 
                 <section class="toolbar" aria-label="Herramientas de empleados">
@@ -51,16 +50,14 @@
                 </section>
 
                 <section class="employee-list-card" aria-labelledby="list-title">
-                    <div class="section-heading">
-
-                    </div>
+                    <div class="section-heading"></div>
 
                     <div class="table-wrapper">
                         <table>
                             <caption>Lista de empleados registrados</caption>
                             <thead>
                                 <tr>
-                                    <th scope="col">Empleado</th>
+                                    <th scope="col">Correo</th>
                                     <th scope="col">CURP</th>
                                     <th scope="col">Puesto</th>
                                     <th scope="col">Turno</th>
@@ -80,7 +77,7 @@
     </div>
 
     <dialog id="edit-dialog" aria-labelledby="dialog-title">
-        <form id="edit-form" method="dialog">
+        <form id="edit-form" method="POST" action="../PHP-Code/bajaempl.php">
             <div class="dialog-heading">
                 <div>
                     <p class="eyebrow">DATOS DEL EMPLEADO</p>
@@ -88,24 +85,27 @@
                 </div>
                 <button class="close-button" type="button" id="close-dialog" aria-label="Cerrar">×</button>
             </div>
-            <input type="hidden" id="edit-id">
+            
+            <input type="hidden" id="edit-id" name="id_empleado">
+            <input type="hidden" id="edit-accion" name="accion" value="actualizar">
+
             <div class="edit-grid">
-                <label>Correo electrónico<input id="edit-empleado" type="text" required maxlength="80"></label>
-                <label>CURP<input id="edit-curp" type="text" required maxlength="18"></label>
-                <label>RFC<input id="edit-rfc" type="text" maxlength="13"></label>
-                <label>Puesto<input id="edit-puesto" type="text" required maxlength="30"></label>
-                <label>Turno<input id="edit-turno" type="text" required maxlength="20"></label>
-                <label>Salario<input id="edit-salario" type="number" min="0.01" step="0.01" required></label>
-                <label>Fecha de contratación<input id="edit-fecha" type="date"></label>
+                <label>Correo electrónico<input id="edit-empleado" name="correo" type="text" required maxlength="80"></label>
+                <label>CURP<input id="edit-curp" name="curp" type="text" required maxlength="18"></label>
+                <label>RFC<input id="edit-rfc" name="rfc" type="text" maxlength="13"></label>
+                <label>Puesto<input id="edit-puesto" name="puesto" type="text" required maxlength="30"></label>
+                <label>Turno<input id="edit-turno" name="turno" type="text" required maxlength="20"></label>
+                <label>Salario<input id="edit-salario" name="salario" type="number" min="0.01" step="0.01" required></label>
+                <label>Fecha de contratación<input id="edit-fecha" name="fecha_contratacion" type="date"></label>
                 <label>Estado laboral
-                    <select id="edit-estado">
+                    <select id="edit-estado" name="estado_laboral">
                         <option value="activo">Activo</option>
                         <option value="vacaciones">Vacaciones</option>
                         <option value="inactivo">Inactivo</option>
                     </select>
                 </label>
-                <label>Contacto de emergencia<input id="edit-contacto-nom" type="text" maxlength="50"></label>
-                <label>Teléfono de emergencia<input id="edit-contacto-tel" type="tel" maxlength="10"></label>
+                <label>Contacto de emergencia<input id="edit-contacto-nom" name="contacto_emergencia_nom" type="text" maxlength="50"></label>
+                <label>Teléfono de emergencia<input id="edit-contacto-tel" name="contacto_emergencia_tel" type="tel" maxlength="10"></label>
             </div>
             <div class="dialog-actions">
                 <button class="secondary-button" type="button" id="cancel-edit">Cancelar</button>
@@ -113,6 +113,7 @@
             </div>
         </form>
     </dialog>
+    <script src="../SCRIPT-Code/bajaempl.js"></script>
 </body>
 
 </html>
