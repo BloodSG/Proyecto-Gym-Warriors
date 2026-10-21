@@ -39,7 +39,7 @@
         $estado_laboral = trim($_POST['estado_laboral']);
         $nombre_emergencia = !empty(trim($_POST['contacto_emergencia_nom'])) ? trim($_POST['contacto_emergencia_nom']) : null;
         $telefono_emergencia = !empty(trim($_POST['contacto_emergencia_tel'])) ? trim($_POST['contacto_emergencia_tel']) : null;
-
+        //hola
         if (empty($curp) || empty($correo) || empty($salario) || empty($fecha_contratacion) || empty($puesto) || empty($contra) || empty($contraconfirm) || empty($turno) || empty($estado_laboral))
         {
             echo "<script>
