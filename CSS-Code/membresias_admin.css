@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #0b0f19;
+    --card: #131b2e;
+    --card-hover: #1b2640;
+    --border: #232e48;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
+    --lime: #84cc16;
+    --blue: #38bdf8;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.membresias_admin_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.membresias_admin_header {
+    margin-bottom: 10px;
+}
+
+.membresias_admin_titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    color: var(--text);
+    margin: 0 0 5px 0;
+    letter-spacing: 0.5px;
+}
+
+.membresias_admin_subtitulo {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+}
+
+.membresias_admin_resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.membresias_admin_resumen article {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.membresias_admin_resumen h2 {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.membresias_admin_resumen p {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+}
+
+.consulta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.buscador {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.buscador label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.buscador input[type="search"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--text);
+    font-size: 12px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.buscador input[type="search"]:focus {
+    border-color: var(--blue);
+    outline: none;
+}
+
+.boton_buscar, .btn_registrar_membresia {
+    background: var(--blue);
+    color: #0b0f19;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn_registrar_membresia {
+    background: var(--lime);
+    margin-bottom: 15px;
+}
+
+.boton_buscar:hover, .btn_registrar_membresia:hover {
+    opacity: 0.9;
+}
+
+.tabla_contenedor {
+    overflow-x: auto;
+}
+
+.tabla_membresias {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 12px;
+}
+
+.tabla_membresias th {
+    background: var(--bg);
+    color: var(--text-dim);
+    padding: 12px;
+    border-bottom: 2px solid var(--border);
+    font-weight: 600;
+}
+
+.tabla_membresias td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.tabla_membresias tbody tr:hover {
+    background: var(--card-hover);
+}
+
+.tabla_membresias td:last-child,
+.acciones_celda {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.modal_dialog {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+}
+
+.modal_ancho {
+    max-width: 750px;
+}
+
+.modal_dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+.modal_contenido {
+    padding: 24px;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.modal_header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    color: var(--text);
+}
+
+.modal_header button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form_modal {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.grupo_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.grupo_form label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.grupo_form input,
+.grupo_form select,
+.grupo_form textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.grupo_form input:focus,
+.grupo_form select:focus,
+.grupo_form textarea:focus {
+    border-color: var(--blue);
+    outline: none;
+}
+
+.fila_form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.modal_acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.modal_acciones button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.modal_acciones button[type="button"] {
+    background: var(--border);
+    color: var(--text);
+    border: none;
+}
+
+.modal_acciones button[type="submit"],
+.modal_acciones button.btn_guardar {
+    background: var(--lime);
+    color: #0b0f19;
+    border: none;
+}
+
+.detalle_cliente_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.perfil_resumen span, .card_info {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.card_info h4, .columna_historial h4 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: var(--blue);
+}
+
+.tabla_historial {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.tabla_historial th, .tabla_historial td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .fila_form, .detalle_cliente_grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn_accion {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.btn_accion:hover {
+    background: var(--card-hover);
+    color: var(--text);
+}
+
+.btn_cancelar:hover {
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigencias | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/vigencias.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html#inicio">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="registrocliente.html">Clientes</a>
+                <a href="admin.html#ventas">Ventas</a>
+                <a href="rutinaInterview.html">Rutinas</a>
+                <a class="active" href="vigencias.html" aria-current="page">Membresías</a>
+                <a href="admin.html#corte-caja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Vigencias</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE MEMBRESÍAS</p>
+                    <h2>Vigencia de clientes</h2>
+                </section>
+
+                <section class="summary-grid" aria-label="Resumen de membresías">
+                    <article class="summary-card">
+                        <span class="summary-label">Clientes con membresía</span>
+                        <strong id="total-clientes">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span class="summary-label">Membresías activas</span>
+                        <strong id="total-activas">0</strong>
+                    </article>
+                    <article class="summary-card warning">
+                        <span class="summary-label">Por vencer</span>
+                        <strong id="total-por-vencer">0</strong>
+                    </article>
+                    <article class="summary-card danger">
+                        <span class="summary-label">Vencidas</span>
+                        <strong id="total-vencidas">0</strong>
+                    </article>
+                </section>
+
+                <section class="card table-card" aria-labelledby="tabla-titulo">
+                    <div class="table-header">
+                        <div>
+                            <h2 id="tabla-titulo">Clientes con membresía</h2>
+                            <p>La información se ordena por fecha de vencimiento.</p>
+                        </div>
+                        <label class="search-field" for="buscar-cliente">
+                            <span>Buscar</span>
+                            <input id="buscar-cliente" type="search"
+                                placeholder="Nombre o membresía" autocomplete="off">
+                        </label>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="vigencias-table">
+                            <caption class="sr-only">Clientes, membresías y fechas de vigencia</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresía</th>
+                                    <th scope="col">Inicio</th>
+                                    <th scope="col">Vencimiento</th>
+                                    <th scope="col">Vigencia</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vigencias-body"></tbody>
+                        </table>
+                    </div>
+                    <p id="estado-tabla" class="table-message" role="status"></p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        /*
+         * El backend puede imprimir aquí el arreglo real antes de cargar este
+         * script: window.clientesConMembresia = [...]. La vista no muestra
+         * registros de ejemplo para evitar información ficticia.
+         */
+        const clientesConMembresia = window.clientesConMembresia || [];
+        const cuerpoTabla = document.getElementById('vigencias-body');
+        const mensajeTabla = document.getElementById('estado-tabla');
+        const campoBusqueda = document.getElementById('buscar-cliente');
+
+        function fechaLocal(fecha) {
+            const [anio, mes, dia] = fecha.split('-').map(Number);
+            return new Date(anio, mes - 1, dia);
+        }
+
+        function fechaVisible(fecha) {
+            if (!fecha) return 'Sin fecha';
+            return fechaLocal(fecha).toLocaleDateString('es-MX', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        function estadoMembresia(fechaVencimiento) {
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            const vencimiento = fechaLocal(fechaVencimiento);
+            const dias = Math.ceil((vencimiento - hoy) / 86400000);
+
+            if (dias < 0) return {
+                nombre: 'Vencida',
+                clase: 'expired',
+                dias
+            };
+            if (dias <= 7) return {
+                nombre: 'Por vencer',
+                clase: 'warning',
+                dias
+            };
+            return {
+                nombre: 'Activa',
+                clase: 'active',
+                dias
+            };
+        }
+
+        function textoDias(dias) {
+            if (dias < 0) return `Venció hace ${Math.abs(dias)} ${Math.abs(dias) === 1 ? 'día' : 'días'}`;
+            if (dias === 0) return 'Vence hoy';
+            return `${dias} ${dias === 1 ? 'día restante' : 'días restantes'}`;
+        }
+
+        function actualizarResumen(registros) {
+            const estados = registros.map((registro) => estadoMembresia(registro.fechaVencimiento));
+            document.getElementById('total-clientes').textContent = registros.length;
+            document.getElementById('total-activas').textContent =
+                estados.filter((estado) => estado.clase === 'active').length;
+            document.getElementById('total-por-vencer').textContent =
+                estados.filter((estado) => estado.clase === 'warning').length;
+            document.getElementById('total-vencidas').textContent =
+                estados.filter((estado) => estado.clase === 'expired').length;
+        }
+
+        function mostrarRegistros(registros) {
+            cuerpoTabla.replaceChildren();
+            actualizarResumen(registros);
+
+            if (!registros.length) {
+                mensajeTabla.textContent = clientesConMembresia.length ?
+                    'No se encontraron coincidencias.' :
+                    'No hay clientes con membresía registrada.';
+                return;
+            }
+
+            mensajeTabla.textContent = '';
+            registros
+                .slice()
+                .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento))
+                .forEach((registro) => {
+                    const estado = estadoMembresia(registro.fechaVencimiento);
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td><strong>${registro.nombre}</strong></td>
+                        <td>${registro.id}</td>
+                        <td><span class="membership-name">${registro.membresia}</span></td>
+                        <td>${fechaVisible(registro.fechaInicio)}</td>
+                        <td>${fechaVisible(registro.fechaVencimiento)}</td>
+                        <td>${textoDias(estado.dias)}</td>
+                        <td><span class="status-badge ${estado.clase}">${estado.nombre}</span></td>
+                    `;
+                    cuerpoTabla.appendChild(fila);
+                });
+        }
+
+        campoBusqueda.addEventListener('input', (evento) => {
+            const termino = evento.target.value.trim().toLocaleLowerCase();
+            const filtrados = clientesConMembresia.filter((registro) => [registro.nombre, registro.id, registro.membresia]
+                .some((valor) => String(valor).toLocaleLowerCase().includes(termino))
+            );
+            mostrarRegistros(filtrados);
+        });
+
+        mostrarRegistros(clientesConMembresia);
+    </script>
+</body>
+
+</html>
