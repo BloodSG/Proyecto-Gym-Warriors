@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar membresía</title>
+    <link rel="stylesheet" href="../CSS-Code/modmembresia.css">
+</head>
+
+<body>
+    <main class="modificar-contenedor">
+        <header class="encabezado">
+            <p class="eyebrow">ADMINISTRACIÓN DE MEMBRESÍAS</p>
+            <h1>Modificar membresía</h1>
+            <p class="subtitulo">Selecciona una membresía existente y actualiza sus datos.</p>
+        </header>
+
+        <section class="panel">
+            <div class="selector-contenedor">
+                <label for="membresia-seleccionada">Membresía que deseas modificar</label>
+                <select id="membresia-seleccionada" name="membresia_seleccionada">
+                    <option value="">Selecciona una membresía</option>
+                    <option value="Escudo básico">Escudo básico</option>
+                    <option value="Guerrero combat">Guerrero combat</option>
+                    <option value="Élite warrior">Élite warrior</option>
+                </select>
+            </div>
+
+            <form class="formulario">
+                <fieldset>
+                    <legend>Datos de la membresía</legend>
+
+                    <div class="fila">
+                        <div class="campo">
+                            <label for="nombre-tipo">Nombre del tipo de membresía</label>
+                            <input type="text" id="nombre-tipo" name="nombre_tipo" maxlength="50" required>
+                        </div>
+                        <div class="campo">
+                            <label for="precio">Precio de la membresía</label>
+                            <div class="entrada-con-prefijo">
+                                <span>$</span>
+                                <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fila">
+                        <div class="campo">
+                            <label for="duracion-dias">Días de duración</label>
+                            <input type="number" id="duracion-dias" name="duracion_dias" min="1" step="1" required>
+                        </div>
+                        <div class="campo">
+                            <label for="incluye-rutina">¿Incluye rutina personalizada?</label>
+                            <select id="incluye-rutina" name="incluye_rutina" required>
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="incluye-dieta">¿Incluye dieta y suplementos?</label>
+                        <select id="incluye-dieta" name="incluye_dieta" required>
+                            <option value="no">No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="caracteristicas">Características adicionales</label>
+                        <textarea id="caracteristicas" name="caracteristicas" maxlength="200" rows="4" placeholder="Describe los beneficios de la membresía"></textarea>
+                        <span class="contador"><span id="caracteres">0</span>/200</span>
+                    </div>
+
+                    <div class="acciones">
+                        <button type="button" class="boton boton-secundario">Cancelar</button>
+                        <button type="button" class="boton boton-principal">Guardar cambios</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
