@@ -10,7 +10,7 @@ function cargar_roles($correo) {
     try {
         $conexion=conectaDB();
         //primero busco si el correo esta en la tabla de empleados y obtengo su subrol
-        $query_empleado="SELECT id_empleado, puesto, turno, salario, correo 
+        $query_empleado="SELECT id_usuario, puesto, turno, salario, correo 
                         FROM Empleados 
                         WHERE correo = :correo";
 
