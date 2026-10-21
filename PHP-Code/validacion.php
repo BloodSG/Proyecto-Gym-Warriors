@@ -12,9 +12,16 @@
         require_once 'libreria.php';
         $pdo = conectaDB();
         
-        $sql = "SELECT * FROM loguin WHERE correo = :correo";
+        $sql = "SELECT id_usuario, correo, contraseña, NULL AS subrol 
+        FROM loguin 
+        WHERE correo = :correo1
+        UNION
+        SELECT id_empleado AS id_usuario, correo, contraseña, puesto AS subrol 
+        FROM Empleados 
+        WHERE correo = :correo2";
+
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['correo' => $correo_ingresado]);
+        $stmt->execute(['correo1' => $correo_ingresado, 'correo2' => $correo_ingresado]);
 
         $usuario_guardado = $stmt->fetch(PDO::FETCH_ASSOC);
     
