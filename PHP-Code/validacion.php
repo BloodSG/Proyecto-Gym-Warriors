@@ -1,5 +1,5 @@
 <?php 
-    // 1. SIEMPRE arranca la sesión al principio del archivo si vas a manejar logins
+    
     session_start();
 
     $entramos = false; 
@@ -12,18 +12,12 @@
         require_once 'libreria.php';
         $pdo = conectaDB();
         
-        // Buscar el correo en la tabla de clientes (loguin) y en la de Empleados
-        $sql = "SELECT id_usuario, correo, contraseña, NULL AS subrol 
-                FROM loguin 
-                WHERE correo = :correo1
+        // BUSCAMOS LA CONTRASEÑA EN AMBAS TABLAS PARA QUE PUEDAN ENTRAR EMPLEADOS Y CLIENTES
+        $sql = "SELECT id_usuario, correo, contraseña FROM loguin WHERE correo = :correo1
                 UNION
-                SELECT id_empleado AS id_usuario, correo, contraseña, puesto AS subrol 
-                FROM Empleados 
-                WHERE correo = :correo2";
+                SELECT id_empleado AS id_usuario, correo, contraseña FROM Empleados WHERE correo = :correo2";
                 
         $stmt = $pdo->prepare($sql);
-        
-        // Se envía el correo a ambos marcadores para que busque en las dos tablas
         $stmt->execute([
             'correo1' => $correo_ingresado,
             'correo2' => $correo_ingresado
@@ -33,40 +27,48 @@
     
         if ($usuario_guardado)
         {
-            // Validar la contraseña ingresada contra el hash de la base de datos
             if (password_verify($password_ingresada, rtrim($usuario_guardado['contraseña'])))
             {
                 $entramos = true;
 
-                
+                // GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
                 $_SESSION['logueado'] = true;
-                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
                 $_SESSION['correo'] = $usuario_guardado['correo'];
                 
+                require_once 'validacion_empleados.php';
+
+               
+                $variableRol = cargar_roles($correo_ingresado);
                 
-                if (!empty($usuario_guardado['subrol']))
+             
+                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
+                
+                // si es true significa que es empleado entonces entra a ver que tipo de empleado es 
+                if($variableRol)
                 {
-                    $_SESSION['subrol'] = $usuario_guardado['subrol'];
-                    
-                    if($_SESSION['subrol'] == 'Manager' || $_SESSION['subrol'] == 'Recepcionista')
+                    $subrol = $_SESSION['subrol'];
+                    if($subrol == 'Manager')
                     {
                         header("Location: ../HTML-Code/admin.html");
-                        exit();
+                    }
+                    else if ($subrol == 'Recepcionista')
+                    {
+                        header("Location: ../HTML-Code/admin.html");
                     }
                     else 
                     {
-                        
-                        header("Location: ../HTML-Code/admin.html"); 
-                        exit();
+                        // Por si entra un Entrenador u otro rol
+                        header("Location: ../HTML-Code/admin.html");
                     }
                 }
-                
+                // si no es true asume que es un cliente
                 else
                 {
                     $_SESSION['tipo_usuario'] = "Cliente";
                     header("Location: ../HTML-Code/princi.html");
-                    exit();
                 }
+                
+                exit();
             }
         }
     }
