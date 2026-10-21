@@ -306,15 +306,17 @@ function obtenerDatosRutina(): array
 {
     return [
         "nombre" => valorTexto($_POST, "nombre"), "correo" => valorTexto($_POST, "correo"),
-        "telefono" => valorTexto($_POST, "telefono"), "edad" => valorTexto($_POST, "edad"),
+        "telefono" => valorTexto($_POST, "telefono"),
         "sexo" => valorTexto($_POST, "sexo"), "fecha" => valorTexto($_POST, "fecha"),
         "estatura" => valorTexto($_POST, "estatura"), "peso" => valorTexto($_POST, "peso"),
         "ocupacion" => valorTexto($_POST, "ocupacion"), "objetivos" => listaTexto($_POST, "objetivos"),
         "objetivo_otro" => valorTexto($_POST, "objetivoOtro"), "objetivo_especifico" => valorTexto($_POST, "objetivoEspecifico"),
         "experiencia" => valorTexto($_POST, "experiencia"), "tiempo_entrenado" => valorTexto($_POST, "tiempoEntrenando"),
+        "unidad_tiempo_entrenado" => valorTexto($_POST, "unidadTiempo"),
         "nivel" => valorTexto($_POST, "nivelExp"), "entrenador" => valorTexto($_POST, "expEntrenador"),
         "actividad_actual" => valorTexto($_POST, "actividadActual"), "dias_actuales" => valorTexto($_POST, "diasActuales"),
-        "tiempo_sesion_actual" => valorTexto($_POST, "tiempoSesion"), "tipo_entrenamiento" => valorTexto($_POST, "tipoEntrenamiento"),
+        "tiempo_sesion_actual" => valorTexto($_POST, "tiempoSesion"), "unidad_tiempo_sesion" => valorTexto($_POST, "unidadTiempoSesion"),
+        "tipo_entrenamiento" => valorTexto($_POST, "tipoEntrenamiento"),
         "deporte" => valorTexto($_POST, "deporte"), "nombre_deporte" => valorTexto($_POST, "nombreDeporte"),
         "condicion" => valorTexto($_POST, "condicionMedica"), "condicion_descripcion" => valorTexto($_POST, "condicionMedicaEspecifica"),
         "lesion" => valorTexto($_POST, "lesion"), "lesion_descripcion" => valorTexto($_POST, "lesionEspecifica"),
@@ -323,7 +325,7 @@ function obtenerDatosRutina(): array
         "horario" => valorTexto($_POST, "horarios"), "lugares" => listaTexto($_POST, "lugar"),
         "lugar_otro" => valorTexto($_POST, "lugarOtro"), "equipo" => listaTexto($_POST, "equipo"),
         "equipo_otro" => valorTexto($_POST, "equipoOtro"), "preferencias" => listaTexto($_POST, "preferencias"),
-        "preferencia_otra" => valorTexto($_POST, "preferenciasOtro"), "favoritos" => valorTexto($_POST, "disfruta"),
+        "preferencia_otra" => valorTexto($_POST, "preferenciasOtro"), "favoritos" => implode(", ", listaTexto($_POST, "disfruta")),
         "evitar" => valorTexto($_POST, "noDisfruta"), "estres" => valorTexto($_POST, "estres"),
         "sueno" => valorTexto($_POST, "sueño"), "horas_sueno" => valorTexto($_POST, "horasSueño"),
         "dieta" => strtolower(valorTexto($_POST, "dieta")), "dieta_descripcion" => valorTexto($_POST, "dietatxt"),
@@ -349,7 +351,6 @@ function validarRutina(array $datos): array
     $fecha = DateTimeImmutable::createFromFormat("!Y-m-d", $datos["fecha"]);
     $erroresFecha = DateTimeImmutable::getLastErrors();
     if (!$fecha || ($erroresFecha !== false && ($erroresFecha["warning_count"] || $erroresFecha["error_count"])) || $fecha->format("Y-m-d") !== $datos["fecha"] || $fecha > new DateTimeImmutable("today")) $errores[] = "La fecha de nacimiento no es válida.";
-    if (!filter_var($datos["edad"], FILTER_VALIDATE_INT) || (int)$datos["edad"] < 1 || (int)$datos["edad"] > 100) $errores[] = "La edad debe ser un entero entre 1 y 100.";
     if (!is_numeric($datos["estatura"]) || (float)$datos["estatura"] < 80 || (float)$datos["estatura"] > 250) $errores[] = "La estatura debe estar entre 80 y 250 cm.";
     if (!is_numeric($datos["peso"]) || (float)$datos["peso"] < 20 || (float)$datos["peso"] > 999.99) $errores[] = "El peso debe estar entre 20 y 999.99 kg.";
     if ($longitud($datos["ocupacion"]) > 30) $errores[] = "La ocupación admite máximo 30 caracteres.";
@@ -365,10 +366,17 @@ function validarRutina(array $datos): array
     foreach (["experiencia" => ["si", "no"], "nivel" => ["principiante", "intermedio", "avanzado"], "entrenador" => ["si", "no"], "actividad_actual" => ["si", "no"], "deporte" => ["si", "no"], "estres" => ["bajo", "medio", "alto"], "sueno" => ["si", "no"], "dieta" => ["si", "no"]] as $campo => $valores) {
         if (!in_array($datos[$campo], $valores, true)) $errores[] = "Selecciona una respuesta válida para " . $campo . ".";
     }
-    if (!filter_var($datos["tiempo_entrenado"], FILTER_VALIDATE_INT) || (int)$datos["tiempo_entrenado"] < 0 || (int)$datos["tiempo_entrenado"] > 600) $errores[] = "El tiempo entrenando debe ser de 0 a 600 meses.";
-    if (!filter_var($datos["dias_actuales"], FILTER_VALIDATE_INT) || (int)$datos["dias_actuales"] < 1 || (int)$datos["dias_actuales"] > 7) $errores[] = "Selecciona entre 1 y 7 días de entrenamiento actual.";
-    if (!filter_var($datos["tiempo_sesion_actual"], FILTER_VALIDATE_INT) || (int)$datos["tiempo_sesion_actual"] < 1 || (int)$datos["tiempo_sesion_actual"] > 240) $errores[] = "El tiempo por sesión actual debe ser de 1 a 240 minutos.";
-    if ($longitud($datos["tipo_entrenamiento"]) > 15) $errores[] = "El tipo de entrenamiento admite máximo 15 caracteres.";
+    if (!filter_var($datos["tiempo_entrenado"], FILTER_VALIDATE_INT) || (int)$datos["tiempo_entrenado"] < 0 || (int)$datos["tiempo_entrenado"] > 600) $errores[] = "Revisa el tiempo que llevas entrenando.";
+    if (!in_array($datos["unidad_tiempo_entrenado"], ["días", "meses", "años"], true)) $errores[] = "Selecciona una unidad válida para el tiempo entrenado.";
+    if ($datos["actividad_actual"] === "si") {
+        if (!filter_var($datos["dias_actuales"], FILTER_VALIDATE_INT) || (int)$datos["dias_actuales"] < 1 || (int)$datos["dias_actuales"] > 7) $errores[] = "Selecciona entre 1 y 7 días de entrenamiento actual.";
+        if (!filter_var($datos["tiempo_sesion_actual"], FILTER_VALIDATE_INT) || (int)$datos["tiempo_sesion_actual"] < 1) $errores[] = "Ingresa el tiempo por sesión actual.";
+        if (!in_array($datos["unidad_tiempo_sesion"], ["minutos", "horas"], true)) $errores[] = "Selecciona la unidad del tiempo por sesión.";
+        $minutosActuales = (int)$datos["tiempo_sesion_actual"] * ($datos["unidad_tiempo_sesion"] === "horas" ? 60 : 1);
+        if ($minutosActuales > 240) $errores[] = "El tiempo por sesión no puede superar 240 minutos.";
+    }
+    $tiposEntrenamientoLargos = ["Entrenamiento funcional", "Movilidad y flexibilidad"];
+    if ($longitud($datos["tipo_entrenamiento"]) > 15 && !in_array($datos["tipo_entrenamiento"], $tiposEntrenamientoLargos, true)) $errores[] = "El tipo de entrenamiento admite máximo 15 caracteres.";
     if ($datos["deporte"] === "si" && $datos["nombre_deporte"] === "") $errores[] = "Especifica cuál otro deporte realizas.";
     if ($longitud($datos["nombre_deporte"]) > 50) $errores[] = "El deporte admite máximo 50 caracteres.";
 
@@ -438,25 +446,35 @@ function guardarRutina(PDO $conexion, array $datos): string
         $idUsuario = $consulta->fetchColumn();
         if (!$idUsuario) throw new DomainException("Ese correo no tiene una cuenta activa. Regístrate primero.");
 
-        // fisica_rutina exige un coach que exista como usuario con rol Coach/Entrenador.
+                // fisica_rutina referencia usuariocliente; se enlaza el empleado por correo.
         $consulta = $conexion->prepare(
-            "SELECT TOP 1 u.id_usuario FROM usuariocliente u
-             INNER JOIN Rol r ON r.id_rol = u.id_rol
-             WHERE u.tiene_cuenta = 1
+                        "SELECT TOP 1 u.id_usuario FROM Empleados e
+                         INNER JOIN Rol r ON r.id_rol = e.id_rol
+                         INNER JOIN usuariocliente u ON u.correo = e.correo
+                         WHERE e.estado_laboral = 'activo'
                AND (LOWER(r.nombre_rol) LIKE '%coach%' OR LOWER(r.nombre_rol) LIKE '%entrenador%')
-             ORDER BY u.id_usuario"
+                         ORDER BY e.id_empleado"
         );
         $consulta->execute();
         $idCoach = $consulta->fetchColumn();
-        if (!$idCoach) throw new DomainException("No hay un coach activo para asignar la evaluación física.");
+        if (!$idCoach) throw new DomainException("No hay un empleado activo con rol Coach/Entrenador enlazado a un usuario. Se necesita para guardar la evaluación física.");
 
         $objetivos = $datos["objetivos"];
         if (in_array("Otro", $objetivos, true)) $objetivos[array_search("Otro", $objetivos, true)] = $datos["objetivo_otro"];
         $objetivoPrincipal = implode(", ", $objetivos);
+        $tipoEntrenamiento = [
+            "Entrenamiento funcional" => "Funcional",
+            "Movilidad y flexibilidad" => "Movilidad",
+        ][$datos["tipo_entrenamiento"]] ?? $datos["tipo_entrenamiento"];
         $lugares = $datos["lugares"];
         if (in_array("otro", $lugares, true)) $lugares[array_search("otro", $lugares, true)] = $datos["lugar_otro"];
         $lugarTexto = implode(", ", $lugares);
         $minutos = $datos["tiempo_disponible"] === "mas90" ? 120 : (int)$datos["tiempo_disponible"];
+        $tiempoEntrenado = (int)$datos["tiempo_entrenado"];
+        if ($datos["unidad_tiempo_entrenado"] === "días") $tiempoEntrenado = intdiv($tiempoEntrenado, 30);
+        if ($datos["unidad_tiempo_entrenado"] === "años") $tiempoEntrenado *= 12;
+        $fechaNacimiento = new DateTimeImmutable($datos["fecha"]);
+        $edad = (new DateTimeImmutable("today"))->diff($fechaNacimiento)->y;
         $nivelCompromiso = (int)round(array_sum(array_map(static fn(string $campo): int => (int)$datos[$campo], ["fuerza", "resistencia", "flexibilidad", "energia", "disciplina", "motivacion"])) / 6);
 
         // Crea o actualiza los datos físicos y registra la aceptación expresa del reglamento.
@@ -467,13 +485,13 @@ function guardarRutina(PDO $conexion, array $datos): string
                 "UPDATE Detalle_Cliente SET fecha_nacimiento = ?, edad = ?, sexo = ?, estatura = ?,
                  peso_actual = ?, ocupacion = ?, acepto_reglamento = 'si' WHERE id_usuario = ?"
             );
-            $consulta->execute([$datos["fecha"], (int)$datos["edad"], $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null, $idUsuario]);
+            $consulta->execute([$datos["fecha"], $edad, $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null, $idUsuario]);
         } else {
             $consulta = $conexion->prepare(
                 "INSERT INTO Detalle_Cliente (id_usuario, fecha_nacimiento, edad, sexo, estatura, peso_actual, ocupacion, acepto_reglamento)
                  VALUES (?, ?, ?, ?, ?, ?, ?, 'si')"
             );
-            $consulta->execute([$idUsuario, $datos["fecha"], (int)$datos["edad"], $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null]);
+            $consulta->execute([$idUsuario, $datos["fecha"], $edad, $datos["sexo"], $datos["estatura"], $datos["peso"], $datos["ocupacion"] ?: null]);
         }
 
         $idEntrevista = siguienteId($conexion, "Entrevista", "id_entrevista", "E");
@@ -495,7 +513,7 @@ function guardarRutina(PDO $conexion, array $datos): string
             $datos["nivel"], $datos["entrenador"], $lugarTexto, (int)$datos["dias_disponibles"],
             $minutos, $datos["horario"], $datos["estres"], $datos["sueno"] === "si" ? "buena" : "mala",
             (int)$datos["horas_sueno"], $datos["dieta"], $datos["comentarios"] ?: null, $idUsuario,
-            (int)$datos["tiempo_entrenado"], $datos["actividad_actual"], $datos["deporte"],
+            $tiempoEntrenado, $datos["actividad_actual"], $datos["deporte"],
             $datos["deporte"] === "si" ? $datos["nombre_deporte"] : null,
         ]);
 
@@ -539,7 +557,7 @@ function guardarRutina(PDO $conexion, array $datos): string
         if ($datos["tipo_entrenamiento"] !== "") {
             $idPreferencia = siguienteId($conexion, "detalle_preferecias_ejercicio", "id_detalle_preferencia", "P");
             $consulta = $conexion->prepare("INSERT INTO detalle_preferecias_ejercicio (id_detalle_preferencia, tipo_entrenamiento_disfruta, id_entrevista_ent) VALUES (?, ?, ?)");
-            $consulta->execute([$idPreferencia, $datos["tipo_entrenamiento"], $idEntrevistaEnt]);
+            $consulta->execute([$idPreferencia, $tipoEntrenamiento, $idEntrevistaEnt]);
         }
 
         foreach (["favoritos" => "favorito", "evitar" => "evitar"] as $campo => $tipo) {
