@@ -58,6 +58,7 @@
             exit();
         }
 
+        $passwordHash = password_hash($contra, PASSWORD_DEFAULT);
         $conexion = conectaDB();
 
         $id_nuevo = generar_IDEmpleado($conexion);
@@ -66,7 +67,7 @@
         {
             $consulta_alta_empleado = "INSERT INTO Empleados (id_empleado, curp, rfc, correo, salario, fecha_contratacion, puesto, contraseña, turno, estado_laboral, contacto_emergencia_nom, contacto_emergencia_tel, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $puente_alta = $conexion->prepare($consulta_alta_empleado);
-            $puente_alta->execute([$id_nuevo, $curp, $rfc, $correo, $salario, $fecha_contratacion, $puesto, $contra, $turno, $estado_laboral, $nombre_emergencia, $telefono_emergencia, $id_rol]);
+            $puente_alta->execute([$id_nuevo, $curp, $rfc, $correo, $salario, $fecha_contratacion, $puesto, $passwordHash, $turno, $estado_laboral, $nombre_emergencia, $telefono_emergencia, $id_rol]);
 
             echo "<script>
                 alert('¡Empleado registrado exitosamente!');
