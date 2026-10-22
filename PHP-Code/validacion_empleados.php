@@ -10,7 +10,7 @@ function cargar_roles($correo) {
     try {
         $conexion=conectaDB();
         //primero busco si el correo esta en la tabla de empleados y obtengo su subrol
-        $query_empleado="SELECT id_usuario, puesto, turno, salario, correo 
+        $query_empleado="SELECT id_empleado, puesto, turno, salario, correo 
                         FROM Empleados 
                         WHERE correo = :correo";
 
@@ -28,7 +28,7 @@ function cargar_roles($correo) {
             return true;
         }
         
-        //si no esta en la tabla de empleados busco si esta en la tabla de clientes y obtengo su subrol
+        //si no esta en la tabla de empleados busco si esta en la tabl a de clientes y obtengo su subrol
         $query_cliente="SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, Rol.nombre_rol
                         FROM usuariocliente
                         INNER JOIN Rol ON usuariocliente.id_rol = Rol.id_rol
