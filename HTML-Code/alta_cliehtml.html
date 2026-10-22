@@ -2,63 +2,43 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Alta de cliente</title>
+    <title>Crea perfil</title>
     <link rel="stylesheet" href="../CSS-Code/alta_cliecss.css">
     
 </head>
 <body>
     
-<aside class="sidebar">
-    <a class="brand" href="admin.html">
-        <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
-    </a>
 
-    <p class="sidebar-label">Administración</p>
-
-    <nav class="main-nav">
-        <a href="admin.html#inicio">Inicio</a>
-        <a href="admin.html#empleados">Empleados</a>
-        <a href="admin.html#proveedores">Proveedores</a>
-        <a href="admin.html#productos">Productos</a>
-        <a href="admin.html#clientes" class="active">Clientes</a>
-        <a href="admin.html#ventas">Ventas</a>
-        <a href="admin.html#rutinas">Rutinas</a>
-        <a href="admin.html#membresias">Membresías</a>
-        <a href="admin.html#corte-caja">Corte de caja</a>
-    </nav>
-
-    <a class="logout" href="loginView.html">Cerrar sesión</a>
-</aside>
     <div class="formulario">
         <div class="logo">
-            <img src="../Recursos/LogoWarriors.svg" alt="Fitness Warriors">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
         </div>
-        <h1>Alta de cliente</h1>
-        <p>Crea el acceso del nuevo cliente al sistema.</p>
+        <h1>Crea perfil</h1>
+        <p>Crea un nuevo perfil para un cliente en el sistema. (solo puedes crear uno si ya estas dado de alta)</p>
         <form action="../PHP-Code/guardar.php" method="POST">
-            <label>Nombre completo</label>
+            <label for="nombre">Nombre completo</label>
             <br>
-            <input type="text" id="nombre" name="nombre">
+            <input type="text" id="nombre" name="nombre" maxlength="30" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
             <br>
 
             <label for="correo">Correo electrónico</label>
             <br>
-            <input type="email" id="correo" name="correo" required>
+            <input type="email" id="correo" name="correo" maxlength="50" autocomplete="email" required>
             <br>
 
-            <label>Contraseña</label>
+            <label for="password">Contraseña (10 caracteres)</label>
             <br>
-            <input type="password" id="password" name="contraseña" >
+            <input type="password" id="password" name="contraseña" minlength="10" maxlength="10" autocomplete="new-password" required>
             <br>
             <label>Confirmar contraseña</label>
             <br>
             
-            <input type="password" id="confirmar" name="confirmar" >
+            <input type="password" id="confirmar" name="confirmar" minlength="10" maxlength="10" autocomplete="new-password" required>
             <button type="submit">Confirmar y guardar</button>
         </form>
         <p class="abajo">
             ¿Ya tiene cuenta?
-            <a>Ir a iniciar sesión</a>
+            <a href="loginView.html">Ir a iniciar sesión</a>
         </p>
     </div>
 </body>

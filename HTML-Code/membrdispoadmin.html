@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresías disponibles</title>
+    <link rel="stylesheet" href="../CSS-Code/membrdispoadmin.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav" aria-label="Navegación administrativa">
+                <a class="active" href="#inicio">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="#ventas">Ventas</a>
+                <a href="rutinaInterview.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membresias_admin.html">Membresías</a>
+                <a href="#cortedecaja">Corte de caja</a>
+            </nav>
+
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+</aside>
+
+    <div class="contenido">
+        <div class="logo">
+            <img src="LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+
+        <div class="encabezado">
+            <div>
+                <h1>Membresías disponibles</h1>
+                <p>Selecciona la membresía que elija el cliente </p>
+            </div>
+            <button type="button" class="btn-agregar" onclick="location.href='nuevamembre.html'">+ Añadir membresía</button>
+            <button type="button" class="btn-editar" >Modificar membresía</button>
+            <button type="button" class="btn-eliminar" >Eliminar membresía</button>
+        </div>
+
+        <!--
+            Holaaa te voy a dejar como una descripcion de lo que se hace de todos modos di tienes dudas me dices:
+            cada <article class="tarjeta"> representa una fila de la tabla membresia de la base de datos
+            lo hice para q repitas esta tarjeta por cada membresía q exista en la base de datos
+            (las tarjetas de abajo son solo ejemplos de diseño y se pueden borrar)
+            los datos de la base de datos q va a tener las targetas son estos:
+              - nombre_tipo
+              - precio
+              - duracion_dias
+              - incluye_rutina
+              - incluye_dieta
+              - caracteristicas
+              - id_membresia
+            si no hay ninguna membresía se va a mostrar en lugar de las tarjetas:
+              <p class="vacio">aun no hay membresías registradas.      ademas de que el boton de suscribir va a ir a altamembresia.html</p>
+        -->
+        <section class="membresias">
+            <!--Ejemplo targeta 1-->
+            <article class="tarjeta">
+                <h2>Básica</h2>
+                <p class="precio">$300 <span> 30 días</span></p>
+                <ul class="beneficios">
+                    <li class="no">Rutina personalizada</li>
+                    <li class="no">Dieta y suplementos</li>
+                </ul>
+                <p class="caracteristicas">Clases de cross o boxeo</p>
+                <button type="button" class="btn-suscribir" onclick="location.href='altamembresia.html'">Suscribirse</button>
+            </article>
+            <!--Ejemplo targeta 2-->
+
+            <article class="tarjeta">
+                <h2>Personalizada</h2>
+                <p class="precio">$500 <span> 30 días</span></p>
+                <ul class="beneficios">
+                    <li class="si">Rutina personalizada</li>
+                    <li class="no">Dieta y suplementos</li>
+                </ul>
+                <p class="caracteristicas">Clases de cross o boxeo + rutina personalizada de pesas</p>
+                <button type="button" class="btn-suscribir" onclick="location.href='altamembresia.html'">Suscribirse</button>
+            </article>
+            <!--Ejemplo targeta 3-->
+
+            <article class="tarjeta">
+                <h2>Pro</h2>
+                <p class="precio">$700 <span> 30 días</span></p>
+                <ul class="beneficios">
+                    <li class="si">Rutina personalizada</li>
+                    <li class="si">Dieta y suplementos</li>
+                </ul>
+                <p class="caracteristicas">Clases de cross o boxeo + rutina, dieta equilibrada y suplementación.</p>
+                <button type="button" class="btn-suscribir" onclick="location.href='altamembresia.html'">Suscribirse</button>
+            </article>
+
+        </section>
+        <button type="button" class="btn-vigencias" onclick="location.href='vigencias.html'">Información de membresías</button>
+    </div>
+</body>
+</html>

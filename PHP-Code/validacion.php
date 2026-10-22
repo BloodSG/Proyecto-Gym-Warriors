@@ -1,5 +1,5 @@
 <?php 
-    // 1. SIEMPRE arranca la sesión al principio del archivo si vas a manejar logins
+    
     session_start();
 
     $entramos = false; 
@@ -12,9 +12,16 @@
         require_once 'libreria.php';
         $pdo = conectaDB();
         
-        $sql = "SELECT * FROM loguin WHERE correo = :correo";
+        // BUSCAMOS LA CONTRASEÑA EN AMBAS TABLAS PARA QUE PUEDAN ENTRAR EMPLEADOS Y CLIENTES
+        $sql = "SELECT id_usuario, correo, contraseña FROM loguin WHERE correo = :correo1
+                UNION
+                SELECT id_empleado AS id_usuario, correo, contraseña FROM Empleados WHERE correo = :correo2";
+                
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['correo' => $correo_ingresado]);
+        $stmt->execute([
+            'correo1' => $correo_ingresado,
+            'correo2' => $correo_ingresado
+        ]);
 
         $usuario_guardado = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -24,15 +31,43 @@
             {
                 $entramos = true;
 
-                // 2. GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
+                // GUARDAMOS LOS DATOS EN LA SESIÓN ANTES DE REDIRIGIR
                 $_SESSION['logueado'] = true;
-                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
                 $_SESSION['correo'] = $usuario_guardado['correo'];
-                // Si agregas la columna 'nombre' a tu BD, también puedes guardarla aquí:
-                // $_SESSION['nombre'] = $usuario_guardado['nombre'];
+                
+                require_once 'validacion_empleados.php';
 
-                // 3. Ahora sí, lo mandamos a la página principal
-                header("Location: ../HTML-Code/princi.html"); // Ojo: lo ideal sería que index fuera .php para poder leer la sesión
+               
+                $variableRol = cargar_roles($correo_ingresado);
+                
+             
+                $_SESSION['id_usuario'] = $usuario_guardado['id_usuario'];
+                
+                // si es true significa que es empleado entonces entra a ver que tipo de empleado es 
+                if($variableRol)
+                {
+                    $subrol = $_SESSION['subrol'];
+                    if($subrol == 'Manager')
+                    {
+                        header("Location: ../HTML-Code/admin.html");
+                    }
+                    else if ($subrol == 'Recepcionista')
+                    {
+                        header("Location: ../HTML-Code/admin.html");
+                    }
+                    else 
+                    {
+                        // Por si entra un Entrenador u otro rol
+                        header("Location: ../HTML-Code/admin.html");
+                    }
+                }
+                // si no es true asume que es un cliente
+                else
+                {
+                    $_SESSION['tipo_usuario'] = "Cliente";
+                    header("Location: ../HTML-Code/princi.html");
+                }
+                
                 exit();
             }
         }

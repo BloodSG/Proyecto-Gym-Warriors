@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Alta de empleado</title>
+    <link rel="stylesheet" href="../CSS-Code/Reg_emplcss.css">
+
+</head>
+<body>
+    
+<aside class="sidebar">
+    <a class="brand" href="vista.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav" aria-label="Navegación administrativa">
+                <a class="active" href="#inicio">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="#ventas">Ventas</a>
+                <a href="rutinaInterview.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membresias_admin.html">Membresías</a>
+                <a href="#cortedecaja">Corte de caja</a>
+            </nav>
+
+    
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+    <div class="formulario">
+        <div class="logo">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Alta de empleado</h1>
+        <p>Crea el acceso del nuevo empleado al sistema.</p>
+        <form action="../PHP-Code/alta_empleados.php" method="POST">
+            <div class="fila-doble">
+                <div>
+                    <label for="curp">CURP</label>
+                    <input type="text" class="mayus" name="curp" id="curp" maxlength="18" pattern="[A-Za-z0-9]{18}" title="18 caracteres" required>
+                </div>
+                <div>
+                    <label for="rfc">RFC</label>
+                    <input type="text" class="mayus" name="rfc" id="rfc" maxlength="13" pattern="[A-Za-z0-9]{12,13}" title="12 o 13 caracteres">
+                </div>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" name="correo" id="correo" maxlength="100" required>
+                </div>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="salario">Salario</label>
+                    <input type="number" name="salario" id="salario" min="1" max="99999999" step="0.5" required>
+                </div>
+                <div>
+                    <label for="fecha_contratacion">Fecha de contratación</label>
+                    <input type="date" name="fecha_contratacion" id="fecha_contratacion" required>
+                </div>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="contra">Contraseña</label>
+                    <input type="password" name="contra" id="contra" minlength="10" maxlength="10" required>
+                </div>
+                <div>
+                    <label for="contraconfirm">Confirmar contraseña</label>
+                    <input type="password" name="contraconfirm" id="contraconfirm" minlength="10" maxlength="10" required>
+                </div>
+            </div>
+            <label>Puesto:</label>
+            <br>
+            <div class="rol">
+                <label class="roldis"><input type="radio" name="puesto" value="Entrenador" required> Entrenador</label>
+                <label class="roldis"><input type="radio" name="puesto" value="Manager"> Manager</label>
+                <label class="roldis"><input type="radio" name="puesto" value="Recepcionista"> Recepcionista</label>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="turno">Turno</label>
+                    <select name="turno" id="turno" required>
+                        <option value="" disabled selected>Selecciona un turno</option>
+                        <option value="Matutino">Matutino (6:00 - 10:00)</option>
+                        <option value="Vespertino">Vespertino (16:00 - 20:30)</option>
+                        <option value="Mixto">Mixto</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="estado_laboral">Estado laboral</label>
+                    <select name="estado_laboral" id="estado_laboral" required>
+                        <option value="activo" selected>Activo</option>
+                        <option value="vacaciones">Vacaciones</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            
+            <label>Contacto de emergencia</label>
+            <div class="fila-doble">
+                <div>
+                    <label for="contacto_emergencia_nom">Nombre</label>
+                    <input type="text" name="contacto_emergencia_nom" id="contacto_emergencia_nom" maxlength="50">
+                </div>
+                <div>
+                    <label for="contacto_emergencia_tel">Teléfono</label>
+                    <input type="tel" name="contacto_emergencia_tel" id="contacto_emergencia_tel" maxlength="10" pattern="[0-9]{10}" title="10 dígitos numéricos">
+                </div>
+            </div>
+            <button type="submit">Confirmar y guardar</button>
+        </form>
+        <p class="abajo">
+            ¿Ya tiene cuenta?
+            <a>Ir a iniciar sesión</a>
+        </p>
+    </div>
+</body>
+</html>

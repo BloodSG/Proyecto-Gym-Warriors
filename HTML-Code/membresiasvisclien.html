@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresías</title>
+    <link rel="stylesheet" href="../CSS-Code/membresiasvisclien.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Panel de cliente</p>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="princi.html#inicio"><span class="nav-icon">⌂</span>Inicio</a>
+                <a href="princi.html#rutina"><span class="nav-icon">♧</span>Mi rutina</a>
+                <a href="princi.html#medidas"><span class="nav-icon">⌁</span>Mis medidas</a>
+                <a class="active" href="membresias.html"><span class="nav-icon">▣</span>Mi membresía</a>
+                <a href="princi.html#pagos"><span class="nav-icon">▤</span>Pagos</a>
+                <a href="reglamento.html"><span class="nav-icon">▤</span>Reglamento</a>
+            </nav>
+            <a class="logout" href="loginView.html"><span class="nav-icon">↪</span>Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content" id="inicio">
+            <header class="topbar">
+                <h1><span></span>Membresías</h1>
+                <div class="profile"><strong>DC</strong><span>Diana C.</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <div class="welcome-row">
+                    <div>
+                        <h2>Membresías disponibles</h2>
+                        <p>Conoce lo que incluye cada membresía</p>
+                    </div>
+                </div>
+
+                <!--
+                        Holaaa te voy a dejar como una descripcion de lo que se hace de todos modos di tienes dudas me dices:
+                        cada <article class="tarjeta"> representa una fila de la tabla membresia de la base de datos
+                        lo hice para q repitas esta tarjeta por cada membresía q exista en la base de datos
+                        (las tarjetas de abajo son solo ejemplos de diseño y se pueden borrar)
+                        los datos de la base de datos q va a tener las targetas son estos:
+                        - nombre_tipo
+                        - precio
+                        - duracion_dias
+                        - incluye_rutina
+                        - incluye_dieta
+                        - caracteristicas
+                        - id_membresia
+                        si no hay ninguna membresía se va a mostrar en lugar de las tarjetas:
+                        <p class="vacio">aun no hay membresías registradas.</p>
+                    tal ves se pueda seleccionar la clase actual del q esta el cliente?
+                    (<article class="plan-card actual">) y la etiqueta <span class="active-label">TU PLAN</span> para colocarlo 
+                    si no hay membresías, mostrar: <p class="vacio">Aún no hay membresías disponibles.</p>
+                -->
+                <section class="plan-grid" aria-label="Membresías disponibles">
+                    <!--Ejemplo targeta 1-->
+                    <article class="plan-targeta">
+                        <div class="plan-titulo"><h2>Básica</h2></div>
+                        <div class="plan-precio"><strong>$300</strong><span> 30 días</span></div>
+                        <ul class="plan-entrevis">
+                            <li class="no">Rutina personalizada</li>
+                            <li class="no">Dieta y suplementos</li>
+                        </ul>
+                        <p class="plan-desc">Clases de cross o boxeo.</p>
+                    </article>
+                    <!--Ejemplo targeta 2-->
+                    <article class="plan-targeta">
+                        <div class="plan-titulo"><h2>Personalizada</h2></div>
+                        <div class="plan-precio"><strong>$500</strong><span> 30 días</span></div>
+                        <ul class="plan-entrevis">
+                            <li class="si">Rutina personalizada</li>
+                            <li class="no">Dieta y suplementos</li>
+                        </ul>
+                        <p class="plan-desc">Clases de cross o boxeo + rutina personalizada de pesas.</p>
+                    </article>
+                    <!--Ejemplo targeta 3-->
+                    <article class="plan-targeta">
+                        <div class="plan-titulo"><h2>Pro</h2></div>
+                        <div class="plan-precio"><strong>$700</strong><span>/ 30 días</span></div>
+                        <ul class="plan-entrevis">
+                            <li class="si">Rutina personalizada</li>
+                            <li class="si">Dieta y suplementos</li>
+                        </ul>
+                        <p class="plan-desc">Clases de cross o boxeo + rutina, dieta equilibrada y suplementación.</p>
+                    </article>
+
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
