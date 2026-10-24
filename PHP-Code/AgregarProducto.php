@@ -121,18 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
         $conexion->commit();
         
-        echo "<script>
-            alert('Producto agregado correctamente.\\nID: " . $id_producto . "\\nUbicación final: " . $rutaFinalGuardado . "');
-            window.location.href = document.referrer;
-        </script>";
-        exit;
-                /*
+        
         echo "<script>
             alert('Producto agregado correctamente con ID: " . $id_producto ."');
             window.location.href=document.referrer;
         </script>";
         exit;
-        */
     } 
     catch (Exception $e) 
     {
