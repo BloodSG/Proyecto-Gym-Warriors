@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $extensionArchivo =pathinfo($nombreOriginal, PATHINFO_EXTENSION);
         
         $nombreSeguroUnico=uniqid('prod_', true) . "." . $extensionArchivo;
-        $rutaFinalGuardado="../".$carpetaDeServidor . $nombreSeguroUnico;
+        $rutaFinalGuardado = __DIR__ . "/../" . $carpetaDeServidor . $nombreSeguroUnico;
         
         if (move_uploaded_file($ubicacionTemporal, $rutaFinalGuardado)) 
         {
@@ -120,13 +120,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         }
 
         $conexion->commit();
-
+        
         echo "<script>
-            alert('Producto agregado correctamente con ID: " . $id_producto . "');
+            alert('Producto agregado correctamente.\\nID: " . $id_producto . "\\nUbicación final: " . $rutaFinalGuardado . "');
+            window.location.href = document.referrer;
+        </script>";
+        exit;
+                /*
+        echo "<script>
+            alert('Producto agregado correctamente con ID: " . $id_producto ."');
             window.location.href=document.referrer;
         </script>";
         exit;
-
+        */
     } 
     catch (Exception $e) 
     {

@@ -299,7 +299,6 @@ if (isset($_GET['action']))
                 }
 
                 $carpetaDeServidor="Recursos/img_prods/";
-
                 $conexion->beginTransaction();
 
                 $query1="SELECT id_categoria
@@ -373,7 +372,8 @@ if (isset($_GET['action']))
 
                 echo json_encode([ 
                 "status" => "success",
-                "mensaje" => "Producto: ". $producto ." modificado correctamente",
+                "mensaje" => "Producto: ". $producto ." modificado correctamente "
+                ."ubicacion temporal: ".$ubicacionTemporal."ubicacion final: ".$rutaFinalGuardado
                 ], JSON_UNESCAPED_UNICODE);
             }
             catch (Exception $e) 
