@@ -41,7 +41,7 @@
 
                 <label class="full-width">
                     Nombre completo
-                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
+                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\.\' \-]*" title="Usa solo letras, espacios y puntos" required>
                 </label>
 
                 <label>
@@ -406,6 +406,7 @@
                 </label>
 
                 <p>8. Preferencias de entrenamiento</p>
+                
                 <label>
                     ¿Qué tipo de entrenamiento disfrutas más?
                     <div class="grupo-opciones">
@@ -424,13 +425,13 @@
                         <label class="opcion-check">
                             <input type="checkbox" name="preferencias[]" value="movilidad">Movilidad / Estabilidad
                         </label>
-                        <label class="opcion-check">
-                            <input type="checkbox" name="preferencias[]" value="otro" id="otraPreferenciaCheck">
-                            
+                        <label class="opcion-check" style="min-width: 120px; max-width: 140px;">
+                            <input type="checkbox" name="preferencias[]" value="otro" id="otraPreferenciaCheck"> Otro
+                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" placeholder="Especifique" disabled style="width: 100%; margin-top: 8px; box-sizing: border-box; font-size: 12px; padding: 4px;">
                         </label>
-                        <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" disabled>
                     </div> 
                 </label>
+                
                 <label>
                     <label>
                         ¿Hay ejercicios que te gusten o disfrutes mucho?

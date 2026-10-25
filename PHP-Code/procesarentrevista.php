@@ -319,7 +319,7 @@ function validarRutina(array $datos): array
 {
     $errores = [];
     $longitud = function_exists("mb_strlen") ? "mb_strlen" : "strlen";
-    $patronNombre = '/^[\p{L}\p{M}]+(?:[ \x{27}\x{2019}.\x{2D}][\p{L}\p{M}]+)*$/u';
+    $patronNombre = '/^[\p{L}\p{M}][\p{L}\p{M}\.\' \-]*$/u';
 
     if ($datos["nombre"] === "" || $longitud($datos["nombre"]) > 50 || !preg_match($patronNombre, $datos["nombre"])) $errores[] = "El nombre debe contener solo letras y tener máximo 50 caracteres.";
     if ($longitud($datos["correo"]) > 100 || !filter_var($datos["correo"], FILTER_VALIDATE_EMAIL)) $errores[] = "Ingresa un correo electrónico válido.";

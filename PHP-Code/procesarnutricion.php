@@ -62,7 +62,7 @@ function obtenerDatosNutricion(): array {
 
 function validarNutricion(array $datos): array {
     $errores = [];
-    $patronNombre = '/^[\p{L}\p{M}]+(?:[ \x{27}\x{2019}.\x{2D}][\p{L}\p{M}]+)*$/u';
+    $patronNombre = '/^[\p{L}\p{M}][\p{L}\p{M}\.\' \-]*$/u';
 
     if ($datos["nombre"] === "" || !preg_match($patronNombre, $datos["nombre"])) $errores[] = "El nombre es inválido. Solo usa letras y espacios.";
     if (!filter_var($datos["correo"], FILTER_VALIDATE_EMAIL)) $errores[] = "Ingresa un correo electrónico válido (esto nos ayuda a ligarte a tu cuenta).";
