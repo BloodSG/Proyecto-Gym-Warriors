@@ -25,7 +25,7 @@ $verificar->execute([$nombre_empresa,
 if($verificar->fetch(PDO::FETCH_ASSOC)){
     echo json_encode([
         "estado"=>"error",
-        "mensaje"=>"La empresa, el correo o el telefono ya se encuentra registrado"
+        "mensaje"=>"La empresa, el correo o el teléfono ya se encuentra registrado"
     ]);
     exit();
 }
