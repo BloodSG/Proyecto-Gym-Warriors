@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresías Admin</title>
+    <link rel="stylesheet" href="../CSS-Code/membresias_admin.css">
+</head>
+<body>
+    <main class="membresias_admin_container">
+        <header class="membresias_admin_header">
+            <h1 class="membresias_admin_titulo">MEMBRESÍAS </h1>
+            <p class="membresias_admin_subtitulo">
+                Gestiona el estado de las membresías de los miembros del gimnasio
+            </p>
+        </header>
+
+        <section class="membresias_admin_resumen">
+            <article class="total_de_miembros">
+                <h2 class="titulo_total_miembros">
+                    Total de miembros
+                </h2>
+                <p class="valor_total_miembros">
+                    <!-- PHP -->
+                </p>
+            </article>
+
+            <article class="total_membresias_activas">
+                <h2 class="titulo_total_activas">
+                    Total de membresías activas
+                </h2>
+                <p class="valor_total_activas">
+                    <!-- PHP -->
+                </p>
+            </article>
+
+            <article class="total_membresias_por_vencer">
+                <h2 class="titulo_total_por_vencer">
+                    Total de membresías por vencer
+                </h2>
+                <p class="valor_total_por_vencer">
+                    <!-- PHP -->
+                </p>
+            </article>
+
+            <article class="total_membresias_inactivas">
+                <h2 class="titulo_total_inactivas">
+                    Total de membresías inactivas
+                </h2>
+                <p class="valor_total_inactivas">
+                    <!-- PHP -->
+                </p>
+            </article>
+        </section> 
+
+        <!-- Busqueda -->
+         <section class ="consulta">
+            <form class = "buscador" method = "GET" action = "">
+                <label for = "busqueda"> 
+                    Buscar por nombre o ID:
+                </label>
+
+                <input
+                type = "search"
+                name = "buscador"
+                id = "buscar"
+                placeholder = "Ingrese nombre o ID"
+                >
+
+                <button type = "submit" class = "boton_buscar">
+                    Buscar
+                </button>
+            </form>
+
+            <div style="margin-bottom: 15px;">
+                <button type="button" class="btn_registrar_membresia" onclick="abrirModal('modalRegistrar')">
+                    + Registrar membresía
+                </button>
+            </div>
+
+            <div class = "tabla_contenedor">
+                <table class = "tabla_membresias">
+                    <thead>
+                        <tr>
+                            <th>ID del miembro</th>
+                            <th>Nombre del miembro</th>
+                            <th>Tipo de membresía</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de vencimiento</th>
+                            <th>Estado</th>
+                            <th>Incluye rutina</th>
+                            <th>Incluye dieta</th>
+                            <th>Características</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- PHP -->
+                        <tr>
+                       <td><!--ID del miembro --></td>
+                        <td><!--Nombre --></td>
+                        <td><!--Tipo --></td>
+                        <td><!--Inicio --></td>
+                        <td><!-- Vencimiento --></td>
+                        <td><!-- Estado --></td>
+                        <td><!-- Rutina (si/no)--></td>
+                        <td><!-- Dieta (si/no)--></td>
+                        <td><!-- Características --></td>
+                        <td>
+                            <td class="acciones_celda">
+                                <button type="button" class="btn_accion" onclick="abrirModal('modalRegistrar')" title="Editar">🖉</button>
+                                <button type="button" class="btn_accion" onclick="abrirModal('modalDetalles')" title="Ver detalles">⋯</button>
+                                <button type="button" class="btn_accion btn_cancelar" onclick="confirmarCancelacion()" title="Cancelar membresía">✘</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         </section>
+    </main>
+
+
+    <dialog id="modalRegistrar" class="modal_dialog">
+        <div class="modal_contenido">
+            <div class="modal_header">
+                <h2>Registrar / Actualizar membresía</h2>
+                <button type="button" onclick="cerrarModal('modalRegistrar')">&times;</button>
+            </div>
+            <form method="POST" action="" class="form_modal">
+                <div class="grupo_form">
+                    <label for="select_usuario">Selecciona el usuario *</label>
+                    <input type="text" id="select_usuario" name="usuario" placeholder="Buscar usuario por nombre o ID..." required>
+                </div>
+                <div class="grupo_form">
+                    <label for="tipo_membresia">Tipo de membresía *</label>
+                    <select id="tipo_membresia" name="tipo_membresia" required>
+                        <option value="1"> Escudo básico </option>
+                        <option value="2"> Guerrero combat</option>
+                        <option value="3"> Élite warrior </option>
+                        <option value="4"> VIP legend </option>
+                    </select>
+                </div>
+                <div class="fila_form">
+                    <div class="grupo_form">
+                        <label for="fecha_inicio">Fecha de inicio *</label>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                    </div>
+                    <div class="grupo_form">
+                        <label for="fecha_fin">Fecha de fin *</label>
+                        <input type="date" id="fecha_fin" name="fecha_fin" required>
+                    </div>
+                </div>
+                <div class="fila_form">
+                    <div class="grupo_form">
+                        <label for="metodo_pago">Método de pago</label>
+                        <select id="metodo_pago" name="metodo_pago">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+                    <div class="grupo_form">
+                        <label for="monto">Monto ($)</label>
+                        <input type="number" step="0.01" id="monto" name="monto" placeholder="500.00">
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <label for="observaciones">Observaciones (opcional)</label>
+                    <textarea id="observaciones" name="observaciones" rows="3" placeholder="Ej. Pago en efectivo, clase de prueba, etc."></textarea>
+                </div>
+                <div class="modal_acciones">
+                    <button type="button" onclick="cerrarModal('modalRegistrar')">Cancelar</button>
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="modalDetalles" class="modal_dialog modal_ancho">
+    <div class="modal_contenido">
+        <div class="modal_header">
+            <h2>Información del miembro</h2>
+            <button type="button" onclick="cerrarModal('modalDetalles')">&times;</button>
+        </div>
+        <div class="detalle_cliente_grid">
+            <div class="columna_info">
+                <div class="perfil_resumen">
+                    <h3><!--Nombre del miembro --></h3>
+                    <p class="subtext">ID: <!--ID --> | <!--Correo --></p>
+                    <span><!--Estado --></span>
+                </div>
+                <div class="card_info">
+                    <h4>Información de la membresía</h4>
+                    <p><strong>Tipo:</strong> <!--Tipo --></p>
+                    <p><strong>Inicio:</strong> <!--Inicio --></p>
+                    <p><strong>Fin:</strong> <!--Fin --></p>
+                    <p><strong>Método de pago:</strong> <!--Método --></p>
+                    <p><strong>Monto:</strong> <!--Monto --></p>
+                </div>
+            </div>
+            <div class="columna_historial">
+                <h4>Historial de pagos</h4>
+                <table class="tabla_historial">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th>Método</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                                <td><!--Fecha --></td>
+                                <td><!--Monto --></td>
+                                <td><!--Método --></td>
+                                <td><!--Estado --></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="notas_seccion">
+                        <h4>Notas / Observaciones</h4>
+                        <p>Sin observaciones registradas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal_acciones">
+                <button type="button" onclick="cerrarModal('modalDetalles')">Cerrar</button>
+                <button type="button" onclick="cerrarModal('modalDetalles'); abrirModal('modalRegistrar');">Actualizar / Registrar Pago</button>
+            </div>
+        </div>
+    </dialog>
+
+    
+
+    <script>
+        function abrirModal(idModal) {
+            const modal = document.getElementById(idModal);
+            if (modal) modal.showModal();
+        }
+
+        function cerrarModal(idModal) {
+            const modal = document.getElementById(idModal);
+            if (modal) modal.close();
+        }
+    </script>
+</body>
+</html>

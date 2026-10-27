@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear nueva membresía</title>
+    <link rel="stylesheet" href="nuevamembre.css">
+    
+</head>
+<body>
+    
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="admin.html#inicio">Inicio</a>
+        <a href="admin.html#empleados" >Empleados</a>
+        <a href="admin.html#proveedores">Proveedores</a>
+        <a href="admin.html#productos">Productos</a>
+        <a href="admin.html#clientes">Clientes</a>
+        <a href="admin.html#ventas">Ventas</a>
+        <a href="admin.html#rutinas">Rutinas</a>
+        <a href="admin.html#membresias" class="active">Membresías</a>
+        <a href="admin.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+</aside>
+    <div class="formulario">
+        <div class="logo">
+            <img src="LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Crear una nueva membresía</h1>
+        <form>
+            <label for="nombre_tipo">Nombre del tipo de membresía</label>
+            <br>
+            <input type="text" id="nombre_tipo" name="nombre_tipo" maxlength="20" required>
+            <br>
+            <label for="precio">Precio de la membresía</label>
+            <br>
+            <input type="number" id="precio" name="precio" min="1" step="1" required>
+            <br>
+            <label for="duracion_dias">Días de duración de la membresía</label>
+            <br>
+            <input type="number" id="duracion_dias" name="duracion_dias" min="1" step="1" required>
+            <br>
+            <label for="incluye_rutina">¿Incluye rutina personalizada?</label>
+            <br>
+            <select id="incluye_rutina" name="incluye_rutina" required>
+                <option value="no" selected>No</option>
+                <option value="si">Sí</option>
+            </select>
+            <br>
+            <label for="incluye_dieta">¿Incluye dieta?</label>
+            <br>
+            <select id="incluye_dieta" name="incluye_dieta" required>
+                <option value="no" selected>No</option>
+                <option value="si">Sí</option>
+            </select>
+            <br>
+            <label for="caracteristicas">Características adicionales de la membresía</label>
+            <br>
+            <textarea id="caracteristicas" name="caracteristicas" maxlength="200" rows="3"></textarea>
+            <br>
+
+            <button type="submit">Guardar membresía</button>
+        </form>
+    </div>
+</body>
+</html>

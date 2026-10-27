@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar membresía | Fitness Warriors</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="altamembresia.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a class="active" href="#inicio">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="#ventas">Ventas</a>
+                <a href="rutinaInterview.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membresias_admin.html">Membresías</a>
+                <a href="#cortedecaja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Membresías</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE CLIENTES</p>
+                    <h2>Asignar membresía</h2>
+                </section>
+
+                <form class="membership-form">
+                    <section class="card form-section" aria-labelledby="client-heading">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="client-heading">Cliente</h2>
+                                <p>Selecciona el cliente al que se asignará la membresía.</p>
+                            </div>
+                        </div>
+                        <div class="form-grid client-grid">
+                            <label for="cliente">Cliente
+                                <select id="cliente" name="cliente" required>
+                                </select>
+                            </label>
+
+                        </div>
+                    </section>
+
+                    <section class="card form-section" aria-labelledby="validity-heading">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="validity-heading">Vigencia y pago</h2>
+                                <p>Registra el periodo y la información del pago.</p>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <label for="fecha-inicio">Fecha de inicio
+                                <input id="fecha-inicio" name="fecha_inicio" type="date" required>
+                            </label>
+                            <label for="fecha-fin">Fecha de término
+                                <input id="fecha-fin" name="fecha_fin" type="date" required>
+                            </label>
+                            <label for="metodo-pago">Método de pago
+                                <select id="metodo-pago" name="metodo_pago" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="tarjeta">Tarjeta</option>
+                                    <option value="transferencia">Transferencia</option>
+                                </select>
+                            </label>
+                            <label for="monto-pago">Precio de la membresía
+                                <input id="monto-pago" name="monto_pago" type="text" inputmode="decimal" placeholder="$0.00" required>
+                            </label>
+                        </div>
+                        <label class="notes-field" for="observaciones">Observaciones
+                            <textarea id="observaciones" name="observaciones" rows="3" maxlength="250" placeholder="Agrega una nota si es necesario"></textarea>
+                        </label>
+                        <div class="form-actions">
+                            <a class="secondary-button" href="tablaclientes.html">Cancelar</a>
+                            <button class="form-button" type="submit">Guardar membresía</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
