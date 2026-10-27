@@ -65,9 +65,9 @@ try{
 // Función para generar el id_proveedor automaticamente
 function generar_id($conexion){
     // Crear la consulta
-    $consulta="select top 1 id_proveedor
+    $consulta="select id_proveedor
                from Proveedor
-               order by id_proveedor desc";
+               order by id_proveedor desc LIMIT 1";
 
     // Ejecuta la consulta, para obtener registros
     $resultado=$conexion->query($consulta);
