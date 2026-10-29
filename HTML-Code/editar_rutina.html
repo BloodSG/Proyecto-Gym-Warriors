@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar rutina</title>
+    <link rel="stylesheet" href="../CSS-Code/nueva_rutina.css">
+
+</head>
+<body>
+    
+<aside class="sidebar">
+    <a class="brand" href="vista.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados" >Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas" class="active">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+    <div class="formulario">
+        <div class="logo">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Editar rutina</h1>
+        <p>Modifica los datos de la rutina.</p>
+        
+        <form id="form_rutina" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="nombre_ejercicio">Nombre del ejercicio</label>
+                <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50" required>
+            </div>
+
+            <label>Días que se aplicará la rutina (puedes elegir varios):</label>
+            <div class="dia">
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="lunes" required> Lu</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="martes"> Ma</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="miercoles"> Mi</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="jueves"> Ju</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="viernes"> Vi</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="sabado"> Sa</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana" value="domingo"> Do</label>
+            </div>
+
+            
+            <div class="fila-doble">
+                <div>
+                    <label for="series">Series</label>
+                    <input type="number" name="series" id="series" min="1" max="12" step="1" required>
+                </div>
+                <div>
+                    <label for="repeticiones">Repeticiones</label>
+                    <input type="text" name="repeticiones" id="repeticiones" maxlength="20"  required>
+                </div>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="peso_sugerido">Peso sugerido</label>
+                    <input type="number" name="peso_sugerido" id="peso_sugerido" min="0" max="600" step="0.01" required>
+                </div>
+                <div>
+                    <label for="tiempo_descanso">Tiempo de descanso (en minutos)</label>
+                    <input type="number" name="tiempo_descanso" id="tiempo_descanso" min="0" max="60" step="1" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="opc_evidencia">¿Cómo se agrega el video demostrativo?</label>
+                <select name="opc_evidencia" id="opc_evidencia">
+                    <option value="URL" >URL del video</option>
+                    <option value="Video_disp">Video desde el dispositivo</option>
+                    <option value="aun_no" selected>Por el momento no</option>
+                </select>
+            </div>
+            <div id="grupo_url">
+                <label for="video_url">URL del video</label>
+                <input type="url" name="video_url" id="video_url" maxlength="255" placeholder="https://www.youtube.com/...">
+            </div>
+            <div id="grupo_archivo">
+                <label for="video_archivo">Video desde el dispositivo</label>
+                <input type="file" name="video_archivo" id="video_archivo" accept="video/*">
+            </div>
+
+            <button type="submit">Guardar cambios</button>
+        </form>
+    </div>
+
+</body>
+</html>
