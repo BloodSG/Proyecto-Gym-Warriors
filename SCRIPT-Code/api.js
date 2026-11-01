@@ -1,4 +1,5 @@
 const consulta="../PHP-Code/Productos.php";
+const consultaMem="../PHP-Code/cargaMembresias.php";
 // este archivo funciona de api, es decir, solo es el intermediario entre vase de datos y front
 
 
@@ -132,4 +133,16 @@ export async function cargaProveedores()
         
     }
     return proveedores.json();
+}
+
+export async function cargaListaMembresias() 
+{   
+    
+    const url=`${consultaMem}?action=cargar&comando=membresias`;
+    const membresias=await fetch(url);
+    if (!membresias.ok) {
+        throw new Error(`Error HTTP al cargar las membresias ... ${membresias.status}`);
+        
+    }
+    return membresias.json();
 }
