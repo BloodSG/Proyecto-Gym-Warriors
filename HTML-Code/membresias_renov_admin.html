@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de membresías</title>
     <link rel="stylesheet" href="../CSS-Code/membresias_renov_admin.css">
+    <!-- Se agregaron algunos estilos básicos para las alertas y el modal -->
+    <style>
+        .alerta { padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+        .exito { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .estado-Activa { color: #28a745; font-weight: bold; }
+        .estado-Cancelada { color: #dc3545; font-weight: bold; }
+    </style>
 </head>
 <body>
     <main class="membresias_admin_container">
@@ -15,27 +23,21 @@
             </p>
         </header>
 
+        <!-- Contenedor para mostrar mensajes del servidor -->
+        <div id="mensajeAlerta" style="display: none;"></div>
+
         <!-- Busqueda -->
          <section class ="consulta">
-            <form class = "buscador" method = "GET" action = "">
-                <label for = "buscar"> 
-                    Buscar miembro por nombre o ID:
-                </label>
-
-                <input
-                type = "search"
-                name = "buscador"
-                id = "buscar"
-                placeholder = "Ingrese nombre o ID"
-                >
-
-                <button type = "submit" class = "boton_buscar">
-                    Buscar
-                </button>
+            <form class="buscador" id="formBusqueda" method="GET" action="../PHP-Code/procesarRenovacion.php">
+                <label for="buscar">Buscar miembro por nombre o ID:</label>
+                <input type="search" name="buscador" id="buscar" placeholder="Ingrese nombre o ID">
+                <!-- Parámetro oculto para indicar la acción al backend -->
+                <input type="hidden" name="accion" value="buscar">
+                <button type="submit" class="boton_buscar">Buscar</button>
             </form>
 
-            <div class = "tabla_contenedor">
-                <table class = "tabla_membresias">
+            <div class="tabla_contenedor">
+                <table class="tabla_membresias">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -47,47 +49,38 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <!-- PHP -->
+                    <tbody id="cuerpoTabla">
+                        <!-- Aquí se inyectarán los resultados de la búsqueda vía AJAX -->
                         <tr>
-                            <td><!-- ID --></td>
-                            <td><!-- Nombre --></td>
-                            <td><!-- Tipo --></td>
-                            <td><!-- Inicio --></td>
-                            <td><!-- Vencimiento --></td>
-                            <td><!-- Estado --></td>
-                            <td class="acciones_celda">
-                                <button type="button" class="btn_accion" onclick="abrirModal('modalRenovar')" title="Renovar o Cambiar Plan">Renovar / Cambiar</button>
-                                <button type="button" class="btn_accion btn_cancelar" onclick="confirmarCancelacion()" title="Cancelar membresía">Cancelar</button>
-                            </td>
+                            <td colspan="7" style="text-align: center;">Usa el buscador para cargar miembros.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
          </section>
     </main>
-->
+
+    <!-- Modal para Renovar/Cambiar -->
     <dialog id="modalRenovar" class="modal_dialog">
         <div class="modal_contenido">
             <div class="modal_header">
                 <h2>Gestión de membresía</h2>
                 <button type="button" onclick="cerrarModal('modalRenovar')">&times;</button>
             </div>
-            <form method="POST" action="" class="form_modal">
+            <!-- El form ahora apunta al procesador PHP -->
+            <form id="formRenovacion" method="POST" action="../PHP-Code/procesarRenovacion.php" class="form_modal">
+                <input type="hidden" name="accion" value="renovar">
+                <input type="hidden" id="modal_id_cliente" name="id_cliente" value="">
+
                 <div class="grupo_form">
                     <label>Miembro seleccionado:</label>
-                    <p><strong><!-- Nombre del Miembro y ID --></strong></p>
+                    <p><strong id="modal_nombre_cliente"></strong></p>
                 </div>
 
                 <div class="grupo_form">
                     <label for="tipo_membresia">Seleccionar nuevo plan / Renovación *</label>
-                    <select id="tipo_membresia" name="tipo_membresia" required>
-                        <option value="1"> Escudo básico </option>
-                        <option value="2"> Guerrero combat </option>
-                        <option value="3"> Élite warrior </option>
-                        <option value="4"> VIP legend </option>
-                        <option value="5"> Clase individual </option>
+                    <select id="tipo_membresia" name="tipo_membresia" required disabled>
+                        <option value="">Cargando planes...</option>
                     </select>
                 </div>
 
@@ -102,32 +95,178 @@
                     </div>
                     <div class="grupo_form">
                         <label for="monto">Monto ($)</label>
-                        <input type="text" inputmode="decimal" id="monto" name="monto" placeholder="Ej. 500.00">
+                        <input type="number" step="0.01" min="0.01" id="monto" name="monto" placeholder="Ej. 500.00" required>
                     </div>
                 </div>
 
                 <div class="modal_acciones">
                     <button type="button" onclick="cerrarModal('modalRenovar')">Cerrar</button>
-                    <button type="submit">Aplicar cambios</button>
+                    <button type="submit" class="btn-enviar">Aplicar cambios</button>
                 </div>
             </form>
         </div>
     </dialog>
 
     <script>
-        function abrirModal(idModal) {
-            const modal = document.getElementById(idModal);
-            if (modal) modal.showModal();
+        const mensajeAlerta = document.getElementById('mensajeAlerta');
+        const cuerpoTabla = document.getElementById('cuerpoTabla');
+        const selectorPlan = document.getElementById('tipo_membresia');
+
+        fetch('../PHP-Code/cargaMembresias.php?action=cargar')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status !== 'success' || !Array.isArray(data.data) || data.data.length === 0) {
+                    throw new Error(data.mensaje || 'No hay planes disponibles.');
+                }
+
+                selectorPlan.innerHTML = '<option value="">Selecciona un plan</option>';
+                data.data.forEach(plan => {
+                    const option = document.createElement('option');
+                    option.value = plan.id_membresia;
+                    option.textContent = `${plan.nombre_tipo} - $${plan.precio}`;
+                    option.dataset.precio = plan.precio;
+                    selectorPlan.appendChild(option);
+                });
+                selectorPlan.disabled = false;
+            })
+            .catch(error => {
+                selectorPlan.innerHTML = '<option value="">No hay planes disponibles</option>';
+                mostrarAlerta('error', error.message);
+            });
+        //Manejo del Buscador con el AJAX
+        document.getElementById('formBusqueda').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btnSubmit = this.querySelector('.boton_buscar');
+            btnSubmit.innerHTML = 'Buscando...';
+            btnSubmit.disabled = true;
+
+            const queryParams = new URLSearchParams(new FormData(this)).toString();
+            
+            fetch(`${this.action}?${queryParams}`)
+            .then(response => response.json())
+            .then(data => {
+                cuerpoTabla.innerHTML = '';//Limpiamos la tablita joven
+                
+                if (data.status === 'success' && data.resultados.length > 0) {
+                    data.resultados.forEach(row => {
+                        const tr = document.createElement('tr');
+                        //esto se hizo para evitar problemas con nombres que contengan comillas simples y el script no se rompa xd
+                        const nombreSafe = row.nombre.replace(/'/g, "\\'");
+                        tr.innerHTML = `
+                            <td>${row.id}</td>
+                            <td>${row.nombre}</td>
+                            <td>${row.nombre_plan || 'Sin plan'}</td>
+                            <td>${row.fecha_inicio || '--'}</td>
+                            <td>${row.fecha_vencimiento || '--'}</td>
+                            <td class="estado-${row.estado}">${row.estado || 'Sin membresía'}</td>
+                            <td class="acciones_celda">
+                                <button type="button" class="btn_accion" onclick="prepararModalRenovar('${row.id}', '${nombreSafe}')" title="Renovar o Cambiar Plan">Renovar / Cambiar</button>
+                                <button type="button" class="btn_accion btn_cancelar" onclick="confirmarCancelacion('${row.id}', '${nombreSafe}')" title="Cancelar membresía">Cancelar</button>
+                            </td>
+                        `;
+                        cuerpoTabla.appendChild(tr);
+                    });
+                } else {
+                    cuerpoTabla.innerHTML = `<tr><td colspan="7" style="text-align: center;">No se encontraron resultados.</td></tr>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error en búsqueda:", error);
+                cuerpoTabla.innerHTML = `<tr><td colspan="7" style="text-align: center; color: red;">Error al consultar la base de datos.</td></tr>`;
+            })
+            .finally(() => {
+                btnSubmit.innerHTML = 'Buscar';
+                btnSubmit.disabled = false;
+            });
+        });
+        //Funciones para Modales y Acciones
+        function prepararModalRenovar(idCliente, nombreCliente) {
+            document.getElementById('modal_id_cliente').value = idCliente;
+            document.getElementById('modal_nombre_cliente').innerText = nombreCliente + ' (ID: ' + idCliente + ')';
+            document.getElementById('modalRenovar').showModal();
         }
 
         function cerrarModal(idModal) {
-            const modal = document.getElementById(idModal);
-            if (modal) modal.close();
+            document.getElementById(idModal).close();
+        }
+        //Enviamos la renovación por AJAX para no recargar la página xd
+        document.getElementById('formRenovacion').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const monto = Number(document.getElementById('monto').value);
+            if (!Number.isFinite(monto) || monto <= 0) {
+                mostrarAlerta('error', 'El monto debe ser un número mayor que cero.');
+                document.getElementById('monto').focus();
+                return;
+            }
+
+            const planSeleccionado = selectorPlan.options[selectorPlan.selectedIndex];
+            const precioPlan = Number(planSeleccionado.dataset.precio);
+            if (!Number.isFinite(precioPlan) || monto.toFixed(2) !== precioPlan.toFixed(2)) {
+                mostrarAlerta('error', `El monto debe ser exactamente igual al precio del plan ($${precioPlan.toFixed(2)}).`);
+                document.getElementById('monto').focus();
+                return;
+            }
+
+            const btnSubmit = this.querySelector('.btn-enviar');
+            btnSubmit.innerHTML = 'Procesando...';
+            btnSubmit.disabled = true;
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarAlerta(data.status, data.message);
+                if (data.status === 'success') {
+                    cerrarModal('modalRenovar');
+                    this.reset();
+                    //si quierem pueden re ejecutar la búsqueda para actualizar la tabla (aunque no es de ahuevo w :v)
+                    document.getElementById('formBusqueda').dispatchEvent(new Event('submit'));
+                }
+            })
+            .catch(error => mostrarAlerta('error', 'Error de conexión con el servidor.'))
+            .finally(() => {
+                btnSubmit.innerHTML = 'Aplicar cambios';
+                btnSubmit.disabled = false;
+            });
+        });
+
+        //Envio cancelación por elAJAX  
+        function confirmarCancelacion(idCliente, nombreCliente) {
+            if (confirm(`¿Estás seguro de que deseas cancelar la membresía de ${nombreCliente}?`)) {
+                
+                const formData = new FormData();
+                formData.append('accion', 'cancelar');
+                formData.append('id_cliente', idCliente);
+
+                fetch('../PHP-Code/procesarRenovacion.php', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    mostrarAlerta(data.status, data.message);
+                    if (data.status === 'success') {
+                        document.getElementById('formBusqueda').dispatchEvent(new Event('submit'));
+                    }
+                })
+                .catch(error => mostrarAlerta('error', 'Error al procesar la cancelación.'));
+            }
         }
 
-        function confirmarCancelacion() {
-            if (confirm("¿Estás segura de que deseas cancelar la membresía de este miembro?")) {
-            }
+        function mostrarAlerta(tipo, mensaje) {
+            mensajeAlerta.style.display = 'block';
+            mensajeAlerta.className = `alerta ${tipo === 'success' ? 'exito' : 'error'}`;
+            mensajeAlerta.innerHTML = mensaje;
+            mensajeAlerta.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            //Ocultamos la alerta después de 5 segunditos
+            setTimeout(() => { mensajeAlerta.style.display = 'none'; }, 5000);
         }
     </script>
 </body>
