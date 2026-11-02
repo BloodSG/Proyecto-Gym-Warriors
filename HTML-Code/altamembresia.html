@@ -42,9 +42,12 @@
                     <p class="eyebrow">GESTIÓN DE CLIENTES</p>
                     <h2>Asignar membresía</h2>
                 </section>
+                <!-- aqui es la lista desplegable de los clientes a los que se le asignara la membresia mediante la base de datos -->
+                <form class="membership-form" action="../PHP-Code/asignar_membresia.php" method="POST">
+                    <input type="hidden" name="id_membresia" id="id_membresia">
+                <!-- // -->
 
-                <form class="membership-form">
-                    <section class="card form-section" aria-labelledby="client-heading">
+                <section class="card form-section" aria-labelledby="client-heading">
                         <div class="section-heading">
                             <div>
                                 <h2 id="client-heading">Cliente</h2>
@@ -54,9 +57,9 @@
                         <div class="form-grid client-grid">
                             <label for="cliente">Cliente
                                 <select id="cliente" name="cliente" required>
+                                    <option value="">Cargando clientes...</option>
                                 </select>
                             </label>
-
                         </div>
                     </section>
 
@@ -98,6 +101,8 @@
             </div>
         </main>
     </div>
+
+    <script type="module" src="../SCRIPT-Code/altamembresia.js"></script>
 </body>
 
 </html>
