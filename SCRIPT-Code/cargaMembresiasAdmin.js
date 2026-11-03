@@ -33,6 +33,10 @@ function crearTarjeta(membresia) {
         <button type="button" class="btn-suscribir" data-id-membresia="${membresia.id_membresia}">
             Asignar membresía
         </button>
+
+        <button type="button" class="btn-eliminar" data-id-membresia="${membresia.id_membresia}">
+            Eliminar membresía
+        </button>
     `
     ;
 
@@ -43,6 +47,36 @@ function crearTarjeta(membresia) {
 
         window.location.href = `altamembresia.html?id_membresia=${encodeURIComponent(idMembresia)}`;
     })
+
+    const botonEliminar = tarjeta.querySelector(".btn-eliminar");
+
+    botonEliminar.addEventListener("click", async () => {
+        const idMembresia = botonEliminar.dataset.idMembresia;
+        const seguro = confirm("¿Estás seguro de eliminar esta membresía?");
+
+        if (!seguro) {
+            return;
+        }
+
+        try {
+            const respuesta = await fetch("../PHP-Code/eliminar_membresia.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `id_membresia=${encodeURIComponent(idMembresia)}`
+            });
+
+            const resultado = await respuesta.json();
+            alert(resultado.mensaje);
+
+            if (resultado.status === "success") {
+                cargarMembresias();
+            }
+        } catch (error) {
+            alert("No se pudo conectar con el servidor.");
+        }
+    });
 
     return tarjeta;
 }
