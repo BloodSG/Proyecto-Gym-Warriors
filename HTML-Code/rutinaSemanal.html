@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Rutina semanal</title>
+        <link rel="stylesheet" href="../CSS-Code/rutinaSemanal.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Rutina</a>
+                    
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span> Rutina semanal</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header> 
+                <nav class="week">
+                    <button class="tab-btn active">Lunes</button>
+                    <button class="tab-btn">Martes</button>
+                    <button class="tab-btn">Miércoles</button>
+                    <button class="tab-btn">Jueves</button>
+                    <button class="tab-btn">Viernes</button>
+                    <button class="tab-btn">Sábado</button>
+                    <button class="tab-btn">Domingow</button>
+                </nav>
+                <div class="dia-contenedor">
+                    <div class="rutina-header">
+                        <h2>Día 1: Tren inferior</h2>
+                        <p class="coach-nota">Nota: Calentar bien</p>
+                    </div>
+                    <div class="lista-ejercicios">
+                        <article class="ejercicio-card">
+                            <div class="ejercicio-info">
+                                <h3>1. Sentadilla búlgara</h3>
+                                <div class="ejercicio-detalle">
+                                    <span><strong>Series: </strong> 4</span>
+                                    <span><strong>Reps: </strong> 10</span>
+                                    <span><strong>Descanso: </strong> 90 seg</span>
+                                </div>
+                                <p class="ejercicio-tip"><strong>Tip técnico: </strong>Manten el torso ligeramente inclinado hacia adelante </p>
+                            </div>
+                            <div class="ejercicio-video">
+                                <video class="video-local" controls>
+                                    <source src="../recursos/bulgara.mp4" type="video/mp4">
+                                    Tu navegador no soporta la reproducción de video.
+                                </video>
+                            </div>
+                        </article>
+                        <template id="template-ejercicio-card">
+                            <article class="ejercicio-card">
+                                <div class="ejercicio-info">
+                                    <h3 class="ejercicio-nombre"></h3>
+                                    
+                                    <div class="ejercicio-detalle">
+                                        <span><strong>Series:</strong> <span class="ejercicio-series"></span></span>
+                                        <span><strong>Reps:</strong> <span class="ejercicio-reps"></span></span>
+                                        <span><strong>Descanso:</strong> <span class="ejercicio-descanso"></span></span>
+                                    </div>
+                                    
+                                    <p class="ejercicio-tip">
+                                        <strong>Tip técnico:</strong> <span class="ejercicio-descripcion-tip"></span>
+                                    </p>
+                                </div>
+                                
+                                <div class="ejercicio-video">
+                                    <video class="video-local ejercicio-fuente-video" controls>
+                                        <source src="" type="video/mp4">
+                                        Tu navegador no soporta la reproducción de video.
+                                    </video>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
