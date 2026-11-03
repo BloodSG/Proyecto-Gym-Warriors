@@ -1,6 +1,7 @@
 const consulta="../PHP-Code/Productos.php";
 const consultaMem="../PHP-Code/cargaMembresias.php";
 const consultaClientes = "../PHP-Code/obtener_clientes.php";
+const consultaRutina="../PHP-Code/rutinaSemanalCliente.php";
 // este archivo funciona de api, es decir, solo es el intermediario entre vase de datos y front
 
 
@@ -156,4 +157,26 @@ export async function cargaListaClientes() {
         throw new Error(`Error HTTP al cargar los clientes: ${respuesta.status}`);
     }
     return respuesta.json();
+}
+
+export async function cargaRutinaDia(dia) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=semana&dia=${encodeURIComponent(dia)}`;
+    const rutina_nombre=await fetch(url);
+    if (!rutina_nombre.ok) {
+        throw new Error(`Error HTTP al cargar la rutina del dia ... ${dia}`);
+        
+    }
+    return rutina_nombre.json();
+}
+
+export async function cargaListaEjercicios(id_rutina) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=lista&id=${encodeURIComponent(id_rutina)}`;
+    const lista=await fetch(url);
+    if (!lista.ok) {
+        throw new Error(`Error HTTP al cargar la lista de ejercicios de la rutina con el id ... ${id_rutina}`);
+        
+    }
+    return lista.json();
 }

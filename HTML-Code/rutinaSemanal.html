@@ -27,23 +27,25 @@
                         <span></span>
                     </div>
                 </header> 
-                <nav class="week">
-                    <button class="tab-btn active">Lunes</button>
-                    <button class="tab-btn">Martes</button>
-                    <button class="tab-btn">Miércoles</button>
-                    <button class="tab-btn">Jueves</button>
-                    <button class="tab-btn">Viernes</button>
-                    <button class="tab-btn">Sábado</button>
-                    <button class="tab-btn">Domingow</button>
+                <nav class="week" id="semanita"> <!-- contenedor de los dias de la semana -->
+                    <button class="tab-btn active" data-dia="1">Lunes</button>
+                    <button class="tab-btn" data-dia="2">Martes</button>
+                    <button class="tab-btn" data-dia="3">Miércoles</button>
+                    <button class="tab-btn" data-dia="4">Jueves</button>
+                    <button class="tab-btn" data-dia="5">Viernes</button>
+                    <button class="tab-btn" data-dia="6">Sábado</button>
+                    <button class="tab-btn" data-dia="7">Domingow</button>
                 </nav>
                 <div class="dia-contenedor">
-                    <div class="rutina-header">
+                    <div class="rutina-header" id="Nombre_rutina"> <!-- aqui va lo que vaya en nombre_rutina de la tabla rutinas-->
                         <h2>Día 1: Tren inferior</h2>
                         <p class="coach-nota">Nota: Calentar bien</p>
-                    </div>
-                    <div class="lista-ejercicios">
+                    </div> 
+
+                    <!-- despues, aqui debo de cargar los ejercicios que esten asignados a esa rutina-->
+                    <div class="lista-ejercicios" id="contenedor_ejercicios"> <!-- contenedor de la lista de ejercicios -->
                         <article class="ejercicio-card">
-                            <div class="ejercicio-info">
+                            <div class="ejercicio-info" id="info_ejercicio">
                                 <h3>1. Sentadilla búlgara</h3>
                                 <div class="ejercicio-detalle">
                                     <span><strong>Series: </strong> 4</span>
@@ -52,9 +54,9 @@
                                 </div>
                                 <p class="ejercicio-tip"><strong>Tip técnico: </strong>Manten el torso ligeramente inclinado hacia adelante </p>
                             </div>
-                            <div class="ejercicio-video">
+                            <div class="ejercicio-video" id="video_ejercicio">
                                 <video class="video-local" controls>
-                                    <source src="../recursos/bulgara.mp4" type="video/mp4">
+                                    <source src="../Recursos/res_rutina/603bb672a3c13c4b1bf375ba64f747f8.mp4" type="video/mp4">
                                     Tu navegador no soporta la reproducción de video.
                                 </video>
                             </div>
@@ -84,7 +86,7 @@
                             </article>
                         </template>
                     </div>
-                </div>
+                </div><script src="../SCRIPT-Code/rutinaSemanal.js"></script>
             </div>
         </div>
     </body>
