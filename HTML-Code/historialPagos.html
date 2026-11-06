@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Historial de pagos</title>
+        <link rel="stylesheet" href="../CSS-Code/historialPagos.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Historial de pagos</a>
+                    
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span>Historial de pagos</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header> 
+                <section class="seccion-pagos">
+                    <div class="seccion-header">
+                        <h2>Tus transacciones</h2>
+                        <p>Consulta el detalle y estado de tus comprobantes de pago</p>
+                    </div>
+                    <div class="contenedor-tabla">
+                        <table class="tabla-pagos">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Método de pago</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pagos-tbody">
+                                <tr>
+                                    <td><time class="fecha-pago" datetime="06-11-2026">06 Nov 2026</time></td>
+                                    <td class="cantidad-pago">$350.00 mxn</td>
+                                    <td class="metodo-pago"> Transferencia</td>
+                                    <td>
+                                        <span class="badge badge-pendiente">Pendiente</span>
+                                    </td>
+                                    </tr>
+
+                <!-- Ejemplo 2: Aprobado -->
+                <tr>
+                    <td><time class="fecha-pago" datetime="2026-10-01">01 Oct 2026</time></td>
+                    <td class="cantidad-pago">$350.00 MXN</td>
+                    <td class="metodo-pago">Tarjeta de Crédito</td>
+                    <td>
+                        <span class="badge badge-aprobado">Aprobado</span>
+                    </td>
+                </tr>
+
+                <!-- Ejemplo 3: Rechazado -->
+                <tr>
+                    <td><time class="fecha-pago" datetime="2026-09-15">15 Sep 2026</time></td>
+                    <td class="cantidad-pago">$200.00 MXN</td>
+                    <td class="metodo-pago">Efectivo / Depósito</td>
+                    <td>
+                        <span class="badge badge-rechazado">Rechazado</span>
+                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <template id="template-fila-pago">
+            <tr>
+                <td><time class="fecha-pago" datetime=""></time></td>
+                <td class="cantidad-pago"></td>
+                <td class="metodo-pago"></td>
+                <td> 
+                    <span class="badge badge-pago"></span>
+                </td>
+
+            </tr>
+        </template>
+    </body>
+</html>
