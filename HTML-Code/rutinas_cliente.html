@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis rutinas - Cliente</title>
+    <link rel="stylesheet" href="../CSS-Code/rutinas_cliente.css">
+</head>
+<body>
+
+    <div class="membresias_admin_container">
+        
+        <header class="membresias_admin_header">
+            <h1 class="membresias_admin_titulo">MI PLAN DE ENTRENAMIENTO</h1>
+            <p class="membresias_admin_subtitulo">Consulta tus rutinas asignadas, marca tus actividades realizadas y revisa tu historial general.</p>
+        </header>
+        <! -- tabla de rutinas asignadas -- >    
+        <section class="consulta">
+            <h2 class="membresias_admin_titulo" style="font-size: 20px; margin-bottom: 12px;">Mis rutinas asignadas</h2>
+            
+            <div class="tabla_contenedor">
+                <table class="tabla_membresias">
+                    <thead>
+                        <tr>
+                            <th>Nombre de la rutina</th>
+                            <th>Fecha de asignación</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+     <! -- tabla de actividades del día -- >
+        <section class="consulta">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h2 class="membresias_admin_titulo" style="font-size: 20px; margin: 0;">Actividades del día</h2>
+                    <p class="membresias_admin_subtitulo">Selecciona el día, marca las actividades realizadas y consulta el peso correspondiente.</p>
+                </div>
+                
+                <div class="buscador" style="margin-bottom: 0;">
+                    <label for="filtro_dia">DÍA:</label>
+                    <select id="filtro_dia" style="background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; color: var(--text); font-size: 12px;">
+                        <option value="">Selecciona un día</option>
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miércoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tabla_contenedor">
+                <table class="tabla_membresias">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px; text-align: center;">Realizado</th>
+                            <th>Día</th>
+                            <th>Nombre de la actividad</th>
+                            <th>Peso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <! -- botón de guardar avances con alerta-- >
+            <div style="margin-top: 15px; text-align: right;">
+                <button class="boton_buscar" type="button" onclick="alert('Avances guardados correctamente')" style="padding: 10px 20px; font-size: 13px;">Guardar avances</button>
+            </div>
+        </section>
+        <! -- tabla de historial general -- >
+        <section class="consulta">
+            <h2 class="membresias_admin_titulo" style="font-size: 20px; margin-bottom: 12px;">Historial general</h2>
+            <div class="tabla_contenedor">
+                <table class="tabla_membresias">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Rutina realizada</th>
+                            <th>Día</th>
+                            <th>Ejercicios completados</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
