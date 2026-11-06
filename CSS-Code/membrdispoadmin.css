@@ -1,185 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --border: #232c40;
     --lime: #b2dc52;
+    --blue: #4d9fff;
+    --danger: #dc5252;
     --text: #f2f5fa;
-}
-body{
-    font-family: Arial;
-    background: #0a0e17;
-    background-size: cover;
-    padding:30px;
-    min-height:100vh;
-    margin:0;
-    margin-left: 205px;
-}
-.contenido{
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-}
-.logo{
-    text-align:center;
-}
-.logo img{
-    width:180px;
-}
-h1{
-    margin: 0 0 6px;
-    color:#1c87d5;
-}
-p{
-    color:#8b97ad;
+    --text-dim: #8b97ad;
 }
 
-/* Encabezado: titulo y boton de añadir */
-.encabezado{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-    flex-wrap:wrap;
-    margin: 10px 0 24px;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 32px 45px 237px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
 }
-.encabezado p{
-    margin:0;
-}
-.btn-agregar{
-    padding:12px 20px;
-    background:#b2dc52;
-    color:#04141f;
-    border:4px solid #04141f;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
-.btn-eliminar{
-    padding:12px 20px;
-    background:#dc5252;
-    color:#04141f;
-    border:4px solid #04141f;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
-.btn-editar{
-    padding:12px 20px;
-    background:#b2dc52;
-    color:#04141f;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
-.btn-vigencias {
-    margin-top: 30px;
-    margin-right: 10px;
-    padding: 12px 20px;
-    background: #b2dc52;
-    color: #04141f;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
+a { color: inherit; text-decoration: none; }
 
-.btn-renmem {
-    margin-top: 30px;
-    padding: 12px 20px;
-    background: #b2dc52;
-    color: #04141f;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-/* Rejilla: se acomoda sola según cuántas membresías haya */
-.membresias{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap:20px;
-}
-
-.tarjeta{
-    display:flex;
-    flex-direction:column;
-    background: rgba(19, 26, 40, 0.30);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 14px;
-    padding: 24px 22px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-.tarjeta:hover{
-    border-color:#b2dc52;
-}
-.tarjeta h2{
-    margin:0 0 8px;
-    color:#1c87d5;
-    font-size:22px;
-}
-.precio{
-    margin:0 0 16px;
-    color:#b2dc52;
-    font-size:34px;
-    font-weight:bold;
-}
-.precio span{
-    color:#8b97ad;
-    font-size:14px;
-    font-weight:normal;
-}
-
-/* lista de beneficios: paloma si lo incluye, tacha si no */
-.beneficios{
-    list-style:none;
-    margin:0 0 14px;
-    padding:0;
-}
-.beneficios li{
-    padding:6px 0 6px 26px;
-    position:relative;
-    color:#f2f5fa;
-}
-.beneficios li::before{
-    position:absolute;
-    left:0;
-    font-weight:bold;
-}
-.beneficios li.si::before{
-    content:"✓";
-    color:#b2dc52;
-}
-.beneficios li.no{
-    color:#5d687d;
-    text-decoration:line-through;
-}
-.beneficios li.no::before{
-    content:"✕";
-    color:#5d687d;
-}
-.caracteristicas{
-    flex:1;
-    margin:0 0 20px;
-    font-size:14px;
-    line-height:1.4;
-}
-.btn-suscribir{
-    display:block;
-    text-align:center;
-    padding:12px;
-    background:#b2dc52;
-    color:#04141f;
-    border:4px solid #04141f;
-    font-weight:bold;
-    text-decoration:none;
-}
-.vacio{
-    grid-column:1 / -1;
-    text-align:center;
-    padding:40px 0;
-}
-
-/* Menú lateral */
-
+/* menu lateral */
 .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -187,102 +33,188 @@ p{
     flex-direction: column;
     width: 205px;
     padding: 18px 15px;
-    background: linear-gradient(180deg, #07192c, #041120);
-    border-right: 1px solid #102b45;
+    background: linear-gradient(180deg, var(--bg-elevated), var(--bg));
+    border-right: 1px solid var(--border);
 }
-
-.brand {
-    display: block;
-    padding: 0 10px 14px;
-}
-
-.brand img {
-    display: block;
-    width: 145px;
-    max-width: 100%;
-    margin: auto;
-}
-
-.sidebar-label {
-    margin: 7px 27px 22px;
-    color: #8ea8c6;
-    font-size: 11px;
-}
-
-.main-nav {
-    display: grid;
-    gap: 5px;
-}
-
+.brand { display: block; padding: 0 10px 14px; }
+.brand img { display: block; width: 145px; max-width: 100%; margin: auto; }
+.sidebar-label { margin: 7px 27px 22px; color: var(--text-dim); font-size: 11px; }
+.main-nav { display: grid; gap: 3px; overflow-y: auto; }
 .main-nav a,
 .logout {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 13px;
+    padding: 9px 10px;
     border-left: 3px solid transparent;
     border-radius: 5px;
-    color: #8da8c6;
-    font-size: 12px;
+    color: var(--text-dim);
+    font-size: 11px;
     font-weight: 600;
-    text-decoration: none;
 }
-
 .main-nav a:hover,
 .main-nav .active {
-    color: var(--text);
-    background: #102e4d;
     border-left-color: var(--lime);
+    background: var(--card);
+    color: var(--text);
+}
+.logout { margin-top: auto; }
+
+/* contenido */
+.contenido {
+    width: min(100%, 1000px);
+    margin: 34px auto 0;
+}
+.logo { display: none; }
+
+p {
+    margin: 0 0 6px;
+    color: var(--text-dim);
+    font-size: 11px;
 }
 
-.nav-icon {
-    display: inline-grid;
-    width: 18px;
-    place-items: center;
-    color: #9ab7d4;
-    font-size: 18px;
-    line-height: 1;
+.encabezado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 22px;
+}
+.encabezado > div:first-child { margin-right: auto; }
+.encabezado p { margin: 0; }
+.encabezado h1 {
+    margin: 0 0 5px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px;
+    color: var(--text);
+}
+.encabezado h1::before {
+    display: inline-block;
+    width: 3px;
+    height: 27px;
+    margin-right: 12px;
+    background: var(--lime);
+    content: "";
+    vertical-align: -2px;
 }
 
-.logout {
-    margin-top: auto;
+.btn-agregar,
+.btn-editar,
+.btn-eliminar,
+.btn-vigencias,
+.btn-renmem,
+.btn-suscribir {
+    padding: 11px 14px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--lime);
+    color: #111b0b;
+    cursor: pointer;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 700;
+}
+.btn-eliminar {
+    background: var(--danger);
+    color: #1f0a0a;
+}
+.btn-agregar:hover,
+.btn-editar:hover,
+.btn-eliminar:hover,
+.btn-vigencias:hover,
+.btn-renmem:hover,
+.btn-suscribir:hover { filter: brightness(1.08); }
+
+.btn-vigencias,
+.btn-renmem {
+    margin: 24px 10px 0 0;
 }
 
-/* Adaptación del menú para pantallas pequeñas */
+/* acom segun cuatas haya */
+.membresias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+}
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--card);
+}
+.tarjeta:hover { border-color: var(--blue); }
+.tarjeta h2 {
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+}
+.precio {
+    margin: 6px 0 14px;
+    color: var(--lime);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 37px;
+    font-weight: 700;
+}
+.precio span {
+    color: var(--text-dim);
+    font-family: Inter, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+/* lista de beneficios:paloma si lo incluye, tacha si no */
+.beneficios {
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+}
+.beneficios li {
+    position: relative;
+    padding: 9px 0 9px 24px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+}
+.beneficios li::before {
+    position: absolute;
+    left: 2px;
+    font-weight: 700;
+}
+.beneficios li.si::before { content: "✓"; color: var(--lime); }
+.beneficios li.no { color: var(--text-dim); }
+.beneficios li.no::before { content: "✕"; color: var(--text-dim); }
+
+.caracteristicas {
+    flex: 1;
+    margin: 0 0 16px;
+    font-size: 11px;
+    line-height: 1.5;
+}
+.btn-suscribir { display: block; width: 100%; }
+
+.vacio {
+    grid-column: 1 / -1;
+    padding: 40px 0;
+    text-align: center;
+}
 
 @media (max-width: 760px) {
-    .sidebar {
-        position: static;
-        width: 67px;
-        padding: 12px 8px;
-    }
-
-    .brand {
-        padding: 4px 0 16px;
-    }
-
-    .brand img {
-        width: 50px;
-    }
-
-    .sidebar-label,
-    .main-nav a:not(.active)::after,
-    .main-nav a:not(.active) {
-        font-size: 0;
-    }
-
-    .main-nav a,
+    body { padding: 0 14px 30px 81px; }
+    .sidebar { width: 67px; padding: 12px 8px; }
+    .brand { padding: 4px 0 16px; }
+    .brand img { width: 50px; }
+    .sidebar-label { display: none; }
+    .main-nav a:not(.active),
+    .main-nav .active,
     .logout {
         justify-content: center;
         padding: 11px 4px;
-    }
-
-    .main-nav .nav-icon,
-    .logout .nav-icon {
-        font-size: 19px;
-    }
-
-    .main-nav .active {
         font-size: 0;
     }
+    .contenido { margin-top: 18px; }
+}
+@media (max-width: 560px) {
+    body { padding-right: 10px; padding-left: 77px; }
+    .encabezado h1 { font-size: 27px; }
 }
