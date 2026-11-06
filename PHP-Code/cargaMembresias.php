@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once("libreria.php");
-if($_GET['action'] == 'cargar' || $_GET['comando'] == 'membresias' )
+if($_GET['action'] == 'cargar' && $_GET['comando'] == 'membresias' )
 {
     try
     {

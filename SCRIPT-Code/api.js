@@ -163,9 +163,9 @@ export async function cargaRutinaDia(dia)
 {   
     const url=`${consultaRutina}?action=cargar&comando=semana&dia=${encodeURIComponent(dia)}`;
     const rutina_nombre=await fetch(url);
-    if (!rutina_nombre.ok) {
+    if (!rutina_nombre.ok) 
+    {
         throw new Error(`Error HTTP al cargar la rutina del dia ... ${dia}`);
-        
     }
     return rutina_nombre.json();
 }
