@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar venta</title>
+     <link rel="stylesheet" href="../CSS-Code/detvent.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="vista.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas" class="active">Ventas</a>
+        <a href="vista.html#rutinas">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Confirmar venta</h1>
+            </div>
+        </div>
+
+        <section class="panel">
+            <h2>Resumen de la venta</h2>
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th class="num">Cantidad</th>
+                            <th class="num">Precio</th>
+                            <th class="num">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Proteína 1 kg</td>
+                            <td class="num">2</td>
+                            <td class="num">$650.00</td>
+                            <td class="num">$1,300.00</td>
+                        </tr>
+                        <tr>
+                            <td>Creatina 300 g</td>
+                            <td class="num">1</td>
+                            <td class="num">$480.00</td>
+                            <td class="num">$480.00</td>
+                        </tr>
+                        <tr>
+                            <td>Playera Warriors</td>
+                            <td class="num">2</td>
+                            <td class="num">$250.00</td>
+                            <td class="num">$500.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total">
+                <span>Total</span>
+                <strong>$2,280.00</strong>
+            </div>
+        </section>
+
+        <form class="panel form-venta" id="form_venta" method="post">
+            <h2>Método de pago</h2>
+            <div class="metodos">
+                <label class="metodo">
+                    <input type="radio" name="metodo_pago" value="efectivo" required>
+                    <div>
+                        <strong>Efectivo</strong>
+                        <span>Se cobra en el gimnasio</span>
+                    </div>
+                </label>
+                <label class="metodo">
+                    <input type="radio" name="metodo_pago" value="transferencia">
+                    <div>
+                        <strong>Transferencia</strong>
+                        <span>Pago por transferencia bancaria</span>
+                    </div>
+                </label>
+            </div>
+            <p class="ayuda">Elige un método de pago para poder confirmar la venta.</p>
+
+            <div class="acciones">
+                <a class="btn-sec" href="regresar.html">Regresar</a>
+                <button type="submit" class="btn-confirmar">Confirmar venta</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html> 
