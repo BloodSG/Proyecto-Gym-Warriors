@@ -34,6 +34,10 @@ function crearTarjeta(membresia) {
             Asignar membresía
         </button>
 
+        <button type="button" class="btn-editar" data-id-membresia="${membresia.id_membresia}">
+            Modificar membresía
+        </button>
+
         <button type="button" class="btn-eliminar" data-id-membresia="${membresia.id_membresia}">
             Eliminar membresía
         </button>
@@ -77,6 +81,15 @@ function crearTarjeta(membresia) {
             alert("No se pudo conectar con el servidor.");
         }
     });
+
+    const botonModificar = tarjeta.querySelector(".btn-editar");
+
+    botonModificar.addEventListener("click", () => {
+    const idMembresia = botonModificar.dataset.idMembresia;
+
+    window.location.href =
+        `modmembresia.html?id_membresia=${encodeURIComponent(idMembresia)}`;
+    })
 
     return tarjeta;
 }
