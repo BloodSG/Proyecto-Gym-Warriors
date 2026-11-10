@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario de Entrada Nutricional</title>
+        <link rel="stylesheet" href="../CSS-Code/comprobantePago.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Pagos</a>
+                    
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span> Comprobante de pago</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header> 
+            
+            <main class="content-body">
+                <section class="payment-card">
+                    <h2>Subir comprobante de pago</h2>
+                    <p>Adjunta la imagen o documento PDF de tu pago para validarlo</p>
+                    <form id="form-pago" action="#" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="comprobante">Seleccionar un archivo (JPG, PNG o PDF):</label>
+                            <input type="file" id="comprobante" name="comprobante" accept="image/png, image/jpeg, image/webp, application/pdf" required>
+
+                        </div>
+                        <div class="preview-container" id="preview-container">
+                            <p class="preview-placeholder">Vista previa del comprobante</p>
+                            <img id="preview-image" src="" alt="Vista previa del comprobante" hidden>
+                            <div id="previe-pdf" hidden>
+                                <span>Documento PDF seleccionado</span>
+                                <p id="pdf-name"></p>
+                            </div>
+                        </div>
+                        <div class="form-acctions">
+                            <button type="submit" id="btn-enviar" class="btn-primary">Enviar comprobante</button>
+                        </div>
+                    </form>
+                    <div class="alert alert-success" id="msg-success" hidden>
+                        ¡Comprobante enviado con éxito! Tu pago está en proceso de verificación.
+                    </div>
+                    <div class="alert alert-error" id="msg-error" hidden>
+                        Ocurrió un error al subir el archivo. Por favor, intenta de nuevo.
+                    </div>
+                </section>
+            </main>
+            </div>
+        </div>
+    </body>
+</html>
