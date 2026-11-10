@@ -1,6 +1,29 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
-require_once ("libreria.php");
+require_once __DIR__ . '/libreria.php';
+
+//Inicia la sesion para identificar al usuario
+session_start();
+
+//Verifica que el usuario haya iniciado sesion
+if (empty($_SESSION['logueado']) || empty($_SESSION['id_usuario'])) {
+    //Redirige al login cuando se solicita la página desde el navegador osea no lo va dejar entrar a menos de q haya iniciado sesion xd
+    if (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'text/html') !== false) {
+        echo '<script>
+            alert("Debes iniciar sesión para consultar tu rutina.");
+            window.location.href = "../HTML-Code/loginView.html";
+        </script>';
+        exit;
+    }
+
+    //Devuelve un error cuando la solicitud es de tipo API
+    header('Content-Type: application/json; charset=utf-8');
+    http_response_code(401);
+    echo json_encode([
+        "status" => "error",
+        "mensaje" => "Debes iniciar sesión para continuar."
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 function salidaForzosa(string $status, string $mensaje)
 {
@@ -34,7 +57,8 @@ if($_GET["action"]== "cargar" && $_GET["comando"]=="semana")
         {   
             $lista_dias=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
             $dia=$_GET["dia"];
-            $usuario="USER01";
+            //Obtiene el usuario actual desde la sesion
+            $usuario=$_SESSION['id_usuario'];
             if(!in_array($dia,$lista_dias,false))
                 {
                     $mensaje="EL dia no es valido";
@@ -49,7 +73,7 @@ if($_GET["action"]== "cargar" && $_GET["comando"]=="semana")
                     AND detalle.dia_semana=?
                     AND rutina.id_usuario=?";
 
-            //aqui deberia de completarlo una vez que haya un usuario asignado, WHERE id_usuario=""
+            //Filtra la rutina por el usuario actual
             $Puente=$conexion->prepare($query);
             $Puente->execute([$dia,$usuario]);
             $data=$Puente->fetch(PDO::FETCH_ASSOC);
@@ -69,7 +93,8 @@ elseif($_GET["action"]== "cargar" && $_GET["comando"]=="lista")
     if(isset($_GET["id"]))
     {
         $id_rutina=$_GET["id"];
-        $query="SELECT id_detalle_rutina AS id_ejercicio,
+        //Consulta ejercicios unicamente de la rutina del usuario actual
+        $query="SELECT detalle_rutinas.id_detalle_rutina AS id_ejercicio,
                         nombre_ejercicio,
                         series,
                         repeticiones,
@@ -79,9 +104,11 @@ elseif($_GET["action"]== "cargar" && $_GET["comando"]=="lista")
                         imagen_url,
                         orden
                 FROM detalle_rutinas
-                WHERE id_rutina=?";
+                INNER JOIN rutinas ON rutinas.id_rutina=detalle_rutinas.id_rutina
+                WHERE detalle_rutinas.id_rutina=? AND rutinas.id_usuario=?";
         $Puente=$conexion->prepare($query);
-        $Puente->execute([$id_rutina]);
+        //Envia el ID de la rutina y el usuario como parámetros :v
+        $Puente->execute([$id_rutina, $_SESSION['id_usuario']]);
         $data=$Puente->fetchAll(PDO::FETCH_ASSOC);
 
         if(empty($data))

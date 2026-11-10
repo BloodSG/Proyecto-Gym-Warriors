@@ -234,4 +234,5 @@ input[type="number"] {
     font-family: Arial, sans-serif;
     font-variant-numeric: lining-nums;
     font-size: 14px;
-}
+}#grupo_nuevo_ejercicio { display: none; }
+form:has(#id_ejercicio option[value="nuevo"]:checked) #grupo_nuevo_ejercicio { display: block; }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -16,25 +16,17 @@
             <p class="subtitulo">Selecciona una membresía existente y actualiza sus datos.</p>
         </header>
 
-        <section class="panel">
-            <div class="selector-contenedor">
-                <label for="membresia-seleccionada">Membresía que deseas modificar</label>
-                <select id="membresia-seleccionada" name="membresia_seleccionada">
-                    <option value="">Selecciona una membresía</option>
-                    <option value="Escudo básico">Escudo básico</option>
-                    <option value="Guerrero combat">Guerrero combat</option>
-                    <option value="Élite warrior">Élite warrior</option>
-                </select>
-            </div>
-
-            <form class="formulario">
+        
+            
+            <form class="formulario" id="form-modificarMembresia" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Datos de la membresía</legend>
+                    <input type="hidden" id="id_membresia" name="id_membresia">
 
                     <div class="fila">
                         <div class="campo">
-                            <label for="nombre-tipo">Nombre del tipo de membresía</label>
-                            <input type="text" id="nombre-tipo" name="nombre_tipo" maxlength="50" required>
+                            <label for="nombre_tipo">Nombre del tipo de membresía</label>
+                            <input type="text" id="nombre_tipo" name="nombre_tipo" maxlength="20" required>
                         </div>
                         <div class="campo">
                             <label for="precio">Precio de la membresía</label>
@@ -47,23 +39,23 @@
 
                     <div class="fila">
                         <div class="campo">
-                            <label for="duracion-dias">Días de duración</label>
-                            <input type="number" id="duracion-dias" name="duracion_dias" min="1" step="1" required>
+                            <label for="duracion_dias">Días de duración</label>
+                            <input type="number" id="duracion_dias" name="duracion_dias" min="1" step="1" required>
                         </div>
                         <div class="campo">
-                            <label for="incluye-rutina">¿Incluye rutina personalizada?</label>
-                            <select id="incluye-rutina" name="incluye_rutina" required>
-                                <option value="no">No</option>
-                                <option value="si">Sí</option>
+                            <label for="incluye_rutina">¿Incluye rutina personalizada?</label>
+                            <select id="incluye_rutina" name="incluye_rutina" required>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="campo">
-                        <label for="incluye-dieta">¿Incluye dieta y suplementos?</label>
-                        <select id="incluye-dieta" name="incluye_dieta" required>
-                            <option value="no">No</option>
-                            <option value="si">Sí</option>
+                        <label for="incluye_dieta">¿Incluye dieta y suplementos?</label>
+                        <select id="incluye_dieta" name="incluye_dieta" required>
+                            <option value="0">No</option>
+                            <option value="1">Sí</option>
                         </select>
                     </div>
 
@@ -74,13 +66,14 @@
                     </div>
 
                     <div class="acciones">
-                        <button type="button" class="boton boton-secundario">Cancelar</button>
-                        <button type="button" class="boton boton-principal">Guardar cambios</button>
+                        <button type="button" id="cancelar" class="boton boton-secundario">Cancelar</button>
+                        <button type="submit" class="boton boton-principal">Guardar cambios</button>
                     </div>
                 </fieldset>
             </form>
         </section>
     </main>
+    <script src="../SCRIPT-Code/modificarMembresia.js"></script>
 </body>
 
 </html>

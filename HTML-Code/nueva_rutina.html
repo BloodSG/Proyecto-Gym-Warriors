@@ -36,11 +36,22 @@
         <h1>Crear nueva rutina</h1>
         <p>Añade una nueva rutina.</p>
         
-        <form id="form_rutina" action="../PHP-Code/crear_rutina.php" method="POST" enctype="multipart/form-data">
+        <form id="form_rutina" method="post" enctype="multipart/form-data">
             <div>
-                <label for="nombre_ejercicio">Nombre del ejercicio</label>
-                <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50" required>
-            </div>
+            <label for="id_ejercicio">Ejercicio</label>
+            <select name="id_ejercicio" id="id_ejercicio" required>
+                <option value="" selected>Selecciona ejercicio</option>
+                <option value="1">Sentadillas</option>
+                <option value="2">Dominadas</option>
+                <option value="nuevo">Agregar nuevo ejercicio</option>
+            </select>
+        </div>
+
+        <!-- para agregar el nuevo ejercicio-->
+        <div id="grupo_nuevo_ejercicio">
+            <label for="nombre_ejercicio">Nombre del nuevo ejercicio</label>
+            <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50">
+        </div>
 
             <label>Días que se aplicará la rutina (puedes elegir varios):</label>
             <div class="dia">
