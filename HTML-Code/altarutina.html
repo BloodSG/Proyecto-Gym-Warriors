@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar rutina | Fitness Warriors</title>
+    <link rel="icon" type="image/svg+xml" href="../Recursos/Img_sis/LogoWarriors.svg">
+    <link rel="stylesheet" href="../CSS-Code/admin.css">
+    <link rel="stylesheet" href="../CSS-Code/altarutina.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="admin.html#proveedores">Proveedores</a>
+                <a href="admin.html#productos">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="admin.html#ventas">Ventas</a>
+                <a class="active" href="altarutina.html" aria-current="page">Rutinas</a>
+                <a href="altamembresia.html">Membresías</a>
+                <a href="admin.html#corte-caja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Rutinas</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE CLIENTES</p>
+                    <h2>Asignar rutina</h2>
+                    <p>Busca un cliente, define la vigencia y arma su rutina de entrenamiento.</p>
+                </section>
+
+                <form class="routine-form" id="routine-form">
+                    <section class="card form-section" aria-labelledby="assignment-title">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="assignment-title">Datos de la asignación</h2>
+                                <p>Selecciona el cliente y el periodo de la rutina.</p>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+
+                            <label for="client">Cliente
+                                <select id="client" name="cliente" required>
+                                </select>
+                            </label>
+                            <label for="start-date">Fecha de inicio
+                                <input id="start-date" name="fecha_inicio" type="date" required>
+                            </label>
+                            <label for="end-date">Fecha de término
+                                <input id="end-date" name="fecha_fin" type="date" required>
+                            </label>
+                            <label for="coach">Coach responsable
+                                <select id="coach" name="coach" required>
+                                
+                                </select>
+                            </label>
+                            <label class="full-field" for="routine-name">Nombre de la rutina
+                                <input id="routine-name" name="nombre" type="text" maxlength="80"
+                                    placeholder="Ej. Tren superior
+                                    " required>
+                            </label>
+                            <label class="full-field" for="notes">Observaciones o notas
+                                <textarea id="notes" name="observaciones" rows="3" maxlength="250"
+                                    placeholder="Agrega una nota si es necesario"></textarea>
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button class="form-button" type="submit">Guardar asignación</button>
+                            <a class="secondary-button" href="editar_rutina.html">Armar rutina</a>
+                        </div>
+                        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+                    </section>
+                </form>
+
+                <section class="card routine-list" aria-labelledby="list-title">
+                    <div class="section-heading">
+                        <div>
+                            <h2 id="list-title">Rutinas asignadas</h2>
+                            <p>Modifica la vigencia o elimina una asignación existente.</p>
+                        </div>
+                        <label class="list-search" for="routine-search">
+                            <span aria-hidden="true">⌕</span>
+                            <input id="routine-search" type="search" placeholder="Buscar rutina">
+                        </label>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <caption>Rutinas asignadas a clientes</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Rutina</th>
+                                    <th scope="col">Coach</th>
+                                    <th scope="col">Inicio</th>
+                                    <th scope="col">Término</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="routine-table"></tbody>
+                        </table>
+                        <p class="empty-state" id="empty-state">No hay rutinas asignadas.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <dialog id="edit-dialog" aria-labelledby="dialog-title">
+        <form id="edit-form" method="dialog">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">ASIGNACIÓN DE RUTINA</p>
+                    <h2 id="dialog-title">Modificar rutina</h2>
+                </div>
+                <button class="close-button" type="button" id="close-dialog" aria-label="Cerrar">×</button>
+            </div>
+            <input id="edit-id" type="hidden">
+            <div class="edit-grid">
+                <label for="edit-client">Cliente
+                    <input id="edit-client" type="text" readonly>
+                </label>
+                <label for="edit-name">Nombre de la rutina
+                    <input id="edit-name" type="text" maxlength="80" required>
+                </label>
+                <label for="edit-coach">Coach responsable
+                    <select id="edit-coach" required>
+                        <option value="">Selecciona un coach</option>
+                        <option value="Coach principal">Coach principal</option>
+                        <option value="Coach de fuerza">Coach de fuerza</option>
+                        <option value="Coach de acondicionamiento">Coach de acondicionamiento</option>
+                        <option value="Coach de movilidad">Coach de movilidad</option>
+                    </select>
+                </label>
+                <label for="edit-start">Fecha de inicio
+                    <input id="edit-start" type="date" required>
+                </label>
+                <label for="edit-end">Fecha de término
+                    <input id="edit-end" type="date" required>
+                </label>
+                <label class="full-field" for="edit-notes">Observaciones o notas
+                    <textarea id="edit-notes" rows="3" maxlength="250"></textarea>
+                </label>
+            </div>
+            <div class="dialog-actions">
+                <button class="secondary-button" type="button" id="cancel-edit">Cancelar</button>
+                <button class="form-button" type="submit">Guardar cambios</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+        const storageKey = "fitness-warriors-rutinas";
+        const form = document.getElementById("routine-form");
+        const table = document.getElementById("routine-table");
+        const emptyState = document.getElementById("empty-state");
+        const routineSearch = document.getElementById("routine-search");
+        const dialog = document.getElementById("edit-dialog");
+        let routines = JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+        function formatDate(value) {
+            if (!value) return "";
+            const [year, month, day] = value.split("-");
+            return `${day}/${month}/${year}`;
+        }
+
+        function renderRoutines() {
+            const query = routineSearch.value.trim().toLowerCase();
+            const visible = routines.filter((routine) =>
+                `${routine.client} ${routine.name} ${routine.coach || ""} ${routine.notes || ""}`.toLowerCase().includes(query)
+            );
+            table.innerHTML = visible.map((routine) => `
+                <tr>
+                    <td>${routine.client}</td>
+                    <td>${routine.name}</td>
+                    <td>${routine.coach || "Sin asignar"}</td>
+                    <td>${formatDate(routine.start)}</td>
+                    <td>${formatDate(routine.end)}</td>
+                    <td><span class="badge ${routine.end < new Date().toISOString().slice(0, 10) ? "badge-inactivo" : "badge-activo"}">
+                        ${routine.end < new Date().toISOString().slice(0, 10) ? "Vencida" : "Activa"}
+                    </span></td>
+                    <td>
+                        <div class="actions">
+                            <button class="icon-button" type="button" data-action="edit" data-id="${routine.id}">Modificar</button>
+                            <button class="icon-button delete-button" type="button" data-action="delete" data-id="${routine.id}">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+            emptyState.hidden = visible.length > 0;
+        }
+
+        function saveRoutines() {
+            localStorage.setItem(storageKey, JSON.stringify(routines));
+            renderRoutines();
+        }
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const data = new FormData(form);
+            const start = data.get("fecha_inicio");
+            const end = data.get("fecha_fin");
+            const message = document.getElementById("form-message");
+            if (end < start) {
+                message.textContent = "La fecha de término debe ser posterior a la fecha de inicio.";
+                message.className = "form-message error-message";
+                return;
+            }
+            routines.push({
+                id: Date.now().toString(),
+                client: data.get("cliente"),
+                name: data.get("nombre"),
+                start,
+                end,
+                coach: data.get("coach"),
+                notes: data.get("observaciones")
+            });
+            saveRoutines();
+            form.reset();
+            message.textContent = "La rutina se asignó correctamente.";
+            message.className = "form-message success-message";
+        });
+
+        table.addEventListener("click", (event) => {
+            const button = event.target.closest("button");
+            if (!button) return;
+            const routine = routines.find((item) => item.id === button.dataset.id);
+            if (!routine) return;
+            if (button.dataset.action === "delete") {
+                if (confirm(`¿Eliminar la rutina de ${routine.client}?`)) {
+                    routines = routines.filter((item) => item.id !== routine.id);
+                    saveRoutines();
+                }
+                return;
+            }
+            document.getElementById("edit-id").value = routine.id;
+            document.getElementById("edit-client").value = routine.client;
+            document.getElementById("edit-name").value = routine.name;
+            document.getElementById("edit-coach").value = routine.coach || "";
+            document.getElementById("edit-start").value = routine.start;
+            document.getElementById("edit-end").value = routine.end;
+            document.getElementById("edit-notes").value = routine.notes || "";
+            dialog.showModal();
+        });
+
+        document.getElementById("edit-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const id = document.getElementById("edit-id").value;
+            const start = document.getElementById("edit-start").value;
+            const end = document.getElementById("edit-end").value;
+            if (end < start) return;
+            const routine = routines.find((item) => item.id === id);
+            routine.name = document.getElementById("edit-name").value;
+            routine.coach = document.getElementById("edit-coach").value;
+            routine.start = start;
+            routine.end = end;
+            routine.notes = document.getElementById("edit-notes").value;
+            saveRoutines();
+            dialog.close();
+        });
+
+        document.getElementById("cancel-edit").addEventListener("click", () => dialog.close());
+        document.getElementById("close-dialog").addEventListener("click", () => dialog.close());
+        routineSearch.addEventListener("input", renderRoutines);
+        renderRoutines();
+    </script>
+</body>
+
+</html>

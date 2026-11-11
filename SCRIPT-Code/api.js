@@ -163,6 +163,14 @@ export async function cargaRutinaDia(dia)
 {   
     const url=`${consultaRutina}?action=cargar&comando=semana&dia=${encodeURIComponent(dia)}`;
     const rutina_nombre=await fetch(url);
+    // Verifica si la sesion del usuario no esta iniciada
+    if (rutina_nombre.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función despues de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
     if (!rutina_nombre.ok) 
     {
         throw new Error(`Error HTTP al cargar la rutina del dia ... ${dia}`);
@@ -174,6 +182,14 @@ export async function cargaListaEjercicios(id_rutina)
 {   
     const url=`${consultaRutina}?action=cargar&comando=lista&id=${encodeURIComponent(id_rutina)}`;
     const lista=await fetch(url);
+    //Verifica si la sesión del usuario no esta iniciada
+    if (lista.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función después de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
     if (!lista.ok) {
         throw new Error(`Error HTTP al cargar la lista de ejercicios de la rutina con el id ... ${id_rutina}`);
         
