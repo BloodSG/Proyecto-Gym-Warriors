@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar rutina</title>
     <link rel="stylesheet" href="../CSS-Code/nueva_rutina.css">
-
 </head>
 <body>
-    
+
 <aside class="sidebar">
-    <a class="brand" href="vista.html">
+    <a class="brand" href="admin.html">
         <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
     </a>
 
@@ -17,7 +17,7 @@
 
     <nav class="main-nav">
         <a href="vista.html#inicio">Inicio</a>
-        <a href="vista.html#empleados" >Empleados</a>
+        <a href="vista.html#empleados">Empleados</a>
         <a href="vista.html#proveedores">Proveedores</a>
         <a href="vista.html#productos">Productos</a>
         <a href="vista.html#clientes">Clientes</a>
@@ -29,71 +29,159 @@
 
     <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
 </aside>
-    <div class="formulario">
-        <div class="logo">
-            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina se abre desde el boton "Editar rutina" de la lista de rutinas (solo debe apuntar a editar_rutina.html)
+        arriba va un formulario para cambiar el nombre de la rutina (Rutinas.nombre_rutina), con el id_rutina en un campo oculto
+        cada <tr> del tbody representa una fila de la tabla Detalle_Rutinas de la base de datos
+        lo hice para q repitas esa fila por cada ejercicio q tenga la rutina
+        (las 3 filas de abajo son solo ejemplos de diseño y se pueden borrar)
+        los datos de la base de datos q va a tener cada fila son estos:
+          - nombre_ejercicio
+          - dia_semana (en la BD cada dia es una fila; aqui se muestran juntos, ej. "Lu, Mi")
+          - series
+          - repeticiones
+          - peso_sugerido
+          - tiempo_descanso
+          - video_url (si no tiene, escribe "Sin video" en lugar del enlace "Ver video")
+          - id_detalle_rutina (va en el enlace "Editar": editar_ejercicio.html?id_detalle_rutina=... y en la ventanita de eliminar)
+        si la rutina no tiene ejercicios se muestra solo "Aun no hay ejercicios" (lo hace el CSS, deja el tbody sin filas)
+        el boton "Eliminar" abre una ventanita de confirmacion (solo CSS, con #eliminar_N); cada fila tiene la suya
+        "Si, eliminar" borra ese ejercicio de Detalle_Rutinas (id_detalle_rutina) y regresa a editar_rutina.html
+        botones: "+ Agregar ejercicio" va a nuevo_ejercicio.html y "Listo" va a vista.html#rutinas
+    -->
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Editar rutina</h1>
+                <p>Cambia el nombre, edita los ejercicios o agrega nuevos.</p>
+            </div>
         </div>
-        <h1>Editar rutina</h1>
-        <p>Modifica los datos de la rutina.</p>
-        
-        <form id="form_rutina" method="post" enctype="multipart/form-data">
+
+        <form class="panel form-nombre" action="editar_rutina.html" method="post">
+            <input type="hidden" name="id_rutina" value="">
             <div>
-                <label for="nombre_ejercicio">Nombre del ejercicio</label>
-                <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50" required>
+                <label for="nombre_rutina">Nombre de la rutina</label>
+                <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" value="Fuerza tren superior" required>
             </div>
-
-            <label>Días que se aplicará la rutina (puedes elegir varios):</label>
-            <div class="dia">
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="lunes" required> Lu</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="martes"> Ma</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="miercoles"> Mi</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="jueves"> Ju</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="viernes"> Vi</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="sabado"> Sa</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana" value="domingo"> Do</label>
-            </div>
-
-            
-            <div class="fila-doble">
-                <div>
-                    <label for="series">Series</label>
-                    <input type="number" name="series" id="series" min="1" max="12" step="1" required>
-                </div>
-                <div>
-                    <label for="repeticiones">Repeticiones</label>
-                    <input type="text" name="repeticiones" id="repeticiones" maxlength="20"  required>
-                </div>
-            </div>
-            <div class="fila-doble">
-                <div>
-                    <label for="peso_sugerido">Peso sugerido</label>
-                    <input type="number" name="peso_sugerido" id="peso_sugerido" min="0" max="600" step="0.01" required>
-                </div>
-                <div>
-                    <label for="tiempo_descanso">Tiempo de descanso (en minutos)</label>
-                    <input type="number" name="tiempo_descanso" id="tiempo_descanso" min="0" max="60" step="1" required>
-                </div>
-            </div>
-
-            <div>
-                <label for="opc_evidencia">¿Cómo se agrega el video demostrativo?</label>
-                <select name="opc_evidencia" id="opc_evidencia">
-                    <option value="URL" >URL del video</option>
-                    <option value="Video_disp">Video desde el dispositivo</option>
-                    <option value="aun_no" selected>Por el momento no</option>
-                </select>
-            </div>
-            <div id="grupo_url">
-                <label for="video_url">URL del video</label>
-                <input type="url" name="video_url" id="video_url" maxlength="255" placeholder="https://www.youtube.com/...">
-            </div>
-            <div id="grupo_archivo">
-                <label for="video_archivo">Video desde el dispositivo</label>
-                <input type="file" name="video_archivo" id="video_archivo" accept="video/*">
-            </div>
-
-            <button type="submit">Guardar cambios</button>
+            <button type="submit">Guardar nombre</button>
         </form>
+
+        <section class="panel">
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ejercicio</th>
+                            <th>Días</th>
+                            <th class="num">Series</th>
+                            <th class="num">Repeticiones</th>
+                            <th class="num">Peso</th>
+                            <th class="num">Descanso</th>
+                            <th>Video</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>Sentadillas</td>
+                                <td>Lu, Mi</td>
+                                <td class="num">4</td>
+                                <td class="num">10-12</td>
+                                <td class="num">40 kg</td>
+                                <td class="num">2 min</td>
+                                <td><a class="ver" href="#">Ver video</a></td>
+                                <td class="acc">
+                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=1">Editar</a>
+                                    <a class="btn-mini peligro" href="#eliminar_1">Eliminar</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dominadas</td>
+                                <td>Ma, Ju</td>
+                                <td class="num">3</td>
+                                <td class="num">8</td>
+                                <td class="num">0 kg</td>
+                                <td class="num">2 min</td>
+                                <td>Sin video</td>
+                                <td class="acc">
+                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=2">Editar</a>
+                                    <a class="btn-mini peligro" href="#eliminar_2">Eliminar</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Press de banca</td>
+                                <td>Lu, Vi</td>
+                                <td class="num">4</td>
+                                <td class="num">12</td>
+                                <td class="num">35 kg</td>
+                                <td class="num">1 min</td>
+                                <td><a class="ver" href="#">Ver video</a></td>
+                                <td class="acc">
+                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=3">Editar</a>
+                                    <a class="btn-mini peligro" href="#eliminar_3">Eliminar</a>
+                                </td>
+                            </tr>
+
+                        <tr class="fila-vacia">
+                            <td class="vacio" colspan="8">Aún no hay ejercicios</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="pie-lista">
+            <a class="btn-sec" href="nuevo_ejercicio.html">+ Agregar ejercicio</a>
+            <a class="btn-agregar" href="vista.html#rutinas">Listo</a>
+        </div>
+    </div>
+
+    <!-- Ventanita para eliminar el ejercicio -->
+    <div class="modal confirmar" id="eliminar_1" role="dialog" aria-modal="true">
+        <div class="modal-caja">
+            <h1>Eliminar ejercicio</h1>
+            <p>¿Seguro que quieres quitar <strong>Sentadillas</strong> de esta rutina?</p>
+            <form action="editar_rutina.html" method="post">
+                <input type="hidden" name="id_detalle_rutina" value="1">
+                <div class="acciones-form">
+                    <a class="btn-sec" href="#">Cancelar</a>
+                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ventanita para eliminar el ejercicio  -->
+    <div class="modal confirmar" id="eliminar_2" role="dialog" aria-modal="true">
+        <div class="modal-caja">
+            <h1>Eliminar ejercicio</h1>
+            <p>¿Seguro que quieres quitar <strong>Dominadas</strong> de esta rutina?</p>
+            <form action="editar_rutina.html" method="post">
+                <input type="hidden" name="id_detalle_rutina" value="2">
+                <div class="acciones-form">
+                    <a class="btn-sec" href="#">Cancelar</a>
+                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ventanita para eliminar el ejercicio -->
+    <div class="modal confirmar" id="eliminar_3" role="dialog" aria-modal="true">
+        <div class="modal-caja">
+            <h1>Eliminar ejercicio</h1>
+            <p>¿Seguro que quieres quitar <strong>Press de banca</strong> de esta rutina?</p>
+            <form action="editar_rutina.html" method="post">
+                <input type="hidden" name="id_detalle_rutina" value="3">
+                <div class="acciones-form">
+                    <a class="btn-sec" href="#">Cancelar</a>
+                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </body>

@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva rutina</title>
     <link rel="stylesheet" href="../CSS-Code/nueva_rutina.css">
-
 </head>
 <body>
-    
+
 <aside class="sidebar">
-    <a class="brand" href="vista.html">
+    <a class="brand" href="admin.html">
         <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
     </a>
 
@@ -17,7 +17,7 @@
 
     <nav class="main-nav">
         <a href="vista.html#inicio">Inicio</a>
-        <a href="vista.html#empleados" >Empleados</a>
+        <a href="vista.html#empleados">Empleados</a>
         <a href="vista.html#proveedores">Proveedores</a>
         <a href="vista.html#productos">Productos</a>
         <a href="vista.html#clientes">Clientes</a>
@@ -29,84 +29,125 @@
 
     <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
 </aside>
-    <div class="formulario">
-        <div class="logo">
-            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
-        </div>
-        <h1>Crear nueva rutina</h1>
-        <p>Añade una nueva rutina.</p>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina se usa para CREAR una rutina nueva y tiene 2 momentos:
+        1 Al abrir nueva_rutina.html (sin nada) solo se ve el titulo y la ventanita pidiendo el nombre de la rutina.
+             La ventanita es un formulario con el campo nombre_rutina (tabla Rutinas).
+        2 Al presionar "Continuar" la ventanita se cierra y aparece "Rutina: ...", la tabla de ejercicios
+             y los botones. Para eso tienes que guardar la rutina y abrir esta pagina como nueva_rutina.html#ejercicios
+             (el #ejercicios es lo que esconde la ventanita). Tambien se regresa aqui cada vez que se guarda un ejercicio.
         
-        <form id="form_rutina" method="post" enctype="multipart/form-data">
+        los datos de la base de datos q va a tener cada fila son estos:
+          - nombre_ejercicio
+          - dia_semana (en la BD cada dia es una fila; aqui se muestran juntos, ej. "Lu, Mi")
+          - series
+          - repeticiones
+          - peso_sugerido
+          - tiempo_descanso
+          - video_url 
+        el nombre q sale en "Rutina: ..." es Rutinas.nombre_rutina de la rutina q se esta creando
+        si la rutina no tiene ejercicios se muestra solo "Aun no hay ejercicios"
+        botones: "+ Agregar nuevo ejercicio" va a nuevo_ejercicio.html y "Terminar rutina" deberia de ir a donde esta la paguina anterior que creo q es de diana en donde muestra todas las rutinas q hay
+    
+    -->
+
+    <div class="contenido" id="ejercicios">
+        <div class="encabezado">
             <div>
-            <label for="id_ejercicio">Ejercicio</label>
-            <select name="id_ejercicio" id="id_ejercicio" required>
-                <option value="" selected>Selecciona ejercicio</option>
-                <option value="1">Sentadillas</option>
-                <option value="2">Dominadas</option>
-                <option value="nuevo">Agregar nuevo ejercicio</option>
-            </select>
+                <h1>Crear nueva rutina</h1>
+                <!-- Aqui es en donde se cambia para poer el nombe del ejercicio como -->
+                <p class="rutina-actual despues-nombre">Rutina: De cuerpo completo</p>
+                <p class="antes-nombre">Ponle nombre a la rutina; después agregas sus ejercicios.</p>
+                <p class="despues-nombre">Agrega los ejercicios de esta rutina.</p>
+            </div>
         </div>
 
-        <!-- para agregar el nuevo ejercicio-->
-        <div id="grupo_nuevo_ejercicio">
-            <label for="nombre_ejercicio">Nombre del nuevo ejercicio</label>
-            <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50">
+        <div class="despues-nombre">
+            <!--
+                LISTA DE EJERCICIOS: una fila por ejercicio guardado en la rutina 
+                Si la rutina no tiene ejercicios, dejar el tbody sin filas: sale "Aún no hay ejercicios" .
+            -->
+            <section class="panel">
+                <div class="tabla-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ejercicio</th>
+                                <th>Días</th>
+                                <th class="num">Series</th>
+                                <th class="num">Repeticiones</th>
+                                <th class="num">Peso</th>
+                                <th class="num">Descanso</th>
+                                <th>Video</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sentadillas</td>
+                                <td>Lu, Mi</td>
+                                <td class="num">4</td>
+                                <td class="num">10-12</td>
+                                <td class="num">40 kg</td>
+                                <td class="num">2 min</td>
+                                <td><a class="ver" href="#">Ver video</a></td>
+                            </tr>
+                            <tr>
+                                <td>Dominadas</td>
+                                <td>Ma, Ju</td>
+                                <td class="num">3</td>
+                                <td class="num">8</td>
+                                <td class="num">0 kg</td>
+                                <td class="num">2 min</td>
+                                <td>Sin video</td>
+                            </tr>
+                            <tr>
+                                <td>Press de banca</td>
+                                <td>Lu, Vi</td>
+                                <td class="num">4</td>
+                                <td class="num">12</td>
+                                <td class="num">35 kg</td>
+                                <td class="num">1 min</td>
+                                <td><a class="ver" href="#">Ver video</a></td>
+                            </tr>
+
+                            <tr class="fila-vacia">
+                                <td class="vacio" colspan="7">Aún no hay ejercicios</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="pie-lista">
+                <a class="btn-sec" href="nuevo_ejercicio.html">+ Agregar nuevo ejercicio</a>
+                <a class="btn-agregar" href="vista.html">Terminar rutina</a><!--Debe de ir a la de diana que digo ya guardando todo lo de la rutina que esta se estaba añadiendo -->
+            </div>
         </div>
-
-            <label>Días que se aplicará la rutina (puedes elegir varios):</label>
-            <div class="dia">
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="lunes"> Lu</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="martes"> Ma</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="miercoles"> Mi</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="jueves"> Ju</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="viernes"> Vi</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="sabado"> Sa</label>
-                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="domingo"> Do</label>
-            </div>
-
-            
-            <div class="fila-doble">
-                <div>
-                    <label for="series">Series</label>
-                    <input type="number" name="series" id="series" min="1" max="12" step="1" required>
-                </div>
-                <div>
-                    <label for="repeticiones">Repeticiones</label>
-                    <input type="text" name="repeticiones" id="repeticiones" maxlength="20"  required>
-                </div>
-            </div>
-            <div class="fila-doble">
-                <div>
-                    <label for="peso_sugerido">Peso sugerido</label>
-                    <input type="number" name="peso_sugerido" id="peso_sugerido" min="0" max="600" step="0.01" required>
-                </div>
-                <div>
-                    <label for="tiempo_descanso">Tiempo de descanso (en minutos)</label>
-                    <input type="number" name="tiempo_descanso" id="tiempo_descanso" min="0" max="60" step="1" required>
-                </div>
-            </div>
-
-            <div>
-                <label for="opc_evidencia">¿Cómo se agrega el video demostrativo?</label>
-                <select name="opc_evidencia" id="opc_evidencia">
-                    <option value="URL" >URL del video</option>
-                    <option value="Video_disp">Video desde el dispositivo</option>
-                    <option value="aun_no" selected>Por el momento no</option>
-                </select>
-            </div>
-            <div id="grupo_url">
-                <label for="video_url">URL del video</label>
-                <input type="url" name="video_url" id="video_url" maxlength="255" placeholder="https://www.youtube.com/...">
-            </div>
-            <div id="grupo_archivo">
-                <label for="video_archivo">Video desde el dispositivo</label>
-                <input type="file" name="video_archivo" id="video_archivo" accept="video/*">
-            </div>
-
-            <button type="submit">Confirmar y guardar</button>
-        </form>
     </div>
 
-<script src="../SCRIPT-Code/nueva_rutina.js"></script>
+    <!--
+        Es la ventanita ´para colocar el nombre
+    -->
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo_modal">
+        <div class="modal-caja">
+            <h1 id="titulo_modal">Crear nueva rutina</h1>
+            <p>Ponle nombre a la rutina. Después agregas sus ejercicios.</p>
+
+            <form id="form_rutina" action="#ejercicios" method="get">
+                <div>
+                    <label for="nombre_rutina">Nombre de la rutina</label>
+                    <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" required>
+                </div>
+
+                <div class="acciones-form">
+                    <a class="btn-sec" href="vista.html#rutinas">Cancelar</a><!--Debe de ir a la de diana que digo  -->
+                    <button type="submit">Continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>

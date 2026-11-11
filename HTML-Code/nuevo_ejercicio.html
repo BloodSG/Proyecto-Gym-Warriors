@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar ejercicio</title>
+    <link rel="stylesheet" href="../CSS-Code/nueva_rutina.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas" class="active">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        este formulario AGREGA un ejercicio a la rutina que se esta creando (o editando) y lo guarda en Detalle_Rutinas
+        los datos de la base de datos q captura el formulario son estos (el name de cada campo es el nombre de la columna):
+          - id_rutina (campo oculto: la rutina a la que pertenece el ejercicio)
+          - id_ejercicio (lista de ejercicios; la opcion "Agregar nuevo ejercicio" muestra el campo nombre_ejercicio)
+          - nombre_ejercicio (solo si es un ejercicio nuevo; Detalle_Rutinas lo guarda como texto)
+          - dia_semana[] (se pueden marcar varios dias; en la BD hay que guardar UNA fila por cada dia marcado)
+          - series
+          - repeticiones
+          - peso_sugerido
+          - tiempo_descanso (en minutos)
+          - video_url o video_archivo (segun lo q elijan en opc_evidencia; "Por el momento no" deja el video vacio)
+       
+    -->
+
+    <div class="formulario">
+        <div class="logo">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </div>
+        <h1>Agregar ejercicio</h1>
+        <!-- es el nombre de rutina que partenece-->
+        <p class="rutina-actual">Rutina: Fuerza tren superior</p>
+        <p>Elige un ejercicio de la lista o agrega uno nuevo, y llena sus datos.</p>
+
+        <form id="form_ejercicio" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_rutina" value="">
+
+            <div>
+                <label for="id_ejercicio">Ejercicio</label>
+                <select name="id_ejercicio" id="id_ejercicio" required>
+                    <option value="" selected>Selecciona ejercicio</option>
+                    <option value="1">Sentadillas</option>
+                    <option value="2">Dominadas</option>
+                    <option value="3">Press de banca</option>
+                    <option value="nuevo">Agregar nuevo ejercicio</option>
+                </select>
+            </div>
+
+            <!-- Solo se ve si eligen Agregar nuevo ejercicio -->
+            <div id="grupo_nuevo_ejercicio">
+                <label for="nombre_ejercicio">Nombre del nuevo ejercicio</label>
+                <input type="text" name="nombre_ejercicio" id="nombre_ejercicio" maxlength="50">
+            </div>
+
+            <label>Días que se aplicará la rutina (puedes elegir varios):</label>
+            <div class="dia">
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="lunes"> Lu</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="martes"> Ma</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="miercoles"> Mi</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="jueves"> Ju</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="viernes"> Vi</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="sabado"> Sa</label>
+                <label class="dia-check"><input type="checkbox" name="dia_semana[]" value="domingo"> Do</label>
+            </div>
+
+            <div class="fila-doble">
+                <div>
+                    <label for="series">Series</label>
+                    <input type="number" name="series" id="series" min="1" max="12" step="1" required>
+                </div>
+                <div>
+                    <label for="repeticiones">Repeticiones</label>
+                    <input type="text" name="repeticiones" id="repeticiones" maxlength="20" required>
+                </div>
+            </div>
+            <div class="fila-doble">
+                <div>
+                    <label for="peso_sugerido">Peso sugerido</label>
+                    <input type="number" name="peso_sugerido" id="peso_sugerido" min="0" max="600" step="0.01" required>
+                </div>
+                <div>
+                    <label for="tiempo_descanso">Tiempo de descanso (en minutos)</label>
+                    <input type="number" name="tiempo_descanso" id="tiempo_descanso" min="0" max="60" step="1" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="opc_evidencia">¿Cómo se agrega el video demostrativo?</label>
+                <select name="opc_evidencia" id="opc_evidencia">
+                    <option value="URL">URL del video</option>
+                    <option value="Video_disp">Video desde el dispositivo</option>
+                    <option value="aun_no" selected>Por el momento no</option>
+                </select>
+            </div>
+            <div id="grupo_url">
+                <label for="video_url">URL del video</label>
+                <input type="url" name="video_url" id="video_url" maxlength="255" placeholder="https://www.youtube.com/...">
+            </div>
+            <div id="grupo_archivo">
+                <label for="video_archivo">Video desde el dispositivo</label>
+                <input type="file" name="video_archivo" id="video_archivo" accept="video/*">
+            </div>
+
+            <div class="acciones-form">
+                <a class="btn-sec" href="nueva_rutina.html#ejercicios">Cancelar</a>
+                <button type="submit">Confirmar y guardar</button> <!-- seria guardar y volve a nueva_rutina -->
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
