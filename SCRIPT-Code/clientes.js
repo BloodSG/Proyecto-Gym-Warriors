@@ -51,11 +51,11 @@ function modificarCliente(id_usuario){
     fetch("../PHP-Code/buscar_cliente.php?id="+id_usuario)
     .then(respuesta=>respuesta.json())
     .then(cliente=>{
-        document.querySelector("#edit-id").value = cliente.id_usuario;
-        document.querySelector("#edit-empleado").value = cliente.nombre;
-        document.querySelector("#edit-apellido-1").value = cliente.apellido_1;
-        document.querySelector("#edit-apellido-2").value = cliente.apellido_2 ?? "";
-        document.querySelector("#edit-correo").value = cliente.correo;
+        document.querySelector("#edit-id").value=cliente.id_usuario;
+        document.querySelector("#edit-empleado").value=cliente.nombre;
+        document.querySelector("#edit-apellido-1").value=cliente.apellido_1;
+        document.querySelector("#edit-apellido-2").value=cliente.apellido_2 ?? "";
+        document.querySelector("#edit-correo").value=cliente.correo;
 
         document.querySelector("#edit-dialog").showModal();
     })
@@ -65,7 +65,7 @@ function modificarCliente(id_usuario){
 
 
 function eliminarCliente(id_usuario){
-    let confirmar = confirm("¿Está seguro de eliminar este cliente?");
+    let confirmar=confirm("¿Está seguro de eliminar este cliente?");
 
     if(confirmar){
         fetch("../PHP-Code/eliminar_cliente.php?id="+id_usuario)
@@ -86,22 +86,12 @@ function eliminarCliente(id_usuario){
 
 document.querySelector("#edit-form").addEventListener("submit",function(e){
     e.preventDefault();
-    let datos = new FormData();
-    datos.append(
-        "id_usuario",
-        document.querySelector("#edit-id").value);
-    datos.append(
-        "nombre",
-        document.querySelector("#edit-empleado").value);
-    datos.append(
-        "apellido_1",
-        document.querySelector("#edit-apellido-1").value);
-    datos.append(
-        "apellido_2",
-        document.querySelector("#edit-apellido-2").value);
-    datos.append(
-        "correo",
-        document.querySelector("#edit-correo").value);
+    let datos=new FormData();
+    datos.append("id_usuario", document.querySelector("#edit-id").value);
+    datos.append("nombre", document.querySelector("#edit-empleado").value);
+    datos.append("apellido_1", document.querySelector("#edit-apellido-1").value);
+    datos.append("apellido_2", document.querySelector("#edit-apellido-2").value);
+    datos.append("correo", document.querySelector("#edit-correo").value);
 
     fetch("../PHP-Code/modificar_cliente.php",{
         method:"POST",
@@ -120,8 +110,8 @@ document.querySelector("#edit-form").addEventListener("submit",function(e){
 
 
 // Botón cancelar edición
-const botonCancelar = document.querySelector("#cancel-edit");
-const dialogoEditar = document.querySelector("#edit-dialog");
+const botonCancelar=document.querySelector("#cancel-edit");
+const dialogoEditar=document.querySelector("#edit-dialog");
 
 if(botonCancelar){
     botonCancelar.addEventListener("click", function(){
@@ -131,7 +121,7 @@ if(botonCancelar){
 
 
 // Botón cerrar con la X
-const botonCerrar = document.querySelector("#close-dialog");
+const botonCerrar=document.querySelector("#close-dialog");
 
 if(botonCerrar){
     botonCerrar.addEventListener("click", function(){
