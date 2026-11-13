@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ventas (Vista Admin)</title>
+        <link rel="stylesheet" href="../CSS-Code/cancelarVenta.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#">Entrevistas</a>
+                    <a href="#" class="active">Ventas</a>
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span>Panel Admin</span> - Gestión de Ventas</h1>
+                    <div class="profile">
+                        <strong>Administrador</strong>
+                        <span>admin@gymwarriors.com</span>
+                    </div>
+                </header> 
+
+                <section class="ventas-container">
+                    <div class="ventas-header">
+                        <h2>Listado de Ventas</h2>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="tabla-ventas">
+                            <thead>
+                                <tr>
+                                    <th>ID Venta</th>
+                                    <th>Cliente</th>
+                                    <th>Concepto</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-ventas-body">
+                                <tr data-id="101">
+                                    <td>#101</td>
+                                    <td>Juan Pérez</td>
+                                    <td>Membresía Mensual</td>
+                                    <td>$500.00</td>
+                                    <td>13/11/2026</td>
+                                    <td><span class="badge completada">Completada</span></td>
+                                    <td>
+                                        <button type="button" class="btn-cancelar-venta" popovertarget="modalCancelar">Cancelar venta</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="102">
+                                    <td>#102</td>
+                                    <td>María López</td>
+                                    <td>Proteína Whey</td>
+                                    <td>$850.00</td>
+                                    <td>13/11/2026</td>
+                                    <td><span class="badge completada">Completada</span></td>
+                                    <td>
+                                        <button type="button" class="btn-cancelar-venta" popovertarget="modalCancelar">Cancelar venta</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="103">
+                                    <td>#103</td>
+                                    <td>Carlos Ruiz</td>
+                                    <td>Bebida Energética</td>
+                                    <td>$45.00</td>
+                                    <td>12/11/2026</td>
+                                    <td><span class="badge cancelada">Cancelada</span></td>
+                                    <td>
+                                        <span class="texto-auxiliar">N/A</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- TEMPLATE REUTILIZABLE -->
+        <template id="template-fila-venta">
+            <tr data-id="{id}">
+                <td class="col-id">#{id}</td>
+                <td class="col-cliente">{cliente}</td>
+                <td class="col-concepto">{concepto}</td>
+                <td class="col-total">${total}</td>
+                <td class="col-fecha">{fecha}</td>
+                <td>
+                    <span class="badge {claseEstado}">{estado}</span>
+                </td>
+                <td class="col-acciones">
+                    {accionHtml}
+                </td>
+            </tr>
+        </template>
+
+        <div id="modalCancelar" popover class="modal-popover">
+            <div class="modal-content">
+                <h3>Cancelar Venta</h3>
+                <p>¿Estás seguro de que deseas cancelar esta venta?</p>
+                
+                <form id="formCancelarVenta" method="POST">
+                    <div class="form-group">
+                        <label for="motivoCancelacion">Motivo de cancelación (Obligatorio):</label>
+                        <textarea id="motivoCancelacion" name="motivo" required placeholder="Escribe el motivo detallado..."></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" id="btnCerrarModal" popovertarget="modalCancelar" popovertargetaction="hide">Volver</button>
+                        <button type="submit" id="btnConfirmarCancelacion">Confirmar Cancelación</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
