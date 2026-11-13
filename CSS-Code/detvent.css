@@ -224,6 +224,7 @@ td.vacio {
 }
 .pago.efectivo { background: rgba(178, 220, 82, .13); color: var(--lime); }
 .pago.transferencia { background: rgba(77, 159, 255, .15); color: var(--blue); }
+.pago.tarjeta { background: rgba(255, 255, 255, .08); color: var(--text); }
 
 /* resumen y confirmacion de la venta */
 .total {
@@ -242,7 +243,7 @@ td.vacio {
 
 .metodos {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin: 0 0 12px;
 }
