@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $observaciones = $_POST['observaciones'] ?? null;
     $id_membresia = $_POST['id_membresia'] ?? null;
 
-    if($id_usuario && $fecha_inicio && $fecha_fin && $id_membresia) {
+    if(
+        $id_usuario && $fecha_inicio && $fecha_fin && $id_membresia) {
         
         try {
             $conn = conectaDB();

@@ -43,8 +43,8 @@
                     <h2>Asignar rutina</h2>
                     <p>Busca un cliente, define la vigencia y arma su rutina de entrenamiento.</p>
                 </section>
-
-                <form class="routine-form" id="routine-form">
+                
+                <form class="routine-form" id="routine-form" action="../PHP-Code/asignarRutina.php" method="POST">
                     <section class="card form-section" aria-labelledby="assignment-title">
                         <div class="section-heading">
                             <div>
@@ -59,7 +59,7 @@
                                 </select>
                             </label>
                             <label for="start-date">Fecha de inicio
-                                <input id="start-date" name="fecha_inicio" type="date" required>
+                                <input id="start-date" name="fecha_creacion" type="date" required>
                             </label>
                             <label for="end-date">Fecha de término
                                 <input id="end-date" name="fecha_fin" type="date" required>
@@ -70,9 +70,10 @@
                                 </select>
                             </label>
                             <label class="full-field" for="routine-name">Nombre de la rutina
-                                <input id="routine-name" name="nombre" type="text" maxlength="80"
+                                <select id="routine-name" name="nombre" 
                                     placeholder="Ej. Tren superior
                                     " required>
+                                </select>
                             </label>
                             <label class="full-field" for="notes">Observaciones o notas
                                 <textarea id="notes" name="observaciones" rows="3" maxlength="250"
@@ -81,7 +82,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="form-button" type="submit">Guardar asignación</button>
-                            <a class="secondary-button" href="editar_rutina.html">Armar rutina</a>
+                            <a class="secondary-button" href="nueva_rutina.html">Armar rutina</a>
                         </div>
                         <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
                     </section>
@@ -160,6 +161,7 @@
         </form>
     </dialog>
 
+    <script src="../SCRIPT-Code/cargarClientesRutinaAsignada.js"></script>
     <script src="../SCRIPT-Code/rutinaasignada_cliente.js"></script>
 </body>
 
