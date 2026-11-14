@@ -52,20 +52,17 @@
         </div>
         <h1>Agregar ejercicio</h1>
         <!-- es el nombre de rutina que partenece-->
-        <p class="rutina-actual">Rutina: Fuerza tren superior</p>
+        <p class="rutina-actual" id="nombre_rutina_actual">Rutina: Cargando...</p>
         <p>Elige un ejercicio de la lista o agrega uno nuevo, y llena sus datos.</p>
 
-        <form id="form_ejercicio" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id_rutina" value="">
+        <form id="form_ejercicio" action="../PHP-Code/crear_ejercicio.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_rutina" id="id_rutina_input" value="">
 
             <div>
                 <label for="id_ejercicio">Ejercicio</label>
                 <select name="id_ejercicio" id="id_ejercicio" required>
-                    <option value="" selected>Selecciona ejercicio</option>
-                    <option value="1">Sentadillas</option>
-                    <option value="2">Dominadas</option>
-                    <option value="3">Press de banca</option>
-                    <option value="nuevo">Agregar nuevo ejercicio</option>
+                    <option value="" selected disabled>Selecciona ejercicio</option>
+                    <option value="nuevo"> Agregar nuevo ejercicio</option>
                 </select>
             </div>
 
@@ -125,11 +122,12 @@
             </div>
 
             <div class="acciones-form">
-                <a class="btn-sec" href="nueva_rutina.html#ejercicios">Cancelar</a>
+                <a class="btn-sec" href="nueva_rutina.html">Cancelar</a>
                 <button type="submit">Confirmar y guardar</button> <!-- seria guardar y volve a nueva_rutina -->
             </div>
         </form>
     </div>
+    <script src="../SCRIPT-Code/nuevo_ejercicio.js"></script>
 
 </body>
 </html>

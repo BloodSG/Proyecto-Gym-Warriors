@@ -58,7 +58,7 @@
             <div>
                 <h1>Crear nueva rutina</h1>
                 <!-- Aqui es en donde se cambia para poer el nombe del ejercicio como -->
-                <p class="rutina-actual despues-nombre">Rutina: De cuerpo completo</p>
+                <p class="rutina-actual despues-nombre" id="nombre_rutina_display">Rutina: Cargando....</p>
                 <p class="antes-nombre">Ponle nombre a la rutina; después agregas sus ejercicios.</p>
                 <p class="despues-nombre">Agrega los ejercicios de esta rutina.</p>
             </div>
@@ -72,45 +72,7 @@
             <section class="panel">
                 <div class="tabla-scroll">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Ejercicio</th>
-                                <th>Días</th>
-                                <th class="num">Series</th>
-                                <th class="num">Repeticiones</th>
-                                <th class="num">Peso</th>
-                                <th class="num">Descanso</th>
-                                <th>Video</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sentadillas</td>
-                                <td>Lu, Mi</td>
-                                <td class="num">4</td>
-                                <td class="num">10-12</td>
-                                <td class="num">40 kg</td>
-                                <td class="num">2 min</td>
-                                <td><a class="ver" href="#">Ver video</a></td>
-                            </tr>
-                            <tr>
-                                <td>Dominadas</td>
-                                <td>Ma, Ju</td>
-                                <td class="num">3</td>
-                                <td class="num">8</td>
-                                <td class="num">0 kg</td>
-                                <td class="num">2 min</td>
-                                <td>Sin video</td>
-                            </tr>
-                            <tr>
-                                <td>Press de banca</td>
-                                <td>Lu, Vi</td>
-                                <td class="num">4</td>
-                                <td class="num">12</td>
-                                <td class="num">35 kg</td>
-                                <td class="num">1 min</td>
-                                <td><a class="ver" href="#">Ver video</a></td>
-                            </tr>
+                        
 
                             <tr class="fila-vacia">
                                 <td class="vacio" colspan="7">Aún no hay ejercicios</td>
@@ -122,7 +84,7 @@
 
             <div class="pie-lista">
                 <a class="btn-sec" href="nuevo_ejercicio.html">+ Agregar nuevo ejercicio</a>
-                <a class="btn-agregar" href="vista.html">Terminar rutina</a><!--Debe de ir a la de diana que digo ya guardando todo lo de la rutina que esta se estaba añadiendo -->
+                <a class="btn-agregar" href="altarutina.html">Terminar rutina</a><!--Debe de ir a la de diana que digo ya guardando todo lo de la rutina que esta se estaba añadiendo -->
             </div>
         </div>
     </div>
@@ -135,19 +97,19 @@
             <h1 id="titulo_modal">Crear nueva rutina</h1>
             <p>Ponle nombre a la rutina. Después agregas sus ejercicios.</p>
 
-            <form id="form_rutina" action="#ejercicios" method="get">
+            <form id="form_rutina" action="../PHP-Code/procesar_rutina.php" method="POST">
                 <div>
                     <label for="nombre_rutina">Nombre de la rutina</label>
                     <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" required>
                 </div>
 
                 <div class="acciones-form">
-                    <a class="btn-sec" href="vista.html#rutinas">Cancelar</a><!--Debe de ir a la de diana que digo  -->
+                    <a class="btn-sec" href="altarutina.html">Cancelar</a><!--Debe de ir a la de diana que digo  -->
                     <button type="submit">Continuar</button>
                 </div>
             </form>
         </div>
     </div>
-
+    <script src="../SCRIPT-Code/nueva_rutina.js"></script>
 </body>
 </html>
