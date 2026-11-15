@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Formulario de Entrada Nutricional</title>
         <link rel="stylesheet" href="../CSS-Code/comprobantePago.css">
+        <script src="../SCRIPT-Code/comprobantePagos.js" type="module"></script>
     </head>
     <body>
         <div class="app-shell">
@@ -32,7 +33,7 @@
                 <section class="payment-card">
                     <h2>Subir comprobante de pago</h2>
                     <p>Adjunta la imagen o documento PDF de tu pago para validarlo</p>
-                    <form id="form-pago" action="#" method="post" enctype="multipart/form-data">
+                    <form id="form-pago"  method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="comprobante">Seleccionar un archivo (JPG, PNG o PDF):</label>
                             <input type="file" id="comprobante" name="comprobante" accept="image/png, image/jpeg, image/webp, application/pdf" required>
@@ -43,6 +44,12 @@
                             <img id="preview-image" src="" alt="Vista previa del comprobante" hidden>
                             <div id="previe-pdf" hidden>
                                 <span>Documento PDF seleccionado</span>
+                                <embed id="pdf-embed" src="" type="application/pdf" width="100%" height="300px">
+                                <!--
+                                embed etiqueta HTML que incrusta recursos externos o multimedia utilizando el visor nativo del navegador 
+                                width y height establecen el tamaño del contenedor (ancho total disponible y 300 píxeles de alto)
+                        
+                                -->
                                 <p id="pdf-name"></p>
                             </div>
                         </div>

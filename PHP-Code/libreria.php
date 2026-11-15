@@ -16,9 +16,8 @@ function conectaDB()
         $opciones = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            // Forzamos el uso de SSL indicando que queremos cifrado pero sin verificar el certificado raíz local
+            PDO::MYSQL_ATTR_SSL_CA => __DIR__ . '/DigiCertGlobalRootG2.crt.pem',
             PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-            PDO::MYSQL_ATTR_SSL_CA => __DIR__. '/no-existe.pem' // Truco clásico de PDO: si no encuentra el archivo pero pasas la clave de CA, obliga a activar el canal SSL de forma implícita en muchas builds de PHP
         ];
         $conexion = new PDO($dsn, $usuario, $contraseña, $opciones);//el oreden de los parametros es importante
         $conexion->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -170,7 +169,42 @@ function enviaCorreoRecuperacion(string $remitente, string $nombre, string $cart
             }
 }
 
+function buscaMembresia(string $usuario, $conexion)
+{
+    try
+    {
+        $query="SELECT id_membresia_cliente,estado
+                FROM membresia_cliente
+                WHERE id_usuario=?";
 
+        $Puente=$conexion->prepare($query);
+        $Puente->execute([$usuario]);
+
+        $membresia= $Puente->fetch(PDO::FETCH_ASSOC);
+        if($membresia)
+        {
+            return [
+                'encontrado' => true,
+                'id_membresia' => $membresia["id_membresia_cliente"],
+                'estado' => $membresia["estado"]];
+        }
+        else
+        {
+            return [
+                'encontrado' => false,
+                'id_membresia' => null,
+                'estado' => null];
+        }
+        
+    }
+    catch (Exception $e)
+    {
+        return [
+                'encontrado' => false,
+                'id_membresia' => null,
+                'estado' => null];
+    }
+}
 function cerrarSession()
 {   
     if (session_status() == PHP_SESSION_ACTIVE)
@@ -197,6 +231,12 @@ function cerrarSession()
 
             header("Location: ../HTML-Code/loginView.html");
             exit();
+    }
+    else
+    {
+        session_destroy();
+        header("Location: ../HTML-Code/loginView.html");
+        exit(); 
     }
     
 

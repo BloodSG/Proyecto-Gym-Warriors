@@ -1,4 +1,8 @@
 const consulta="../PHP-Code/Productos.php";
+
+
+
+const consultaComprobante="../PHP-Code/consultasPagos.php";
 // este archivo funciona de api, es decir, solo es el intermediario entre vase de datos y front
 
 
@@ -132,4 +136,115 @@ export async function cargaProveedores()
         
     }
     return proveedores.json();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function subeComprobante(inputFile) 
+{
+    if (!inputFile) 
+    {
+        throw new Error("falto el archivo de comprobante");
+    }
+    const formdata= new FormData();
+
+    formdata.append("comprobante",inputFile.files[0]);
+    const url=`${consultaComprobante}?action=subir`;
+    const respuesta= await fetch(url, 
+        {
+            method: 'POST', 
+            body: formdata
+        });
+
+     if (!respuesta.ok) {
+        throw new Error(`Error HTTP al subir el comprobante`);
+    }
+    const datos = await respuesta.json();
+   
+    return datos;
 }
