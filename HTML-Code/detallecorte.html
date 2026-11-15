@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del corte</title>
+    <link rel="stylesheet" href="../CSS-Code/corte.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja" class="active">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina es el DETALLE de un corte de caja (se abre con "Ver detalle" de historialcortes.html)
+        lo dearriba van los datos principales:fecha, responsable y fondo inicial
+        cada <tr> del tbody de Movimientos representa una venta o un pago del dia del corte
+        lo hice para q repitas esa fila por cada movimiento 
+        los datos de cada fila son estos:
+          -hora
+          -tipo ("venta" o "pago")
+          -metodo (clase "efectivo", "transferencia" o "tarjeta" segun metodo_pago de la tabla Venta)
+          -monto
+        al final van los totales (total en efectivo, total por transferencias, total con tarjeta, total del dia, efectivo esperado,
+        efectivo contado y diferencia); Para calcular lo hice asi:
+          total del dia=efectivo + transferencias + tarjeta
+          efectivo esperado =fondo inicial + total en efectivo (la tarjeta y las transferencias no entran ya q no estan en la caja)
+          diferencia  efectivo contado - efectivo esperado (clase "dif-ok" si es 0 y "dif-mal" si no es 0)
+        el boton "Regresar al historial" va a historialcortes.html
+        no encontre tablas en la base de datos de caja y corte
+    -->
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Detalle del corte</h1>
+                <p>Revisa los movimientos y los totales del día.</p>
+            </div>
+        </div>
+
+        <section class="datos">
+            <div class="dato">
+                <span>Fecha</span>
+                <strong>09/11/2026</strong>
+            </div>
+            <div class="dato">
+                <span>Responsable</span>
+                <strong>Ana López</strong>
+            </div>
+            <div class="dato">
+                <span>Fondo inicial</span>
+                <strong>$500.00</strong>
+            </div>
+        </section>
+        <section class="panel">
+            <h2>Movimientos</h2>
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Tipo</th>
+                            <th>Método</th>
+                            <th class="num">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:05</td>
+                            <td><span class="tipo">venta</span></td>
+                            <td><span class="pago efectivo">efectivo</span></td>
+                            <td class="num">$650.00</td>
+                        </tr>
+                        <tr>
+                            <td>12:30</td>
+                            <td><span class="tipo">pago</span></td>
+                            <td><span class="pago transferencia">transferencia</span></td>
+                            <td class="num">$800.00</td>
+                        </tr>
+                        <tr>
+                            <td>16:45</td>
+                            <td><span class="tipo">venta</span></td>
+                            <td><span class="pago tarjeta">tarjeta</span></td>
+                            <td class="num">$300.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+      
+        <section class="totales">
+            <div class="total-card">
+                <span>Total en efectivo</span>
+                <strong>$650.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Total por transferencias</span>
+                <strong>$800.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Total con tarjeta</span>
+                <strong>$300.00</strong>
+            </div>
+            <div class="total-card grande">
+                <span>Total del día</span>
+                <strong>$1,750.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Efectivo esperado</span>
+                <strong>$1,150.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Efectivo contado</span>
+                <strong>$1,150.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Diferencia</span>
+                <strong class="dif-ok">$0.00</strong>
+            </div>
+        </section>
+
+        <div class="pie-detalle">
+            <a class="btn-sec" href="historialcortes.html">Regresar al historial</a>
+        </div>
+    </div>
+
+</body>
+</html>

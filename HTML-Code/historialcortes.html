@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de cortes</title>
+    <link rel="stylesheet" href="../CSS-Code/corte.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja" class="active">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina es el HISTORIAL de cortes de caja (vista admin) y se abre desde el menu "Corte de caja"
+        arriba hay un filtro por rango de fechas (fecha_desde y fecha_hasta), es un formulario GET
+        cada <tr> del tbody representa un corte de caja
+        lo hice para q repitas esa fila por cada corte q exista
+        los datos q va a tener cada fila son estos:
+          - fecha del corte
+          - responsable (quien cerro la caja; el nombre esta en usuariocliente, Empleados no tiene nombre)
+          - total del dia (total de ventas del dia)
+          - diferencia (contado menos esperado: clase "dif-ok" si es 0 y "dif-mal" si no es 0)
+        si no hay cortes (o el filtro no encuentra nada) se muestra solo "No hay cortes"
+        en la base de datos no encontre tablas de caja-corte creo q se tendrian que crear 
+    -->
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Historial de cortes</h1>
+                <p>Consulta los cortes de caja anteriores.</p>
+            </div>
+        </div>
+
+        <form class="filtros filtros-corte" method="get">
+            <div>
+                <label for="fecha_desde">Desde</label>
+                <input type="date" name="fecha_desde" id="fecha_desde">
+            </div>
+            <div>
+                <label for="fecha_hasta">Hasta</label>
+                <input type="date" name="fecha_hasta" id="fecha_hasta">
+            </div>
+            <div class="acciones-filtro">
+                <button type="submit" class="btn-editar">Buscar</button>
+                <a class="btn-sec" href="historialcortes.html">Limpiar filtros</a>
+            </div>
+        </form>
+
+        <section class="panel">
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Responsable</th>
+                            <th class="num">Total del día</th>
+                            <th class="num">Diferencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="detallecorte.html">09/11/2026</a></td>
+                            <td>Ana López</td>
+                            <td class="num">$1,750.00</td>
+                            <td class="num dif-ok">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html">08/11/2026</a></td>
+                            <td>Luis Pérez</td>
+                            <td class="num">$3,120.00</td>
+                            <td class="num dif-mal">-$50.00</td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html">07/11/2026</a></td>
+                            <td>Ana López</td>
+                            <td class="num">$2,900.00</td>
+                            <td class="num dif-ok">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html">06/11/2026</a></td>
+                            <td>Carla Ruiz</td>
+                            <td class="num">$3,675.00</td>
+                            <td class="num dif-mal">$20.00</td>
+                        </tr>
+
+                        <tr class="fila-vacia">
+                            <td class="vacio" colspan="4">No hay cortes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
