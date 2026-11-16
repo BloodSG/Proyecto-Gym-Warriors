@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/libreria.php';
 
+// Todas las respuestas de este archivo se consumen como JSON desde JavaScript.
+header('Content-Type: application/json; charset=utf-8');
+
 //Inicia la sesion para identificar al usuario
 session_start();
 
@@ -51,26 +54,38 @@ $mensaje="No se ha validado nada";
 $status="error";
 $data="";
 
-if($_GET["action"]== "cargar" && $_GET["comando"]=="semana")
+if (($_GET['action'] ?? '') === 'cargar' && ($_GET['comando'] ?? '') === 'semana')
 {
-        if(isset($_GET["dia"]))
+        if (isset($_GET['dia']))
         {   
-            $lista_dias=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
-            $dia=$_GET["dia"];
+            //Convierte el dia recibido desde la vista al formato de la base de datos
+            $dias = [
+                'lunes' => 'lunes',
+                'martes' => 'martes',
+                'miercoles' => 'miercoles',
+                'miércoles' => 'miercoles',
+                'jueves' => 'jueves',
+                'viernes' => 'viernes',
+                'sabado' => 'sabado',
+                'sábado' => 'sabado',
+                'domingo' => 'domingo'
+            ];
+            $dia = $dias[mb_strtolower(trim($_GET['dia']), 'UTF-8')] ?? null;
             //Obtiene el usuario actual desde la sesion
             $usuario=$_SESSION['id_usuario'];
-            if(!in_array($dia,$lista_dias,false))
+            if ($dia === null)
                 {
                     $mensaje="EL dia no es valido";
                     $status="error";
                     salidaForzosa($status,$mensaje);
                 }
 
+            // Busca solo la rutina del usuario que inició sesión.
             $query="SELECT DISTINCT rutina.id_rutina,rutina.nombre_rutina
                     FROM rutinas as rutina
                     JOIN detalle_rutinas as detalle
                     ON rutina.id_rutina=detalle.id_rutina
-                    AND detalle.dia_semana=?
+                    AND LOWER(detalle.dia_semana)=?
                     AND rutina.id_usuario=?";
 
             //Filtra la rutina por el usuario actual
@@ -88,7 +103,7 @@ if($_GET["action"]== "cargar" && $_GET["comando"]=="semana")
             
         }
 }
-elseif($_GET["action"]== "cargar" && $_GET["comando"]=="lista")
+elseif (($_GET['action'] ?? '') === 'cargar' && ($_GET['comando'] ?? '') === 'lista')
 {
     if(isset($_GET["id"]))
     {
@@ -120,6 +135,47 @@ elseif($_GET["action"]== "cargar" && $_GET["comando"]=="lista")
         $status="success";
         $mensaje="ejercicios listados corrctamente";
     }
+}
+elseif (($_GET['action'] ?? '') === 'cargar' && ($_GET['comando'] ?? '') === 'rutinas')
+{
+    //Lista el historial de rutinas asignadas al usuario actual
+    $query = "SELECT id_rutina, nombre_rutina, fecha_creacion, estatus
+              FROM rutinas
+              WHERE id_usuario=?
+              ORDER BY fecha_creacion DESC";
+    $Puente = $conexion->prepare($query);
+    $Puente->execute([$_SESSION['id_usuario']]);
+    $data = $Puente->fetchAll(PDO::FETCH_ASSOC);
+    $status = 'success';
+    $mensaje = empty($data) ? 'No tienes rutinas asignadas' : 'Rutinas listadas correctamente';
+}
+elseif (($_GET['action'] ?? '') === 'cargar' && ($_GET['comando'] ?? '') === 'actividades')
+{
+    //Normaliza el dia antes de consultar las actividades
+    $dias = [
+        'lunes' => 'lunes', 'martes' => 'martes', 'miercoles' => 'miercoles',
+        'miércoles' => 'miercoles', 'jueves' => 'jueves', 'viernes' => 'viernes',
+        'sabado' => 'sabado', 'sábado' => 'sabado', 'domingo' => 'domingo'
+    ];
+    $dia = $dias[mb_strtolower(trim($_GET['dia'] ?? ''), 'UTF-8')] ?? null;
+    if ($dia === null) {
+        salidaForzosa('error', 'El día no es válido');
+    }
+
+    //Obtiene los ejercicios del dia siempre limitados al usuario logueado
+    $query = "SELECT detalle.id_detalle_rutina AS id_ejercicio,
+                     detalle.dia_semana, detalle.nombre_ejercicio,
+                     detalle.peso_sugerido, detalle.series, detalle.repeticiones,
+                     detalle.tiempo_descanso, detalle.orden
+              FROM detalle_rutinas AS detalle
+              INNER JOIN rutinas AS rutina ON rutina.id_rutina=detalle.id_rutina
+              WHERE rutina.id_usuario=? AND LOWER(detalle.dia_semana)=?
+              ORDER BY detalle.orden ASC";
+    $Puente = $conexion->prepare($query);
+    $Puente->execute([$_SESSION['id_usuario'], $dia]);
+    $data = $Puente->fetchAll(PDO::FETCH_ASSOC);
+    $status = 'success';
+    $mensaje = empty($data) ? 'No hay actividades para el día seleccionado' : 'Actividades listadas correctamente';
 }
 
 echo json_encode([

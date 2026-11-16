@@ -45,7 +45,9 @@ async function cargaDia()
     const ejercicios= await cargaListaEjercicios(data.id_rutina);
     if(ejercicios.status != "success")
     {
+        // Evita recorrer una lista vacía cuando la rutina no tiene ejercicios
         contenedorEjercicios.innerHTML="<p> Aun no hay ejercicios para esta rutina </p>";
+        return;
     }
     let lista_html=``;
     console.log(ejercicios);
