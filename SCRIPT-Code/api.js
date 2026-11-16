@@ -222,8 +222,37 @@ export async function cargaProveedores()
 
 
 
+export async function estadoPago()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=estado`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
 
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
 
+export async function historialPagos()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=historial`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
 
 export async function subeComprobante(inputFile) 
 {

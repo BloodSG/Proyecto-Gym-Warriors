@@ -1,5 +1,12 @@
 <?php
+session_start();
 require_once("libreria.php");
+if(!isset($_SESSION["logueado"]) && $_SESSION["tipo_usuario"] != "empleado")
+{
+    header('Location: ../HTML-Code/loginView.html');
+    exit();
+}
+
 $conexion=conectaDB();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST")

@@ -1,5 +1,6 @@
-import {subeComprobante} from "./api.js";
+import {consultaMembresia} from "./api.js";
 import {verificaSesion} from "./autorizacion.js";
 
 const usuario= await verificaSesion();
-console.log(usuario)
+console.log(usuario.datos)
+

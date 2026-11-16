@@ -39,11 +39,11 @@ if(!isset($_SESSION['correo'])
 $conexion=conectaDB();
 try
 {
-    $queryEmpl="SELECT id_empleado, puesto, turno, salario, correo 
+    $queryEmpl="SELECT id_empleado, nombre, puesto, turno, salario, correo, id_rol
                     FROM Empleados 
                     WHERE correo =?";
 
-    $queryClien="SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, Rol.nombre_rol
+    $queryClien="SELECT usuariocliente.id_usuario, usuariocliente.nombre, usuariocliente.apellido_1, usuariocliente.id_rol, Rol.nombre_rol
                     FROM usuariocliente
                     INNER JOIN Rol ON usuariocliente.id_rol = Rol.id_rol
                     WHERE usuariocliente.correo = ?";
@@ -56,6 +56,8 @@ try
         echo json_encode([
             "logueado" => true,
             "datos" => $empleado["id_empleado"],
+            "nombre" => $empleado["nombre"],
+            "rol" => $empleado["id_rol"],
             "mensaje"=> "El empleado se encuentra logueado"
         ]);
         exit();
@@ -69,6 +71,8 @@ try
         echo json_encode([
             "logueado" => true,
             "datos" => $cliente["id_usuario"],
+            "nombre" => $cliente["nombre"],
+            "rol" => $cliente["id_rol"],
             "mensaje"=> "El cliente se encuentra logueado"
         ]);
         exit();
