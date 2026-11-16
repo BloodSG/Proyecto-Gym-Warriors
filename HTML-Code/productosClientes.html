@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Productos - Cliente</title>
+    <title>Catálogo de productos - Cliente</title>
     <link rel="stylesheet" href="../CSS-Code/productos.css">
 </head>
+
 <body>
 
     <div class="app-shell">
@@ -13,16 +15,22 @@
             <a href="princi.html" class="brand">
                 <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
             </a>
-            <span class="sidebar-label">MENÚ PRINCIPAL</span>
-            <nav class="main-nav">
-                <a href="#" class="active">Productos</a>
+            <p class="sidebar-label">Panel de cliente</p>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="princi.html">Inicio</a>
+                <a href="rutinas_cliente.html">Mi rutina</a>
+                <a href="princi.html#medidas">Mis medidas</a>
+                <a href="miMembresia.html">Mi membresía</a>
+                <a href="estadodepago.html">Pagos</a>
+                <a class="active" href="productosClientes.html">Productos</a>
+                <a href="reglamento.html">Reglamento</a>
             </nav>
-            <a href="#" class="logout">Cerrar Sesión</a>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
         </aside>
 
         <div class="main-content">
             <header class="topbar">
-                <h1><span></span> Catálogo de Productos</h1>
+                <h1><span></span> Catálogo de productos</h1>
                 <div class="profile">
                     <strong></strong>
                     <span></span>
@@ -31,16 +39,16 @@
 
             <div class="content-wrap">
                 <div class="cliente-container" style="max-width: 100%; margin: 0; background: transparent; border: none; padding: 0;">
-                    
+
                     <div class="page-heading">
                         <span class="eyebrow">TIENDA Y SUPLEMENTOS</span>
-                        <h1>Catálogo de Productos</h1>
+                        <h1>Catálogo de productos</h1>
                         <p>Explora nuestra selección de suplementos y accesorios diseñados para tus objetivos.</p>
                     </div>
 
                     <div class="cliente-filtros card" style="display: flex; gap: 12px; margin-bottom: 20px; align-items: center; padding: 15px 20px;">
                         <input type="text" id="Vuscar" placeholder="Buscar producto..." class="input-busqueda" style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg-elevated); color: var(--text);">
-                        
+
                         <select class="select-categoria" id="filtro-categoria" style="padding: 10px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg-elevated); color: var(--text);">
                             <option value="">Todas las categorías</option>
                             <option value="Suplementos">Suplementos</option>
@@ -72,7 +80,7 @@
             <div>
                 <p class="precio prod-precio" style="font-size: 16px; font-weight: 700; color: var(--lime); margin: 0 0 6px 0;"></p>
                 <span class="stock-info prod-stock" style="display: block; font-size: 10px; color: var(--text-dim); margin-bottom: 12px;"></span>
-                <a href="#" class="primary-button btn-card-accion prod-btn" style="display: block; text-align: center; text-decoration: none;">Ver Detalles</a>
+                <a href="#" class="primary-button btn-card-accion prod-btn" style="display: block; text-align: center; text-decoration: none;">Ver detalles</a>
             </div>
         </div>
     </template>
@@ -99,4 +107,5 @@
     </template>
 
 </body>
+
 </html>
