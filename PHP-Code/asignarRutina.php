@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $siguiente_numero = 1;
             }
 
-            $nuevo_id_rutina = 'R' . str_pad($siguiente_numero, 3, '0', STR_PAD_LEFT);
+            $nuevo_id_rutina = 'RUT' . str_pad($siguiente_numero, 3, '0', STR_PAD_LEFT);
 
             $sql = "INSERT INTO rutinas (id_rutina, fecha_creacion, fecha_fin, estatus, id_usuario, id_coach, nombre_rutina, observaciones) 
                     VALUES (:id_rutina, :f_creacion, :f_fin, 'activa', :id_usu, :id_coach, :nombre_rutina, :observaciones)";

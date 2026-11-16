@@ -9,9 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const grupoNuevoEjercicio = document.getElementById("grupo_nuevo_ejercicio");
     const inputNuevoEjercicio = document.getElementById("nombre_ejercicio");
 
-    //Capturar el id_rutina de la URL y asignarlo al input oculto y al botón cancelar
+    //agarro de la url el id de la rutina y de que ventana vengo si la de crear o la de editar para que me pueda rederigir
     const urlParams = new URLSearchParams(window.location.search);
     const idRutina = urlParams.get('id_rutina');
+    const origen = urlParams.get('origen'); 
     
     if (idRutina) {
         const inputIdRutina = document.getElementById("id_rutina_input");
@@ -21,8 +22,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const linkCancelar = document.querySelector(".acciones-form .btn-sec");
         if (linkCancelar) {
-            linkCancelar.href = `nueva_rutina.html?id_rutina=${idRutina}#ejercicios`;
+            if (origen === 'editar') {
+                linkCancelar.href = `editar_rutina.html?id_rutina=${idRutina}`;
+            } else {
+                linkCancelar.href = `nueva_rutina.html?id_rutina=${idRutina}#ejercicios`;
+            }
         }
+    }
+
+    //guardo el origen de la verntana de donde vengo para asi redirigirme a esa ventana
+    if (formRutina) {
+        let inputOrigen = document.getElementById("origen_input");
+        if (!inputOrigen) {
+            inputOrigen = document.createElement("input");
+            inputOrigen.type = "hidden";
+            inputOrigen.name = "origen";
+            inputOrigen.id = "origen_input";
+            formRutina.appendChild(inputOrigen);
+        }
+        inputOrigen.value = origen || ''; 
     }
 
     if (idRutina) {
@@ -39,16 +57,14 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(err => console.error("Error al cargar el nombre de la rutina:", err));
     }
 
-    //cargo los ejercicios que esten en la base de datos
+    //agarro todos los ejercicios que estan en la base de datos y los muestro en la lista desplegable
     if (selectEjercicio) {
         fetch('../PHP-Code/obtener_ejercicios.php')
             .then(res => res.json())
             .then(resultado => {
                 if (resultado.status === 'success' && resultado.data) {
-                    
-                    selectEjercicio.innerHTML = '<option value="" selected disabled>Selecciona ejercicio</option>';
+                    selectEjercicio.innerHTML = '<option value="" selected disabled>Selecciona el ejercicio</option>';
 
-                    //Inserto cada ejercicio único de la base de datos
                     resultado.data.forEach(item => {
                         const opt = document.createElement("option");
                         opt.value = item.nombre_ejercicio;
@@ -56,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         selectEjercicio.appendChild(opt);
                     });
 
-                    //pongo la opcion de agregar ejercicio nuevo
                     const optNuevo = document.createElement("option");
                     optNuevo.value = "nuevo";
                     optNuevo.textContent = "--- Agregar nuevo ejercicio ---";
@@ -65,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(err => console.error("Error al cargar los ejercicios:", err));
     }
-
-    //se muestra o oculta el campo del nombre del nuevo ejercicio segun que se selecciono en la lista desplegable
+    //aqui es la funcion de la lista desplegable si eliges crear un nuevo ejercicio te muestra el campo para nombrar ese ejercicio si no pues lo oculta
     function actualizarGrupoNuevo() {
         if (!selectEjercicio || !grupoNuevoEjercicio) return;
         if (selectEjercicio.value === "nuevo") {
@@ -85,8 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectEjercicio.addEventListener("change", actualizarGrupoNuevo);
         actualizarGrupoNuevo();
     }
-
-    //muestro los campos de la url o el archivo del video segun lo que se seleccione en la lista desplegable
+    // se muestra el campo de el video segun que eligio en la lista desplegable ya sea url o desde el dispositivo
     function actualizarCampos() {
         if (!selectEvidencia) return;
         const valor = selectEvidencia.value;
@@ -106,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
         selectEvidencia.addEventListener("change", actualizarCampos);
     }
 
-    //se validad los datos antes de enviar a base de datos para que no este vacios los videos
     if (formRutina) {
+        //todo esto son las adbertencias que existe en esta ventana
         formRutina.addEventListener("submit", function (e) {
             if (selectEjercicio && selectEjercicio.value === "") {
                 e.preventDefault();
@@ -118,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (selectEjercicio && selectEjercicio.value === "nuevo" && inputNuevoEjercicio && inputNuevoEjercicio.value.trim() === "") {
                 e.preventDefault();
-                alert("Por favor, escribe el nombre del nuevo ejercicio.");
+                alert("Escribe el nombre del nuevo ejercicio.");
                 inputNuevoEjercicio.focus();
                 return;
             }

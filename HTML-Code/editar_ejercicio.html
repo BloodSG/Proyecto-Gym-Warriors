@@ -59,9 +59,9 @@
 
         <!-- al guardar se actualiza el ejercicio en Detalle_Rutinas (id_detalle_rutina) y se regresa a editar_rutina.html.
              -->
-        <form id="form_ejercicio" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id_rutina" value="">
-            <input type="hidden" name="id_detalle_rutina" value="">
+        <form id="form_ejercicio" action="../PHP-Code/editar_ejercicio.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_rutina" id="input_id_rutina" value="">
+            <input type="hidden" name="id_detalle_rutina" id="input_id_detalle_rutina" value="">
 
             <div>
                 <label for="id_ejercicio">Ejercicio</label>
@@ -135,6 +135,8 @@
             </div>
         </form>
     </div>
+
+    <script src="../SCRIPT-Code/editar_ejercicio.js"></script>
 
 </body>
 </html>
