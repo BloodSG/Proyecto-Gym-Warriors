@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corte de caja</title>
+    <link rel="stylesheet" href="../CSS-Code/cortedecaja.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="admin.html"><img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors"></a>
+        <p class="sidebar-label">Administración</p>
+        <nav class="main-nav" aria-label="Navegación administrativa">
+            <a href="admin.html">Inicio</a>
+            <a href="bajaempl.html">Empleados</a>
+            <a href="proveedores.html">Proveedores</a>
+            <a href="productosAdmin.html">Productos</a>
+            <a href="tablaclientes.html">Clientes</a>
+            <a href="ventasadmin.html">Ventas</a>
+            <a href="rutinaInterview.html">Rutinas</a>
+            <a href="membrdispoadmin.html">Membresías</a>
+            <a href="historialcortes.html" class="active">Corte de caja</a>
+        </nav>
+        <a class="logout" href="loginView.html">Cerrar sesión</a>
+    </aside>
+
+    <main class="contenido">
+        <header class="encabezado">
+            <div>
+                <h1>Corte de caja</h1>
+                <p>Revisa las operaciones del día y registra el efectivo contado.</p>
+            </div>
+            <a class="btn-sec" href="historialcortes.html">Ver historial</a>
+        </header>
+
+        <section class="datos">
+            <div class="dato"><span>Fecha</span><strong id="fecha"></strong></div>
+            <div class="dato"><span>Responsable</span><strong>Administrador</strong></div>
+            <label class="dato" for="fondo-inicial">
+                <span>Fondo inicial</span>
+                <input id="fondo-inicial" type="number" min="0" step="0.01" value="500">
+            </label>
+        </section>
+
+        <section class="panel">
+            <h2>Resumen del día</h2>
+            <div class="resumen-grid">
+                <div><span>Total en efectivo</span><strong>$650.00</strong></div>
+                <div><span>Total por transferencias</span><strong>$800.00</strong></div>
+                <div><span>Total con tarjeta</span><strong>$300.00</strong></div>
+                <div class="resumen-total"><span>Total de ventas</span><strong>$1,750.00</strong></div>
+            </div>
+        </section>
+
+        <form class="panel cierre-form" id="cierre-form">
+            <div>
+                <h2>Cerrar caja</h2>
+                <p>Cuenta el efectivo disponible y registra el resultado del cierre.</p>
+            </div>
+            <label for="efectivo-contado">Efectivo contado
+                <input id="efectivo-contado" type="number" min="0" step="0.01" value="1150" required>
+            </label>
+            <div class="cierre-resumen">
+                <div><span>Efectivo esperado</span><strong id="efectivo-esperado">$1,150.00</strong></div>
+                <div><span>Diferencia</span><strong id="diferencia" class="dif-ok">$0.00</strong></div>
+            </div>
+            <div class="acciones">
+                <a class="btn-sec" href="admin.html">Cancelar</a>
+                <button class="btn-confirmar" type="submit">Cerrar caja</button>
+            </div>
+            <p class="form-message" id="form-message" role="status"></p>
+        </form>
+    </main>
+    <script>
+        const fondo = document.getElementById("fondo-inicial");
+        const contado = document.getElementById("efectivo-contado");
+        const esperado = document.getElementById("efectivo-esperado");
+        const diferencia = document.getElementById("diferencia");
+        const dinero = new Intl.NumberFormat("es-MX", {
+            style: "currency",
+            currency: "MXN"
+        });
+        const fecha = new Date();
+        document.getElementById("fecha").textContent = fecha.toLocaleDateString("es-MX");
+
+        function actualizarDiferencia() {
+            const esperadoValor = Number(fondo.value || 0) + 650;
+            const diferenciaValor = Number(contado.value || 0) - esperadoValor;
+            esperado.textContent = dinero.format(esperadoValor);
+            diferencia.textContent = dinero.format(diferenciaValor);
+            diferencia.className = diferenciaValor === 0 ? "dif-ok" : "dif-mal";
+        }
+        fondo.addEventListener("input", actualizarDiferencia);
+        contado.addEventListener("input", actualizarDiferencia);
+        actualizarDiferencia();
+
+        document.getElementById("cierre-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const corte = {
+                fecha: fecha.toISOString().slice(0, 10),
+                responsable: "Administrador",
+                fondoInicial: Number(fondo.value || 0),
+                efectivo: 650,
+                transferencias: 800,
+                tarjeta: 300,
+                total: 1750,
+                contado: Number(contado.value || 0),
+                diferencia: Number(contado.value || 0) - Number(fondo.value || 0) - 650
+            };
+            const historial = JSON.parse(localStorage.getItem("fitness-warriors-cortes") || "[]");
+            historial.unshift(corte);
+            localStorage.setItem("fitness-warriors-cortes", JSON.stringify(historial));
+            window.location.href = "historialcortes.html";
+        });
+    </script>
+</body>
+
+</html>

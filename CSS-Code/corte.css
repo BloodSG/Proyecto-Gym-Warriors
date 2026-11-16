@@ -202,6 +202,7 @@ th {
 td { color: var(--text-dim); }
 td:first-child { color: var(--text); font-size: 13px; font-weight: 700; }
 td:first-child a:hover { text-decoration: underline; }
+.btn-detalle { padding: 7px 10px; white-space: nowrap; }
 th.num,
 td.num { text-align: right; white-space: nowrap; }
 tbody tr:hover { background: rgba(255, 255, 255, .03); }
