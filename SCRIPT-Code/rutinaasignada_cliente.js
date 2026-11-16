@@ -39,11 +39,11 @@ function cargarRutinas(){
                         <td>${observaciones}</td>
                         <td>${rutina.estatus}</td>
                         <td>
-                            <button type="button" onclick="modificarRutina('${rutina.id_rutina}')">
+                            <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_rutina}')">
                                 Editar
                             </button>
 
-                            <button type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
+                            <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
                                 Eliminar
                             </button>
                         </td>
@@ -178,11 +178,11 @@ if(buscador){
                             <td>${rutina.fecha_fin}</td>
                             <td>${rutina.estatus}</td>
                             <td>
-                                <button type="button" onclick="modificarRutina('${rutina.id_rutina}')">
+                                <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_rutina}')">
                                     Editar
                                 </button>
 
-                                <button type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
+                                <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
                                     Eliminar
                                 </button>
                             </td>

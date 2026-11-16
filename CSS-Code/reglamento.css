@@ -52,8 +52,8 @@ a {
     flex-direction: column;
     width: 205px;
     padding: 18px 15px;
-    background: linear-gradient(180deg, #07192c, #041120);
-    border-right: 1px solid #102b45;
+    background: linear-gradient(180deg, var(--bg-elevated), var(--bg));
+    border-right: 1px solid var(--border);
 }
 
 .brand {
@@ -70,7 +70,7 @@ a {
 
 .sidebar-label {
     margin: 7px 27px 22px;
-    color: #8ea8c6;
+    color: var(--text-dim);
     font-size: 11px;
 }
 
@@ -87,7 +87,7 @@ a {
     padding: 10px 13px;
     border-left: 3px solid transparent;
     border-radius: 5px;
-    color: #8da8c6;
+    color: var(--text-dim);
     font-size: 12px;
     font-weight: 600;
 }
@@ -95,7 +95,7 @@ a {
 .main-nav a:hover,
 .main-nav .active {
     color: var(--text);
-    background: #102e4d;
+    background: var(--card);
     border-left-color: var(--lime);
 }
 
@@ -103,7 +103,7 @@ a {
     display: inline-grid;
     width: 18px;
     place-items: center;
-    color: #9ab7d4;
+    color: var(--blue);
     font-size: 18px;
     line-height: 1;
 }

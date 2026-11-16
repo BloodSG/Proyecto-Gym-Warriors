@@ -144,6 +144,24 @@ td {
 .secondary-button {
     display: inline-block;
     cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.form-button {
+    background: var(--lime);
+    color: #17220d;
+}
+
+.secondary-button {
+    border-color: var(--blue);
+    background: var(--blue);
+    color: #08111f;
 }
 
 .form-message {
@@ -205,15 +223,20 @@ td {
 
 .icon-button {
     padding: 6px 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    background: var(--blue);
+    color: #08111f;
+    cursor: pointer;
+    font: inherit;
     font-size: 9px;
     font-weight: 600;
 }
 
 .delete-button {
-    color: var(--danger);
+    border-color: var(--danger);
+    background: var(--danger);
+    color: #241010;
 }
 
 .empty-state {

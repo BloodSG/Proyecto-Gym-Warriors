@@ -21,11 +21,11 @@ function cargarClientes(){
                 <td>${cliente.apellido_2}</td>
                 <td>${cliente.correo}</td>
                 <td>
-                    <button type="button" onclick="modificarCliente('${cliente.id_usuario}')">
+                    <button class="icon-button" type="button" onclick="modificarCliente('${cliente.id_usuario}')">
                         Editar
                     </button>
 
-                    <button type="button" onclick="eliminarCliente('${cliente.id_usuario}')">
+                    <button class="icon-button delete-button" type="button" onclick="eliminarCliente('${cliente.id_usuario}')">
                         Eliminar
                     </button>
                 </td>
@@ -149,11 +149,11 @@ if(buscador){
                     <td>${cliente.correo ?? "Sin correo"}</td>
 
                     <td>
-                        <button type="button" onclick="modificarCliente('${cliente.id_usuario}')">
+                        <button class="icon-button" type="button" onclick="modificarCliente('${cliente.id_usuario}')">
                             Editar
                         </button>
 
-                        <button type="button" onclick="eliminarCliente('${cliente.id_usuario}')">
+                        <button class="icon-button delete-button" type="button" onclick="eliminarCliente('${cliente.id_usuario}')">
                             Eliminar
                         </button>
                     </td>
