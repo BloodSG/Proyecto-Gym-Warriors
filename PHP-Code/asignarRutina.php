@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ultimoRegistro = $stmtMax->fetch(PDO::FETCH_ASSOC);
 
             if($ultimoRegistro && isset($ultimoRegistro['id_rutina'])){
-                $numero_actual = intval(str_replace('R', '', $ultimoRegistro['id_rutina']));
+                $numero_actual = intval(str_replace('RUT', '', $ultimoRegistro['id_rutina']));
                 $siguiente_numero = $numero_actual + 1;
             } else {
                 $siguiente_numero = 1;
