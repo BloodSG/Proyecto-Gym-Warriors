@@ -60,11 +60,11 @@
             </div>
         </div>
 
-        <form class="panel form-nombre" action="editar_rutina.html" method="post">
-            <input type="hidden" name="id_rutina" value="">
+        <form class="panel form-nombre" id="form_actualizar_nombre" action="../PHP-Code/editar_rutina.php" method="POST">
+            <input type="hidden" name="id_rutina" id="id_rutina_input" value="">
             <div>
                 <label for="nombre_rutina">Nombre de la rutina</label>
-                <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" value="Fuerza tren superior" required>
+                <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" required>
             </div>
             <button type="submit">Guardar nombre</button>
         </form>
@@ -84,46 +84,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                            <tr>
-                                <td>Sentadillas</td>
-                                <td>Lu, Mi</td>
-                                <td class="num">4</td>
-                                <td class="num">10-12</td>
-                                <td class="num">40 kg</td>
-                                <td class="num">2 min</td>
-                                <td><a class="ver" href="#">Ver video</a></td>
-                                <td class="acc">
-                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=1">Editar</a>
-                                    <a class="btn-mini peligro" href="#eliminar_1">Eliminar</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dominadas</td>
-                                <td>Ma, Ju</td>
-                                <td class="num">3</td>
-                                <td class="num">8</td>
-                                <td class="num">0 kg</td>
-                                <td class="num">2 min</td>
-                                <td>Sin video</td>
-                                <td class="acc">
-                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=2">Editar</a>
-                                    <a class="btn-mini peligro" href="#eliminar_2">Eliminar</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Press de banca</td>
-                                <td>Lu, Vi</td>
-                                <td class="num">4</td>
-                                <td class="num">12</td>
-                                <td class="num">35 kg</td>
-                                <td class="num">1 min</td>
-                                <td><a class="ver" href="#">Ver video</a></td>
-                                <td class="acc">
-                                    <a class="btn-mini" href="editar_ejercicio.html?id_detalle_rutina=3">Editar</a>
-                                    <a class="btn-mini peligro" href="#eliminar_3">Eliminar</a>
-                                </td>
-                            </tr>
+                    
 
                         <tr class="fila-vacia">
                             <td class="vacio" colspan="8">Aún no hay ejercicios</td>
@@ -135,54 +96,34 @@
 
         <div class="pie-lista">
             <a class="btn-sec" href="nuevo_ejercicio.html">+ Agregar ejercicio</a>
-            <a class="btn-agregar" href="vista.html#rutinas">Listo</a>
+            <a class="btn-agregar" href="altarutina.html">Listo</a>
         </div>
     </div>
 
-    <!-- Ventanita para eliminar el ejercicio -->
-    <div class="modal confirmar" id="eliminar_1" role="dialog" aria-modal="true">
+    <div id="modales_eliminar_container"></div>
+
+    <div class="modal" id="modal_seleccionar_rutina" role="dialog" aria-modal="true" aria-labelledby="titulo_modal_editar" style="display: none;">
         <div class="modal-caja">
-            <h1>Eliminar ejercicio</h1>
-            <p>¿Seguro que quieres quitar <strong>Sentadillas</strong> de esta rutina?</p>
-            <form action="editar_rutina.html" method="post">
-                <input type="hidden" name="id_detalle_rutina" value="1">
-                <div class="acciones-form">
-                    <a class="btn-sec" href="#">Cancelar</a>
-                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
+            <h1 id="titulo_modal_editar">Seleccionar rutina</h1>
+            <p>Elige de la lista la rutina que deseas editar:</p>
+
+            <form id="form_elegir_rutina">
+                <div>
+                    <label for="select_rutina_modal">Rutinas registradas</label>
+                    <select id="select_rutina_modal" style="width: 100%; padding: 10px; background: #0f1117; border: 1px solid #2d3748; color: #fff; border-radius: 5px;" required>
+                        <option value="" selected disabled>Cargando rutinas...</option>
+                    </select>
+                </div>
+
+                <div class="acciones-form" style="margin-top: 20px;">
+                    <a class="btn-sec" href="altarutina.html">Cancelar</a>
+                    <button type="submit" class="btn-prim">Cargar rutina</button>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- Ventanita para eliminar el ejercicio  -->
-    <div class="modal confirmar" id="eliminar_2" role="dialog" aria-modal="true">
-        <div class="modal-caja">
-            <h1>Eliminar ejercicio</h1>
-            <p>¿Seguro que quieres quitar <strong>Dominadas</strong> de esta rutina?</p>
-            <form action="editar_rutina.html" method="post">
-                <input type="hidden" name="id_detalle_rutina" value="2">
-                <div class="acciones-form">
-                    <a class="btn-sec" href="#">Cancelar</a>
-                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Ventanita para eliminar el ejercicio -->
-    <div class="modal confirmar" id="eliminar_3" role="dialog" aria-modal="true">
-        <div class="modal-caja">
-            <h1>Eliminar ejercicio</h1>
-            <p>¿Seguro que quieres quitar <strong>Press de banca</strong> de esta rutina?</p>
-            <form action="editar_rutina.html" method="post">
-                <input type="hidden" name="id_detalle_rutina" value="3">
-                <div class="acciones-form">
-                    <a class="btn-sec" href="#">Cancelar</a>
-                    <button type="submit" class="btn-peligro">Sí, eliminar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    
+    <script src="../SCRIPT-Code/editar_rutina.js"></script>
 
 </body>
 </html>
