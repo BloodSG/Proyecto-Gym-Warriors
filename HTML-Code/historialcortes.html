@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de cortes</title>
+    <link rel="stylesheet" href="../CSS-Code/corte.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <a class="brand" href="admin.html">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </a>
+
+        <p class="sidebar-label">Administración</p>
+
+        <nav class="main-nav">
+            <a href="admin.html">Inicio</a>
+            <a href="bajaempl.html">Empleados</a>
+            <a href="proveedores.html">Proveedores</a>
+            <a href="productosAdmin.html">Productos</a>
+            <a href="tablaclientes.html">Clientes</a>
+            <a href="ventasadmin.html">Ventas</a>
+            <a href="rutinaInterview.html">Rutinas</a>
+            <a href="membrdispoadmin.html">Membresías</a>
+            <a href="historialcortes.html" class="active">Corte de caja</a>
+        </nav>
+
+        <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+    </aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina es el HISTORIAL de cortes de caja (vista admin) y se abre desde el menu "Corte de caja"
+        arriba hay un filtro por rango de fechas (fecha_desde y fecha_hasta), es un formulario GET
+        cada <tr> del tbody representa un corte de caja
+        lo hice para q repitas esa fila por cada corte q exista
+        los datos q va a tener cada fila son estos:
+          - fecha del corte
+          - responsable (quien cerro la caja; el nombre esta en usuariocliente, Empleados no tiene nombre)
+          - total del dia (total de ventas del dia)
+          - diferencia (contado menos esperado: clase "dif-ok" si es 0 y "dif-mal" si no es 0)
+        si no hay cortes (o el filtro no encuentra nada) se muestra solo "No hay cortes"
+        en la base de datos no encontre tablas de caja-corte creo q se tendrian que crear 
+    -->
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Historial de cortes</h1>
+                <p>Consulta los cortes de caja anteriores.</p>
+            </div>
+            <a class="btn" href="cortedecaja.html">Realizar corte</a>
+        </div>
+
+        <form class="filtros filtros-corte" method="get">
+            <div>
+                <label for="fecha_desde">Desde</label>
+                <input type="date" name="fecha_desde" id="fecha_desde">
+            </div>
+            <div>
+                <label for="fecha_hasta">Hasta</label>
+                <input type="date" name="fecha_hasta" id="fecha_hasta">
+            </div>
+            <div class="acciones-filtro">
+                <button type="submit" class="btn-editar">Buscar</button>
+                <a class="btn-sec" href="historialcortes.html">Limpiar filtros</a>
+            </div>
+        </form>
+
+        <section class="panel">
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Responsable</th>
+                            <th class="num">Total del día</th>
+                            <th class="num">Diferencia</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historial-cortes">
+                        <tr>
+                            <td><a href="detallecorte.html?fecha=2026-11-09">09/11/2026</a></td>
+                            <td>Ana López</td>
+                            <td class="num">$1,750.00</td>
+                            <td class="num dif-ok">$0.00</td>
+                            <td><a class="btn-sec btn-detalle" href="detallecorte.html?fecha=2026-11-09">Ver detalle</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html?fecha=2026-11-08">08/11/2026</a></td>
+                            <td>Luis Pérez</td>
+                            <td class="num">$3,120.00</td>
+                            <td class="num dif-mal">-$50.00</td>
+                            <td><a class="btn-sec btn-detalle" href="detallecorte.html?fecha=2026-11-08">Ver detalle</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html?fecha=2026-11-07">07/11/2026</a></td>
+                            <td>Ana López</td>
+                            <td class="num">$2,900.00</td>
+                            <td class="num dif-ok">$0.00</td>
+                            <td><a class="btn-sec btn-detalle" href="detallecorte.html?fecha=2026-11-07">Ver detalle</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallecorte.html?fecha=2026-11-06">06/11/2026</a></td>
+                            <td>Carla Ruiz</td>
+                            <td class="num">$3,675.00</td>
+                            <td class="num dif-mal">$20.00</td>
+                            <td><a class="btn-sec btn-detalle" href="detallecorte.html?fecha=2026-11-06">Ver detalle</a></td>
+                        </tr>
+
+                        <tr class="fila-vacia">
+                            <td class="vacio" colspan="5">No hay cortes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const historial = JSON.parse(localStorage.getItem("fitness-warriors-cortes") || "[]");
+        const tbody = document.getElementById("historial-cortes");
+        const filaVacia = tbody.querySelector(".fila-vacia");
+        const dinero = new Intl.NumberFormat("es-MX", {
+            style: "currency",
+            currency: "MXN"
+        });
+        const params = new URLSearchParams(window.location.search);
+        const desde = params.get("fecha_desde");
+        const hasta = params.get("fecha_hasta");
+        const cortesGuardados = historial.filter((corte) =>
+            (!desde || corte.fecha >= desde) && (!hasta || corte.fecha <= hasta)
+        );
+
+        cortesGuardados.forEach((corte) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                <td><a href="detallecorte.html?fecha=${encodeURIComponent(corte.fecha)}">${new Date(`${corte.fecha}T12:00:00`).toLocaleDateString("es-MX")}</a></td>
+                <td>${corte.responsable}</td>
+                <td class="num">${dinero.format(corte.total)}</td>
+                <td class="num ${corte.diferencia === 0 ? "dif-ok" : "dif-mal"}">${dinero.format(corte.diferencia)}</td>
+                <td><a class="btn-sec btn-detalle" href="detallecorte.html?fecha=${encodeURIComponent(corte.fecha)}">Ver detalle</a></td>
+            `;
+            tbody.insertBefore(row, filaVacia);
+        });
+        filaVacia.hidden = cortesGuardados.length > 0;
+    </script>
+</body>
+
+</html>

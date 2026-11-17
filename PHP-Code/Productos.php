@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json; charset=utf-8'); // le dice al navegador que la respuesta es json 
 require_once("libreria.php");
 $conexion=conectaDB();
@@ -198,7 +199,12 @@ if (isset($_GET['action']))
     }
 
     elseif ($_GET['action'] == 'quitar')
-    {   
+    {      
+        if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "empleado"))
+        {
+            header('Location: ../HTML-Code/loginView.html');
+            exit();
+        }
         $producto=$_GET['producto'];
         if( $producto !== '')
         {   
@@ -257,7 +263,12 @@ if (isset($_GET['action']))
     }
 
     elseif ($_GET['action'] == 'editar')
-    {
+    {   
+        if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "empleado"))
+        {   
+            header('Location: ../HTML-Code/loginView.html');
+            exit();
+        }
         $producto=$_POST['id_producto'] ?? '';
         if( $producto !== '')
         {   

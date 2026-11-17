@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <link rel="stylesheet" href="../CSS-Code/Ventas.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="vista.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas" class="active">Ventas</a>
+        <a href="vista.html#rutinas">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Ventas</h1>
+                <p>Consulta las ventas registradas.</p>
+            </div>
+            <button type="button" class="btn-agregar" >+ Nueva venta</button>
+        </div>
+
+        <form class="filtros" id="form_filtros" method="get">
+            <div>
+                <label for="id_venta">Buscar por folio</label>
+                <input type="search" name="id_venta" id="id_venta" maxlength="10" placeholder="Ej. V0008">
+            </div>
+            <div>
+                <label for="fecha_desde">Desde</label>
+                <input type="date" name="fecha_desde" id="fecha_desde">
+            </div>
+            <div>
+                <label for="fecha_hasta">Hasta</label>
+                <input type="date" name="fecha_hasta" id="fecha_hasta">
+            </div>
+            <div>
+                <label for="id_usuario">Empleado</label>
+                <select name="id_usuario" id="id_usuario">
+                    <option value="" selected>Todos</option>
+                    <option value="U001">Ana López</option>
+                    <option value="U002">Luis Pérez</option>
+                    <option value="U003">Carla Ruiz</option>
+                </select>
+            </div>
+            <div class="acciones-filtro">
+                <button type="submit" class="btn-editar">Buscar</button>
+                <a class="btn-sec" href="ventasadmin.html">Limpiar filtros</a>
+            </div>
+        </form>
+
+        <section class="panel">
+            <div class="tabla-scroll">
+                <table id="tabla_ventas">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Fecha</th>
+                            <th>Empleado</th>
+                            <th class="num">Total</th>
+                            <th>Método de pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- para el folio le deje como un ejemplo ya que la siguiente semana kenya va a hacer la interfaz de la descripcion del detalle de la venta
+                        -->
+                        <tr>
+                            <td><a href="detallejemplo">V0008</a></td>
+                            <td>09/11/2026 10:15</td>
+                            <td>Ana López</td>
+                            <td class="num">$1,798.00</td>
+                            <td><span class="pago transferencia">transferencia</span></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallejemplo">V0007</a></td>
+                            <td>09/11/2026 09:40</td>
+                            <td>Luis Pérez</td>
+                            <td class="num">$350.00</td>
+                            <td><span class="pago efectivo">efectivo</span></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallejemplo">V0006</a></td>
+                            <td>07/11/2026 18:05</td>
+                            <td>Ana López</td>
+                            <td class="num">$650.00</td>
+                            <td><span class="pago efectivo">efectivo</span></td>
+                        </tr>
+                        <tr>
+                            <td><a href="detallejemplo">V0005</a></td>
+                            <td>06/11/2026 17:30</td>
+                            <td>Carla Ruiz</td>
+                            <td class="num">$1,250.00</td>
+                            <td><span class="pago transferencia">transferencia</span></td>
+                        </tr>
+                        
+                        <tr class="fila-vacia">
+                            <td class="vacio" colspan="5">No hay ventas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html> 

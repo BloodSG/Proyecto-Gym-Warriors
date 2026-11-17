@@ -2,6 +2,10 @@ const consulta="../PHP-Code/Productos.php";
 const consultaMem="../PHP-Code/cargaMembresias.php";
 const consultaClientes = "../PHP-Code/obtener_clientes.php";
 const consultaRutina="../PHP-Code/rutinaSemanalCliente.php";
+
+
+
+const consultaComprobante="../PHP-Code/consultasPagos.php";
 // este archivo funciona de api, es decir, solo es el intermediario entre vase de datos y front
 
 
@@ -195,4 +199,143 @@ export async function cargaListaEjercicios(id_rutina)
         
     }
     return lista.json();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function estadoPago()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=estado`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
+
+export async function historialPagos()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=historial`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
+
+export async function subeComprobante(inputFile) 
+{
+    if (!inputFile) 
+    {
+        throw new Error("falto el archivo de comprobante");
+    }
+    const formdata= new FormData();
+
+    formdata.append("comprobante",inputFile.files[0]);
+    const url=`${consultaComprobante}?action=subir`;
+    const respuesta= await fetch(url, 
+        {
+            method: 'POST', 
+            body: formdata
+        });
+
+     if (!respuesta.ok) {
+        throw new Error(`Error HTTP al subir el comprobante`);
+    }
+    const datos = await respuesta.json();
+   
+    return datos;
 }
