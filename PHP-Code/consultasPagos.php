@@ -1,5 +1,8 @@
 <?php
 require_once("libreria.php");
+date_default_timezone_set('America/Mexico_City');
+
+
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
@@ -31,6 +34,21 @@ $data="";
 
 if($_GET["action"]=="subir")
 {   
+    if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "Cliente"))
+    {   
+        session_unset();
+        session_destroy();
+
+        http_response_code(401);
+        echo json_encode([
+            "logueado" => false,
+            "datos" => null,
+            "mensaje"=> "Hubo un error en la session, favor de volver a inicira session",
+            "redirect" => "../HTML-Code/loginView.html"
+        ]);
+        exit();
+    }
+
     $conexion=conectaDB();
     $id_usuario=$_SESSION["id_usuario"];
     $membresia=buscaMembresia($id_usuario,$conexion);
@@ -93,6 +111,17 @@ if($_GET["action"]=="subir")
         $Puente=$conexion->prepare($query);
         $Puente->execute([$id_comprobante,$id_membresia,$id_usuario,$rutaComprobante]);
 
+        $hoy = (new DateTimeImmutable())->format('Y-m-d');
+        $id_pago="PAGO". strtoupper(bin2hex(random_bytes(3)));
+        $query2="INSERT INTO pago (
+                id_pago,
+                id_membresia_cliente,
+                monto,
+                fecha_pago)
+                VALUES (?,?,?,?)";
+        $Puente=$conexion->prepare($query2);
+        $Puente->execute([$id_pago,$id_membresia,0.00,$hoy]);
+
         move_uploaded_file($rutaOriginal,$rutaFinalGuardado);
         $mensaje="Archivo cargado correctamente";
         $status="success";
@@ -107,8 +136,80 @@ if($_GET["action"]=="subir")
     }
     
 }
+else if($_GET["action"]=="consulta" && $_GET["comando"]=="historial")
+{
+    if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "Cliente"))
+    {   
+        session_unset();
+        session_destroy();
 
+        http_response_code(401);
+        echo json_encode([
+            "logueado" => false,
+            "datos" => null,
+            "mensaje"=> "Hubo un error en la session, favor de volver a inicira session",
+            "redirect" => "../HTML-Code/loginView.html"
+        ]);
+        exit();
+    }
+}
+else if($_GET["action"]=="consulta" && $_GET["comando"]=="estado")
+{
+    if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "Cliente"))
+    {   
+        session_unset();
+        session_destroy();
 
+        http_response_code(401);
+        echo json_encode([
+            "logueado" => false,
+            "datos" => null,
+            "mensaje"=> "Hubo un error en la session, favor de volver a inicira session",
+            "redirect" => "../HTML-Code/loginView.html"
+        ]);
+        exit();
+    }
+    $id_usuario=$_SESSION["id_usuario"];
+
+    $query="SELECT id_membresia_cliente,
+        fecha_inicio,
+        fecha_vencimiento,
+        estado,
+        id_membresia
+        FROM membresia_cliente
+        WHERE id_usuario=?";
+    
+    $Puente=$conexion->prepare($query);
+    $Puente->execute([$id_usuario]);
+
+    $estado=$Puente->fetch(PDO::FETCH_ASSOC);
+    if(!$estado)
+    {
+        $status="empty";
+        $mensaje="no hay un pago pendiente aun";
+        salidaForzosa($status,$mensaje);
+    }
+    $fechaBD=$estado["fecha_vencimiento"];
+    $hoy = new DateTimeImmutable();
+    $fechaVencimiento = new DateTimeImmutable($fechaBD);
+
+    if ($hoy > $fechaVencimiento)
+    {
+        $status="vencida";
+        $mensaje="La membrecia ha caducado";
+    }
+    if ($hoy >= $fechaVencimiento->modify('-2 days')) 
+    {
+        $status="proxima";
+        $mensaje="Queda poco para que expire la membresia";
+    }
+    if ($hoy < $fechaVencimiento->modify('-2 days')) 
+    {
+        $status="vigente";
+        $mensaje="Todo en orden";
+    }
+    $data=$estado;
+}
 
 echo json_encode([
     "status" => $status,

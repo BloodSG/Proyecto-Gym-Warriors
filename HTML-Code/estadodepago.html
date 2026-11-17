@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estado de pagos | Fitness Warriors</title>
     <link rel="stylesheet" href="../CSS-Code/estadodepagos.css">
+    <script src="../SCRIPT-Code/estadoPago.js" type="module"></script>
 </head>
 
 <body>
@@ -47,28 +48,28 @@
                         </div>
                     </div>
                     <div class="status-content">
-                        <div class="traffic-light traffic-light-green" role="img" aria-label="Semáforo en verde: pago al corriente">
+                        <div class="traffic-light" id="jugaremosmueveteluzverde" role="img" aria-label="Semáforo en verde: pago al corriente">
                             <span></span>
                             <span></span>
                             <span></span>
                         </div>
-                        <div class="status-message">
-                            <h3>Tu pago está al corriente</h3>
-                            <p>No tienes pagos pendientes. Sigue disfrutando de todos los beneficios de tu membresía.</p>
+                        <div class="status-message" id="statusmessage">
+                            <h3></h3>
+                            <p></p>
                         </div>
                     </div>
                     <div class="payment-details">
                         <div class="detail">
                             <span class="detail-label">Próximo vencimiento</span>
-                            <strong>15 de diciembre de 2026</strong>
+                            <strong id="vencimiento"></strong>
                         </div>
                         <div class="detail">
                             <span class="detail-label">Días restantes</span>
-                            <strong class="days-remaining">30 días</strong>
+                            <strong class="days-remaining" id="restantes"></strong>
                         </div>
                         <div class="detail">
                             <span class="detail-label">Último pago</span>
-                            <strong>15 de noviembre de 2026</strong>
+                            <strong id="ultimoPago"></strong>
                         </div>
                     </div>
             

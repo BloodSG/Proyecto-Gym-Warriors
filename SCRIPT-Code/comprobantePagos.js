@@ -15,7 +15,7 @@ function cargaVistaPrevia(respuesta,inputComprobante,placeholder,contenedorImage
 }
 
 const usuario= await verificaSesion();
-console.log(usuario)
+console.log(usuario.datos)
 
 const inputComprobante=document.getElementById("comprobante");
 const contenedorVistaprevia=document.getElementById("previe-pdf");

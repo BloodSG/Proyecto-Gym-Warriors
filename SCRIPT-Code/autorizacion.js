@@ -14,6 +14,9 @@ export async function verificaSesion()
     else
     {
         document.documentElement.style.visibility = 'visible';
-        return datos.datos;
+        return datos;
     }
 }
+
+
+
