@@ -1,4 +1,4 @@
-const URL_PHP = "../PHP-Code/actividades_cliente.php";
+const URL_PHP = "../PHP-Code/actividades_clientes.php";
  
 const tablas = document.querySelectorAll("table.tabla_membresias");
 const cuerpoActividades = tablas[1].querySelector("tbody");
@@ -6,14 +6,29 @@ const cuerpoHistorial = tablas[2].querySelector("tbody");
 const selectDia = document.querySelector("#filtro_dia");
 const botonGuardar = document.querySelector("button.boton_buscar");
 
-//hola
+async function leerJsonRespuesta(respuesta) {
+    const data = await respuesta.json().catch(() => null);
+    if (!respuesta.ok && !data) {
+        throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+    if (!data) {
+        throw new Error("Respuesta inválida del servidor");
+    }
+    return data;
+}
+
 // Llena la tabla del historial general
 function cargarHistorial() {
     fetch(URL_PHP + "?action=historial")
-    .then(respuesta => respuesta.json())
+    .then(leerJsonRespuesta)
     .then(resultado => {
         if (resultado.status !== "success") {
             cuerpoHistorial.innerHTML = "";
+            return;
+        }
+
+        if (!resultado.data || !resultado.data.length) {
+            cuerpoHistorial.innerHTML = '<tr><td colspan="5">Todavía no tienes actividades registradas.</td></tr>';
             return;
         }
  
@@ -60,7 +75,7 @@ botonGuardar.addEventListener("click", function () {
     });
  
     fetch(URL_PHP, { method: "POST", body: datos })
-    .then(respuesta => respuesta.json())
+    .then(leerJsonRespuesta)
     .then(resultado => {
         alert(resultado.mensaje);
  

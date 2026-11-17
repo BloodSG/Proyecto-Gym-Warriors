@@ -1,4 +1,3 @@
-
 <?php
 require_once "libreria.php";
  
@@ -91,9 +90,11 @@ try
  
         $conexion->beginTransaction();
  
+        $marcadosTexto = array_map('strval', $marcados);
+
         foreach ($ejercicios as $id_ejercicio)
         {
-            if (in_array($id_ejercicio, $marcados))
+            if (in_array((string)$id_ejercicio, $marcadosTexto, true))
             {
                 $guardar->execute([$usuario, $id_ejercicio, $hoy]);
             }
@@ -153,6 +154,4 @@ echo json_encode([
     "data" => $data
 ], JSON_UNESCAPED_UNICODE);
 exit;
-//hola
-?>
 
