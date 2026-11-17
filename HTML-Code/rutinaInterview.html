@@ -39,10 +39,10 @@
                 <div id="mensajeAlerta" class="full-width" style="display: none; width: 100%; box-sizing: border-box; padding: 15px; margin-bottom: 20px; border-radius: 5px; font-weight: bold; text-align: center; font-size: 16px;"></div>
                 <p>1. Datos personales </p>
 
-                            <label class="full-width">
-                                Nombre Completo
-                                <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
-                            </label>
+                <label class="full-width">
+                    Nombre completo
+                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\.\' \-]*" title="Usa solo letras, espacios y puntos" required>
+                </label>
 
                 <label>
                     Sexo
@@ -56,10 +56,10 @@
                     </div>
                 </label>
 
-                            <label>
-                                Fecha de Nacimiento
-                                <input type="date" name="fechaNac" id="fechaNac" required>
-                            </label>
+                <label>
+                    Fecha de nacimiento
+                    <input type="date" name="fecha" id="fechaNac" required>
+                </label>
 
                 <label>
                     Estatura (cm)
