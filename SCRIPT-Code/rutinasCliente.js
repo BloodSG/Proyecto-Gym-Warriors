@@ -55,13 +55,14 @@ function mostrarActividades(actividades) {
 
     cuerpo.innerHTML = actividades.map(actividad => `
         <tr>
-            <td style="text-align: center;"><input type="checkbox" aria-label="Marcar ${actividad.nombre_ejercicio} como realizado"></td>
+            <td style="text-align: center;"><input type="checkbox" value="${actividad.id_ejercicio}" ${Number(actividad.realizado) === 1 ? "checked" : ""} aria-label="Marcar ${actividad.nombre_ejercicio} como realizado"></td>
             <td>${actividad.dia_semana}</td>
             <td>${actividad.nombre_ejercicio}</td>
             <td>${actividad.peso_sugerido}</td>
         </tr>
     `).join("");
 }
+
 
 async function cargarRutinas() {
     // Carga las rutinas al abrir la vista

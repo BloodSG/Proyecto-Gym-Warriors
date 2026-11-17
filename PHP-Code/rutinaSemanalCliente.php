@@ -163,20 +163,28 @@ elseif (($_GET['action'] ?? '') === 'cargar' && ($_GET['comando'] ?? '') === 'ac
     }
 
     //Obtiene los ejercicios del dia siempre limitados al usuario logueado
+    $hoy = (new DateTime('now', new DateTimeZone('America/Mexico_City')))->format('Y-m-d');
     $query = "SELECT detalle.id_detalle_rutina AS id_ejercicio,
                      detalle.dia_semana, detalle.nombre_ejercicio,
                      detalle.peso_sugerido, detalle.series, detalle.repeticiones,
-                     detalle.tiempo_descanso, detalle.orden
+                     detalle.tiempo_descanso, detalle.orden,
+                     (actividad.id_actividad IS NOT NULL) AS realizado
               FROM detalle_rutinas AS detalle
               INNER JOIN rutinas AS rutina ON rutina.id_rutina=detalle.id_rutina
+              LEFT JOIN actividad_realizada AS actividad
+                     ON actividad.id_detalle_rutina=detalle.id_detalle_rutina
+                    AND actividad.id_usuario=? AND actividad.fecha=?
               WHERE rutina.id_usuario=? AND LOWER(detalle.dia_semana)=?
               ORDER BY detalle.orden ASC";
     $Puente = $conexion->prepare($query);
-    $Puente->execute([$_SESSION['id_usuario'], $dia]);
+    $Puente->execute([$_SESSION['id_usuario'], $hoy, $_SESSION['id_usuario'], $dia]);
     $data = $Puente->fetchAll(PDO::FETCH_ASSOC);
     $status = 'success';
     $mensaje = empty($data) ? 'No hay actividades para el día seleccionado' : 'Actividades listadas correctamente';
 }
+
+
+
 
 echo json_encode([
     "status" => $status,
