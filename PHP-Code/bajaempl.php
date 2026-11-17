@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
 require_once("libreria.php");
 $conexion = conectaDB();
 
@@ -29,6 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $estado_laboral = trim($_POST['estado_laboral']);
         $nombre_emergencia = !empty(trim($_POST['contacto_emergencia_nom'] ?? '')) ? trim($_POST['contacto_emergencia_nom']) : null;
         $telefono_emergencia = !empty(trim($_POST['contacto_emergencia_tel'] ?? '')) ? trim($_POST['contacto_emergencia_tel']) : null;
+
+        // La fecha de contratación no puede ser futura correccion 
+        if ($fecha_contratacion > date('Y-m-d')) {
+            echo "<script>
+                    alert('La fecha de contratación no puede ser una fecha futura.');
+                    window.history.back();
+                  </script>";
+            exit();
+        }
 
         try {
             $sql = "UPDATE Empleados 
