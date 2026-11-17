@@ -21,7 +21,7 @@
 
             <div class="main-content">
                 <header class="topbar">
-                    <h1><span>Panel Admin</span> - Gestión de Ventas</h1>
+                    <h1><span>Panel Admin</span> - Gestión de ventas</h1>
                     <div class="profile">
                         <strong>Administrador</strong>
                         <span>admin@gymwarriors.com</span>
@@ -30,14 +30,14 @@
 
                 <section class="ventas-container">
                     <div class="ventas-header">
-                        <h2>Listado de Ventas</h2>
+                        <h2>Listado de ventas</h2>
                     </div>
 
                     <div class="table-responsive">
                         <table class="tabla-ventas">
                             <thead>
                                 <tr>
-                                    <th>ID Venta</th>
+                                    <th>ID venta</th>
                                     <th>Cliente</th>
                                     <th>Concepto</th>
                                     <th>Total</th>
@@ -50,7 +50,7 @@
                                 <tr data-id="101">
                                     <td>#101</td>
                                     <td>Juan Pérez</td>
-                                    <td>Membresía Mensual</td>
+                                    <td>Membresía mensual</td>
                                     <td>$500.00</td>
                                     <td>13/11/2026</td>
                                     <td><span class="badge completada">Completada</span></td>
@@ -61,7 +61,7 @@
                                 <tr data-id="102">
                                     <td>#102</td>
                                     <td>María López</td>
-                                    <td>Proteína Whey</td>
+                                    <td>Proteína</td>
                                     <td>$850.00</td>
                                     <td>13/11/2026</td>
                                     <td><span class="badge completada">Completada</span></td>
@@ -72,7 +72,7 @@
                                 <tr data-id="103">
                                     <td>#103</td>
                                     <td>Carlos Ruiz</td>
-                                    <td>Bebida Energética</td>
+                                    <td>Bebida energética</td>
                                     <td>$45.00</td>
                                     <td>12/11/2026</td>
                                     <td><span class="badge cancelada">Cancelada</span></td>
@@ -87,7 +87,6 @@
             </div>
         </div>
 
-        <!-- TEMPLATE REUTILIZABLE -->
         <template id="template-fila-venta">
             <tr data-id="{id}">
                 <td class="col-id">#{id}</td>
@@ -106,7 +105,7 @@
 
         <div id="modalCancelar" popover class="modal-popover">
             <div class="modal-content">
-                <h3>Cancelar Venta</h3>
+                <h3>Cancelar venta</h3>
                 <p>¿Estás seguro de que deseas cancelar esta venta?</p>
                 
                 <form id="formCancelarVenta" method="POST">
@@ -117,7 +116,7 @@
 
                     <div class="modal-actions">
                         <button type="button" id="btnCerrarModal" popovertarget="modalCancelar" popovertargetaction="hide">Volver</button>
-                        <button type="submit" id="btnConfirmarCancelacion">Confirmar Cancelación</button>
+                        <button type="submit" id="btnConfirmarCancelacion">Confirmar cancelación</button>
                     </div>
                 </form>
             </div>
