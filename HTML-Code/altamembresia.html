@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignar membresía | Fitness Warriors</title>
-    <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="altamembresia.css">
+    <link rel="stylesheet" href="../CSS-Code/admin.css">
+    <link rel="stylesheet" href="../CSS-Code/altamembresia.css">
 </head>
 
 <body>
     <div class="app-shell">
         <aside class="sidebar">
             <a class="brand" href="admin.html">
-                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
             </a>
             <p class="sidebar-label">Administración</p>
             <nav class="main-nav" aria-label="Navegación administrativa">
@@ -28,7 +28,7 @@
                 <a href="membresias_admin.html">Membresías</a>
                 <a href="#cortedecaja">Corte de caja</a>
             </nav>
-            <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
         </aside>
 
         <main class="main-content">
@@ -42,9 +42,12 @@
                     <p class="eyebrow">GESTIÓN DE CLIENTES</p>
                     <h2>Asignar membresía</h2>
                 </section>
+                <!-- aqui es la lista desplegable de los clientes a los que se le asignara la membresia mediante la base de datos -->
+                <form class="membership-form" action="../PHP-Code/asignar_membresia.php" method="POST">
+                    <input type="hidden" name="id_membresia" id="id_membresia">
+                <!-- // -->
 
-                <form class="membership-form">
-                    <section class="card form-section" aria-labelledby="client-heading">
+                <section class="card form-section" aria-labelledby="client-heading">
                         <div class="section-heading">
                             <div>
                                 <h2 id="client-heading">Cliente</h2>
@@ -54,9 +57,9 @@
                         <div class="form-grid client-grid">
                             <label for="cliente">Cliente
                                 <select id="cliente" name="cliente" required>
+                                    <option value="">Cargando clientes...</option>
                                 </select>
                             </label>
-
                         </div>
                     </section>
 
@@ -98,6 +101,8 @@
             </div>
         </main>
     </div>
+
+    <script type="module" src="../SCRIPT-Code/altamembresia.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,10 @@ function conectaDB()
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::MYSQL_ATTR_SSL_CA => __DIR__ . '/DigiCertGlobalRootG2.crt.pem',
+<<<<<<< HEAD
             // Opcional: si te llega a dar problemas con la fecha del certificado en local, puedes dejarlo en false, pero con el archivo real ya debería pasar el canal SSL
+=======
+>>>>>>> Membresias
             PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
         ];
         $conexion = new PDO($dsn, $usuario, $contraseña, $opciones);//el oreden de los parametros es importante
@@ -29,6 +32,7 @@ function conectaDB()
         die("Error al conectar a la db: " . $e->getMessage());
     }
 }
+
 function generaCodigo()
 {
     $codigoRecupera=rand(100000, 999999);

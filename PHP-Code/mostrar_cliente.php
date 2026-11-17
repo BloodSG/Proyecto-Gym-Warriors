@@ -19,11 +19,11 @@ $mostrar_cliente=$conexion->query($consulta);
 $clientes=[];
 // Recorremos los registros obtenidos
 while($fila=$mostrar_cliente->fetch(PDO::FETCH_ASSOC)){
-    // Agregamos cada registro al arreglo de proveedores
+    // Agregamos cada registro al arreglo de clientes
     $clientes[]=$fila;
 }
 
-// Devolver los proveedores en formato JSON, para que puedan ser procesados por JavaScript
+// Devolver los clientes en formato JSON, para que puedan ser procesados por JavaScript
 echo json_encode($clientes);
 
 ?>

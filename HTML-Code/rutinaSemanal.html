@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Rutina semanal</title>
+        <link rel="stylesheet" href="../CSS-Code/rutinaSemanal.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Rutina</a>
+                    
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span> Rutina semanal</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header> 
+                <nav class="week" id="semanita"> <!-- contenedor de los dias de la semana -->
+                    <button class="tab-btn active" data-dia="Lunes">Lunes</button>
+                    <button class="tab-btn" data-dia="Martes">Martes</button>
+                    <button class="tab-btn" data-dia="Miercoles">Miércoles</button>
+                    <button class="tab-btn" data-dia="Jueves">Jueves</button>
+                    <button class="tab-btn" data-dia="Viernes">Viernes</button>
+                    <button class="tab-btn" data-dia="Sabado">Sábado</button>
+                    <button class="tab-btn" data-dia="Domingo">Domingo</button>
+                </nav>
+                <div class="dia-contenedor">
+                    <div class="rutina-header" id="Nombre_rutina"> <!-- aqui va lo que vaya en nombre_rutina de la tabla rutinas-->
+                        <h2>Día 1: Tren inferior</h2>
+                        <p class="coach-nota">Nota: Calentar bien</p>
+                    </div> 
+
+                    <!-- despues, aqui debo de cargar los ejercicios que esten asignados a esa rutina-->
+                    <div class="lista-ejercicios" id="contenedor_ejercicios"> <!-- contenedor de la lista de ejercicios -->
+                        <article class="ejercicio-card">
+                            <div class="ejercicio-info" id="info_ejercicio">
+                                <h3>1. Sentadilla búlgara</h3>
+                                <div class="ejercicio-detalle">
+                                    <span><strong>Series: </strong> 4</span>
+                                    <span><strong>Reps: </strong> 10</span>
+                                    <span><strong>Descanso: </strong> 90 seg</span>
+                                </div>
+                                <p class="ejercicio-tip"><strong>Tip técnico: </strong>Manten el torso ligeramente inclinado hacia adelante </p>
+                            </div>
+                            <div class="ejercicio-video" id="video_ejercicio">
+                                <video class="video-local" controls>
+                                    <source src="../Recursos/res_rutina/603bb672a3c13c4b1bf375ba64f747f8.mp4" type="video/mp4">
+                                    Tu navegador no soporta la reproducción de video.
+                                </video>
+                            </div>
+                        </article>
+                        <template id="template-ejercicio-card">
+                            <article class="ejercicio-card">
+                                <div class="ejercicio-info">
+                                    <h3 class="ejercicio-nombre"></h3>
+                                    
+                                    <div class="ejercicio-detalle">
+                                        <span><strong>Series:</strong> <span class="ejercicio-series"></span></span>
+                                        <span><strong>Reps:</strong> <span class="ejercicio-reps"></span></span>
+                                        <span><strong>Descanso:</strong> <span class="ejercicio-descanso"></span></span>
+                                    </div>
+                                    
+                                    <p class="ejercicio-tip">
+                                        <strong>Tip técnico:</strong> <span class="ejercicio-descripcion-tip"></span>
+                                    </p>
+                                </div>
+                                
+                                <div class="ejercicio-video">
+                                    <video class="video-local ejercicio-fuente-video" controls>
+                                        <source src="" type="video/mp4">
+                                        Tu navegador no soporta la reproducción de video.
+                                    </video>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                 </div><script type="module" src="../SCRIPT-Code/rutinaSemanal.js"></script>
+            </div>
+        </div>
+    </body>
+</html>
