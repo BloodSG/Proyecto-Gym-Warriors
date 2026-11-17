@@ -1,3 +1,4 @@
+
 const tarjeta = document.querySelector(".membresia-card");
 
 function mostrarFecha(valor) {
@@ -61,6 +62,9 @@ async function cargarMembresia() {
         document.querySelector("#badgeEstado").textContent = textoEstado;
         document.querySelector("#badgeEstado").classList.remove("badge-activo", "badge-inactivo");
         document.querySelector("#badgeEstado").classList.add(activa && dias >= 0 ? "badge-activo" : "badge-inactivo");
+        const ocultarEstadoInactivo = !activa && dias >= 0;
+        document.querySelector("#badgeEstado").style.display = ocultarEstadoInactivo ? "none" : "";
+        document.querySelector("#msg-status").style.display = ocultarEstadoInactivo ? "none" : "";
 
         document.querySelector("#fechaActivacion").textContent = mostrarFecha(membresia.fecha_inicio);
         document.querySelector("#fechaVencimiento").textContent = mostrarFecha(membresia.fecha_vencimiento);

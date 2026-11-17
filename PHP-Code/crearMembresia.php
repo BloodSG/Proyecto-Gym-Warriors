@@ -10,7 +10,7 @@
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($res && $res['ultimo']) {
-            $num = (int)substr($res['ultimo'], 3  )+1;
+            $num = (int)substr($res['ultimo'], 1  )+1;
             
         } 
         else 
@@ -18,7 +18,7 @@
             $num = 1;
         }
         
-        return 'CLI' . str_pad($num, 3, '0', STR_PAD_LEFT);
+        return 'M' . str_pad($num, 2, '0', STR_PAD_LEFT);
     }
 
 
