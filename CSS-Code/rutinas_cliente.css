@@ -120,6 +120,7 @@ body {
 }
 
 .boton_buscar {
+    display: inline-block;
     background: var(--lime);
     color: #0b0f19;
     border: none;
@@ -128,6 +129,7 @@ body {
     font-weight: 700;
     font-size: 12px;
     cursor: pointer;
+    text-decoration: none;
     transition: opacity 0.2s;
 }
 

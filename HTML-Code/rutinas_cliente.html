@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-//hola
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis rutinas - Cliente</title>
     <link rel="stylesheet" href="../CSS-Code/rutinas_cliente.css">
 </head>
+
 <body>
 
     <div class="membresias_admin_container">
-        
+
         <header class="membresias_admin_header">
             <h1 class="membresias_admin_titulo">MI PLAN DE ENTRENAMIENTO</h1>
             <p class="membresias_admin_subtitulo">Consulta tus rutinas asignadas, marca tus actividades realizadas y revisa tu historial general.</p>
+            <a class="boton_buscar" href="rutinaSemanal.html">Ver rutina semanal</a>
         </header>
-        <! -- tabla de rutinas asignadas -- >    
+        <! -- tabla de rutinas asignadas -- >
         <section class="consulta">
             <h2 class="membresias_admin_titulo" style="font-size: 20px; margin-bottom: 12px;">Mis rutinas asignadas</h2>
-            
+
             <div class="tabla_contenedor">
                 <table class="tabla_membresias">
                     <thead>
@@ -33,14 +35,14 @@
                 </table>
             </div>
         </section>
-     <! -- tabla de actividades del día -- >
+        <! -- tabla de actividades del día -- >
         <section class="consulta">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <div>
                     <h2 class="membresias_admin_titulo" style="font-size: 20px; margin: 0;">Actividades del día</h2>
                     <p class="membresias_admin_subtitulo">Selecciona el día, marca las actividades realizadas y consulta el peso correspondiente.</p>
                 </div>
-                
+
                 <div class="buscador" style="margin-bottom: 0;">
                     <label for="filtro_dia">DÍA:</label>
                     <select id="filtro_dia" style="background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; color: var(--text); font-size: 12px;">
@@ -99,4 +101,5 @@
     <script type="module" src="../SCRIPT-Code/rutinasCliente.js"></script>
     <script src="../SCRIPT-Code/actividades_cliente.js"></script>
 </body>
+
 </html>
