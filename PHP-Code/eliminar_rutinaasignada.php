@@ -28,7 +28,7 @@ if(isset($_GET['id'])){
     catch(PDOException $e){
         echo json_encode([
             "estado"=>"error",
-            "mensaje"=>"No se puede eliminar esta rutina porque tiene información relacionada dentro del sistema."
+            "mensaje"=>"No se puede eliminar esta rutina porque tiene ejercicios asignados"
         ]);
     }
 }
