@@ -192,6 +192,7 @@ else if($_GET["action"]=="consulta" && $_GET["comando"]=="estado")
     $fechaBD=$estado["fecha_vencimiento"];
     $hoy = new DateTimeImmutable();
     $fechaVencimiento = new DateTimeImmutable($fechaBD);
+
     if ($hoy > $fechaVencimiento)
     {
         $status="vencida";
