@@ -1,4 +1,3 @@
-
 import { cargaListaClientes } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -41,4 +40,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         selectCliente.innerHTML = '<option value="">Error al conectar con la base de datos</option>';
         alert("Ocurrió un error al momento de cargar la lista de clientes");
     }
+
+    
 });

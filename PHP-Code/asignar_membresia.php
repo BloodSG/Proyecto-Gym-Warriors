@@ -6,8 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_POST['cliente'] ?? null;
     $fecha_inicio = $_POST['fecha_inicio'] ?? null;
     $fecha_fin = $_POST['fecha_fin'] ?? null;
-    $metodo_pago = $_POST['metodo_pago'] ?? null;
-    $monto_pago = $_POST['monto_pago'] ?? null;
     $observaciones = $_POST['observaciones'] ?? null;
     $id_membresia = $_POST['id_membresia'] ?? null;
 
@@ -45,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
 
-            // Si pasa las validaciones se generael ID y guarda
+            // Si pasa las validaciones se genera el ID y guarda
             $stmtMax = $conn->query("SELECT id_membresia_cliente FROM membresia_cliente ORDER BY id_membresia_cliente DESC LIMIT 1");
             $ultimoRegistro = $stmtMax->fetch(PDO::FETCH_ASSOC);
 
