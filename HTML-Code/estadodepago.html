@@ -17,7 +17,7 @@
             </a>
             <p class="sidebar-label">Panel de cliente</p>
             <nav class="main-nav" aria-label="Navegación principal">
-                <a href="princi.html"><span class="nav-icon">⌂</span>Inicio</a>
+                <a href="princi.html"><span class="nav-icon"></span>Inicio</a>
                 <a href="princi.html#rutina"><span class="nav-icon"></span>Mi rutina</a>
                 <a href="princi.html#medidas"><span class="nav-icon"></span>Mis medidas</a>
                 <a href="princi.html#membresia"><span class="nav-icon"></span>Mi membresía</a>
@@ -36,62 +36,55 @@
             <div class="content-wrap">
                 <section class="page-heading">
                     <p class="eyebrow">MI CUENTA</p>
-                    <h2>Estado de pagos</h2>
-                    <p>Consulta el estado de tu membresía y la fecha de tu próximo pago.</p>
+                    <h2>Pagos pendientes</h2>
+                    <p>Consulta los pagos pendientes y sube el comprobante de cada uno.</p>
                 </section>
 
                 <section class="status-card" aria-labelledby="status-title">
                     <div class="status-card-heading">
                         <div>
-                            <p class="eyebrow">MEMBRESÍA ACTUAL</p>
-                            <h2 id="status-title">Membresía mensual</h2>
+                            <p class="eyebrow">PAGOS PENDIENTES</p>
+                            <h2 id="status-title">Lista de pagos</h2>
                         </div>
                     </div>
-                    <div class="status-content">
-                        <div class="traffic-light" id="jugaremosmueveteluzverde" role="img" aria-label="Semáforo en verde: pago al corriente">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="status-message" id="statusmessage">
-                            <h3></h3>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="payment-details">
-                        <div class="detail">
-                            <span class="detail-label">Próximo vencimiento</span>
-                            <strong id="vencimiento"></strong>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-label">Días restantes</span>
-                            <strong class="days-remaining" id="restantes"></strong>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-label">Último pago</span>
-                            <strong id="ultimoPago"></strong>
-                        </div>
+
+                    <div class="payment-list">
+                        <article class="payment-row">
+                            <div class="payment-main">
+                                <strong>Pago pendiente</strong>
+                                <span>Concepto por pagar</span>
+                            </div>
+                            <div class="payment-field">
+                                <span>Monto</span>
+                                <strong>$350.00 MXN</strong>
+                            </div>
+                            <div class="payment-field">
+                                <span>Estado</span>
+                                <strong>Pendiente</strong>
+                            </div>
+                            <a class="upload-payment-button" href="comprobantePago.html">Subir comprobante</a>
+                        </article>
                     </div>
                 </section>
 
                 <section class="legend-card card" aria-labelledby="legend-title">
                     <div class="section-heading">
                         <div>
-                            <h2 id="legend-title">¿Qué significa cada color?</h2>
+                            <h2 id="legend-title">¿Qué significa cada estado?</h2>
                         </div>
                     </div>
                     <div class="legend-list">
                         <div class="legend-item">
                             <span class="legend-dot green"></span>
-                            <div><strong>Al corriente</strong><span>Tu pago está vigente.</span></div>
+                            <div><strong>Pagado</strong><span>El pago fue realizado.</span></div>
                         </div>
                         <div class="legend-item">
                             <span class="legend-dot yellow"></span>
-                            <div><strong>Por vencer</strong><span>Tu fecha de pago se acerca.</span></div>
+                            <div><strong>Pendiente</strong><span>El comprobante puede ser enviado.</span></div>
                         </div>
                         <div class="legend-item">
                             <span class="legend-dot red"></span>
-                            <div><strong>Vencida</strong><span>Es necesario realizar tu pago.</span></div>
+                            <div><strong>Vencido</strong><span>El pago requiere atención.</span></div>
                         </div>
                     </div>
                 </section>
@@ -109,6 +102,7 @@
                     </div>
                     <a class="history-button" href="instruccionesdepago.html">Instrucciones de pago</a>
                 </section>
+
             </div>
         </main>
     </div>
