@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --border: #232c40;
+    --lime: #b2dc52;
+    --blue: #4d9fff;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menú lateral */
+
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+    padding: 18px 15px;
+    background: linear-gradient(180deg, var(--bg-elevated), var(--bg));
+    border-right: 1px solid var(--border);
+}
+
+.brand {
+    display: block;
+    padding: 0 10px 14px;
+}
+
+.brand img {
+    display: block;
+    width: 145px;
+    max-width: 100%;
+    margin: auto;
+}
+
+.sidebar-label {
+    margin: 7px 27px 22px;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.main-nav {
+    display: grid;
+    gap: 5px;
+}
+
+.main-nav a,
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 13px;
+    border-left: 3px solid transparent;
+    border-radius: 5px;
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.main-nav a:hover,
+.main-nav .active {
+    color: var(--text);
+    background: var(--card);
+    border-left-color: var(--lime);
+}
+
+.nav-icon {
+    display: inline-grid;
+    width: 18px;
+    place-items: center;
+    color: var(--blue);
+    font-size: 18px;
+    line-height: 1;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+/* Contenido principal */
+
+.main-content {
+    width: calc(100% - 205px);
+    margin-left: 205px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 57px;
+    padding: 0 28px 0 23px;
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+}
+
+.topbar h1 span {
+    width: 3px;
+    height: 27px;
+    background: var(--lime);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.profile strong {
+    display: grid;
+    width: 27px;
+    height: 27px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lime);
+    color: #1c3210;
+    font-size: 20px;
+}
+
+.profile b {
+    color: var(--text-dim);
+    font-size: 16px;
+}
+
+.content-wrap {
+    width: min(100% - 46px, 900px);
+    margin: 15px auto 45px;
+}
+
+.eyebrow {
+    margin: 0 0 5px;
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.welcome-row {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin: 22px 0 13px;
+}
+
+.welcome-row h2 {
+    margin: 0 0 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 25px;
+}
+
+.welcome-row p:not(.eyebrow) {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.active-label {
+    padding: 4px 7px;
+    border-radius: 9px;
+    background: rgba(178, 220, 82, .13);
+    color: var(--lime);
+    font-size: 8px;
+    font-weight: 700;
+}
+
+/* Tarjetas de membresías */
+
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+}
+
+.plan-targeta{
+    display: flex;
+    flex-direction: column;
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--card);
+}
+
+.plan-targeta:hover {
+    border-color: var(--blue);
+}
+
+.plan-targeta.actual {
+    border-color: var(--lime);
+}
+
+.plan-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.plan-targeta h2 {
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+}
+
+.plan-precio {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin: 6px 0 14px;
+}
+
+.plan-precio strong {
+    color: var(--lime);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 37px;
+}
+
+.plan-precio span {
+    color: var(--text-dim);
+    font-size: 10px;
+}
+
+/* Lista de lo que incluye: ✓ si lo incluye, ✕ si no */
+.plan-entrevis {
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+}
+
+.plan-entrevis li {
+    position: relative;
+    padding: 9px 0 9px 24px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+}
+
+.plan-entrevis li::before {
+    position: absolute;
+    left: 2px;
+    font-weight: 700;
+}
+
+.plan-entrevis li.si::before {
+    content: "✓";
+    color: var(--lime);
+}
+
+.plan-entrevis li.no {
+    color: var(--text-dim);
+}
+
+.plan-entrevis li.no::before {
+    content: "✕";
+    color: var(--text-dim);
+}
+
+.plan-desc {
+    flex: 1;
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.vacio {
+    grid-column: 1 / -1;
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 760px) {
+    .sidebar {
+        position: static;
+        width: 67px;
+        padding: 12px 8px;
+    }
+
+    .brand {
+        padding: 4px 0 16px;
+    }
+
+    .brand img {
+        width: 50px;
+    }
+
+    .sidebar-label,
+    .main-nav a:not(.active)::after,
+    .main-nav a:not(.active) {
+        font-size: 0;
+    }
+
+    .main-nav a,
+    .logout {
+        justify-content: center;
+        padding: 11px 4px;
+    }
+
+    .main-nav .nav-icon,
+    .logout .nav-icon {
+        font-size: 19px;
+    }
+
+    .main-nav .active {
+        font-size: 0;
+    }
+
+    .main-content {
+        width: calc(100% - 67px);
+        margin-left: 0;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .content-wrap {
+        width: min(100% - 24px, 620px);
+    }
+}
+
+@media (max-width: 520px) {
+    .topbar h1 {
+        font-size: 19px;
+    }
+
+    .profile span,
+    .profile b {
+        display: none;
+    }
+
+    .content-wrap {
+        width: calc(100% - 20px);
+        margin-top: 10px;
+    }
+}

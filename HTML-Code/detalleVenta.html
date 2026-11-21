@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Detalle de venta</title>
+        <link rel="stylesheet" href="../CSS-Code/detalleVenta.css">
+    </head>
+    <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a href="#" class="brand">
+                    <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Gym Warriors Logo">
+                </a>
+                <span class="sidebar-label">MENÚ PRINCIPAL</span>
+                <nav class="main-nav">
+                    <a href="#" class="active">Ventas</a>
+                    
+                </nav>
+                <a href="#" class="logout">Cerrar sesión</a>
+            </aside>
+
+            <div class="main-content">
+                <header class="topbar">
+                    <h1><span></span> Ventas</h1>
+                    <div class="profile">
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </header> 
+
+                <section class="content-body">
+                    <div class="detalleVenta-header">
+                        <h2>Detalle de venta<h2>
+                    </div>
+                    <div class="detalleVenta-card">
+                        <div class="info-group">
+                            <span class="label">Folio:</span>
+                            <span class="value">#V-00001</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="label">Fecha y hora:</span>
+                            <span class="value">11/11/2026</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="label">Empleado:</span>
+                            <span class="value">Juanito Pérez</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="label">Método de pago:</span>
+                            <span class="value">Tarjeta de crédito</span>
+                        </div>
+                    </div>
+                    <div class="productos-container">
+                        <h3>Productos de la venta</h3>
+                        <table class="productos-table">
+                            <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Descripción</th>
+                                    <th>Precio unitario</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Proteína</td>
+                                    <td>$1250.00</td>
+                                    <td>$1250.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Creatina</td>
+                                    <td>$450.00</td>
+                                    <td>$900.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="venta-summary">
+                        <div class="total-container">
+                            <span class="total-label">Total de la venta:</span>
+                            <span class="total-cantidad">$2150.00</span>
+                        </div>
+                    </div>
+                    <template id="detalleVenta-template">
+                        <div class="detalleVenta-card">
+                            <div class="info-group">
+                                <span class="label">Folio:</span>
+                                <span class="value" data-field="folio">#----</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="label">Fecha y hora:</span>
+                                <span class="value" data-field="fecha">--/--/----</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="label">Empleado:</span>
+                                <span class="value" data-field="empleado">-----/span>
+                            </div>
+                            <div class="info-group">
+                                <span class="label">Método de pago:</span>
+                                <span class="value" data-field="metodoPago">----</span>
+                            </div>
+                        </div>
+                        <div class="productos-container">
+                            <h3>Productos de la venta</h3>
+                            <table class="productos-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Descripción</th>
+                                        <th>Precio unitario</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-field="productosList">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="venta-summary">
+                            <div class="total-container">
+                                <span class="total-label">Total de la venta:</span>
+                                <span class="total-cantidad" data-field="total">$0.00</span>
+                            </div>
+                        </div>
+                    </template>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

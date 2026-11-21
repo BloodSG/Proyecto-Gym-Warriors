@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <link rel="stylesheet" href="../CSS-Code/ventas_admin.css">
+</head>
+<body>
+
+    <div class="membresias_admin_container">
+        
+        <header class="membresias_admin_header">
+            <h1 class="membresias_admin_titulo">VENTAS</h1>
+            <p class="membresias_admin_subtitulo">Módulo de registro de ventas, búsqueda de productos y control de cobros.</p>
+        </header>
+
+        <div class="pos_grid_layout">
+            
+            <section class="consulta pos_panel_izq">
+                <div class="buscador">
+                    <label for="input-buscador">Buscar producto</label>
+                    <input type="search" id="input-buscador" placeholder="Escribe el nombre o código del producto..." autocomplete="off">
+                    <button type="button" class="boton_buscar">Buscar</button>
+                </div>
+
+                <div class="tabla_contenedor">
+                    <div class="pos_grid_productos" id="grid-productos">
+                        <!-- Aquí se cargarán los productos dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <aside class="consulta pos_panel_der">
+                <div class="modal_header" style="margin-bottom: 12px; padding-bottom: 8px;">
+                    <h2>Ticket Actual</h2>
+                    <button type="button" id="btn-vaciar" class="btn_accion btn_cancelar" style="font-size: 11px; padding: 4px 8px;">Vaciar</button>
+                </div>
+
+                <div class="tabla_contenedor" style="max-height: 320px; overflow-y: auto;">
+                    <table class="tabla_membresias">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-ticket">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-dim); padding: 25px;">
+                                    Aún no hay productos en la lista
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pos_ticket_footer">
+                    <div class="pos_resumen_fila">
+                        <span>Total de artículos:</span>
+                        <strong id="total-articulos" style="color: var(--text);">0</strong>
+                    </div>
+                    <div class="pos_resumen_fila pos_total_destacado">
+                        <span>TOTAL A COBRAR:</span>
+                        <strong id="total-venta" style="color: var(--lime); font-size: 18px;">$0.00</strong>
+                    </div>
+
+                    <button type="button" id="btn-cobrar" class="boton_buscar" style="width: 100%; padding: 12px; font-size: 13px; text-align: center; margin-top: 10px;" disabled>
+                        REGISTRAR VENTA
+                    </button>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+</body>
+</html>

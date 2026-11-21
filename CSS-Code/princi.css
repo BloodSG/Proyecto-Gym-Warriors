@@ -173,7 +173,7 @@ a {
     padding: 25px 32px;
     border: 1px solid var(--blue);
     border-radius: 11px;
-    background: linear-gradient(90deg, rgba(16, 21, 31, .98) 0%, rgba(19, 26, 40, .88) 51%, rgba(10, 14, 23, .45)), url('WhatsApp Image 2026-09-17 at 09.34.33.jpeg') center/cover;
+    background: linear-gradient(90deg, rgba(16, 21, 31, .98) 0%, rgba(19, 26, 40, .88) 51%, rgba(10, 14, 23, .45)), url('../Recursos/Img_sis/WhatsApp Image 2026-09-17 at 09.34.33.jpeg') center/cover;
 }
 
 .promo-copy {
@@ -442,11 +442,34 @@ a {
 }
 
 .slot-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     min-height: 92px;
+    gap: 9px;
     margin-top: 17px;
+    padding: 17px;
     border: 1px dashed var(--border);
     border-radius: 6px;
     background: rgba(16, 21, 31, .45);
+}
+
+.slot-body p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.module-link {
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.module-link:hover {
+    color: var(--lime);
 }
 
 .module-card {

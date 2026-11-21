@@ -1,4 +1,11 @@
 const consulta="../PHP-Code/Productos.php";
+const consultaMem="../PHP-Code/cargaMembresias.php";
+const consultaClientes = "../PHP-Code/obtener_clientes.php";
+const consultaRutina="../PHP-Code/rutinaSemanalCliente.php";
+
+
+
+const consultaComprobante="../PHP-Code/consultasPagos.php";
 // este archivo funciona de api, es decir, solo es el intermediario entre vase de datos y front
 
 
@@ -6,9 +13,10 @@ export async function obtenerCatalogo(categoria)
 //export es por asi deciro la forma de hacer que otros archivos puedan usar la funcion
 // async es para que la funcion pueda usar await, es por asi decirlo como el atributo de una funcion
 {   
-    const url=`${consulta}?categoria=${categoria}`;
+    const url=`${consulta}?action=catalogo&categoria=${categoria}`;
     const catalogo=await fetch(url); //await es para que la funcion espere a que se responda el fetch antes de continuar
     //fetch es para hacer peticiones a un servidor, devuelve un objeto by the way
+    
 
     if (!catalogo.ok)//.ok es una propiedad de la respuesta que indica si la respuesta salio bien 
     {
@@ -36,6 +44,25 @@ export async function obtenerProducto(id) {
     return detalle.json();
 }
 
+export async function obtenerDataProducto(id) 
+{
+    // valida antes de gastar una peticion
+    if (!id) 
+    {
+        throw new Error("falto un ID de producto");
+    }
+
+    const url=`${consulta}?action=allProdInfo&id=${encodeURIComponent(id)}`;// se hace una url para redirigir el navegador con cierta informacion
+    //encodeURIComponent es para que el id no tenga caracteres especiales que puedan romper la url
+    const data=await fetch(url);
+
+    if (!data.ok) {
+        throw new Error(`Error HTTP al cargar data: ${data.status}`);
+    }
+
+    return data.json();
+}
+
 export async function bucarProducto(txt)
 {
     if(!txt)
@@ -50,4 +77,265 @@ export async function bucarProducto(txt)
     }
 
     return producto.json();
+}
+
+
+
+export async function editaProducto(id,formDataDelFormulario) 
+{
+    if (!id) 
+    {
+        throw new Error("falto un ID de producto");
+    }
+    formDataDelFormulario.append('id_producto', id);
+    const url=`${consulta}?action=editar`;
+    const respuesta= await fetch(url, 
+        {
+            method: 'POST', 
+            body: formDataDelFormulario 
+        });
+
+    if (!respuesta.ok) {
+        throw new Error(`Error HTTP al eliminar producto: ${respuesta.status}`);
+    }
+    return respuesta.json();
+}
+
+export async function eliminaProducto(id) 
+{   
+    if (!id) 
+    {
+        throw new Error("falto un ID de producto");
+    }
+    const url=`${consulta}?action=quitar&producto=${encodeURIComponent(id)}`;
+    const respuesta=await fetch(url);
+
+    if (!respuesta.ok) {
+        throw new Error(`Error HTTP al eliminar producto: ${respuesta.status}`);
+    }
+    return respuesta.json();
+}
+
+
+export async function cargaCategorias() 
+{   
+    
+    const url=`${consulta}?action=cargar&comando=categoria`;
+    const categorias=await fetch(url);
+    if (!categorias.ok) {
+        throw new Error(`Error HTTP al cargar las categorias: ${categorias.status}`);
+        
+    }
+    return categorias.json();
+}
+
+export async function cargaProveedores() 
+{   
+    
+    const url=`${consulta}?action=cargar&comando=proveedores`;
+    const proveedores=await fetch(url);
+    if (!proveedores.ok) {
+        throw new Error(`Error HTTP al cargar los provedores ${proveedores.status}`);
+        
+    }
+    return proveedores.json();
+}
+
+export async function cargaListaMembresias() 
+{   
+    
+    const url=`${consultaMem}?action=cargar&comando=membresias`;
+    const membresias=await fetch(url);
+    if (!membresias.ok) {
+        throw new Error(`Error HTTP al cargar las membresias ... ${membresias.status}`);
+        
+    }
+    return membresias.json();
+}
+
+
+export async function cargaListaClientes() {
+    const url = `${consultaClientes}`;
+    const respuesta = await fetch(url);
+    if (!respuesta.ok) {
+        throw new Error(`Error HTTP al cargar los clientes: ${respuesta.status}`);
+    }
+    return respuesta.json();
+}
+
+export async function cargaRutinaDia(dia) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=semana&dia=${encodeURIComponent(dia)}`;
+    const rutina_nombre=await fetch(url);
+    // Verifica si la sesion del usuario no esta iniciada
+    if (rutina_nombre.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función despues de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
+    if (!rutina_nombre.ok) 
+    {
+        throw new Error(`Error HTTP al cargar la rutina del dia ... ${dia}`);
+    }
+    return rutina_nombre.json();
+}
+
+export async function cargaListaEjercicios(id_rutina) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=lista&id=${encodeURIComponent(id_rutina)}`;
+    const lista=await fetch(url);
+    //Verifica si la sesión del usuario no esta iniciada
+    if (lista.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función después de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
+    if (!lista.ok) {
+        throw new Error(`Error HTTP al cargar la lista de ejercicios de la rutina con el id ... ${id_rutina}`);
+        
+    }
+    return lista.json();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function estadoPago()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=estado`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
+
+export async function historialPagos()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=historial`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
+
+export async function subeComprobante(inputFile) 
+{
+    if (!inputFile) 
+    {
+        throw new Error("falto el archivo de comprobante");
+    }
+    const formdata= new FormData();
+
+    formdata.append("comprobante",inputFile.files[0]);
+    const url=`${consultaComprobante}?action=subir`;
+    const respuesta= await fetch(url, 
+        {
+            method: 'POST', 
+            body: formdata
+        });
+
+     if (!respuesta.ok) {
+        throw new Error(`Error HTTP al subir el comprobante`);
+    }
+    const datos = await respuesta.json();
+   
+    return datos;
 }

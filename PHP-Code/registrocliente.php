@@ -53,7 +53,7 @@
 
             echo "<script>
                 alert('¡Cliente registrado exitosamente!');
-                window.location.href = '../HTML-Code/admin.html';
+                window.location.href = '../HTML-Code/tablaclientes.html';
             </script>"; 
             exit();
 
@@ -69,5 +69,6 @@
 
 
     }
+
 
 ?>

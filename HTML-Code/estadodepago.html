@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de pagos | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/estadodepagos.css">
+    <script src="../SCRIPT-Code/estadoPago.js" type="module"></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Panel de cliente</p>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="princi.html"><span class="nav-icon"></span>Inicio</a>
+                <a href="princi.html#rutina"><span class="nav-icon"></span>Mi rutina</a>
+                <a href="princi.html#medidas"><span class="nav-icon"></span>Mis medidas</a>
+                <a href="princi.html#membresia"><span class="nav-icon"></span>Mi membresía</a>
+                <a class="active" href="estadodepago.html" aria-current="page"><span class="nav-icon"></span>Pagos</a>
+                <a href="reglamento.html"><span class="nav-icon"></span>Reglamento</a>
+            </nav>
+            <a class="logout" href="loginView.html"><span class="nav-icon">↪</span>Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Pagos</h1>
+                <div class="profile"><strong>DC</strong><span>Diana C.</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">MI CUENTA</p>
+                    <h2>Pagos pendientes</h2>
+                    <p>Consulta los pagos pendientes y sube el comprobante de cada uno.</p>
+                </section>
+
+                <section class="status-card" aria-labelledby="status-title">
+                    <div class="status-card-heading">
+                        <div>
+                            <p class="eyebrow">PAGOS PENDIENTES</p>
+                            <h2 id="status-title">Lista de pagos</h2>
+                        </div>
+                    </div>
+
+                    <div class="payment-list">
+                        <article class="payment-row">
+                            <div class="payment-main">
+                                <strong>Pago pendiente</strong>
+                                <span>Concepto por pagar</span>
+                            </div>
+                            <div class="payment-field">
+                                <span>Monto</span>
+                                <strong>$350.00 MXN</strong>
+                            </div>
+                            <div class="payment-field">
+                                <span>Estado</span>
+                                <strong>Pendiente</strong>
+                            </div>
+                            <a class="upload-payment-button" href="comprobantePago.html">Subir comprobante</a>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="legend-card card" aria-labelledby="legend-title">
+                    <div class="section-heading">
+                        <div>
+                            <h2 id="legend-title">¿Qué significa cada estado?</h2>
+                        </div>
+                    </div>
+                    <div class="legend-list">
+                        <div class="legend-item">
+                            <span class="legend-dot green"></span>
+                            <div><strong>Pagado</strong><span>El pago fue realizado.</span></div>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot yellow"></span>
+                            <div><strong>Pendiente</strong><span>El comprobante puede ser enviado.</span></div>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot red"></span>
+                            <div><strong>Vencido</strong><span>El pago requiere atención.</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="history-link-card card" aria-labelledby="history-link-title">
+                    <div>
+                        <h2 id="history-link-title">Consulta tu historial</h2>
+                    </div>
+                    <a class="history-button" href="historialPagos.html">Ver historial de pagos</a>
+                </section>
+
+                <section class="history-link-card card" aria-labelledby="instructions-link-title">
+                    <div>
+                        <h2 id="instructions-link-title">¿Cómo realizar tu pago?</h2>
+                    </div>
+                    <a class="history-button" href="instruccionesdepago.html">Instrucciones de pago</a>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigencias | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/vigencias.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a class="active" href="#inicio">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="#ventas">Ventas</a>
+                <a href="rutinaInterview.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membresias_admin.html">Membresías</a>
+                <a href="#cortedecaja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Vigencias</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE MEMBRESÍAS</p>
+                    <h2>Vigencia de clientes</h2>
+                </section>
+
+                <section class="summary-grid" aria-label="Resumen de membresías">
+                    <article class="summary-card">
+                        <span class="summary-label">Clientes con membresía</span>
+                        <strong id="total-clientes">0</strong>
+                    </article>
+                    <article class="summary-card">
+                        <span class="summary-label">Membresías activas</span>
+                        <strong id="total-activas">0</strong>
+                    </article>
+                    <article class="summary-card warning">
+                        <span class="summary-label">Por vencer</span>
+                        <strong id="total-por-vencer">0</strong>
+                    </article>
+                    <article class="summary-card danger">
+                        <span class="summary-label">Vencidas</span>
+                        <strong id="total-vencidas">0</strong>
+                    </article>
+                </section>
+
+                <section class="card table-card" aria-labelledby="tabla-titulo">
+                    <div class="table-header">
+                        <div>
+                            <h2 id="tabla-titulo">Clientes con membresía</h2>
+                            <p>La información se ordena por fecha de vencimiento.</p>
+                        </div>
+                        <label class="search-field" for="buscar-cliente">
+                            <span>Buscar</span>
+                            <input id="buscar-cliente" type="search"
+                                placeholder="Nombre o membresía" autocomplete="off">
+                        </label>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="vigencias-table">
+                            <caption class="sr-only">Clientes, membresías y fechas de vigencia</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresía</th>
+                                    <th scope="col">Inicio</th>
+                                    <th scope="col">Vencimiento</th>
+                                    <th scope="col">Vigencia</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vigencias-body"></tbody>
+                        </table>
+                    </div>
+                    <p id="estado-tabla" class="table-message" role="status"></p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../SCRIPT-Code/vigencias_membresias.js"></script>
+
+</body>
+
+</html>

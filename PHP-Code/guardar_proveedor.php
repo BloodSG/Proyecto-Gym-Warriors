@@ -25,7 +25,7 @@ $verificar->execute([$nombre_empresa,
 if($verificar->fetch(PDO::FETCH_ASSOC)){
     echo json_encode([
         "estado"=>"error",
-        "mensaje"=>"La empresa, el correo o el telefono ya se encuentra registrado"
+        "mensaje"=>"La empresa, el correo o el teléfono ya se encuentra registrado"
     ]);
     exit();
 }
@@ -65,9 +65,9 @@ try{
 // Función para generar el id_proveedor automaticamente
 function generar_id($conexion){
     // Crear la consulta
-    $consulta="select top 1 id_proveedor
+    $consulta="select id_proveedor
                from Proveedor
-               order by id_proveedor desc";
+               order by id_proveedor desc LIMIT 1";
 
     // Ejecuta la consulta, para obtener registros
     $resultado=$conexion->query($consulta);

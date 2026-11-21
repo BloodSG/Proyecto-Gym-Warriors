@@ -12,7 +12,7 @@ $consulta="
             Proveedor.telefono,
             Proveedor.correo,
 
-            string_agg(Producto.nombre, ', ') as productos
+            GROUP_CONCAT(Producto.nombre SEPARATOR ', ') as productos
 
         from Proveedor
 

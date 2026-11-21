@@ -1,0 +1,131 @@
+:root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --border: #232c40;
+    --lime: #b2dc52;
+    --blue: #4d9fff;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.entrevistas {
+    width: min(100%, 760px);
+}
+
+.logo {
+    display: block;
+    width: min(100%, 150px);
+    height: auto;
+    margin: 0 auto 28px;
+}
+
+.tarjeta-entrevistas {
+    padding: clamp(28px, 5vw, 48px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+    text-align: center;
+}
+
+.etiqueta {
+    margin: 0 0 10px;
+    color: var(--lime);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+}
+
+.tarjeta-entrevistas h1 {
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.descripcion {
+    margin: 10px 0 30px;
+    color: var(--text-dim);
+    font-size: .95rem;
+}
+
+.opciones-entrevista {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.btn-entrevista {
+    display: flex;
+    min-height: 132px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 22px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--blue);
+    color: #08101f;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.btn-entrevista:hover,
+.btn-entrevista:focus-visible {
+    transform: translateY(-2px);
+    border-color: #4d9fff;
+    background: #4d9fff;
+    outline: none;
+}
+
+.btn-titulo {
+    font-size: .98rem;
+    font-weight: 700;
+}
+
+.btn-descripcion {
+    color: #17365d;
+    font-size: .78rem;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .logo {
+        width: min(100%, 130px);
+        margin-bottom: 20px;
+    }
+
+    .tarjeta-entrevistas {
+        padding: 26px 18px;
+    }
+
+    .opciones-entrevista {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .btn-entrevista {
+        min-height: 108px;
+    }
+}

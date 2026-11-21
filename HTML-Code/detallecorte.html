@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del corte</title>
+    <link rel="stylesheet" href="../CSS-Code/corte.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <a class="brand" href="admin.html">
+            <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+        </a>
+
+        <p class="sidebar-label">Administración</p>
+
+        <nav class="main-nav">
+            <a href="admin.html">Inicio</a>
+            <a href="bajaempl.html">Empleados</a>
+            <a href="proveedores.html">Proveedores</a>
+            <a href="productosAdmin.html">Productos</a>
+            <a href="tablaclientes.html">Clientes</a>
+            <a href="ventasadmin.html">Ventas</a>
+            <a href="rutinaInterview.html">Rutinas</a>
+            <a href="membrdispoadmin.html">Membresías</a>
+            <a href="historialcortes.html" class="active">Corte de caja</a>
+        </nav>
+
+        <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+    </aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina es el DETALLE de un corte de caja (se abre con "Ver detalle" de historialcortes.html)
+        lo dearriba van los datos principales:fecha, responsable y fondo inicial
+        cada <tr> del tbody de Movimientos representa una venta o un pago del dia del corte
+        lo hice para q repitas esa fila por cada movimiento 
+        los datos de cada fila son estos:
+          -hora
+          -tipo ("venta" o "pago")
+          -metodo (clase "efectivo", "transferencia" o "tarjeta" segun metodo_pago de la tabla Venta)
+          -monto
+        al final van los totales (total en efectivo, total por transferencias, total con tarjeta, total del dia, efectivo esperado,
+        efectivo contado y diferencia); Para calcular lo hice asi:
+          total del dia=efectivo + transferencias + tarjeta
+          efectivo esperado =fondo inicial + total en efectivo (la tarjeta y las transferencias no entran ya q no estan en la caja)
+          diferencia  efectivo contado - efectivo esperado (clase "dif-ok" si es 0 y "dif-mal" si no es 0)
+        el boton "Regresar al historial" va a historialcortes.html
+        no encontre tablas en la base de datos de caja y corte
+    -->
+
+    <div class="contenido">
+        <div class="encabezado">
+            <div>
+                <h1>Detalle del corte</h1>
+                <p>Revisa los movimientos y los totales del día.</p>
+            </div>
+            <button class="btn" type="button" onclick="window.print()">Imprimir / Guardar PDF</button>
+        </div>
+
+        <section class="datos">
+            <div class="dato">
+                <span>Fecha</span>
+                <strong id="detalle-fecha">09/11/2026</strong>
+            </div>
+            <div class="dato">
+                <span>Responsable</span>
+                <strong id="detalle-responsable">Ana López</strong>
+            </div>
+            <div class="dato">
+                <span>Fondo inicial</span>
+                <strong id="detalle-fondo">$500.00</strong>
+            </div>
+        </section>
+        <section class="panel">
+            <h2>Movimientos</h2>
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Tipo</th>
+                            <th>Método</th>
+                            <th class="num">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:05</td>
+                            <td><span class="tipo">venta</span></td>
+                            <td><span class="pago efectivo">efectivo</span></td>
+                            <td class="num">$650.00</td>
+                        </tr>
+                        <tr>
+                            <td>12:30</td>
+                            <td><span class="tipo">pago</span></td>
+                            <td><span class="pago transferencia">transferencia</span></td>
+                            <td class="num">$800.00</td>
+                        </tr>
+                        <tr>
+                            <td>16:45</td>
+                            <td><span class="tipo">venta</span></td>
+                            <td><span class="pago tarjeta">tarjeta</span></td>
+                            <td class="num">$300.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <section class="totales">
+            <div class="total-card">
+                <span>Total en efectivo</span>
+                <strong id="detalle-efectivo">$650.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Total por transferencias</span>
+                <strong id="detalle-transferencias">$800.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Total con tarjeta</span>
+                <strong id="detalle-tarjeta">$300.00</strong>
+            </div>
+            <div class="total-card grande">
+                <span>Total del día</span>
+                <strong id="detalle-total">$1,750.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Efectivo esperado</span>
+                <strong id="detalle-esperado">$1,150.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Efectivo contado</span>
+                <strong id="detalle-contado">$1,150.00</strong>
+            </div>
+            <div class="total-card">
+                <span>Diferencia</span>
+                <strong id="detalle-diferencia" class="dif-ok">$0.00</strong>
+            </div>
+        </section>
+
+        <div class="pie-detalle">
+            <a class="btn-sec" href="historialcortes.html">Regresar al historial</a>
+        </div>
+    </div>
+
+    <style>
+        .encabezado .btn {
+            display: inline-block;
+            padding: 11px 14px;
+            border: 0;
+            border-radius: 5px;
+            background: var(--lime);
+            color: #111b0b;
+            cursor: pointer;
+            font: inherit;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        
+        @media print {
+            .sidebar,
+            .encabezado .btn,
+            .pie-detalle {
+                display: none;
+            }
+            body {
+                padding: 0;
+                background: #fff;
+                color: #111;
+            }
+            .panel,
+            .datos,
+            .total-card {
+                border-color: #ccc;
+                background: #fff;
+            }
+        }
+    </style>
+    <script>
+        const fechaSeleccionada = new URLSearchParams(window.location.search).get("fecha");
+        const cortes = JSON.parse(localStorage.getItem("fitness-warriors-cortes") || "[]");
+        const corte = cortes.find((item) => item.fecha === fechaSeleccionada);
+        if (corte) {
+            const dinero = new Intl.NumberFormat("es-MX", {
+                style: "currency",
+                currency: "MXN"
+            });
+            document.getElementById("detalle-fecha").textContent = new Date(`${corte.fecha}T12:00:00`).toLocaleDateString("es-MX");
+            document.getElementById("detalle-responsable").textContent = corte.responsable;
+            document.getElementById("detalle-fondo").textContent = dinero.format(corte.fondoInicial);
+            document.getElementById("detalle-efectivo").textContent = dinero.format(corte.efectivo);
+            document.getElementById("detalle-transferencias").textContent = dinero.format(corte.transferencias);
+            document.getElementById("detalle-tarjeta").textContent = dinero.format(corte.tarjeta);
+            document.getElementById("detalle-total").textContent = dinero.format(corte.total);
+            document.getElementById("detalle-esperado").textContent = dinero.format(corte.fondoInicial + corte.efectivo);
+            document.getElementById("detalle-contado").textContent = dinero.format(corte.contado);
+            const diferencia = document.getElementById("detalle-diferencia");
+            diferencia.textContent = dinero.format(corte.diferencia);
+            diferencia.className = corte.diferencia === 0 ? "dif-ok" : "dif-mal";
+        }
+    </script>
+</body>
+
+</html>

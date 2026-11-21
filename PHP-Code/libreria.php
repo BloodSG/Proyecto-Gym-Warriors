@@ -5,21 +5,26 @@
 function conectaDB()
 {
     //estabelce la conexion con la base de datos utilizando PDO
-    $servidor= "servidor-gymwarriors-angelynn.database.windows.net"; //nombre del servidor, en este caso es localhost porque la base de datos esta en el mismo servidor que el script php
-    $usuario= "admin-gym";// nombre de usuario de la base de datos, para sql server es sa y para mysql es root
-    $database= "Gym_warriors";// sin pierde, nombre de la base de datos
-    $contraseña= "ADMgw101"; //contraseña en caso de que tenga
+    $servidor= 'gym-warriors-mysql.mysql.database.azure.com'; //nombre del servidor, en este caso es localhost porque la base de datos esta en el mismo servidor que el script php
+    $usuario= 'admin_gym';// nombre de usuario de la base de datos, para sql server es sa y para mysql es root
+    $database= 'gym_warriors';// sin pierde, nombre de la base de datos
+    $contraseña= 'ACCESSA101$'; 
 
     try
-    {
-        $conexion=new PDO("sqlsrv:server=$servidor;database=$database; Encrypt=true; TrustServerCertificate=true",$usuario,$contraseña);//el oreden de los parametros es importante
-        $conexion ->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);// esto es para que muestre los errores de la conexion en caso de que haya algunpñ
-
+    {   
+        $dsn = "mysql:host=$servidor;dbname=$database;charset=utf8mb4";
+        $opciones = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::MYSQL_ATTR_SSL_CA => __DIR__ . '/DigiCertGlobalRootG2.crt.pem',
+        ];
+        $conexion = new PDO($dsn, $usuario, $contraseña, $opciones);//el oreden de los parametros es importante
+        $conexion->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         return $conexion;
     }
     catch(Exception $e)
     {   
-        die("Error al conectar a la db". $e->getMessage()); //die es para que se detenga el script y muestre el error
+        die("Error al conectar a la db: " . $e->getMessage());
     }
 }
 
@@ -164,7 +169,42 @@ function enviaCorreoRecuperacion(string $remitente, string $nombre, string $cart
             }
 }
 
+function buscaMembresia(string $usuario, $conexion)
+{
+    try
+    {
+        $query="SELECT id_membresia_cliente,estado
+                FROM membresia_cliente
+                WHERE id_usuario=?";
 
+        $Puente=$conexion->prepare($query);
+        $Puente->execute([$usuario]);
+
+        $membresia= $Puente->fetch(PDO::FETCH_ASSOC);
+        if($membresia)
+        {
+            return [
+                'encontrado' => true,
+                'id_membresia' => $membresia["id_membresia_cliente"],
+                'estado' => $membresia["estado"]];
+        }
+        else
+        {
+            return [
+                'encontrado' => false,
+                'id_membresia' => null,
+                'estado' => null];
+        }
+        
+    }
+    catch (Exception $e)
+    {
+        return [
+                'encontrado' => false,
+                'id_membresia' => null,
+                'estado' => null];
+    }
+}
 function cerrarSession()
 {   
     if (session_status() == PHP_SESSION_ACTIVE)
@@ -191,6 +231,12 @@ function cerrarSession()
 
             header("Location: ../HTML-Code/loginView.html");
             exit();
+    }
+    else
+    {
+        session_destroy();
+        header("Location: ../HTML-Code/loginView.html");
+        exit(); 
     }
     
 

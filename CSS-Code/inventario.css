@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ===== Inventario: Estilo unificado con la paleta general ===== */
+
+:root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --border: #232c40;
+    --lime: #b2dc52;
+    --blue: #4d9fff;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+    --danger: #ff6b6b;
+    --warning: #e8bd57;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.inventario-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1100px;
+    width: 92%;
+    margin: 20px auto;
+    padding: 30px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Encabezado ===== */
+
+.inventario_header {
+    width: 100%;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.inventario_titulo {
+    margin: 0 0 7px;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.inventario_subtitulo {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+/* ===== Tarjetas de resumen ===== */
+
+.inventario_resumen {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.tarjeta_total, .tarjeta_stock_bajo, .tarjeta_agotados {
+    padding: 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--lime);
+    border-radius: 9px;
+}
+
+.tarjeta_stock_bajo {
+    border-top-color: var(--warning);
+}
+
+.tarjeta_agotados {
+    border-top-color: var(--danger);
+}
+
+.tarjeta_total h2, .tarjeta_stock_bajo h2, .tarjeta_agotados h2 {
+    margin: 0 0 8px;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tarjeta_valor_total, .tarjeta_valor_stock_bajo, .tarjeta_valor_agotados {
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--lime);
+}
+
+.tarjeta_valor_stock_bajo {
+    color: var(--warning);
+}
+
+.tarjeta_valor_agotados {
+    color: var(--danger);
+}
+
+/* ===== Paneles de alertas y consulta ===== */
+
+.alertas,
+.consulta {
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.titulo {
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    color: var(--blue);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+}
+
+/* ===== Área de alertas ===== */
+
+.lista_alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ===== Buscador ===== */
+
+.busqueda {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.busqueda label {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.busqueda input {
+    flex: 1;
+    min-width: 180px;
+    max-width: 400px;
+    padding: 10px 12px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    outline: none;
+    font-size: 11px;
+}
+
+.busqueda input::placeholder {
+    color: var(--text-dim);
+}
+
+.busqueda input:focus {
+    border-color: var(--blue);
+    outline: 2px solid var(--blue);
+    outline-offset: 1px;
+}
+
+.btn-buscar {
+    padding: 10px 16px;
+    color: #111b0b;
+    background: var(--lime);
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-buscar:hover {
+    opacity: 0.9;
+}
+
+/* ===== Tabla de inventario ===== */
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-inventario {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+.tabla-inventario th,
+.tabla-inventario td {
+    padding: 13px 10px;
+    border-top: 1px solid var(--border);
+    text-align: left;
+}
+
+.tabla-inventario th {
+    color: var(--blue);
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.tabla-inventario td {
+    color: var(--text-dim);
+}
+
+.tabla-inventario tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* ===== Adaptación a pantallas pequeñas ===== */
+
+@media (max-width: 700px) {
+    body {
+        padding: 10px;
+    }
+
+    .inventario-container {
+        width: 100%;
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .inventario_resumen {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .busqueda {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .busqueda input {
+        max-width: none;
+        width: 100%;
+    }
+
+    .btn-buscar {
+        width: 100%;
+        text-align: center;
+    }
+}

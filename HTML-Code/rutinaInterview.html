@@ -6,6 +6,28 @@
         <link rel="stylesheet" href="../CSS-Code/initialInterview.css">
     </head>
     <body>
+        <div class="app-shell">
+            <aside class="sidebar">
+            <a href="#" class="brand">
+                <img src="../Recursos/Img_sis/logoGym.png" alt="Gym Warriors Logo">
+            </a>
+            <span class="sidebar-label">MENÚ PRINCIPAL</span>
+            <nav class="main-nav">
+                <a href="#" class="active">Entrevistas</a>
+            </nav>
+            <a href="#" class="logout">Cerrar Sesión</a>
+        </aside>
+
+        <!-- Área Principal -->
+        <div class="main-content">
+            <!-- Topbar (Barra superior) -->
+            <header class="topbar">
+                <h1><span></span> Entrevista de Rutina</h1>
+                <div class="profile">
+                    <strong>KG</strong>
+                    <span>Kenya Cornejo</span>
+                </div>
+            </header>
         <div class="formularioEntrada">
             <img src="../Recursos/Img_sis/logoGym.png" alt="logo">
             <h1>Entrevista<br> <span style="font-size: 18px; color: #b2dc52;">Para tu rutina de entrenamiento</span></h1>
@@ -14,12 +36,12 @@
             </div>
             
             <form id="formRutina" action="../PHP-Code/procesarentrevista.php" method="post">
-
+                <div id="mensajeAlerta" class="full-width" style="display: none; width: 100%; box-sizing: border-box; padding: 15px; margin-bottom: 20px; border-radius: 5px; font-weight: bold; text-align: center; font-size: 16px;"></div>
                 <p>1. Datos personales </p>
 
                 <label class="full-width">
-                    Nombre Completo
-                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*" title="Usa solo letras, espacios, apóstrofes o guiones" required>
+                    Nombre completo
+                    <input type="text" name="nombre" id="nombre" maxlength="50" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\.\' \-]*" title="Usa solo letras, espacios y puntos" required>
                 </label>
 
                 <label>
@@ -35,8 +57,8 @@
                 </label>
 
                 <label>
-                    Fecha de Nacimiento
-                    <input type="date" name="fechaNac" id="fechaNac" required>
+                    Fecha de nacimiento
+                    <input type="date" name="fecha" id="fechaNac" required>
                 </label>
 
                 <label>
@@ -104,9 +126,11 @@
                         <input type="checkbox" name="objetivos[]" value="Rehabilitación / Recuperación"> Rehabilitación / Recuperación
                     </label>
                     <label class="opcion-check">
-                        <input type="checkbox" name="objetivos[]" value="Otro"> Otro
-                        <input type="text" name="objetivoOtro" maxlength="30" placeholder="Especifique" disabled>
+                        <!-- ¡CORRECCIÓN AQUÍ! Se agregó id="objetivoOtro" -->
+                        <input type="checkbox" name="objetivos[]" value="Otro" id="otroObjetivoCheck"> Otro
                     </label>
+                   <input type="text" name="objetivoOtro" id="objetivoOtro" maxlength="30" placeholder="Especifique" disabled>
+
                 </div>
 
                 <label class="full-width">
@@ -143,10 +167,10 @@
                     <label class="opcion-radio">
                         <input type="radio" name="nivelExp" value="principiante" required> Principiante
                     </label>
-                    <label class="grupo-opciones">
+                    <label class="opcion-radio">
                         <input type="radio" name="nivelExp" value="intermedio"> Intermedio
                     </label>
-                    <label class="grupo-opciones">
+                    <label class="opcion-radio">
                         <input type="radio" name="nivelExp" value="avanzado"> Avanzado
                     </label>
                 </div>
@@ -190,8 +214,9 @@
                 </label>
                 <label>
                     ¿Cuánto tiempo por sesión?
-                    <input type="number" name="tiempoSesion" id="tiempoSesiom" min="1" max="240" required>
-                    <select id="unidadTiempoSesion">
+                    <!-- ¡CORRECCIÓN AQUÍ! Se cambió tiempoSesiom por tiempoSesion -->
+                    <input type="number" name="tiempoSesion" id="tiempoSesion" min="1" max="240" required>
+                    <select id="unidadTiempoSesion" name="unidadTiempoSesion" required>
                         <option value="minutos">Minutos</option>
                         <option value="horas">Hora(s)</option>
                     </select>
@@ -214,7 +239,7 @@
                     ¿Realizas otro deporte?
                 <div class="grupo-opciones">
                     <label class="opcion-radio">
-                        <input type="radio" name="deporte" value="si">Si
+                            <input type="radio" name="deporte" value="si" required>Si
                     </label>
                     <label class="opcion-radio">
                         <input type="radio" name="deporte" value="no">No
@@ -225,19 +250,20 @@
 
                 <label >
                     ¿Cuál?
-                    <input type="text" name="nombreDeporte" id="nombreDeporte" list="listadeportes" placeholder="Elige o escribe un deporte" disabled>
-                    <datalist id="listaDeportes">
-                        <option value="Fútbol">
-                        <option value="Básquetbol">
-                        <option value="Voleibol">
-                        <option value="Natación">
-                        <option value="Ciclismo">
-                        <option value="Atletismo">
-                        <option value="Boxeo">
-                        <option value="Artes marciales">
-                        <option value="Tenis">
-                        <option value="Danza">
-                    </datalist>
+                    <select name="nombreDeporte" id="nombreDeporte" disabled>
+                        <option value="" selected>Selecciona un deporte</option>
+                        <option value="Fútbol">Fútbol</option>
+                        <option value="Básquetbol">Básquetbol</option>
+                        <option value="Voleibol">Voleibol</option>
+                        <option value="Tenis">Tenis</option>
+                        <option value="Natación">Natación</option>
+                        <option value="Ciclismo">Ciclismo</option>
+                        <option value="Atletismo">Atletismo</option>
+                        <option value="Boxeo">Boxeo</option>
+                        <option value="Artes marciales">Artes marciales</option>
+                        <option value="Danza">Danza</option>
+                        <option value="Otro">Otro</option>
+                    </select>
                 </label>
                 
                 <p>5. Antecedentes de salud</p>
@@ -342,9 +368,10 @@
                             <input type="checkbox" name="lugar[]" value="aire libre">Aire libre 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="lugar[]" value="otro">Otro
-                            <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique" disabled>
+                            <input type="checkbox" name="lugar[]" value="otro" id="otroLugarCheck">Otro
                         </label>
+                        <input type="text" name="lugarOtro" id="lugarOtro" placeholder="Especifique" disabled>
+
                     </div>
                 </label>
                 <label>
@@ -366,18 +393,20 @@
                             <input type="checkbox" name="equipo[]" value="Kettlebells">Kettlebells 
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo[]" value="Ninguno">Ninguno
+                            <input type="checkbox" name="equipo[]" value="Ninguno" id="equipoNinguno">Ninguno
                         </label>
                         <label class="opcion-check">
-                            <input type="checkbox" name="equipo[]" value="Otro">Otro
-                            <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique" disabled>
+                            <input type="checkbox" name="equipo[]" value="Otro" id="otroEquipoCheck">Otro
+                            
                         </label>
+                        <input type="text" name="equipoOtro" id="equipoOtro" maxlength="30" placeholder="Especifique" disabled>
 
                     
                     </div>
                 </label>
 
                 <p>8. Preferencias de entrenamiento</p>
+                
                 <label>
                     ¿Qué tipo de entrenamiento disfrutas más?
                     <div class="grupo-opciones">
@@ -396,15 +425,16 @@
                         <label class="opcion-check">
                             <input type="checkbox" name="preferencias[]" value="movilidad">Movilidad / Estabilidad
                         </label>
-                        <label class="opcion-check">
-                            <input type="checkbox" name="preferencias[]" value="otro">
-                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" disabled>
+                        <label class="opcion-check" style="min-width: 120px; max-width: 140px;">
+                            <input type="checkbox" name="preferencias[]" value="otro" id="otraPreferenciaCheck"> Otro
+                            <input type="text" name="preferenciasOtro" id="preferenciasOtro" maxlength="15" placeholder="Especifique" disabled style="width: 100%; margin-top: 8px; box-sizing: border-box; font-size: 12px; padding: 4px;">
                         </label>
                     </div> 
                 </label>
+                
                 <label>
                     <label>
-                        ¿Hay ejercicios que te gusten o disfrutes nucho?
+                        ¿Hay ejercicios que te gusten o disfrutes mucho?
                         <input type="text" name="disfruta" id="disfruta" maxlength="500" placeholder="Separa los ejercicios con comas">
                     </label>
                     <br>
@@ -451,7 +481,7 @@
                         <label class="opcion-radio">
                             <input type="radio" name="dieta" value="si" required>Si
                         </label>
-                        <label class="grupo-opciones">
+                        <label class="opcion-radio">
                             <input type="radio" name="dieta" value="no">No
                         </label>
                     </div>
@@ -787,21 +817,194 @@
                     
                 <p>Compromiso</p>
                 <div class="full-width caja-consentimiento">
-                    <label class="opcion-check consentimiento-label">
-                        <input type="checkbox" name="compromiso" value="si" required>
+                    <input type="checkbox" name="compromiso" value="si" required>
+
+                    <label class=" consentimiento-label">
                         <span>Me comprometo a seguir mi rutina con disciplina, constancia y responsabilidad para alcanzar mis objetivos.</span>
                     </label>
                 </div>
 
                 <div class="full-width caja-consentimiento">
-                    <label class="opcion-check consentimiento-label">
-                        <input type="checkbox" name="acepto_reglamento" value="si" required>
+                    <input type="checkbox" name="acepto_reglamento" value="si" required>
+                    <label class="consentimiento-label">
                         <span>Acepto el reglamento del gimnasio.</span>
                     </label>
                 </div>
 
                 <button type="submit" class="btn-enviar">Enviar formulario</button>
             </form>
+        </div>
+        
+        <script>
+            function vincularRespuesta(nombreRadio, idCampo) {
+                const campo = document.getElementById(idCampo);
+                if (!campo) return;
+                const actualizar = () => {
+                    const seleccion = document.querySelector(`input[name="${nombreRadio}"]:checked`);
+                    campo.disabled = !seleccion || seleccion.value !== "si";
+                    campo.required = !campo.disabled;
+                    if (campo.disabled) campo.value = "";
+                };
+                document.querySelectorAll(`input[name="${nombreRadio}"]`).forEach((opcion) => opcion.addEventListener("change", actualizar));
+                actualizar();
+            }
+
+            function vincularGrupoRespuesta(nombreRadio, idsCampos) {
+                const campos = idsCampos.map((id) => document.getElementById(id)).filter(c => c !== null);
+                const actualizar = () => {
+                    const seleccion = document.querySelector(`input[name="${nombreRadio}"]:checked`);
+                    const habilitado = Boolean(seleccion && seleccion.value === "si");
+                    campos.forEach((campo) => {
+                        campo.disabled = !habilitado;
+                        campo.required = habilitado;
+                        if (!habilitado) campo.value = "";
+                    });
+                };
+                document.querySelectorAll(`input[name="${nombreRadio}"]`).forEach((opcion) => opcion.addEventListener("change", actualizar));
+                actualizar();
+            }
+
+            function vincularCasilla(idCasilla, idCampo) {
+                const casilla = document.getElementById(idCasilla);
+                const campo = document.getElementById(idCampo);
+                if (!casilla || !campo) return;
+                const actualizar = () => {
+                    campo.disabled = !casilla.checked;
+                    campo.required = casilla.checked;
+                    if (campo.disabled) campo.value = "";
+                };
+                casilla.addEventListener("change", actualizar);
+                actualizar();
+            }
+
+            
+            vincularRespuesta("deporte", "nombreDeporte");
+            vincularRespuesta("condicionMedica", "condicionMedicaEspecifica");
+            vincularRespuesta("lesion", "lesionEspecifica");
+            vincularRespuesta("limitacionEjercicios", "limitacionEjerciciosTxt");
+            vincularRespuesta("dieta", "dietatxt");
+            vincularCasilla("otroObjetivoCheck", "objetivoOtro");
+            vincularCasilla("otroLugarCheck", "lugarOtro");
+            vincularCasilla("otroEquipoCheck", "equipoOtro");
+            vincularCasilla("otraPreferenciaCheck", "preferenciasOtro");
+            
+            // Grupo de Actividad Física (incluyendo tipo de entrenamiento)
+            vincularGrupoRespuesta("actividadActual", ["dias", "tiempoSesion", "unidadTiempoSesion", "tipoEntrenamiento"]);
+
+           
+            const radiosExperiencia = document.querySelectorAll('input[name="experiencia"]');
+            function actualizarExperiencia() {
+                const seleccion = document.querySelector('input[name="experiencia"]:checked');
+                const tieneExp = seleccion && seleccion.value === 'si';
+                
+                // Campos de tiempo
+                const campoTiempo = document.getElementById('tiempoEntrenando');
+                const campoUnidad = document.getElementById('unidadTiempo');
+                
+                if (campoTiempo) {
+                    campoTiempo.disabled = !tieneExp;
+                    campoTiempo.required = tieneExp;
+                    if (!tieneExp) campoTiempo.value = '';
+                }
+                if (campoUnidad) {
+                    campoUnidad.disabled = !tieneExp;
+                    if (!tieneExp) campoUnidad.value = 'días'; // Regresa a días por defecto
+                }
+                
+                // Grupos de Radio Buttons (Nivel y Entrenador)
+                document.querySelectorAll('input[name="nivelExp"]').forEach(radio => {
+                    radio.disabled = !tieneExp;
+                    radio.required = tieneExp;
+                    if (!tieneExp) radio.checked = false;
+                });
+                
+                document.querySelectorAll('input[name="expEntrenador"]').forEach(radio => {
+                    radio.disabled = !tieneExp;
+                    radio.required = tieneExp;
+                    if (!tieneExp) radio.checked = false;
+                });
+            }
+            radiosExperiencia.forEach(radio => radio.addEventListener('change', actualizarExperiencia));
+            actualizarExperiencia(); // Se ejecuta al cargar la página
+
+            
+            const equipoNinguno = document.getElementById('equipoNinguno');
+            if (equipoNinguno) {
+                const equipoChecks = document.querySelectorAll('input[name="equipo[]"]:not(#equipoNinguno)');
+                
+                equipoNinguno.addEventListener('change', function() {
+                    if(this.checked) {
+                        equipoChecks.forEach(check => { check.checked = false; check.disabled = true; });
+                        const equipoOtro = document.getElementById('equipoOtro');
+                        if (equipoOtro) { equipoOtro.value = ""; equipoOtro.disabled = true; }
+                    } else {
+                        equipoChecks.forEach(check => check.disabled = false);
+                    }
+                });
+            }
+
+
+            const formRutina = document.getElementById('formRutina');
+            const mensajeAlerta = document.getElementById('mensajeAlerta');
+
+            if (formRutina) {
+                formRutina.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    
+                    const btnSubmit = formRutina.querySelector('.btn-enviar');
+                    const textoOriginal = btnSubmit.innerHTML;
+                    btnSubmit.innerHTML = 'Procesando...';
+                    btnSubmit.disabled = true;
+
+                    const formData = new FormData(formRutina);
+
+                    //Si no tiene experiencia, mandamos datos por defecto para que PHP no marque error de validación
+                    if (formData.get('experiencia') === 'no') {
+                        formData.set('tiempoEntrenando', '0');
+                        formData.set('unidadTiempo', 'días');
+                        formData.set('nivelExp', 'principiante');
+                        formData.set('expEntrenador', 'no');
+                    }
+
+                    fetch(formRutina.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        mensajeAlerta.style.display = 'block';
+                        if (data.status === 'success') {
+                            mensajeAlerta.style.backgroundColor = '#d4edda';
+                            mensajeAlerta.style.color = '#155724';
+                            mensajeAlerta.style.border = '1px solid #c3e6cb';
+                            mensajeAlerta.innerHTML = data.message;
+                            formRutina.reset(); 
+                            // Forzamos actualización de todo el formulario para que se vuelvan a ocultar los campos
+                            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.dispatchEvent(new Event('change')));
+                        } else {
+                            mensajeAlerta.style.backgroundColor = '#f8d7da';
+                            mensajeAlerta.style.color = '#721c24';
+                            mensajeAlerta.style.border = '1px solid #f5c6cb';
+                            mensajeAlerta.innerHTML = data.message;
+                        }
+                        mensajeAlerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    })
+                    .catch(error => {
+                        mensajeAlerta.style.display = 'block';
+                        mensajeAlerta.style.backgroundColor = '#f8d7da';
+                        mensajeAlerta.style.color = '#721c24';
+                        mensajeAlerta.style.border = '1px solid #f5c6cb';
+                        mensajeAlerta.innerHTML = 'Ocurrió un error de conexión con el servidor.';
+                        mensajeAlerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    })
+                    .finally(() => {
+                        btnSubmit.innerHTML = textoOriginal;
+                        btnSubmit.disabled = false;
+                    });
+                });
+            }
+        </script>
         </div>
     </body>
 
