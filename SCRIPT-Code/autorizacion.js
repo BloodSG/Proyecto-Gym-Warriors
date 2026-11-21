@@ -5,7 +5,6 @@ export async function verificaSesion()
     const consultaAcceso="../PHP-Code/session.php"; 
     const respuesta= await fetch(consultaAcceso);
     const datos = await respuesta.json();
-
     if(!datos.logueado)
     {
         window.location.replace(datos.redirect);

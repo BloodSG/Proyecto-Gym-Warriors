@@ -18,8 +18,43 @@ body {
     color: var(--text);
     font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0 32px 45px 237px;
 }
+
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+    padding: 18px 15px;
+    background: linear-gradient(180deg, #10151f, var(--bg));
+    border-right: 1px solid var(--border);
+}
+.brand { display: block; padding: 0 10px 14px; }
+.brand img { display: block; width: 145px; max-width: 100%; margin: auto; }
+.sidebar-label { margin: 7px 27px 22px; color: var(--text-dim); font-size: 11px; }
+.main-nav { display: grid; gap: 3px; }
+.main-nav a,
+.logout {
+    display: flex;
+    align-items: center;
+    padding: 9px 10px;
+    border-left: 3px solid transparent;
+    border-radius: 5px;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+}
+.main-nav a:hover,
+.main-nav .active {
+    border-left-color: var(--lime);
+    background: var(--card);
+    color: var(--text);
+}
+.logout { margin-top: auto; }
+.main-content { width: 100%; }
 
 .membresias_admin_container {
     max-width: 1200px;
@@ -47,35 +82,6 @@ body {
     margin: 0;
 }
 
-.membresias_admin_resumen {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-}
-
-.membresias_admin_resumen article {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.membresias_admin_resumen h2 {
-    font-size: 12px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-}
-
-.membresias_admin_resumen p {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0;
-}
-
 .consulta {
     background: var(--card);
     border: 1px solid var(--border);
@@ -88,7 +94,7 @@ body {
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .buscador label {
@@ -109,12 +115,14 @@ body {
 }
 
 .buscador input[type="search"]:focus {
-    border-color: var(--blue);
+    border-color: var(--lime);
     outline: none;
 }
 
-.boton_buscar, .btn_registrar_membresia {
-    background: var(--blue);
+.boton_buscar {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--lime);
     color: #0b0f19;
     border: none;
     border-radius: 6px;
@@ -122,15 +130,11 @@ body {
     font-weight: 700;
     font-size: 12px;
     cursor: pointer;
+    text-decoration: none;
     transition: opacity 0.2s;
 }
 
-.btn_registrar_membresia {
-    background: var(--lime);
-    margin-bottom: 15px;
-}
-
-.boton_buscar:hover, .btn_registrar_membresia:hover {
+.boton_buscar:hover {
     opacity: 0.9;
 }
 
@@ -164,11 +168,10 @@ body {
     background: var(--card-hover);
 }
 
-.tabla_membresias td:last-child,
 .acciones_celda {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     white-space: nowrap;
 }
 
@@ -181,10 +184,6 @@ body {
     max-width: 500px;
     width: 90%;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
-}
-
-.modal_ancho {
-    max-width: 750px;
 }
 
 .modal_dialog::backdrop {
@@ -285,69 +284,55 @@ body {
     border: none;
 }
 
-.modal_acciones button[type="submit"],
-.modal_acciones button.btn_guardar {
+.modal_acciones button[type="submit"] {
     background: var(--lime);
     color: #0b0f19;
     border: none;
 }
 
-.detalle_cliente_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.perfil_resumen span, .card_info {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px;
-    margin-top: 10px;
-}
-
-.card_info h4, .columna_historial h4 {
-    margin: 0 0 10px 0;
-    font-size: 13px;
-    color: var(--blue);
-}
-
-.tabla_historial {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11px;
-}
-
-.tabla_historial th, .tabla_historial td {
-    padding: 8px;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-}
-
 @media (max-width: 768px) {
-    .fila_form, .detalle_cliente_grid {
+    body { padding: 0 14px 30px 81px; }
+    .sidebar { width: 67px; padding: 12px 8px; }
+    .brand { padding: 4px 0 16px; }
+    .brand img { width: 50px; }
+    .sidebar-label,
+    .main-nav a:not(.active),
+    .logout { font-size: 0; }
+    .main-nav a,
+    .logout { justify-content: center; padding: 11px 4px; }
+    .fila_form {
         grid-template-columns: 1fr;
     }
 }
 
 .btn_accion {
-    background: transparent;
+    background: var(--blue);
     border: 1px solid var(--border);
     border-radius: 6px;
-    color: var(--text-dim);
-    padding: 4px 8px;
+    color: #0b0f19;
+    padding: 6px 12px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
     transition: all 0.2s ease;
 }
 
 .btn_accion:hover {
-    background: var(--card-hover);
-    color: var(--text);
+    border-color: var(--lime);
+    background: rgba(56, 248, 78, 0.15);
+    color: var(--lime);
 }
 
 .btn_cancelar:hover {
     border-color: var(--danger);
     background: rgba(239, 68, 68, 0.15);
     color: var(--danger);
+}
+
+details::-webkit-details-marker,
+summary::-webkit-details-marker {
+    display: none;
+}
+
+ul {
+    list-style: none;
 }

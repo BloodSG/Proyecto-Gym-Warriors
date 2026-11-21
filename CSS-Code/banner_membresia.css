@@ -1,0 +1,74 @@
+:root {
+    --warning: #f59e0b;
+    --danger: #ff6b6b;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+}
+
+.banner_membresia {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 9px;
+    gap: 16px;
+    border: 1px solid transparent;
+}
+
+.banner_icono {
+    display: grid;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.banner_membresia h4 {
+    margin: 0 0 3px 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.banner_membresia p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+.banner_advertencia {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.banner_advertencia .banner_icono {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+}
+
+.banner_advertencia h4 {
+    color: var(--warning);
+}
+
+.banner_peligro {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: rgba(255, 107, 107, 0.3);
+}
+
+.banner_peligro .banner_icono {
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--danger);
+}
+
+.banner_peligro h4 {
+    color: var(--danger);
+}
+
+@media (max-width: 520px) {
+    .banner_membresia {
+        padding: 14px;
+        gap: 12px;
+    }
+}

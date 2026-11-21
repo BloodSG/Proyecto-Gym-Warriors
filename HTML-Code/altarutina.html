@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar rutina | Fitness Warriors</title>
+    <link rel="icon" type="image/svg+xml" href="../Recursos/Img_sis/LogoWarriors.svg">
+    <link rel="stylesheet" href="../CSS-Code/admin.css">
+    <link rel="stylesheet" href="../CSS-Code/altarutina.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="admin.html#proveedores">Proveedores</a>
+                <a href="admin.html#productos">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="admin.html#ventas">Ventas</a>
+                <a class="active" href="altarutina.html" aria-current="page">Rutinas</a>
+                <a href="altamembresia.html">Membresías</a>
+                <a href="admin.html#corte-caja">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Rutinas</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">GESTIÓN DE CLIENTES</p>
+                    <h2>Asignar rutina</h2>
+                    <p>Busca un cliente, define la vigencia y arma su rutina de entrenamiento.</p>
+                </section>
+                
+                <form class="routine-form" id="routine-form" action="../PHP-Code/asignarRutina.php" method="POST">
+                    <section class="card form-section" aria-labelledby="assignment-title">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="assignment-title">Datos de la asignación</h2>
+                                <p>Selecciona el cliente y el periodo de la rutina.</p>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+
+                            <label for="client">Cliente
+                                <select id="client" name="cliente" required>
+                                </select>
+                            </label>
+                            <label for="start-date">Fecha de inicio
+                                <input id="start-date" name="fecha_creacion" type="date" required>
+                            </label>
+                            <label for="end-date">Fecha de término
+                                <input id="end-date" name="fecha_fin" type="date" required>
+                            </label>
+                            <label for="coach">Coach responsable
+                                <select id="coach" name="coach" required>
+                                
+                                </select>
+                            </label>
+                            <label class="full-field" for="routine-name">Nombre de la rutina
+                                <select id="routine-name" name="nombre" 
+                                    placeholder="Ej. Tren superior
+                                    " required>
+                                </select>
+                            </label>
+                            <label class="full-field" for="notes">Observaciones o notas
+                                <textarea id="notes" name="observaciones" rows="3" maxlength="250"
+                                    placeholder="Agrega una nota si es necesario"></textarea>
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button class="form-button" type="submit">Guardar asignación</button>
+                            <a class="secondary-button" href="nueva_rutina.html">Armar rutina</a>
+                            <a class="secondary-button" href="editar_rutina.html">Ver rutinas</a>
+                        </div>
+                        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+                    </section>
+                </form>
+
+                <section class="card routine-list" aria-labelledby="list-title">
+                    <div class="section-heading">
+                        <div>
+                            <h2 id="list-title">Rutinas asignadas</h2>
+                            <p>Modifica la vigencia o elimina una asignación existente.</p>
+                        </div>
+                        <label class="list-search" for="routine-search">
+                            <span aria-hidden="true">⌕</span>
+                            <input id="routine-search" type="search" placeholder="Buscar rutina">
+                        </label>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Rutina</th>
+                                    <th scope="col">Coach</th>
+                                    <th scope="col">Inicio</th>
+                                    <th scope="col">Término</th>
+                                    <th scope="col">Observaciones</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Acciones</th>
+                                    <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="routine-table"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <dialog id="edit-dialog" aria-labelledby="dialog-title">
+        <form id="edit-form" method="dialog">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">ASIGNACIÓN DE RUTINA</p>
+                    <h2 id="dialog-title">Modificar rutina</h2>
+                </div>
+                <button class="close-button" type="button" id="close-dialog" aria-label="Cerrar">×</button>
+            </div>
+            <input id="edit-id" type="hidden">
+            <div class="edit-grid">
+                <label for="edit-client">Cliente
+                    <input id="edit-client" type="text" readonly>
+                </label>
+                <label for="edit-name">Nombre de la rutina
+                    <input id="edit-name" type="text" maxlength="80" required>
+                </label>
+                <label for="edit-coach">Coach responsable
+                    <select id="edit-coach" required>
+                        <option value="">Selecciona un coach</option>
+                    </select>
+                </label>
+                <label for="edit-start">Fecha de inicio
+                    <input id="edit-start" type="date" required>
+                </label>
+                <label for="edit-end">Fecha de término
+                    <input id="edit-end" type="date" required>
+                </label>
+                <label class="full-field" for="edit-notes">Observaciones o notas
+                    <textarea id="edit-notes" rows="3" maxlength="250"></textarea>
+                </label>
+            </div>
+            <div class="dialog-actions">
+                <button class="secondary-button" type="button" id="cancel-edit">Cancelar</button>
+                <button class="form-button" type="submit">Guardar cambios</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="../SCRIPT-Code/cargarClientesRutinaAsignada.js"></script>
+    <script src="../SCRIPT-Code/rutinaasignada_cliente.js"></script>
+</body>
+
+</html>

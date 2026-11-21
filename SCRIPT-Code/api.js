@@ -1,4 +1,7 @@
 const consulta="../PHP-Code/Productos.php";
+const consultaMem="../PHP-Code/cargaMembresias.php";
+const consultaClientes = "../PHP-Code/obtener_clientes.php";
+const consultaRutina="../PHP-Code/rutinaSemanalCliente.php";
 
 
 
@@ -138,6 +141,65 @@ export async function cargaProveedores()
     return proveedores.json();
 }
 
+export async function cargaListaMembresias() 
+{   
+    
+    const url=`${consultaMem}?action=cargar&comando=membresias`;
+    const membresias=await fetch(url);
+    if (!membresias.ok) {
+        throw new Error(`Error HTTP al cargar las membresias ... ${membresias.status}`);
+        
+    }
+    return membresias.json();
+}
+
+
+export async function cargaListaClientes() {
+    const url = `${consultaClientes}`;
+    const respuesta = await fetch(url);
+    if (!respuesta.ok) {
+        throw new Error(`Error HTTP al cargar los clientes: ${respuesta.status}`);
+    }
+    return respuesta.json();
+}
+
+export async function cargaRutinaDia(dia) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=semana&dia=${encodeURIComponent(dia)}`;
+    const rutina_nombre=await fetch(url);
+    // Verifica si la sesion del usuario no esta iniciada
+    if (rutina_nombre.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función despues de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
+    if (!rutina_nombre.ok) 
+    {
+        throw new Error(`Error HTTP al cargar la rutina del dia ... ${dia}`);
+    }
+    return rutina_nombre.json();
+}
+
+export async function cargaListaEjercicios(id_rutina) 
+{   
+    const url=`${consultaRutina}?action=cargar&comando=lista&id=${encodeURIComponent(id_rutina)}`;
+    const lista=await fetch(url);
+    //Verifica si la sesión del usuario no esta iniciada
+    if (lista.status === 401) {
+        //Muestra un aviso y regresa al inicio de sesion
+        alert("Debes iniciar sesión para consultar tu rutina.");
+        window.location.href = "../HTML-Code/loginView.html";
+        //Detiene la función después de redirigir
+        return { status: "error", mensaje: "Sesión no iniciada." };
+    }
+    if (!lista.ok) {
+        throw new Error(`Error HTTP al cargar la lista de ejercicios de la rutina con el id ... ${id_rutina}`);
+        
+    }
+    return lista.json();
+}
 
 
 

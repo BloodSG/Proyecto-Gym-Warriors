@@ -219,7 +219,7 @@ if (isset($_GET['action']))
 
                 if ($imgData && !empty($imgData['url'])) 
                 {
-                    $rutaFisica="../" . $imgData['url']; 
+                    $rutaFisica=__DIR__ ."/../" . $imgData['url']; 
                     if (file_exists($rutaFisica)) 
                     {
                         unlink($rutaFisica); 
@@ -310,7 +310,6 @@ if (isset($_GET['action']))
                 }
 
                 $carpetaDeServidor="Recursos/img_prods/";
-
                 $conexion->beginTransaction();
 
                 $query1="SELECT id_categoria
@@ -351,7 +350,7 @@ if (isset($_GET['action']))
                     
                     $nombreSeguroUnico=uniqid('prod_', true) . "." . $extensionArchivo; //le ponemos un nombre que no se pueda repetir
                     
-                    $rutaFinalGuardado="../". $carpetaDeServidor . $nombreSeguroUnico;
+                    $rutaFinalGuardado= __DIR__ ."/../". $carpetaDeServidor . $nombreSeguroUnico;
                     
                     if (move_uploaded_file($ubicacionTemporal, $rutaFinalGuardado)) 
                     {   
@@ -384,7 +383,7 @@ if (isset($_GET['action']))
 
                 echo json_encode([ 
                 "status" => "success",
-                "mensaje" => "Producto: ". $producto ." modificado correctamente",
+                "mensaje" => "Producto: ". $producto ." modificado correctamente ",
                 ], JSON_UNESCAPED_UNICODE);
             }
             catch (Exception $e) 

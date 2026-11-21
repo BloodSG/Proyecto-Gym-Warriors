@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Catálogo</title>
+    <title>Panel de administración - Catálogo</title>
     <link rel="stylesheet" href="../CSS-Code/productos.css">
 </head>
 <body>
@@ -18,12 +18,12 @@
                 
                 <a href="#" class="active">Catálogo / Inventario</a>
             </nav>
-            <a href="#" class="logout">Cerrar Sesión</a>
+            <a href="#" class="logout">Cerrar sesión</a>
         </aside>
 
         <div class="main-content">
             <header class="topbar">
-                <h1><span></span> Panel de Administración</h1>
+                <h1><span></span> Panel de administración</h1>
                 <div class="profile">
                     <strong></strong>
                     <span></span>
@@ -35,15 +35,15 @@
                     
                     <div class="page-heading">
                         <span class="eyebrow">INVENTARIO Y PRODUCTOS</span>
-                        <h1>Gestión de Catálogo</h1>
+                        <h1>Gestión de catálogo</h1>
                         <p>Agrega, modifica o supervisa los productos y existencias actuales.</p>
                     </div>
 
                     <form action="../PHP-Code/AgregarProducto.php" class="form-admin card" id="formulario-producto" method="post" enctype="multipart/form-data" style="margin-bottom: 30px;">
-                        <p class="form-section-title" style="color: var(--lime); font-family: 'Barlow Condensed', sans-serif; font-size: 20px; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 8px;">1. Registrar Nuevo Producto</p>
+                        <p class="form-section-title" style="color: var(--lime); font-family: 'Barlow Condensed', sans-serif; font-size: 20px; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 8px;">1. Registrar nuevo producto</p>
 
                         <label>
-                            Nombre del Producto:
+                            Nombre del producto:
                             <input type="text" required placeholder="Ej. Proteína" id="nombre" name="nombre">
                         </label>
 
@@ -72,12 +72,12 @@
                         </label>
 
                         <label>
-                            Precio de Venta ($):
+                            Precio de venta ($):
                             <input type="number" step="1.00" required placeholder="0.00" name="precio_venta">
                         </label>
 
                         <label class="full-width">
-                            Stock Inicial:
+                            Stock inicial:
                             <input type="number" min="0" required placeholder="Cantidad" name="stock">
                         </label>
 
@@ -104,7 +104,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
-                                        <th>P. Venta</th>
+                                        <th>P. venta</th>
                                         <th>Stock</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
@@ -160,7 +160,7 @@
                     </label>
 
                     <label>
-                        Precio de Venta ($):
+                        Precio de venta ($):
                         <input type="number" class="input-edit-precio" step="0.01" required>
                     </label>
 
