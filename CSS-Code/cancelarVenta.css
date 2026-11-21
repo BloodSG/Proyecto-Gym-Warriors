@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --border: #232c40;
+    --lime: #b2dc52;
+    --blue: #4d9fff;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+    --danger: #ff6b6b;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+button { border: 0; border-radius: 5px; cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.app-shell { display: flex; min-height: 100vh; }
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+    padding: 18px 15px;
+    background: linear-gradient(180deg, var(--bg-elevated), var(--bg));
+    border-right: 1px solid var(--border);
+}
+.brand { display: block; padding: 0 10px 14px; }
+.brand img { display: block; width: 145px; max-width: 100%; margin: auto; }
+.sidebar-label { margin: 7px 27px 22px; color: var(--text-dim); font-size: 11px; }
+.main-nav { display: grid; gap: 3px; overflow-y: auto; }
+.main-nav a, .logout {
+    display: flex;
+    align-items: center;
+    padding: 9px 10px;
+    border-left: 3px solid transparent;
+    border-radius: 5px;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+}
+.main-nav a:hover, .main-nav .active {
+    border-left-color: var(--lime);
+    background: var(--card);
+    color: var(--text);
+}
+.logout { margin-top: auto; }
+
+.main-content { width: calc(100% - 205px); margin-left: 205px; }
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 57px;
+    padding: 0 28px 0 23px;
+    border-bottom: 1px solid var(--border);
+}
+.topbar h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+}
+.topbar h1 span { width: 3px; height: 27px; background: var(--lime); }
+.profile { display: flex; align-items: center; gap: 9px; color: var(--text-dim); font-size: 11px; }
+.profile strong {
+    display: grid;
+    width: 27px;
+    height: 27px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lime);
+    color: #1c3210;
+    font-size: 10px;
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS PARA GESTIÓN DE VENTAS
+   ========================================= */
+
+.ventas-container {
+    width: min(calc(100% - 56px), 1150px);
+    margin: 30px auto 45px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--card);
+}
+
+.ventas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.ventas-header h2 {
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 23px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-ventas {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+.tabla-ventas th, 
+.tabla-ventas td {
+    padding: 13px 10px;
+    border-top: 1px solid var(--border);
+    text-align: left;
+}
+
+.tabla-ventas th {
+    color: var(--blue);
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tabla-ventas td {
+    color: var(--text-dim);
+}
+
+/* Insignias de estado (Badges) */
+.badge.completada {
+    background: rgba(178, 220, 82, .13);
+    color: var(--lime);
+}
+
+.badge.cancelada {
+    background: rgba(255, 107, 107, .13);
+    color: var(--danger);
+}
+
+/* Botones de acción en tabla */
+.btn-cancelar-venta {
+    padding: 6px 10px;
+    border: 1px solid var(--danger);
+    background: transparent;
+    color: var(--danger);
+    font-size: 9px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-cancelar-venta:hover {
+    background: var(--danger);
+    color: var(--bg);
+}
+
+.texto-auxiliar {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 9px;
+}
+
+/* Estilos para el Modal Nativo con Popover */
+.modal-popover {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: min(92vw, 480px);
+    width: 100%;
+}
+
+/* Backdrop nativo para elementos popover */
+.modal-popover::backdrop {
+    background: rgba(3, 6, 12, .76);
+}
+
+.modal-content {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--card);
+    color: var(--text);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h3 {
+    margin: 0 0 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    color: var(--danger);
+}
+
+.modal-content p {
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.form-group {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.form-group textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    outline: 0;
+    background: var(--bg-elevated);
+    color: var(--text);
+    font-size: 11px;
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+#btnCerrarModal {
+    padding: 10px 14px;
+    background: var(--border);
+    color: var(--text);
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#btnConfirmarCancelacion {
+    padding: 10px 14px;
+    background: var(--danger);
+    color: var(--text);
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#btnCerrarModal:hover, 
+#btnConfirmarCancelacion:hover {
+    filter: brightness(1.1);
+}
+
+@media (max-width: 760px) {
+    .sidebar { width: 67px; padding: 12px 8px; }
+    .brand { padding: 4px 0 16px; }
+    .brand img { width: 50px; }
+    .sidebar-label { display: none; }
+    .main-nav a:not(.active), .main-nav .active, .logout {
+        justify-content: center;
+        padding: 11px 4px;
+        font-size: 0;
+    }
+    .main-content { width: calc(100% - 67px); margin-left: 67px; }
+    .topbar { padding: 0 15px; }
+    .ventas-container { width: min(calc(100% - 24px), 620px); }
+}
+
+@media (max-width: 560px) {
+    .profile span, .profile b { display: none; }
+    .ventas-container { width: calc(100% - 20px); margin-top: 18px; }
+}

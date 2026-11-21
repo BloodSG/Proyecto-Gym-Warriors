@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignar membresía | Fitness Warriors</title>
-    <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="altamembresia.css">
+    <link rel="stylesheet" href="../CSS-Code/admin.css">
+    <link rel="stylesheet" href="../CSS-Code/altamembresia.css">
 </head>
 
 <body>
     <div class="app-shell">
         <aside class="sidebar">
             <a class="brand" href="admin.html">
-                <img src="LogoWarriors.svg" alt="Fitness Warriors">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
             </a>
             <p class="sidebar-label">Administración</p>
             <nav class="main-nav" aria-label="Navegación administrativa">
@@ -28,7 +28,7 @@
                 <a href="membresias_admin.html">Membresías</a>
                 <a href="#cortedecaja">Corte de caja</a>
             </nav>
-            <a class="logout" href="loginmaqueta%20(1).html">Cerrar sesión</a>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
         </aside>
 
         <main class="main-content">
@@ -42,9 +42,12 @@
                     <p class="eyebrow">GESTIÓN DE CLIENTES</p>
                     <h2>Asignar membresía</h2>
                 </section>
+                <!-- aqui es la lista desplegable de los clientes a los que se le asignara la membresia mediante la base de datos -->
+                <form class="membership-form" action="../PHP-Code/asignar_membresia.php" method="POST">
+                    <input type="hidden" name="id_membresia" id="id_membresia">
+                <!-- // -->
 
-                <form class="membership-form">
-                    <section class="card form-section" aria-labelledby="client-heading">
+                <section class="card form-section" aria-labelledby="client-heading">
                         <div class="section-heading">
                             <div>
                                 <h2 id="client-heading">Cliente</h2>
@@ -54,9 +57,9 @@
                         <div class="form-grid client-grid">
                             <label for="cliente">Cliente
                                 <select id="cliente" name="cliente" required>
+                                    <option value="">Cargando clientes...</option>
                                 </select>
                             </label>
-
                         </div>
                     </section>
 
@@ -74,23 +77,14 @@
                             <label for="fecha-fin">Fecha de término
                                 <input id="fecha-fin" name="fecha_fin" type="date" required>
                             </label>
-                            <label for="metodo-pago">Método de pago
-                                <select id="metodo-pago" name="metodo_pago" required>
-                                    <option value="">Selecciona una opción</option>
-                                    <option value="efectivo">Efectivo</option>
-                                    <option value="tarjeta">Tarjeta</option>
-                                    <option value="transferencia">Transferencia</option>
-                                </select>
-                            </label>
-                            <label for="monto-pago">Precio de la membresía
-                                <input id="monto-pago" name="monto_pago" type="text" inputmode="decimal" placeholder="$0.00" required>
-                            </label>
+                            
+                            
                         </div>
                         <label class="notes-field" for="observaciones">Observaciones
                             <textarea id="observaciones" name="observaciones" rows="3" maxlength="250" placeholder="Agrega una nota si es necesario"></textarea>
                         </label>
                         <div class="form-actions">
-                            <a class="secondary-button" href="tablaclientes.html">Cancelar</a>
+                            <a class="secondary-button" href="membrdispoadmin.html">Cancelar</a>
                             <button class="form-button" type="submit">Guardar membresía</button>
                         </div>
                     </section>
@@ -98,6 +92,8 @@
             </div>
         </main>
     </div>
+
+    <script type="module" src="../SCRIPT-Code/altamembresia.js"></script>
 </body>
 
 </html>

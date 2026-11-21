@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva rutina</title>
+    <link rel="stylesheet" href="../CSS-Code/nueva_rutina.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="admin.html">
+        <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+    </a>
+
+    <p class="sidebar-label">Administración</p>
+
+    <nav class="main-nav">
+        <a href="vista.html#inicio">Inicio</a>
+        <a href="vista.html#empleados">Empleados</a>
+        <a href="vista.html#proveedores">Proveedores</a>
+        <a href="vista.html#productos">Productos</a>
+        <a href="vista.html#clientes">Clientes</a>
+        <a href="vista.html#ventas">Ventas</a>
+        <a href="vista.html#rutinas" class="active">Rutinas</a>
+        <a href="vista.html#membresias">Membresías</a>
+        <a href="vista.html#corte-caja">Corte de caja</a>
+    </nav>
+
+    <a class="logout" href="../HTML-Code/loginView.html">Cerrar sesión</a>
+</aside>
+
+    <!--
+        Holaaa, te dejo una descripcion de lo que hace esta pagina; si tienes dudas me dices:
+        esta pagina se usa para CREAR una rutina nueva y tiene 2 momentos:
+        1 Al abrir nueva_rutina.html (sin nada) solo se ve el titulo y la ventanita pidiendo el nombre de la rutina.
+             La ventanita es un formulario con el campo nombre_rutina (tabla Rutinas).
+        2 Al presionar "Continuar" la ventanita se cierra y aparece "Rutina: ...", la tabla de ejercicios
+             y los botones. Para eso tienes que guardar la rutina y abrir esta pagina como nueva_rutina.html#ejercicios
+             (el #ejercicios es lo que esconde la ventanita). Tambien se regresa aqui cada vez que se guarda un ejercicio.
+        
+        los datos de la base de datos q va a tener cada fila son estos:
+          - nombre_ejercicio
+          - dia_semana (en la BD cada dia es una fila; aqui se muestran juntos, ej. "Lu, Mi")
+          - series
+          - repeticiones
+          - peso_sugerido
+          - tiempo_descanso
+          - video_url 
+        el nombre q sale en "Rutina: ..." es Rutinas.nombre_rutina de la rutina q se esta creando
+        si la rutina no tiene ejercicios se muestra solo "Aun no hay ejercicios"
+        botones: "+ Agregar nuevo ejercicio" va a nuevo_ejercicio.html y "Terminar rutina" deberia de ir a donde esta la paguina anterior que creo q es de diana en donde muestra todas las rutinas q hay
+    
+    -->
+
+    <div class="contenido" id="ejercicios">
+        <div class="encabezado">
+            <div>
+                <h1>Crear nueva rutina</h1>
+                <!-- Aqui es en donde se cambia para poer el nombe del ejercicio como -->
+                <p class="rutina-actual despues-nombre" id="nombre_rutina_display">Rutina: Cargando....</p>
+                <p class="antes-nombre">Ponle nombre a la rutina; después agregas sus ejercicios.</p>
+                <p class="despues-nombre">Agrega los ejercicios de esta rutina.</p>
+            </div>
+        </div>
+
+        <div class="despues-nombre">
+            <!--
+                LISTA DE EJERCICIOS: una fila por ejercicio guardado en la rutina 
+                Si la rutina no tiene ejercicios, dejar el tbody sin filas: sale "Aún no hay ejercicios" .
+            -->
+            <section class="panel">
+                <div class="tabla-scroll">
+                    <table>
+                        
+
+                            <tr class="fila-vacia">
+                                <td class="vacio" colspan="7">Aún no hay ejercicios</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="pie-lista">
+                <a class="btn-sec" href="nuevo_ejercicio.html">+ Agregar nuevo ejercicio</a>
+                <a class="btn-agregar" href="altarutina.html">Terminar rutina</a><!--Debe de ir a la de diana que digo ya guardando todo lo de la rutina que esta se estaba añadiendo -->
+            </div>
+        </div>
+    </div>
+
+    <!--
+        Es la ventanita ´para colocar el nombre
+    -->
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo_modal">
+        <div class="modal-caja">
+            <h1 id="titulo_modal">Crear nueva rutina</h1>
+            <p>Ponle nombre a la rutina. Después agregas sus ejercicios.</p>
+
+            <form id="form_rutina" action="../PHP-Code/procesar_rutina.php" method="POST">
+                <div>
+                    <label for="nombre_rutina">Nombre de la rutina</label>
+                    <input type="text" name="nombre_rutina" id="nombre_rutina" maxlength="50" required>
+                </div>
+
+                <div class="acciones-form">
+                    <a class="btn-sec" href="altarutina.html">Cancelar</a><!--Debe de ir a la de diana que digo  -->
+                    <button type="submit">Continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../SCRIPT-Code/nueva_rutina.js"></script>
+</body>
+</html>

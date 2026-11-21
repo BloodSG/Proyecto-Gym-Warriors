@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json; charset=utf-8'); // le dice al navegador que la respuesta es json 
 require_once("libreria.php");
 $conexion=conectaDB();
@@ -198,7 +199,12 @@ if (isset($_GET['action']))
     }
 
     elseif ($_GET['action'] == 'quitar')
-    {   
+    {      
+        if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "empleado"))
+        {
+            header('Location: ../HTML-Code/loginView.html');
+            exit();
+        }
         $producto=$_GET['producto'];
         if( $producto !== '')
         {   
@@ -213,7 +219,7 @@ if (isset($_GET['action']))
 
                 if ($imgData && !empty($imgData['url'])) 
                 {
-                    $rutaFisica="../" . $imgData['url']; 
+                    $rutaFisica=__DIR__ ."/../" . $imgData['url']; 
                     if (file_exists($rutaFisica)) 
                     {
                         unlink($rutaFisica); 
@@ -257,7 +263,12 @@ if (isset($_GET['action']))
     }
 
     elseif ($_GET['action'] == 'editar')
-    {
+    {   
+        if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "empleado"))
+        {   
+            header('Location: ../HTML-Code/loginView.html');
+            exit();
+        }
         $producto=$_POST['id_producto'] ?? '';
         if( $producto !== '')
         {   
@@ -299,7 +310,6 @@ if (isset($_GET['action']))
                 }
 
                 $carpetaDeServidor="Recursos/img_prods/";
-
                 $conexion->beginTransaction();
 
                 $query1="SELECT id_categoria
@@ -340,7 +350,7 @@ if (isset($_GET['action']))
                     
                     $nombreSeguroUnico=uniqid('prod_', true) . "." . $extensionArchivo; //le ponemos un nombre que no se pueda repetir
                     
-                    $rutaFinalGuardado="../". $carpetaDeServidor . $nombreSeguroUnico;
+                    $rutaFinalGuardado= __DIR__ ."/../". $carpetaDeServidor . $nombreSeguroUnico;
                     
                     if (move_uploaded_file($ubicacionTemporal, $rutaFinalGuardado)) 
                     {   
@@ -373,7 +383,7 @@ if (isset($_GET['action']))
 
                 echo json_encode([ 
                 "status" => "success",
-                "mensaje" => "Producto: ". $producto ." modificado correctamente",
+                "mensaje" => "Producto: ". $producto ." modificado correctamente ",
                 ], JSON_UNESCAPED_UNICODE);
             }
             catch (Exception $e) 

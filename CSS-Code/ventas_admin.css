@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #0a0e17;
+    --bg-elevated: #10151f;
+    --card: #131a28;
+    --card-hover: #1b2640;
+    --border: #232c40;
+    --lime: #b2dc52;
+    --blue: #4d9fff;
+    --blue-dim: #3a7fd6;
+    --text: #f2f5fa;
+    --text-dim: #8b97ad;
+    --danger: #ff6b6b;
+    --warning: #f59e0b;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.membresias_admin_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.membresias_admin_header {
+    margin-bottom: 10px;
+}
+
+.membresias_admin_titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    color: var(--text);
+    margin: 0 0 5px 0;
+    letter-spacing: 0.5px;
+}
+
+.membresias_admin_subtitulo {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+}
+
+.consulta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.buscador {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.buscador label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.buscador input[type="search"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--text);
+    font-size: 12px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.buscador input[type="search"]:focus {
+    border-color: var(--lime);
+    outline: none;
+}
+
+.boton_buscar {
+    background: var(--lime);
+    color: #0a0e17;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.boton_buscar:hover {
+    opacity: 0.9;
+}
+
+.tabla_contenedor {
+    overflow-x: auto;
+}
+
+.tabla_membresias {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 12px;
+}
+
+.tabla_membresias th {
+    background: var(--bg);
+    color: var(--text-dim);
+    padding: 12px;
+    border-bottom: 2px solid var(--border);
+    font-weight: 600;
+}
+
+.tabla_membresias td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.tabla_membresias tbody tr:hover {
+    background: var(--card-hover);
+}
+
+.acciones_celda {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.modal_dialog {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+}
+
+.modal_dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+.modal_contenido {
+    padding: 24px;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.modal_header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    color: var(--text);
+}
+
+.modal_header button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form_modal {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.grupo_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.grupo_form label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.grupo_form input,
+.grupo_form select,
+.grupo_form textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.grupo_form input:focus,
+.grupo_form select:focus,
+.grupo_form textarea:focus {
+    border-color: var(--blue);
+    outline: none;
+}
+
+.fila_form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.modal_acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.modal_acciones button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.modal_acciones button[type="button"] {
+    background: var(--border);
+    color: var(--text);
+    border: none;
+}
+
+.modal_acciones button[type="submit"] {
+    background: var(--lime);
+    color: #0a0e17;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .fila_form {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn_accion {
+    background: var(--blue-dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.btn_accion:hover {
+    border-color: var(--blue);
+    background: rgba(77, 159, 255, 0.15);
+    color: var(--blue);
+}
+
+.btn_cancelar:hover {
+    border-color: var(--danger);
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--danger);
+}
+
+details::-webkit-details-marker,
+summary::-webkit-details-marker {
+    display: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ==========================================================
+   ESTRUCTURA Y COMPONENTES EXCLUSIVOS DE LA VISTA DE VENTAS (POS)
+   ================================================---------- */
+
+.pos_grid_layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    align-items: start;
+}
+
+.pos_panel_izq {
+    display: flex;
+    flex-direction: column;
+}
+
+.pos_grid_productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.pos_card_producto {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.pos_card_producto:hover {
+    border-color: var(--lime);
+    background: var(--card-hover);
+    transform: translateY(-2px);
+}
+
+.pos_card_codigo {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 2px;
+}
+
+.pos_card_nombre {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.pos_card_precio {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--lime);
+}
+
+.pos_controles_qty {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pos_btn_qty {
+    background: var(--border);
+    border: none;
+    color: var(--text);
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.pos_btn_qty:hover {
+    background: var(--blue);
+    color: var(--bg);
+}
+
+.pos_ticket_footer {
+    margin-top: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pos_resumen_fila {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.pos_total_destacado {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+@media (max-width: 900px) {
+    .pos_grid_layout {
+        grid-template-columns: 1fr;
+    }
+}

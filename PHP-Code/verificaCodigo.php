@@ -40,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         if ($usuario) // si existe un usuario
         {
             $ahora=date('Y-m-d H:i:s');// obtenemos el dia y la hora
-
-            if ($codigoIngresado !== $usuario['codigo_recuperacion']) // comparra el codigo ingresado con el que hay en la base
-            {
-                echo "<script>alert('El código es incorrecto'); window.history.back();</script>";//lo que dice ahi
-                exit;
-            } 
             if ($ahora > $usuario['token_expiracion']) // sorprendente mente se puede comparar la fecha y hora con < >
             {
                 echo "<script>alert('El código ha expirado.'); window.history.back();</script>";//lo que dice ahi
                 exit;
             } 
+            if ($codigoIngresado !== $usuario['codigo_recuperacion']) // comparra el codigo ingresado con el que hay en la base
+            {
+                echo "<script>alert('El código es incorrecto'); window.history.back();</script>";//lo que dice ahi
+                exit;
+            } 
+            
             else 
             {
                 // se valido y se procede a cambiar la contraseña

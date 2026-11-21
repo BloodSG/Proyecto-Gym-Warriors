@@ -135,8 +135,13 @@ async function editar(id)
     {
         const resultado=await editaProducto(id, formData);
         alert(resultado.mensaje);
-        
+        console.log(resultado.mensaje)
         if(resultado.status === "success") 
+        {
+            cerrarModalEditar(document.getElementById("modalEditarOverlay"), document.getElementById("modalEditar"));
+            obtenerCatalogo("").then(mostrarInventario); 
+        }
+        else
         {
             cerrarModalEditar(document.getElementById("modalEditarOverlay"), document.getElementById("modalEditar"));
             obtenerCatalogo("").then(mostrarInventario); 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración | Fitness Warriors</title>
     <link rel="stylesheet" href="../CSS-Code/admin.css">
+    <script src="../SCRIPT-Code/cargaUsuario.js" type="module"></script>
 </head>
 
 <body>
@@ -22,9 +23,9 @@
                 <a href="productosAdmin.html">Productos</a>
                 <a href="tablaclientes.html">Clientes</a>
                 <a href="#ventas">Ventas</a>
-                <a href="rutinaInterview.html">Rutinas</a>
+                <a href="altarutina.html">Rutinas</a>
                 <a href="entrevistas.html">Entrevistas</a>
-                <a href="membresias_admin.html">Membresías</a>
+                <a href="membrdispoadmin.html">Membresías</a>
                 <a href="#cortedecaja">Corte de caja</a>
             </nav>
             <a class="logout" href="loginView.html">Cerrar sesión</a>
@@ -33,7 +34,7 @@
         <main class="main-content" id="inicio">
             <header class="topbar">
                 <h1><span></span>Administración</h1>
-                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+                <div class="profile" id="perfilUsuario"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
             </header>
 
             <div class="content-wrap">
@@ -79,14 +80,14 @@
                             <h2>Ventas</h2>
                             <p>Revisa las ventas y transacciones registradas.</p>
                         </div>
-                        <a href="#ventas" aria-label="Consultar ventas">Ver módulo <span>→</span></a>
+                        <a href="ventasadmin.html" aria-label="Consultar ventas">Ver módulo <span>→</span></a>
                     </article>
                     <article class="module-card" id="rutinas">
                         <div>
                             <h2>Rutinas</h2>
                             <p>Organiza las rutinas disponibles para clientes.</p>
                         </div>
-                        <a href="rutinaInterview.html" aria-label="Administrar rutinas">Ver módulo <span>→</span></a>
+                        <a href="altarutina.html" aria-label="Administrar rutinas">Ver módulo <span>→</span></a>
                     </article>
                     <article class="module-card" id="entrevistas">
                         <div>
@@ -100,14 +101,14 @@
                             <h2>Membresías</h2>
                             <p>Gestiona planes, vigencias y renovaciones.</p>
                         </div>
-                        <a href="membresias_admin.html" aria-label="Administrar membresías">Ver módulo <span>→</span></a>
+                        <a href="membrdispoadmin.html" aria-label="Administrar membresías">Ver módulo <span>→</span></a>
                     </article>
                     <article class="module-card cash-card" id="corte-caja">
                         <div>
                             <h2>Corte de caja</h2>
                             <p>Consulta y registra el cierre de operaciones.</p>
                         </div>
-                        <a href="#corte-caja" aria-label="Realizar corte de caja">Ver módulo <span>→</span></a>
+                        <a href="cortedecaja.html" aria-label="Realizar corte de caja">Ver módulo <span>→</span></a>
                     </article>
                 </section>
             </div>
