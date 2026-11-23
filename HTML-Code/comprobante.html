@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobantes de pago | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/comprobante.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="ventasadmin.html">Ventas</a>
+                <a href="altarutina.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membrdispoadmin.html">Membresías</a>
+                <a class="active" href="comprobante.html" aria-current="page">Comprobantes</a>
+                <a href="cortedecaja.html">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Comprobantes</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">VALIDACIÓN DE PAGOS</p>
+                    <h2>Comprobantes recibidos</h2>
+                    <p>Revisa los comprobantes enviados por los clientes y decide si aprobarlos o rechazarlos.</p>
+                </section>
+
+                <section class="filters-card" aria-label="Filtros de comprobantes">
+                    <div class="filter-field">
+                        <label for="search-client">Buscar cliente</label>
+                        <input id="search-client" type="search" placeholder="Nombre o folio">
+                    </div>
+                    <div class="filter-field">
+                        <label for="filter-status">Estado</label>
+                        <select id="filter-status">
+                            <option>Todos</option>
+                            <option>Pendiente</option>
+                            <option>Aceptado</option>
+                            <option>Negado</option>
+                        </select>
+                    </div>
+                    <div class="filter-field">
+                        <label for="filter-date">Fecha</label>
+                        <input id="filter-date" type="date">
+                    </div>
+                </section>
+
+                <section class="receipts-card" aria-labelledby="receipts-title">
+                    <div class="section-heading">
+                        <div>
+                            <h2 id="receipts-title">Lista de comprobantes</h2>
+                            <p>4 comprobantes encontrados</p>
+                        </div>
+                        <span class="pending-count">3 pendientes</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="receipts-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Concepto</th>
+                                    <th>Monto</th>
+                                    <th>Comprobante</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Diana Castillo</td>
+                                    <td><strong>Membresía mensual</strong></td>
+                                    <td><strong>$350.00</strong></td>
+                                    <td><button type="button" class="proof-button"><span>PDF</span>Ver archivo</button></td>
+                                    <td><span class="status-badge pending">Pendiente</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button type="button" class="approve-button">Aceptar</button>
+                                            <button type="button" class="reject-button">Negar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Juan Pérez</td>
+                                    <td><strong>Proteína 2 lb</strong></td>
+                                    <td><strong>$850.00</strong></td>
+                                    <td><button type="button" class="proof-button"><span>IMG</span>Ver archivo</button></td>
+                                    <td><span class="status-badge pending">Pendiente</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button type="button" class="approve-button">Aceptar</button>
+                                            <button type="button" class="reject-button">Negar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>María López</td>
+                                    <td><strong>Bebida energética</strong></td>
+                                    <td><strong>$45.00</strong></td>
+                                    <td><button type="button" class="proof-button"><span>PDF</span>Ver archivo</button></td>
+                                    <td><span class="status-badge accepted">Aceptado</span></td>
+                                    <td><span class="completed-label">Validado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Carlos Ruiz</td>
+                                    <td><strong>Membresía trimestral</strong></td>
+                                    <td><strong>$950.00</strong></td>
+                                    <td><button type="button" class="proof-button"><span>IMG</span>Ver archivo</button></td>
+                                    <td><span class="status-badge pending">Pendiente</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button type="button" class="approve-button">Aceptar</button>
+                                            <button type="button" class="reject-button">Negar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
