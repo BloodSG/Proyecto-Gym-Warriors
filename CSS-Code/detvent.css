@@ -241,35 +241,6 @@ td.vacio {
     font-size: 34px;
 }
 
-.metodos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 0 0 12px;
-}
-.metodo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: var(--bg-elevated);
-    color: var(--text);
-    cursor: pointer;
-}
-.metodo:has(input:checked) {
-    border-color: var(--lime);
-    background: rgba(178, 220, 82, .1);
-}
-.metodo input {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    accent-color: var(--lime);
-}
-.metodo strong { display: block; font-size: 12px; }
-.metodo span { display: block; margin-top: 2px; color: var(--text-dim); font-size: 10px; }
 
 .acciones {
     display: grid;
@@ -277,13 +248,6 @@ td.vacio {
     gap: 10px;
     margin-top: 18px;
 }
-.form-venta:not(:has(input[name="metodo_pago"]:checked)) .btn-confirmar {
-    opacity: .4;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-.form-venta:has(input[name="metodo_pago"]:checked) .ayuda { display: none; }
-
 @media (max-width: 900px) {
     .filtros { grid-template-columns: 1fr 1fr; }
     .acciones-filtro { grid-column: 1 / -1; }
@@ -307,12 +271,9 @@ td.vacio {
     body { padding-right: 10px; padding-left: 77px; }
     h1 { font-size: 27px; }
     .filtros { grid-template-columns: 1fr; }
-    .metodos { grid-template-columns: 1fr; }
 }
 .logo { display: none; }
 
 .fila-vacia { display: none; }
 tbody:not(:has(tr:not(.fila-vacia))) .fila-vacia { display: table-row; }
 
-.form-venta:not(:has(input[name="metodo_pago"]:checked)) .btn-confirmar { opacity: .4; pointer-events: none; cursor: not-allowed; }
-.form-venta:has(input[name="metodo_pago"]:checked) .ayuda { display: none; } 
