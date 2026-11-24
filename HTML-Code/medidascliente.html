@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis medidas | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/medidascliente.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="princi.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Panel de cliente</p>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="princi.html">Inicio</a>
+                <a href="rutinas_cliente.html">Mi rutina</a>
+                <a class="active" href="medidascliente.html" aria-current="page">Mis medidas</a>
+                <a href="miMembresia.html">Mi membresía</a>
+                <a href="estadodepago.html">Pagos</a>
+                <a href="productosClientes.html">Productos</a>
+                <a href="reglamento.html">Reglamento</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Mis medidas</h1>
+                <div class="profile"><strong>DC</strong><span>Diana C.</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">MI PROGRESO</p>
+                    <h2>Medidas corporales</h2>
+                    <p>Consulta tus registros y revisa tu evolución física.</p>
+                </section>
+
+                <section class="summary-grid" aria-label="Última medición">
+                    <article class="summary-card">
+                        <span>Peso</span>
+                        <strong>-- kg</strong>
+                        <small>Último registro</small>
+                    </article>
+                    <article class="summary-card">
+                        <span>Porcentaje de grasa</span>
+                        <strong>-- %</strong>
+                        <small>Último registro</small>
+                    </article>
+                    <article class="summary-card">
+                        <span>Porcentaje de músculo</span>
+                        <strong>-- %</strong>
+                        <small>Último registro</small>
+                    </article>
+                </section>
+
+                <section class="body-card card" aria-labelledby="body-measures-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">ÚLTIMA MEDICIÓN</p>
+                            <h2 id="body-measures-title">Medidas corporales</h2>
+                        </div>
+                        <span class="date-badge">Sin registros</span>
+                    </div>
+
+                    <div class="body-measures">
+                        <div class="measure-item">
+                            <span>Cintura</span>
+                            <strong>-- cm</strong>
+                        </div>
+                        <div class="measure-item">
+                            <span>Cadera</span>
+                            <strong>-- cm</strong>
+                        </div>
+                        <div class="measure-item">
+                            <span>Pecho</span>
+                            <strong>-- cm</strong>
+                        </div>
+                        <div class="measure-item">
+                            <span>Brazo</span>
+                            <strong>-- cm</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="history-card card" aria-labelledby="history-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">HISTORIAL</p>
+                            <h2 id="history-title">Progreso registrado</h2>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="measure-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Peso</th>
+                                    <th>Grasa</th>
+                                    <th>Músculo</th>
+                                    <th>Cintura</th>
+                                    <th>Cadera</th>
+                                    <th>Pecho</th>
+                                    <th>Brazo</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

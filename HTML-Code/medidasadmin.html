@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medidas de clientes | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/medidasadmin.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="ventasadmin.html">Ventas</a>
+                <a href="altarutina.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membrdispoadmin.html">Membresías</a>
+                <a href="comprobante.html">Comprobantes</a>
+                <a class="active" href="medidasadmin.html" aria-current="page">Medidas</a>
+                <a href="cortedecaja.html">Corte de caja</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Medidas de clientes</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <p class="eyebrow">CONTROL CORPORAL</p>
+                    <h2>Registro de medidas</h2>
+                    <p>Selecciona un cliente para consultar su historial, registrar una nueva medición o modificar una existente.</p>
+                </section>
+
+                <section class="client-selector card" aria-labelledby="client-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">CLIENTE</p>
+                            <h2 id="client-title">Seleccionar cliente</h2>
+                        </div>
+                    </div>
+                    <form class="search-form">
+                        <div class="field field-search">
+                            <label for="client-search">Buscar por nombre o ID</label>
+                            <input id="client-search" type="search" placeholder="Ej. Jorge Castillo o U001">
+                        </div>
+                        <button type="button" class="secondary-button">Buscar</button>
+                    </form>
+                    <div class="selected-client" hidden></div>
+                </section>
+
+                <div class="measure-grid">
+                    <section class="measurement-form card" aria-labelledby="form-title">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">NUEVO REGISTRO</p>
+                                <h2 id="form-title">Registrar medidas</h2>
+                            </div>
+                        </div>
+
+                        <form>
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label for="registro-fecha">Fecha de registro</label>
+                                    <input id="registro-fecha" type="date" value="2026-11-23">
+                                </div>
+                                <div class="field">
+                                    <label for="peso">Peso (kg)</label>
+                                    <input id="peso" type="number" step="0.01" min="0" placeholder="Ej. 68.50">
+                                </div>
+                                <div class="field">
+                                    <label for="porcentaje-grasa">Porcentaje de grasa (%)</label>
+                                    <input id="porcentaje-grasa" type="number" step="0.01" min="0" placeholder="Ej. 22.40">
+                                </div>
+                                <div class="field">
+                                    <label for="porcentaje-musculo">Porcentaje de músculo (%)</label>
+                                    <input id="porcentaje-musculo" type="number" step="0.01" min="0" placeholder="Ej. 38.20">
+                                </div>
+                                <div class="field">
+                                    <label for="cintura">Cintura (cm)</label>
+                                    <input id="cintura" type="number" step="0.01" min="0" placeholder="Ej. 72.00">
+                                </div>
+                                <div class="field">
+                                    <label for="cadera">Cadera (cm)</label>
+                                    <input id="cadera" type="number" step="0.01" min="0" placeholder="Ej. 96.00">
+                                </div>
+                                <div class="field">
+                                    <label for="pecho">Pecho (cm)</label>
+                                    <input id="pecho" type="number" step="0.01" min="0" placeholder="Ej. 88.00">
+                                </div>
+                                <div class="field">
+                                    <label for="brazo">Brazo (cm)</label>
+                                    <input id="brazo" type="number" step="0.01" min="0" placeholder="Ej. 31.50">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="reset" class="secondary-button">Limpiar</button>
+                                <button type="submit" class="primary-button">Guardar medición</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="history-card card" aria-labelledby="history-title">
+                        <div class="section-heading">
+                            <div>
+                                <p class="eyebrow">HISTORIAL</p>
+                                <h2 id="history-title">Mediciones registradas</h2>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="measure-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Peso</th>
+                                        <th>Grasa</th>
+                                        <th>Músculo</th>
+                                        <th>Cintura</th>
+                                        <th>Cadera</th>
+                                        <th>Pecho</th>
+                                        <th>Brazo</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
