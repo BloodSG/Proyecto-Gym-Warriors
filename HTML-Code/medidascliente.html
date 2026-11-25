@@ -41,17 +41,19 @@
                 <section class="summary-grid" aria-label="Última medición">
                     <article class="summary-card">
                         <span>Peso</span>
-                        <strong>-- kg</strong>
+                        <strong id="peso-actual">-- kg</strong>
                         <small>Último registro</small>
                     </article>
+
                     <article class="summary-card">
                         <span>Porcentaje de grasa</span>
-                        <strong>-- %</strong>
+                        <strong id="grasa-actual">-- %</strong>
                         <small>Último registro</small>
                     </article>
+
                     <article class="summary-card">
                         <span>Porcentaje de músculo</span>
-                        <strong>-- %</strong>
+                        <strong id="musculo-actual">-- %</strong>
                         <small>Último registro</small>
                     </article>
                 </section>
@@ -62,25 +64,25 @@
                             <p class="eyebrow">ÚLTIMA MEDICIÓN</p>
                             <h2 id="body-measures-title">Medidas corporales</h2>
                         </div>
-                        <span class="date-badge">Sin registros</span>
+                        <span id="fecha-ultima" class="date-badge">Sin registros</span>
                     </div>
 
                     <div class="body-measures">
                         <div class="measure-item">
                             <span>Cintura</span>
-                            <strong>-- cm</strong>
+                            <strong id="cintura-actual">-- cm</strong>
                         </div>
                         <div class="measure-item">
                             <span>Cadera</span>
-                            <strong>-- cm</strong>
+                            <strong id="cadera-actual">-- cm</strong>
                         </div>
                         <div class="measure-item">
                             <span>Pecho</span>
-                            <strong>-- cm</strong>
+                            <strong id="pecho-actual">-- cm</strong>
                         </div>
                         <div class="measure-item">
                             <span>Brazo</span>
-                            <strong>-- cm</strong>
+                            <strong id="brazo-actual">-- cm</strong>
                         </div>
                     </div>
                 </section>
@@ -114,5 +116,7 @@
             </div>
         </main>
     </div>
+
+    <script src="../SCRIPT-Code/mismedidas_cliente.js"></script>
 </body>
 </html>
