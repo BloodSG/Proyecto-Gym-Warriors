@@ -40,6 +40,13 @@
                     <button type="button" id="btn-agregar-select" class="btn_accion">Agregar</button>
                 </div>
 
+                <div class="pos_selector_rapido">
+                    <label for="select-cliente">Cliente (solo requerido para membresías):</label>
+                    <select id="select-cliente" class="select_desplegable">
+                        <option value="">Venta de producto(s)</option>
+                    </select>
+                </div>
+
                 <div class="tabla_contenedor">
                     <div class="pos_grid_productos" id="grid-productos">
                         <!-- Aquí se cargarán los productos y membresías dinámicamente -->
@@ -94,15 +101,6 @@
                             </select>
                         </div>
 
-                        <div class="pos_resumen_fila" id="fila-monto-recibido">
-                            <label for="monto-recibido">Cantidad recibida:</label>
-                            <input type="number" id="monto-recibido" class="input_pago input_monto" placeholder="0.00" min="0" step="0.50">
-                        </div>
-
-                        <div class="pos_resumen_fila" id="fila-cambio">
-                            <span>Cambio:</span>
-                            <strong id="monto-cambio" class="cambio_ok" style="font-size: 16px;">$0.00</strong>
-                        </div>
                     </div>
 
                     <button type="button" id="btn-cobrar" class="boton_buscar" style="width: 100%; padding: 12px; font-size: 13px; text-align: center; margin-top: 8px;" disabled>
@@ -114,6 +112,6 @@
         </div>
     </div>
 
-    <script src="../JS-Code/ventas_admin.js"></script>
+    <script type="module" src="../SCRIPT-Code/ventas_admin.js"></script>
 </body>
 </html>
