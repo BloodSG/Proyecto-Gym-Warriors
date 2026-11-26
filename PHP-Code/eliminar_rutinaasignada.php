@@ -6,8 +6,8 @@ $conexion=conectaDB();
 if(isset($_GET['id'])){
     $id_rutina=$_GET['id'];
     try{
-        $consulta="delete from rutinas
-                   where id_rutina=?";
+        $consulta="delete from asignacion_rutinas
+                   where id_asignacion=?";
 
         $resultado=$conexion->prepare($consulta);
         $resultado->execute([$id_rutina]);

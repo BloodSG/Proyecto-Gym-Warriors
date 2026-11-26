@@ -4,21 +4,21 @@ include 'libreria.php';
 date_default_timezone_set('America/Mexico_City');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_POST['cliente'] ?? null;
-    $fecha_creacion = $_POST['fecha_creacion'] ?? null;
+    $fecha_inicio = $_POST['fecha_creacion'] ?? null;
     $fecha_fin = $_POST['fecha_fin'] ?? null;
     $coach = $_POST['coach'] ?? null;
-    $nombre_rutina = $_POST['nombre'] ?? null;
+    $id_rutina = $_POST['id_rutina'] ?? null;
     $observaciones = $_POST['observaciones'] ?? null;
     
 
     if(
-        $id_usuario && $fecha_creacion && $fecha_fin && $coach && $nombre_rutina) {
+        $id_usuario && $fecha_inicio && $fecha_fin && $coach && $id_rutina) {
         
         try {
             $conn = conectaDB();
 
             //se checa que la fecha no sea pasada
-            $fechaInicio = DateTime::createFromFormat('Y-m-d', $fecha_creacion);
+            $fechaInicio = DateTime::createFromFormat('Y-m-d', $fecha_inicio);
             $fechaFin = DateTime::createFromFormat('Y-m-d', $fecha_fin);
             $hoy = new DateTime('today');
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             //checo si el cliente ya tiene una membresía activa
-            $stmtCheck = $conn->prepare("SELECT 1 FROM rutinas WHERE id_usuario = :id_usu AND LOWER(estatus) = 'activa' AND fecha_creacion <= NOW() AND (fecha_fin IS NULL OR fecha_fin >= CURDATE())LIMIT 1");
+            $stmtCheck = $conn->prepare("SELECT 1 FROM asignacion_rutinas WHERE id_usuario = :id_usu AND LOWER(estatus) = 'activa' AND fecha_inicio <= NOW() AND (fecha_fin IS NULL OR fecha_fin >= CURDATE())LIMIT 1");
             $stmtCheck->execute([':id_usu' => $id_usuario]);
             $tieneMembresiaActiva = $stmtCheck->fetchColumn();
 
@@ -48,29 +48,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Si pasa las validaciones se generael ID y guarda
-            $stmtMax = $conn->query("SELECT id_rutina FROM rutinas ORDER BY id_rutina DESC LIMIT 1");
+            $stmtMax = $conn->query("SELECT id_asignacion FROM asignacion_rutinas ORDER BY id_asignacion DESC LIMIT 1");
             $ultimoRegistro = $stmtMax->fetch(PDO::FETCH_ASSOC);
 
-            if($ultimoRegistro && isset($ultimoRegistro['id_rutina'])){
-                $numero_actual = intval(str_replace('RUT', '', $ultimoRegistro['id_rutina']));
+            if($ultimoRegistro && isset($ultimoRegistro['id_asignacion'])){
+                $numero_actual = intval(str_replace('ASI', '', $ultimoRegistro['id_asignacion']));
                 $siguiente_numero = $numero_actual + 1;
             } else {
                 $siguiente_numero = 1;
             }
 
-            $nuevo_id_rutina = 'RUT' . str_pad($siguiente_numero, 3, '0', STR_PAD_LEFT);
+            $nuevo_id_asignacion = 'ASI' . str_pad($siguiente_numero, 3, '0', STR_PAD_LEFT);
 
-            $sql = "INSERT INTO rutinas (id_rutina, fecha_creacion, fecha_fin, estatus, id_usuario, id_coach, nombre_rutina, observaciones) 
-                    VALUES (:id_rutina, :f_creacion, :f_fin, 'activa', :id_usu, :id_coach, :nombre_rutina, :observaciones)";
+            $sql = "INSERT INTO asignacion_rutinas (id_asignacion, id_rutina, id_usuario,  id_coach, fecha_inicio, fecha_fin, estatus, observaciones) 
+                    VALUES (:id_asignacion, :id_rutina, :id_usuario, :id_coach, :f_inicio, :f_fin, 'activa',:observaciones)";
 
             $stmt = $conn->prepare($sql);
             $resultado = $stmt->execute([
-                ':id_rutina' => $nuevo_id_rutina,
-                ':f_creacion' => $fecha_creacion,
+                ':id_asignacion' => $nuevo_id_asignacion,
+                ':id_rutina' => $id_rutina,
+                ':id_usuario' => $id_usuario,
+                ':f_inicio' => $fecha_inicio,
                 ':f_fin' => $fecha_fin,
-                ':id_usu' => $id_usuario,
                 ':id_coach' => $coach,
-                ':nombre_rutina' => $nombre_rutina,
                 ':observaciones' => $observaciones
             ]);
 

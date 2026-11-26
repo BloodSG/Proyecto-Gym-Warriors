@@ -50,8 +50,8 @@ if (selectorCliente && selectorCoach) {
             "../PHP-Code/mostrarNombresRutina.php",
             "Selecciona una rutina",
             rutina => ({
-                id: rutina,
-                nombre: rutina
+                id: rutina.id_rutina,
+                nombre: rutina.nombre_rutina
             })
         )
     ]).catch(error => {

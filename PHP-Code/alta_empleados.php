@@ -21,6 +21,9 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
+        $nombre = trim($_POST['nombre']);
+        $apellido_1 = trim($_POST['apellido_1']);
+        $apellido_2 = trim($_POST['apellido_2']);
         $curp = trim($_POST['curp']);
         $rfc = !empty(trim($_POST['rfc'] ?? '')) ? trim($_POST['rfc']) : null;
         $correo = trim($_POST['correo']);
@@ -65,9 +68,9 @@
 
         try
         {
-            $consulta_alta_empleado = "INSERT INTO Empleados (id_empleado, curp, rfc, correo, salario, fecha_contratacion, puesto, contraseña, turno, estado_laboral, contacto_emergencia_nom, contacto_emergencia_tel, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $consulta_alta_empleado = "INSERT INTO Empleados (id_empleado, curp, rfc, correo, salario, fecha_contratacion, puesto, contraseña, nombre, apellido_1, apellido_2, turno, estado_laboral, contacto_emergencia_nom, contacto_emergencia_tel, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $puente_alta = $conexion->prepare($consulta_alta_empleado);
-            $puente_alta->execute([$id_nuevo, $curp, $rfc, $correo, $salario, $fecha_contratacion, $puesto, $passwordHash, $turno, $estado_laboral, $nombre_emergencia, $telefono_emergencia, $id_rol]);
+            $puente_alta->execute([$id_nuevo, $curp, $rfc, $correo, $salario, $fecha_contratacion, $puesto, $passwordHash, $nombre, $apellido_1, $apellido_2, $turno, $estado_laboral, $nombre_emergencia, $telefono_emergencia, $id_rol]);
 
             echo "<script>
                 alert('¡Empleado registrado exitosamente!');
@@ -79,7 +82,7 @@
         catch(PDOException $e)
         {
             echo "<script>
-                alert('Error al registrar el empleado: " . $e->getMessage() . "');
+                alert('Error al registrar el empleado: " . addslashes($e->getMessage()) . "');
                 window.history.back();
                 </script>";
         }

@@ -6,34 +6,37 @@ $conexion=conectaDB();
 header("Content-Type: application/json");
 
 if(isset($_GET['id'])){
-    $id_rutina=$_GET['id'];
+    $id_asignacion=$_GET['id'];
 
     try{
         $consulta="
                 select
-                    rutinas.id_rutina,
-                    rutinas.id_usuario,
+                    ar.id_asignacion,
+                    ar.id_rutina,
+                    ar.id_usuario,
                     concat_ws(' ', usuariocliente.nombre, usuariocliente.apellido_1, usuariocliente.apellido_2) as nombre_cliente,
-                    rutinas.id_coach,
+                    ar.id_coach,
                     concat_ws(' ', empleados.nombre, empleados.apellido_1, empleados.apellido_2) as nombre_coach,
                     rutinas.nombre_rutina,
-                    date(rutinas.fecha_creacion) as fecha_creacion,
-                    date(rutinas.fecha_fin) as fecha_fin,
-                    rutinas.observaciones,
-                    rutinas.estatus
+                    date(ar.fecha_inicio) as fecha_inicio,
+                    date(ar.fecha_fin) as fecha_fin,
+                    ar.observaciones,
+                    ar.estatus
 
-                from rutinas
+                from asignacion_rutinas as ar
+                inner join rutinas
+                on rutinas.id_rutina=ar.id_rutina
 
                 left join usuariocliente
-                on rutinas.id_usuario=usuariocliente.id_usuario
+                on ar.id_usuario=usuariocliente.id_usuario
 
                 left join empleados
-                on rutinas.id_coach=empleados.id_empleado
+                on ar.id_coach=empleados.id_empleado
 
-                where rutinas.id_rutina=?";
+                where ar.id_asignacion=?";
 
         $resultado=$conexion->prepare($consulta);
-        $resultado->execute([$id_rutina]);
+        $resultado->execute([$id_asignacion]);
         
         $rutina=$resultado->fetch(PDO::FETCH_ASSOC);
 
@@ -46,7 +49,7 @@ if(isset($_GET['id'])){
         else{
             echo json_encode([
                 "estado"=>"error",
-                "mensaje"=>"No se encontró la rutina con el ID proporcionado"
+                "mensaje"=>"No se encontró la asignación con el ID proporcionado"
             ]);
         }
     }
@@ -60,7 +63,7 @@ if(isset($_GET['id'])){
 else{
     echo json_encode([
         "estado"=>"error",
-        "mensaje"=>"No se recibió el ID de la rutina."
+        "mensaje"=>"No se recibió el ID de la asignación."
     ]);
 }
 ?>

@@ -6,32 +6,29 @@ header("Content-Type: application/json");
 $conexion = conectaDB();
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $id_rutina=$_POST["id_rutina"];
+    $id_asignacion=$_POST["id_asignacion"];
     $id_coach=$_POST["id_coach"];
-    $nombre_rutina=$_POST["nombre_rutina"];
-    $fecha_creacion=$_POST["fecha_creacion"];
+    $fecha_inicio=$_POST["fecha_inicio"];
     $fecha_fin=$_POST["fecha_fin"];
     $observaciones=$_POST["observaciones"];
 
     try{
         $consulta="
-            update rutinas
+            update asignacion_rutinas
             set
                 id_coach=?,
-                nombre_rutina=?,
-                fecha_creacion=?,
+                fecha_inicio=?,
                 fecha_fin=?,
                 observaciones=?
-            where id_rutina=?";
+            where id_asignacion=?";
 
         $resultado=$conexion->prepare($consulta);
 
         $resultado->execute([$id_coach,
-                             $nombre_rutina,
-                             $fecha_creacion,
+                             $fecha_inicio,
                              $fecha_fin,
                              $observaciones,
-                             $id_rutina]);
+                             $id_asignacion]);
 
         echo json_encode([
             "estado"=>"exito",

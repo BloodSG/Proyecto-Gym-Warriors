@@ -1,5 +1,6 @@
 // Función encargada de cargar las rutinas asignadas a un cliente, para mostrarlos en la página web
 const tablaRutinas = document.querySelector("#routine-table");
+let rutinasRegistradas = [];
 
 function cargarRutinas(){
     fetch("../PHP-Code/mostrar_rutinaasignada.php")
@@ -12,6 +13,7 @@ function cargarRutinas(){
             return;
         }
 
+        rutinasRegistradas = rutinas;
         let filas="";
 
         rutinas.forEach(function(rutina){
@@ -34,16 +36,16 @@ function cargarRutinas(){
                         <td>${rutina.nombre_cliente}</td>
                         <td>${rutina.nombre_rutina}</td>
                         <td>${rutina.nombre_coach}</td>
-                        <td>${rutina.fecha_creacion}</td>
+                        <td>${rutina.fecha_inicio}</td>
                         <td>${fecha_fin}</td>
                         <td>${observaciones}</td>
                         <td>${rutina.estatus}</td>
                         <td>
-                            <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_rutina}')">
+                            <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_asignacion}')">
                                 Editar
                             </button>
 
-                            <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
+                            <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_asignacion}')">
                                 Eliminar
                             </button>
                         </td>
@@ -103,10 +105,10 @@ function modificarRutina(id_rutina){
             observaciones=rutina.datos.observaciones;
         }
 
-        document.querySelector("#edit-id").value=rutina.datos.id_rutina;
+        document.querySelector("#edit-id").value=rutina.datos.id_asignacion;
         document.querySelector("#edit-client").value=rutina.datos.nombre_cliente;
         document.querySelector("#edit-name").value=rutina.datos.nombre_rutina;
-        document.querySelector("#edit-start").value=rutina.datos.fecha_creacion;
+        document.querySelector("#edit-start").value=rutina.datos.fecha_inicio;
         document.querySelector("#edit-end").value=rutina.datos.fecha_fin;
         document.querySelector("#edit-notes").value=observaciones;
         
@@ -121,10 +123,9 @@ document.querySelector("#edit-form").addEventListener("submit", function(event){
     event.preventDefault();
     const datos = new FormData();
 
-    datos.append("id_rutina", document.querySelector("#edit-id").value);
+    datos.append("id_asignacion", document.querySelector("#edit-id").value);
     datos.append("id_coach", document.querySelector("#edit-coach").value);
-    datos.append("nombre_rutina", document.querySelector("#edit-name").value);
-    datos.append("fecha_creacion", document.querySelector("#edit-start").value);
+    datos.append("fecha_inicio", document.querySelector("#edit-start").value);
     datos.append("fecha_fin", document.querySelector("#edit-end").value);
     datos.append("observaciones", document.querySelector("#edit-notes").value);
 
@@ -174,15 +175,16 @@ if(buscador){
                             <td>${rutina.nombre_cliente}</td>
                             <td>${rutina.nombre_rutina}</td>
                             <td>${rutina.nombre_coach}</td>
-                            <td>${rutina.fecha_creacion}</td>
+                            <td>${rutina.fecha_inicio}</td>
                             <td>${rutina.fecha_fin}</td>
+                            <td>${rutina.observaciones || "Sin observaciones"}</td>
                             <td>${rutina.estatus}</td>
                             <td>
-                                <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_rutina}')">
+                                <button class="icon-button" type="button" onclick="modificarRutina('${rutina.id_asignacion}')">
                                     Editar
                                 </button>
 
-                                <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_rutina}')">
+                                <button class="icon-button delete-button" type="button" onclick="eliminarRutina('${rutina.id_asignacion}')">
                                     Eliminar
                                 </button>
                             </td>
