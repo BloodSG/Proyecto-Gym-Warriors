@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/estadisticasprincipal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="admin.html">
+                <img src="../Recursos/Img_sis/LogoWarriors.svg" alt="Fitness Warriors">
+            </a>
+            <p class="sidebar-label">Administración</p>
+            <nav class="main-nav" aria-label="Navegación administrativa">
+                <a href="admin.html">Inicio</a>
+                <a href="bajaempl.html">Empleados</a>
+                <a href="proveedores.html">Proveedores</a>
+                <a href="productosAdmin.html">Productos</a>
+                <a href="tablaclientes.html">Clientes</a>
+                <a href="ventasadmin.html">Ventas</a>
+                <a href="altarutina.html">Rutinas</a>
+                <a href="entrevistas.html">Entrevistas</a>
+                <a href="membrdispoadmin.html">Membresías</a>
+                <a href="medidasadmin.html">Medidas</a>
+                <a href="cortedecaja.html">Corte de caja</a>
+                <a class="active" href="estadisticasprincipal.html" aria-current="page">Estadísticas</a>
+            </nav>
+            <a class="logout" href="loginView.html">Cerrar sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1><span></span>Estadísticas</h1>
+                <div class="profile"><strong>AD</strong><span>Administrador</span><b>⌄</b></div>
+            </header>
+
+            <div class="content-wrap">
+                <section class="page-heading">
+                    <div>
+                        <p class="eyebrow">PANEL ADMINISTRATIVO</p>
+                        <h2>Estadísticas del gimnasio</h2>
+                        <p>Consulta el rendimiento y la actividad de Fitness Warriors.</p>
+                    </div>
+                    <form class="date-filter">
+                        <div class="date-field">
+                            <label for="date-from">Desde</label>
+                            <input id="date-from" type="date">
+                        </div>
+                        <div class="date-field">
+                            <label for="date-to">Hasta</label>
+                            <input id="date-to" type="date">
+                        </div>
+                        <button type="button" class="filter-button">Aplicar</button>
+                    </form>
+                </section>
+
+                <section class="statistics-section" aria-label="Secciones de estadísticas">
+                    <div class="tab-list" aria-label="Categorías de estadísticas">
+                        <button class="tab active" type="button" disabled aria-current="page">Resumen</button>
+                        <button class="tab" type="button">Membresías</button>
+                        <button class="tab" type="button">Ingresos</button>
+                        <button class="tab" type="button">Ventas y productos</button>
+                        <button class="tab" type="button">Rutinas</button>
+                        <button class="tab" type="button">Caja</button>
+                    </div>
+
+                    <div class="tab-content-slot" aria-label="Área reservada para la interfaz de estadísticas"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
