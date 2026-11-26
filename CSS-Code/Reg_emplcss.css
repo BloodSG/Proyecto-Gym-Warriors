@@ -131,6 +131,11 @@ select:focus-visible {
     grid-template-columns: 1fr 1fr;
     gap: 14px;
 }
+.fila-triple {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
 
 /* puesto*/
 .rol {
@@ -226,5 +231,5 @@ button:hover { filter: brightness(1.08); }
     body { padding-right: 10px; padding-left: 77px; }
     .formulario { padding: 15px; }
     .formulario h1 { font-size: 27px; }
-    .fila-doble { grid-template-columns: 1fr; gap: 0; }
+    .fila-doble, .fila-triple { grid-template-columns: 1fr; gap: 0; }
 }
