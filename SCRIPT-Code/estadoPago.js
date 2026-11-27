@@ -7,62 +7,69 @@ console.log(usuario.datos);
 const estado=await estadoPago();
 if(estado)
 {
-    const semaforo=document.getElementById("jugaremosmueveteluzverde");
-    const mensajeEstado=document.getElementById("statusmessage");
-    const mensajeUltimoPago=document.getElementById("ultimoPago");
-    const mensajeDiasRestante=document.getElementById("restantes");
-    const mensajeVencimiento=document.getElementById("vencimiento");
-
-    semaforo.innerHTML=``;
-    mensajeEstado.innerHTML=``;
-    mensajeDiasRestante.innerHTML=``;
-    mensajeUltimoPago.innerHTML=``;
-    mensajeVencimiento.innerHTML=``;
-
-    const fechaUltimoPago=estado.data["fecha_inicio"];
-    const fechaVigencia=estado.data["fecha_vencimiento"];
-
-    const [anio1, mesNumero1, dia1]=fechaUltimoPago.split(" ")[0].split("-");
-    const [anio2, mesNumero2, dia2]=fechaVigencia.split(" ")[0].split("-");
-
-    const fecha1 = new Date(Number(anio1), Number(mesNumero1) - 1, Number(dia1));
-    const fecha2 = new Date(Number(anio2), Number(mesNumero2) - 1, Number(dia2));
-
-    const mesTexto1 = fecha1.toLocaleString("es-MX", { month: "long" });
-    const mesTexto2 = fecha2.toLocaleString("es-MX", { month: "long" });
-
-    const mes1 = mesTexto1.charAt(0).toUpperCase() + mesTexto1.slice(1);
-    const mes2 = mesTexto2.charAt(0).toUpperCase() + mesTexto2.slice(1);
-
-    const diferenciaMs = Math.round((fecha2 - new Date()) / (1000 * 60 * 60 * 24));
-
-    mensajeUltimoPago.innerHTML=`${dia1} de ${mes1} del ${anio1}`;
-    mensajeVencimiento.innerHTML=`${dia2} de ${mes2} del ${anio2}`;
-    mensajeDiasRestante.innerHTML=`${diferenciaMs} días`;
-    if(estado.status=="vencida")
-    {
-        semaforo.innerHTML=`<span class="legend-dot red"></span>
-                                <span></span>
-                                <span></span>`;
-
-        mensajeEstado.innerHTML=`${estado.mensaje}`;
-    }
-    if(estado.status=="proxima")
-    {
-        semaforo.innerHTML=`<span></span>
-                                <span class="legend-dot. yellow"></span>
-                                <span></span>`;
-
-        mensajeEstado.innerHTML=`${estado.mensaje}`;
-    }
-    if(estado.status=="vigente")
-    {
-        semaforo.innerHTML=`<span></span>
-                                <span></span>
-                                <span class="legend-dot green"></span>`;
-
-        mensajeEstado.innerHTML=`${estado.mensaje}`;
-    }
-
+    const contenedorEstadoPago=document.getElementById("estadopago");
+    const contenedorEstadoComp=document.getElementById("estadocomprobante");
     
+    contenedorEstadoPago.innerHTML=``;
+    if (estado.status=="success" && estado.data)
+    {   
+        console.log("entro aqui");
+        let pagoshtml=``;
+        const data=estado.data;
+        data.forEach(pago => 
+        {   
+            console.log(pago["estado_pago"])
+            let concepto="Pago a realizar de ";
+            if(pago["id_membresia"]){concepto+="| memebresia "}
+            if(pago["id_producto"]){concepto+="| prducto."}
+            pagoshtml+=`<article class="payment-row">
+                        <div class="payment-main">
+                            <strong>Pago pendiente</strong>
+                            <span>${concepto}</span>
+                        </div>
+                        <div class="payment-field">
+                            <span>Monto</span>
+                            <strong>$${pago["monto"]} MXN</strong>
+                        </div>
+                        <div class="payment-field">
+                            <span>Estado</span>
+                            <strong>${pago["estado_pago"]}</strong>
+                        </div>
+                        <button
+                            class="upload-payment-button"
+                            type="button"
+                            data-url="comprobantePago.html"
+                            data-id="${pago['id_pago']}">
+                            Subir comprobante
+                        </button>
+                        </article>`
+        });
+        contenedorEstadoPago.innerHTML=pagoshtml;
+        
+        document.addEventListener("click", (e)=>
+        {
+            const boton=e.target.closest('.upload-payment-button');
+            if (!boton)
+            {
+                return;
+            }
+            const idPago=boton.dataset.id;
+            const url=boton.dataset.url; 
+
+            window.location.href=`${url}?id=${encodeURIComponent(idPago)}`;
+        })
+        
+    }
+    else if(estado.status=="success" )
+    {   
+        contenedorEstadoPago.innerHTML=`<div class="payment-main">
+                                            <strong>${estado.mensaje}</strong>
+                                        </div>`;
+    }
+    else
+    {
+        contenedorEstadoPago.innerHTML=`<div class="payment-main">
+                                            <strong>${estado.mensaje}</strong>
+                                        </div>`;
+    }
 }

@@ -30,7 +30,7 @@ catch (Exception $e)
 
 $mensaje="No se ha validado nada";
 $status="error";
-$data="";
+$data=null;
 
 if($_GET["action"]=="subir")
 {   
@@ -49,80 +49,146 @@ if($_GET["action"]=="subir")
         exit();
     }
 
+    
+
     $conexion=conectaDB();
     $id_usuario=$_SESSION["id_usuario"];
-    $membresia=buscaMembresia($id_usuario,$conexion);
 
-    if(!$membresia["encontrado"])
-    {
-        $status="error";
-        $mensaje="Ocurrio un error con la sesión, vuelva a intentarlo";
-        salidaForzosa($status,$mensaje);
-    }
-    
-    $id_membresia=$membresia['id_membresia'];
-
-    if(!isset($_FILES["comprobante"]) || $_FILES["comprobante"]["error"]!=0)
-    {
-        $status="error";
-        $mensaje="No se ha subido nada";
-        salidaForzosa($status,$mensaje);
-    }
-
-    $limiteBytes=5 * 1024 * 1024; // 5 megabites
-    if ($_FILES['comprobante']['size'] > $limiteBytes) 
-    {
-        $status="error";
-        $mensaje="El archivo cargado no puede pesar mas de 5 Mb";
-        salidaForzosa($status,$mensaje);
-    }
-
-    $carpetaDeServidor="Recursos/rec_pagos/";
-    $archivo=$_FILES["comprobante"];
-
-    if($archivo["type"]!="image/png" &&
-     $archivo["type"]!="image/jpeg" && 
-     $archivo["type"]!="image/jpg" && 
-     $archivo["type"]!="application/pdf")
-    {
-        $status="error";
-        $mensaje="El archivo cargado no es de tipo valido";
-        salidaForzosa($status,$mensaje);
-    }
-    
     try
     {   
         $conexion->beginTransaction();
-        $id_comprobante="COMP". strtoupper(bin2hex(random_bytes(3)));
-        $rutaOriginal=$archivo["tmp_name"];
-        $nombreArchivo=$archivo["name"];
-        $extensionArchivo=pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-        $nombreArchivoFinal=$id_usuario."_".$id_comprobante.".".$extensionArchivo;
+        $membresia=buscaMembresia($id_usuario,$conexion);
 
-        $rutaFinalGuardado="../".$carpetaDeServidor.$nombreArchivoFinal;
-        $rutaComprobante=$carpetaDeServidor.$nombreArchivoFinal;
+        if(!$membresia["encontrado"])
+        {
+            $status="error";
+            $mensaje="Ocurrio un error con la sesión, vuelva a intentarlo";
+            salidaForzosa($status,$mensaje);
+        }
         
-        $query="INSERT INTO comprobante_pago (
-            id_comprobante,
-            id_membresia_cliente,
-            id_usuario,
-            ruta_archivo)
-        VALUES (?,?,?,?)";
+        $id_membresia=$membresia['id_membresia'];
+
+        if(!isset($_POST["id_pago"]) || $_POST["id_pago"]=="" || $_POST["id_pago"]==null)
+        {   
+            $status="error";
+            $mensaje="No hay un pago definido";
+            salidaForzosa($status,$mensaje);
+        }
+        $id_pago=$_POST["id_pago"];
+
+        $query="SELECT  p.id_pago,
+                        c.id_comprobante,
+                        c.ruta_archivo
+                FROM pago AS p
+                INNER JOIN venta AS v
+                ON p.id_venta=v.id_venta
+                AND v.estado='pendiente'
+                AND p.metodo_pago IN ('tarjeta', 'transferencia')
+                AND v.id_usuario=?
+                LEFT JOIN comprobante_pago as c
+                ON c.id_pago= p.id_pago
+                AND (c.estado='pendiente' OR c.estado='aprobado')
+                WHERE p.estado=v.estado
+                ANd p.id_pago=?";
         $Puente=$conexion->prepare($query);
-        $Puente->execute([$id_comprobante,$id_membresia,$id_usuario,$rutaComprobante]);
+        $Puente->execute([$id_usuario,$id_pago]);
+        $pagodeusuario=$Puente->fetch(PDO::FETCH_ASSOC);
+        
+        $idComprobante=$pagodeusuario['id_comprobante'] ?? null;
+        $rutaComprobanteExistente=$pagodeusuario['ruta_archivo'] ?? null;
+        
 
-        $hoy = (new DateTimeImmutable())->format('Y-m-d');
-        $id_pago="PAGO". strtoupper(bin2hex(random_bytes(3)));
-        $query2="INSERT INTO pago (
-                id_pago,
-                id_membresia_cliente,
-                monto,
-                fecha_pago)
-                VALUES (?,?,?,?)";
-        $Puente=$conexion->prepare($query2);
-        $Puente->execute([$id_pago,$id_membresia,0.00,$hoy]);
+        if (!$pagodeusuario || !empty($idComprobante))
+        {
+            http_response_code(401);
+            echo json_encode([
+            "status" => "error",
+            "data" => null,
+            "mensaje"=> "No hay un pago valido seleccionado.",
+            "redirect" => "../HTML-Code/estadodepago.html"]);
+            exit();
+        }
 
-        move_uploaded_file($rutaOriginal,$rutaFinalGuardado);
+        if(!isset($_FILES["comprobante"]) || $_FILES["comprobante"]["error"]!=0)
+        {
+            $status="error";
+            $mensaje="No se ha subido nada";
+            salidaForzosa($status,$mensaje);
+        }
+
+        $limiteBytes=5 * 1024 * 1024; // 5 megabites
+        if ($_FILES['comprobante']['size'] > $limiteBytes) 
+        {
+            $status="error";
+            $mensaje="El archivo cargado no puede pesar mas de 5 Mb";
+            salidaForzosa($status,$mensaje);
+        }
+
+        $carpetaDeServidor="Recursos/rec_pagos/";
+        $rutaFinalGuardado=null;
+        $archivo=$_FILES["comprobante"];
+        $rutaOriginal=$archivo["tmp_name"];
+
+        if($archivo["type"]!="image/png" &&
+        $archivo["type"]!="image/jpeg" && 
+        $archivo["type"]!="image/jpg" && 
+        $archivo["type"]!="application/pdf")
+        {
+            $status="error";
+            $mensaje="El archivo cargado no es de tipo valido";
+            salidaForzosa($status,$mensaje);
+        }
+      
+        $hoy=(new DateTimeImmutable())->format('Y-m-d');
+
+        if($idComprobante)
+        {   
+            $rutaComprobante=$carpetaDeServidor.$idComprobante;
+            $query="UPDATE comprobante_pago
+                    SET ruta_archivo=?,
+                        fecha_subida=?,
+                        estado=?
+                    WHERE id_comprobante=?";
+            $Puente=$conexion->prepare($query);
+            $Puente->execute([$rutaComprobante,$hoy,'pendiente',$idComprobante]);
+
+            if($rutaComprobanteExistente)
+            {
+                unlink("../".$rutaComprobanteExistente);
+            }
+            move_uploaded_file($rutaOriginal,$rutaComprobante);
+        }
+        else
+        {   
+            $id_comprobante="COMP". strtoupper(bin2hex(random_bytes(3)));
+            $nombreArchivo=$archivo["name"];
+            $extensionArchivo=pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+            $nombreArchivoFinal=$id_usuario."_".$id_comprobante.".".$extensionArchivo;
+            $rutaFinalGuardado="../".$carpetaDeServidor.$nombreArchivoFinal;
+            $rutaComprobante=$carpetaDeServidor.$nombreArchivoFinal;
+
+            $query="INSERT INTO comprobante_pago (
+                                id_comprobante,
+                                id_pago,
+                                fecha_subida,
+                                ruta_archivo,
+                                estado)
+                    VALUES (?,?,?,?,?)";
+            $Puente=$conexion->prepare($query);
+            $Puente->execute([$id_comprobante,$id_pago,$hoy,$rutaComprobante,'pendiente']);
+
+            move_uploaded_file($rutaOriginal,$rutaFinalGuardado);
+        }
+
+        
+        $query="UPDATE pago 
+                SET fecha_pago=?
+                WHERE id_pago=?";
+        $Puente=$conexion->prepare($query);
+        $Puente->execute([$hoy,$id_pago]);
+
+        
+        
         $mensaje="Archivo cargado correctamente";
         $status="success";
         $conexion->commit();
@@ -130,6 +196,9 @@ if($_GET["action"]=="subir")
     catch(Exception $e)
     {
         $conexion->rollBack();
+
+        if(isset($rutaFinalGuardado))
+        {unlink("../".$rutaFinalGuardado);}
         $mensaje="El comprobante no se pudo subir, vuelva a intentarlo";
         $status="error";
         salidaForzosa($status,$mensaje);
@@ -152,8 +221,42 @@ else if($_GET["action"]=="consulta" && $_GET["comando"]=="historial")
         ]);
         exit();
     }
+
+    $id_usuario=$_SESSION["id_usuario"];
+
+    $query="SELECT  p.id_pago,
+                    p.id_venta,
+                    p.monto,
+                    p.metodo_pago,
+                    p.fecha_pago,
+                    p.estado AS estado_pago,
+                    v.id_usuario,
+                    c.id_comprobante,
+                    c.estado AS estado_comprobante
+            FROM pago AS p
+            INNER JOIN venta AS v
+            ON p.id_venta=v.id_venta
+            AND v.id_usuario=?
+            LEFT JOIN comprobante_pago as c
+            ON c.id_pago= p.id_pago";
+    
+    $Puente=$conexion->prepare($query);
+    $Puente->execute([$id_usuario]);
+
+    $historial=$Puente->fetchAll(PDO::FETCH_ASSOC);
+    if(!$historial)
+    {
+        $status="success";
+        $mensaje="No hay pagos pendientes aun :D";
+        salidaForzosa($status,$mensaje);
+    }
+    $status="success";
+    $mensaje="Historial de pagos obtenido";
+    $data=$historial;
 }
-else if($_GET["action"]=="consulta" && $_GET["comando"]=="estado")
+
+
+else if($_GET["action"]=="consulta" && $_GET["comando"]=="estadoPago")
 {
     if((!isset($_SESSION["logueado"])) || ($_SESSION["tipo_usuario"] !== "Cliente"))
     {   
@@ -171,27 +274,45 @@ else if($_GET["action"]=="consulta" && $_GET["comando"]=="estado")
     }
     $id_usuario=$_SESSION["id_usuario"];
 
-    $query="SELECT id_membresia_cliente,
-        fecha_inicio,
-        fecha_vencimiento,
-        estado,
-        id_membresia
-        FROM membresia_cliente
-        WHERE id_usuario=?";
+    $query="SELECT  p.id_pago,
+                    p.id_venta,
+                    p.monto,
+                    p.metodo_pago,
+                    p.fecha_pago,
+                    p.estado AS estado_pago,
+                    v.id_usuario,
+                    c.id_comprobante,
+                    c.estado AS estado_comprobante,
+                    d.id_membresia,
+                    d.id_producto
+            FROM pago AS p
+            INNER JOIN venta AS v
+            ON p.id_venta=v.id_venta
+            AND v.estado='pendiente'
+            AND p.metodo_pago IN ('tarjeta', 'transferencia')
+            AND v.id_usuario=?
+            INNER JOIN detalle_venta as d
+            ON d.id_venta=v.id_venta
+            LEFT JOIN comprobante_pago as c
+            ON c.id_pago= p.id_pago
+            WHERE p.estado=v.estado
+            AND (c.estado IS NULL
+                OR c.estado NOT IN ('pendiente', 'aprobado'))";
     
     $Puente=$conexion->prepare($query);
     $Puente->execute([$id_usuario]);
 
-    $estado=$Puente->fetch(PDO::FETCH_ASSOC);
+    $estado=$Puente->fetchAll(PDO::FETCH_ASSOC);
     if(!$estado)
     {
-        $status="empty";
-        $mensaje="no hay un pago pendiente aun";
+        $status="success";
+        $mensaje="No hay pagos pendientes aun :D";
         salidaForzosa($status,$mensaje);
     }
+    /*
     $fechaBD=$estado["fecha_vencimiento"];
-    $hoy = new DateTimeImmutable();
-    $fechaVencimiento = new DateTimeImmutable($fechaBD);
+    $hoy=new DateTimeImmutable();
+    $fechaVencimiento=new DateTimeImmutable($fechaBD);
 
     if ($hoy > $fechaVencimiento)
     {
@@ -208,6 +329,9 @@ else if($_GET["action"]=="consulta" && $_GET["comando"]=="estado")
         $status="vigente";
         $mensaje="Todo en orden";
     }
+    */
+    $status="success";
+    $mensaje="Hay pagos pendientes";
     $data=$estado;
 }
 
