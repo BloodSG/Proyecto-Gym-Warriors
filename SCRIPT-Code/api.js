@@ -286,7 +286,23 @@ export async function cargaListaEjercicios(id_rutina)
 
 export async function estadoPago()
 {
-    const url=`${consultaComprobante}?action=consulta&comando=estado`;
+    const url=`${consultaComprobante}?action=consulta&comando=estadoPago`;
+    const respuesta= await fetch(url);
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        if (datos.redirect) {
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
+    return datos;
+}
+
+export async function estadoComprobante()
+{
+    const url=`${consultaComprobante}?action=consulta&comando=estadoComprobante`;
     const respuesta= await fetch(url);
     const datos = await respuesta.json();
 
@@ -307,7 +323,9 @@ export async function historialPagos()
     const datos = await respuesta.json();
 
     if (!respuesta.ok) {
-        if (datos.redirect) {
+        if (datos.redirect) 
+        {
+            alert(datos.mensaje)
             window.location.replace(datos.redirect);
             return null;
         }
@@ -316,26 +334,36 @@ export async function historialPagos()
     return datos;
 }
 
-export async function subeComprobante(inputFile) 
+export async function subeComprobante(inputFile,idPago) 
 {
     if (!inputFile) 
     {
         throw new Error("falto el archivo de comprobante");
     }
+    if (!idPago) 
+    {
+        throw new Error("falto el ID de pago");
+    }
     const formdata= new FormData();
 
     formdata.append("comprobante",inputFile.files[0]);
+    formdata.append("id_pago",idPago)
     const url=`${consultaComprobante}?action=subir`;
     const respuesta= await fetch(url, 
         {
             method: 'POST', 
             body: formdata
         });
-
-     if (!respuesta.ok) {
-        throw new Error(`Error HTTP al subir el comprobante`);
-    }
     const datos = await respuesta.json();
-   
+    if (!respuesta.ok) {
+        if (datos.redirect) 
+        {
+            alert(datos.mensaje)
+            window.location.replace(datos.redirect);
+            return null;
+        }
+        throw new Error(datos.mensaje || `Error HTTP: ${respuesta.status}`);
+    }
     return datos;
+    
 }

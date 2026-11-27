@@ -1,5 +1,6 @@
 import {subeComprobante} from "./api.js";
 import {verificaSesion} from "./autorizacion.js";
+
 function cargaVistaPrevia(respuesta,inputComprobante,placeholder,contenedorImagen,contenedorPdf)
 {
     if(respuesta.status=="success")
@@ -17,6 +18,19 @@ function cargaVistaPrevia(respuesta,inputComprobante,placeholder,contenedorImage
 const usuario= await verificaSesion();
 console.log(usuario.datos)
 
+
+//Toma la parte de la URL que viene después del ? (por ejemplo, ?id=P000000002)
+const params = new URLSearchParams(window.location.search);
+const idPago = params.get('id')?.trim() ?? '';
+console.log('ID desde módulo:', idPago);
+const esFormatoValido = /^P\d{9}$/.test(idPago);
+if (!esFormatoValido) 
+{
+    console.warn('ID de pago inválido o ausente:', idPago);
+    window.location.replace("../HTML-Code/estadodepago.html");
+} 
+
+
 const inputComprobante=document.getElementById("comprobante");
 const contenedorVistaprevia=document.getElementById("previe-pdf");
 const contenedorImagen=document.getElementById("preview-image");
@@ -24,36 +38,41 @@ const contenedorPdf=document.getElementById("previe-pdf");
 const nombrePdf=document.getElementById("pdf-name");
 const placeholder=document.querySelector(".preview-placeholder")
 
-document.getElementById("form-pago").addEventListener("submit", async (e) =>
+document.getElementById("btn-enviar").addEventListener("click", async (e) =>
 {   
     e.preventDefault();
     e.target.disabled=true;
-    try 
-    {
-        const respuesta= await subeComprobante(inputComprobante);
-        alert(respuesta.mensaje)
-
-        if(respuesta.status=="success")
-        {   
-            cargaVistaPrevia(respuesta,inputComprobante,placeholder,contenedorImagen,contenedorPdf)
-        }
-    } 
-    catch (error) 
-    {
-        alert("Ha ocurrido un error inesperado")
-    }
-    finally
-    {
-        e.target.disabled=false;
-    }
     
-})
+    const respuesta= await subeComprobante(inputComprobante,idPago);
+    alert(respuesta.mensaje)
+
+    if(respuesta.status=="success")
+    {   
+        cargaVistaPrevia(respuesta,inputComprobante,placeholder,contenedorImagen,contenedorPdf)
+        window.location.replace("../HTML-Code/estadodepago.html");
+    }
+    e.target.disabled=false;});
+
+
+
+document.getElementById("btn-quitar").addEventListener("click", async (e) =>
+{   
+    e.preventDefault();
+    e.target.disabled=true;
+    placeholder.hidden=false;
+    contenedorImagen.hidden=true;
+    contenedorPdf.hidden=true;
+    contenedorImagen.src="";
+});
+
+
+
 inputComprobante.addEventListener("change", async (e) => //change permite detectar un cambio, en este caso para ver si se subio un archivo
 {
-    
     const archivo=e.target.files[0];// file[0] es para que solo tome un archivo en caso de que suba varios
     
-    if (!archivo) {
+    if (!archivo) 
+    {
         placeholder.hidden=false;
         contenedorImagen.hidden=true;
         contenedorPdf.hidden=true;
@@ -94,4 +113,4 @@ inputComprobante.addEventListener("change", async (e) => //change permite detect
         contenedorImagen.hidden=true;
         contenedorPdf.hidden=false;
     }
-})
+});
