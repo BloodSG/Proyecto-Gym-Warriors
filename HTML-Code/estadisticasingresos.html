@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresos | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/estadisticasprincipal.css">
+    <link rel="stylesheet" href="../CSS-Code/estadisticasmodulosJaneth.css">
+</head>
+
+<body>
+    <!--Se abre dentro de la ventanita (iframe name="contenido") de estadisticasprincipal.html,asi que no se sale de la ventana principal. -->
+    <div class="modulo">
+        <!-- Holaaa: INGRESOS POR METODO DE PAGO (grafica de pastel). Son 3 partes: Efectivo, Transferencia y Tarjeta.
+            Efectivo = pago.monto (pago.metodo_pago = efectivo) + venta.total (venta.metodo_pago = efectivo)
+             Transferencia = pago.monto (comprobante aprobado) + venta.total (venta.metodo_pago = transferencia)
+             Tarjeta = venta.total (venta.metodo_pago = tarjeta) y pago.monto si el pago fue con tarjeta
+             Todo dentro del periodo del filtro (pago.fecha_pago y venta.fecha_venta)
+             El pastel se pinta con porcentajes: en estadisticasmodulos.css la regla .pastel tiene conic-gradient(... 0 52%, ... 52% 90%, ... 90% 100%): 52% efectivo, 38% transferencia, 10% tarjeta.
+             Si cambian los porcentajes, se cambian esos tres numeros.
+             Cada li de .leyenda es un metodo: nombre, monto en pesos y porcentaje. El ultimo li es el total. -->
+        <section class="tarjeta-modulo">
+            <h3>Ingresos por método de pago</h3>
+            <p>Porcentaje y monto de lo cobrado en efectivo, por transferencia y con tarjeta en el periodo elegido.</p>
+
+            <div class="pastel-box">
+                <div class="pastel" role="img" aria-label="Efectivo 52%, transferencia 38%, tarjeta 10%"></div>
+
+                <ul class="leyenda">
+                    <li title="Efectivo: 52% · $40,500.00">
+                        <span class="punto efectivo"></span>
+                        <span>Efectivo</span>
+                        <span class="monto">$40,500.00</span>
+                        <span class="pct">52%</span>
+                    </li>
+                    <li title="Transferencia: 38% · $29,600.00">
+                        <span class="punto transferencia"></span>
+                        <span>Transferencia</span>
+                        <span class="monto">$29,600.00</span>
+                        <span class="pct">38%</span>
+                    </li>
+                    <li title="Tarjeta: 10% · $7,800.00">
+                        <span class="punto tarjeta"></span>
+                        <span>Tarjeta</span>
+                        <span class="monto">$7,800.00</span>
+                        <span class="pct">10%</span>
+                    </li>
+                    <li class="total-periodo">
+                        <span></span>
+                        <span>Total del periodo</span>
+                        <strong>$77,900.00</strong>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas y productos | Fitness Warriors</title>
+    <link rel="stylesheet" href="../CSS-Code/estadisticasprincipal.css">
+    <link rel="stylesheet" href="../CSS-Code/estadisticasmodulosJaneth.css">
+</head>
+
+<body>
+    <!--Se abre dentro de la ventanita (iframe name="contenido") de estadisticasprincipal.html,asi que no se sale de la ventana principal. -->
+    <div class="modulo">
+        <!-- Holaaa: se necesitan o son mas bien para los 5 PRODUCTOS MAS VENDIDOS (en barras horizontales)
+         contiene el:
+             Nombre = producto.nombre (por detalle_venta id_producto)
+             Cantidad vendida = SUM(detalle_ventac antidad)
+             Monto=SUM(detalle_venta cantidad * detalle_venta precio_unitario)
+             Solo ventas del periodo (venta.fecha_venta) y sin las canceladas.
+             El selector name="orden" cambia entre cantidad y monto sin recargar:
+             hay dos listas con los mismos 5 productos, .por-cantidad y .por-monto,
+             y el CSS muestra solo la que se eligio. tendrias que mandarlo ya ordenado.
+             Cada li es un producto; el largo de la barra sale de --w (100% la mas larga de esa lista). -->
+        <section class="tarjeta-modulo">
+            <div class="encabezado-tarjeta">
+                <div>
+                    <h3>Productos más vendidos</h3>
+                    <p>Los 5 productos con más ventas en el periodo elegido.</p>
+                </div>
+                <div class="orden">
+                    <label for="orden">Ordenar por</label>
+                    <select name="orden" id="orden">
+                        <option value="cantidad" selected>Cantidad</option>
+                        <option value="monto">Monto</option>
+                    </select>
+                </div>
+            </div>
+
+            <ol class="top5 por-cantidad">
+                <li>
+                    <span class="nombre">Shaker Warriors</span>
+                    <div class="pista"><div class="barra" style="--w: 100%"></div></div>
+                    <span class="valor"><strong>58 pzas</strong> · $6,960.00</span>
+                </li>
+                <li>
+                    <span class="nombre">Proteína 1 kg</span>
+                    <div class="pista"><div class="barra" style="--w: 72%"></div></div>
+                    <span class="valor"><strong>42 pzas</strong> · $27,300.00</span>
+                </li>
+                <li>
+                    <span class="nombre">Creatina 300 g</span>
+                    <div class="pista"><div class="barra" style="--w: 60%"></div></div>
+                    <span class="valor"><strong>35 pzas</strong> · $16,800.00</span>
+                </li>
+                <li>
+                    <span class="nombre">Playera Warriors</span>
+                    <div class="pista"><div class="barra" style="--w: 52%"></div></div>
+                    <span class="valor"><strong>30 pzas</strong> · $7,500.00</span>
+                </li>
+                <li>
+                    <span class="nombre">Pre-entreno</span>
+                    <div class="pista"><div class="barra" style="--w: 41%"></div></div>
+                    <span class="valor"><strong>24 pzas</strong> · $10,080.00</span>
+                </li>
+            </ol>
+
+            <ol class="top5 por-monto">
+                <li>
+                    <span class="nombre">Proteína 1 kg</span>
+                    <div class="pista"><div class="barra" style="--w: 100%"></div></div>
+                    <span class="valor"><strong>$27,300.00</strong> · 42 pzas</span>
+                </li>
+                <li>
+                    <span class="nombre">Creatina 300 g</span>
+                    <div class="pista"><div class="barra" style="--w: 62%"></div></div>
+                    <span class="valor"><strong>$16,800.00</strong> · 35 pzas</span>
+                </li>
+                <li>
+                    <span class="nombre">Pre-entreno</span>
+                    <div class="pista"><div class="barra" style="--w: 37%"></div></div>
+                    <span class="valor"><strong>$10,080.00</strong> · 24 pzas</span>
+                </li>
+                <li>
+                    <span class="nombre">Playera Warriors</span>
+                    <div class="pista"><div class="barra" style="--w: 27%"></div></div>
+                    <span class="valor"><strong>$7,500.00</strong> · 30 pzas</span>
+                </li>
+                <li>
+                    <span class="nombre">Shaker Warriors</span>
+                    <div class="pista"><div class="barra" style="--w: 25%"></div></div>
+                    <span class="valor"><strong>$6,960.00</strong> · 58 pzas</span>
+                </li>
+            </ol>
+        </section>
+    </div>
+    <div class="modulo">
+        <!--hiii aqui ya es mas bien la  tambla ya muestra lo siguiente:
+             Cada tr es un producto: Producto = producto nombre,
+             Categoria = categoria_producto nombre_categoria (por producto id_categoria),
+             Piezas disponibles = producto stock.
+             Solo los que tienen stock de 0 a 5, ordenados de menos a mas piezas.
+             Color de la fila: class="stock-cero" (rojo) si stock = 0 y class="stock-bajo" (amarillo) si es de 1 a 5.
+             Si no hay ninguno, se borran todos los tr y sale solo el tr .fila-vacia con el mensaje "Todo el inventario esta en buen nivel". -->
+        <section class="tarjeta-modulo">
+            <h3>Productos con poco inventario</h3>
+            <p>Productos con 5 piezas o menos. En rojo los que ya se agotaron.</p>
+
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th class="num">Piezas disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="stock-cero">
+                            <td>Guantes de entrenamiento</td>
+                            <td>Equipo</td>
+                            <td class="num piezas">0</td>
+                        </tr>
+                        <tr class="stock-bajo">
+                            <td>Pre-entreno</td>
+                            <td>Suplemento</td>
+                            <td class="num piezas">2</td>
+                        </tr>
+                        <tr class="stock-bajo">
+                            <td>Playera Warriors talla M</td>
+                            <td>Vestimenta</td>
+                            <td class="num piezas">4</td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td class="vacio" colspan="3">Todo el inventario está en buen nivel</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
